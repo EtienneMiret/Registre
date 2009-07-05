@@ -1,6 +1,8 @@
 <?php
+require('connexion_bd.php');
+require('utilitaires.php');
 
-if ($_POST['id'] == "Etienne" && $_POST['pwd'] == "dummypass") {
+if (reg_verifier_mdp($_POST['id'], $_POST['pwd'])) {
     header('HTTP/1.1 303 See Other');
     header("Location: http://ibook-g4.elimerl.fr/Registre/");
     setcookie('IDRegistre', $_POST['id'], 0, '/Registre/');
