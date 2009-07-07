@@ -25,7 +25,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	$sel = dechex(mt_rand(0, 0xffff)) . dechex(mt_rand(0, 0xffff));
 	$mdp = hash('md5', $sel . ':' . $new_pwd1 );
 	$ok = mysql_query("UPDATE utilisateurs SET sel='$sel', mdp='$mdp' WHERE nom='" .
-	    mysql_real_escape_string($id) . "';");
+	    mysql_real_escape_string($id) . "'");
 	if ( !$ok ) {
 	    require('headers.php'); ?>
 	    <p><em class="erreur">Erreur MysQL lors de la mise à jour du mot de passe :
