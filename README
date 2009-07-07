@@ -1,0 +1,3 @@
+À intervalles réguliers, il faut exécuter la commande :
+mysql> delete from sessions where expiration < Now();
+pour supprimer les sessions périmées. Le script PhP ne s’en occupe pas.

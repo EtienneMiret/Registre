@@ -3,8 +3,10 @@ require('utilitaires.php');
 require('connexion_bd.php');
 require('headers.php');
 
-if (reg_verifier_mdp($_COOKIE['IDRegistre'], $_COOKIE['PwdRegistre'])) {
-    echo '<p>Bienvenue ' . htmlspecialchars($_COOKIE['IDRegistre']) . ' !'; ?>
+$id = reg_session_verifier();
+
+if ($id) {
+    echo '<p>Bienvenue ' . htmlspecialchars($id) . ' !'; ?>
     <p><a href="ChangerMdp">Changer son mot de passe</a>.
     <p><a href="Deconnexion">Déconnexion</a>.
     <?php

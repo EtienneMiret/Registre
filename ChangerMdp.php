@@ -2,9 +2,8 @@
 require('utilitaires.php');
 require('connexion_bd.php');
 
-reg_verifier_authentification();
+$id = reg_authentifier();
 
-$id = $_COOKIE['IDRegistre'];
 $old_pwd = $_POST['old_pwd'];
 $new_pwd1 = $_POST['new_pwd1'];
 $new_pwd2 = $_POST['new_pwd2'];
