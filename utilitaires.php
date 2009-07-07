@@ -20,7 +20,7 @@ function reg_verifier_mdp($nom, $mdp) {
 }
 
 /* Renvoie vers la page d’acceuil si l’utilisateurs n’est pas authentifié.
- * Même contraitnes que header : pas de données envoyées avant.
+ * Même contraintes que header : pas de données envoyées avant.
  */
 function reg_verifier_authentification() {
     if (!reg_verifier_mdp($_COOKIE['IDRegistre'], $_COOKIE['PwdRegistre'])) {
