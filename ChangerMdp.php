@@ -4,9 +4,13 @@ require('connexion_bd.php');
 
 $id = reg_authentifier();
 
-$old_pwd = $_POST['old_pwd'];
-$new_pwd1 = $_POST['new_pwd1'];
-$new_pwd2 = $_POST['new_pwd2'];
+$old_pwd = null;
+$new_pwd1 = null;
+$new_pwd2 = null;
+
+if (isset($_POST['old_pwd']))  $old_pwd = $_POST['old_pwd'];
+if (isset($_POST['new_pwd1'])) $new_pwd1 = $_POST['new_pwd1'];
+if (isset($_POST['new_pwd2'])) $new_pwd2 = $_POST['new_pwd2'];
 
 if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 {

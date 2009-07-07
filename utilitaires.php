@@ -25,7 +25,7 @@ function reg_verifier_mdp($nom, $mdp) {
 function reg_session_creer($nom) {
     /* L'identifiant de session fait 20 charactères, correspondant à l'encodage
      * en base 64 de 15 octets. */
-    $id_session = base64_encode(exec('/usr/bin/openssl rand 15'));
+    $id_session = base64_encode(exec('/usr/bin/openssl rand 15 2> /dev/null'));
     $expiration = date('Y-m-d H:i:s', time() + 7200);
     $res = mysql_query('INSERT INTO sessions VALUES("'
 	. mysql_real_escape_string($id_session) .'", "'
