@@ -1,7 +1,7 @@
 <?php
 require('connexion_bd.php');
 require('utilitaires.php');
-require('header.php');
+require('headers.php');
 
 if (reg_verifier_mdp($_COOKIE['IDRegistre'], $_COOKIE['PwdRegistre'])) {
     echo '<p>Bienvenue ' . htmlspecialchars($_COOKIE['IDRegistre']) . ' !'; ?>

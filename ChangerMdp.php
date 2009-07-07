@@ -12,12 +12,12 @@ $new_pwd2 = $_POST['new_pwd2'];
 if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 {
     if(!reg_verifier_mdp($id, $old_pwd)) {
-	require('header.php');
+	require('headers.php');
 	?>
 	<p><em class="erreur">Votre ancien mot de passe est faux.</em>
 	<?php
     } elseif ( $new_pwd1 <> $new_pwd2 ) {
-	require('header.php');
+	require('headers.php');
 	?>
 	<p><em class="erreur">Les deux nouveaux mots de passe sont différents.</em>
 	<?php
@@ -27,19 +27,19 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	$ok = mysql_query("UPDATE utilisateurs SET sel='$sel', mdp='$mdp' WHERE nom='" .
 	    mysql_real_escape_string($id) . "';");
 	if ( !$ok ) {
-	    require('header.php'); ?>
+	    require('headers.php'); ?>
 	    <p><em class="erreur">Erreur MysQL lors de la mise à jour du mot de passe :
 	    <?php echo htmlspecialchars(mysql_error()); ?>.</em>
 	    <?php
 	} else {
 	    setcookie('PwdRegistre', $new_pwd1, 0, '/Registre/');
-	    require('header.php'); ?>
+	    require('headers.php'); ?>
 	    <p>Votre mot de passe a été changé.
 	    <?php
 	}
     }
 } else {
-    require('header.php');
+    require('headers.php');
 }
 
 ?>

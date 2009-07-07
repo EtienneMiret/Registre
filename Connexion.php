@@ -8,7 +8,7 @@ if (reg_verifier_mdp($_POST['id'], $_POST['pwd'])) {
     setcookie('IDRegistre', $_POST['id'], 0, '/Registre/');
     setcookie('PwdRegistre', $_POST['pwd'], 0, '/Registre/');
 } else {
-    require('header.php');
+    require('headers.php');
     ?>
     <p>Echec de l’authentification.
     <?php
