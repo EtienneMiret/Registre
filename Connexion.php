@@ -1,6 +1,6 @@
 <?php
-require('connexion_bd.php');
 require('utilitaires.php');
+require('connexion_bd.php');
 
 if (reg_verifier_mdp($_POST['id'], $_POST['pwd'])) {
     header('HTTP/1.1 303 See Other');

@@ -1,6 +1,6 @@
 <?php
-require('connexion_bd.php');
 require('utilitaires.php');
+require('connexion_bd.php');
 
 reg_verifier_authentification();
 
