@@ -1,9 +1,10 @@
 <?php
 require('utilitaires.php');
 require('connexion_bd.php');
-require('headers.php');
 
 $id = reg_session_verifier();
+
+require('headers.php');
 
 if ($id) {
     echo '<p>Bienvenue ' . htmlspecialchars($id) . ' !'; ?>
