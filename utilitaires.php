@@ -10,6 +10,15 @@ function reg_erreur_serveur($msg) {
     exit (1);
 }
 
+/* Renovoie vers la page d’accueil et termine le script.
+ * Même contraintes que header : pas de données envoyées avant.
+ */
+function reg_redirection_accueil() {
+    header('HTTP/1.1 303 See Other');
+    header('Location: http://ibook-g4.elimerl.fr/Registre/');
+    exit(0);
+}
+
 /* Vérifer des identifiants utilisateurs. Ceux-ci ont été fournis par
  * l’utilisateurs et peuvent contenir n’importe quoi.
  * Même contraintes que header : pas de données envoyées avant.
@@ -98,11 +107,8 @@ function reg_session_fermer() {
 function reg_authentifier() {
     $res = reg_session_verifier();
     if (!$res) {
-	header('HTTP/1.1 303 See Other');
-	header('Location: http://ibook-g4.elimerl.fr/Registre/');
-	exit(0);
+	reg_redirection_accueil();
     } else {
 	return $res;
     }
 }
-?>
