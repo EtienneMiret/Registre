@@ -6,8 +6,15 @@
 function reg_erreur_serveur($msg) {
     header('HTTP/1.1 500 Server Error');
     require('headers.php');
-    echo '<p><em class="erreur">' . $msg . '</em>';
+    echo '<p><em class="erreur">' . htmlspecialchars($msg) . '</em>';
     exit (1);
+}
+
+/* Fonction a appelé lorsque mysql_query renvoie faux. Affiche un message
+ * d’erreur adapté avec un code 500.
+ */
+function reg_erreur_mysql() {
+    reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
 }
 
 /* Renovoie vers la page d’accueil et termine le script.
@@ -28,7 +35,7 @@ function reg_verifier_mdp($nom, $mdp) {
 
     $res = mysql_query ('SELECT sel, mdp FROM utilisateurs WHERE nom="'
 	. mysql_real_escape_string ( $nom ) . '"');
-    if (!$res) reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
+    if (!$res) reg_erreur_mysql();
     
     $ligne = mysql_fetch_assoc($res);
     if (!$ligne) return false;
@@ -51,7 +58,7 @@ function reg_session_creer($nom) {
 	. mysql_real_escape_string($id_session) .'", "'
 	. mysql_real_escape_string($nom) . '", "'
 	. mysql_real_escape_string($expiration) . '")');
-    if (!$ok) reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
+    if (!$ok) reg_erreur_mysql();
     setcookie('SessionRegistre', $id_session, 0, '/Registre/');
 }
 
@@ -66,7 +73,7 @@ function reg_session_verifier() {
     $id_session = $_COOKIE['SessionRegistre'];
     $res = mysql_query('SELECT nom, expiration FROM sessions WHERE clef="'
 	. mysql_real_escape_string($id_session) . '"');
-    if (!$res) reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
+    if (!$res) reg_erreur_mysql();
     $ligne = mysql_fetch_assoc($res);
 
     if (!$ligne) return FALSE; // Cookie de session invalide
@@ -80,8 +87,7 @@ function reg_session_verifier() {
 	$ok = mysql_query('UPDATE sessions SET expiration="'
 	    . date('Y-m-d H:i:s', time() + 7200) . '" WHERE clef="'
 	    . mysql_real_escape_string($id_session) . '"');
-	if (!$ok)
-	    reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
+	if (!$ok) reg_erreur_mysql();
     }
 
     return $ligne['nom'];
@@ -94,8 +100,7 @@ function reg_session_fermer() {
     if (isset($_COOKIE['SessionRegistre'])) {
 	$ok = mysql_query('DELETE FROM sessions WHERE clef="'
 	    . mysql_real_escape_string($_COOKIE['SessionRegistre']) . '"');
-	if (!$ok)
-	    reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
+	if (!$ok) reg_erreur_mysql();
 	setcookie('SessionRegistre', '', 0, '/Registre/');
     }
 }

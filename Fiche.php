@@ -9,11 +9,11 @@ if (isset($_GET['id'])) $id = (int) $_GET['id'];
 if ($id == 0) reg_redirection_accueil();
 
 $general = mysql_query('SELECT * FROM tout WHERE id=' . $id)
-    or reg_erreur_serveur('Problème de requête MySQL : ' . mysql_error());
+    or reg_mysql_error();
 $film = mysql_query('SELECT * FROM films WHERE id=' . $id)
-    or reg_erreur_serveur('Problème de requête MySQL : ' . mysql_error());
+    or reg_mysql_error();
 $acteurs = mysql_query('SELECT * FROM acteurs WHERE id=' . $id)
-    or reg_erreur_serveur('Problème de requête MySQL : ' . mysql_error());
+    or reg_mysql_error();
 
 $general = mysql_fetch_assoc($general);
 $film = mysql_fetch_assoc($film);

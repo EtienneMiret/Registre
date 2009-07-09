@@ -29,14 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	. reg_mysql_quote_string($commentaire) . ', '
 	. reg_mysql_quote_string($user) . ', NOW(), '
 	. reg_mysql_quote_string($user) . ', NOW())');
-    if (!$ok) reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
+    if (!$ok) reg_erreur_mysql();
 
     $id = mysql_insert_id();
-    if (!$id) reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
+    if (!$id) reg_erreur_mysql();
 
     $ok = mysql_query('INSERT INTO films VALUES(' . $id . ', '
 	. reg_mysql_quote_string($realisateur) . ')');
-    if (!$ok) reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
+    if (!$ok) reg_erreur_mysql();
 
     $titre='';
     $proprietaire='';
