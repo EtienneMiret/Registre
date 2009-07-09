@@ -41,7 +41,7 @@ if (!$ligne) {
     echo "<table>\n";
     do {
 	echo '  <tr><th><a href="/Registre/Fiche/' . $ligne['id'] .'">';
-	echo $ligne['titre'] . "</a>\n";
+	echo htmlspecialchars($ligne['titre']) . "</a>\n";
     } while($ligne = mysql_fetch_assoc($res));
     echo "</table>\n";
 } ?>
