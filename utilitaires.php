@@ -22,7 +22,12 @@ function reg_erreur_mysql() {
  */
 function reg_redirection_accueil() {
     header('HTTP/1.1 303 See Other');
-    header('Location: http://ibook-g4.elimerl.fr/Registre/');
+    if (isset($_SERVER['HTTPS')) {
+	$proto='https';
+    } else {
+	$proto='http';
+    }
+    header('Location: '.$proto.'://'.$_SERVER['HTTP_HOST'].'/Registre/');
     exit(0);
 }
 
