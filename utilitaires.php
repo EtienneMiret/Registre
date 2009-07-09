@@ -112,3 +112,15 @@ function reg_authentifier() {
 	return $res;
     }
 }
+
+/* Entoure l’argument de guillemets et le protège s’il est non null et non vide,
+ * renvoie 'NULL' sinon.
+ * Le résultat peut être injecté directement dans une requête MySQL.
+ */
+function reg_mysql_quote_string($string) {
+    if (is_null($string) or $string=='') {
+	return 'NULL';
+    } else {
+	return '"' . mysql_real_escape_string($string) . '"';
+    }
+}
