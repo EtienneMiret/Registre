@@ -31,52 +31,52 @@ echo "<dl>\n";
 
 if (isset($general['titre'])) { ?>
     <dt>Titre</dt>
-    <dd><?php echo $general['titre'] ?></dd>
+    <dd><?php echo htmlspecialchars($general['titre']) ?></dd>
 <?php }
 if (isset($general['type'])) { ?>
     <dt>Type</dt>
-    <dd><?php echo $general['type'] ?></dd>
+    <dd><?php echo htmlspecialchars($general['type']) ?></dd>
 <?php }
 if (isset($film['realisateur'])) { ?>
     <dt>Réalisateur</dt>
-    <dd><?php echo $film['realisateur'] ?></dd>
+    <dd><?php echo htmlspecialchars($film['realisateur']) ?></dd>
 <?php }
 $acteur = mysql_fetch_assoc($acteurs);
 if ($acteur) { ?>
     <dt>Acteurs</dt>
     <dd><ul>
 <?php do { ?>
-	    <li><?php echo $acteur['acteur'] ?></li>
+	    <li><?php echo htmlspecialchars($acteur['acteur']) ?></li>
 <?php } while ($acteur = mysql_fetch_assoc($acteurs)); ?>
 	</ul></dd>
 <?php }
 if (isset($general['commentaire'])) { ?>
     <dt>Commentaire</dt>
-    <dd><?php echo $general['commentaire'] ?></dd>
+    <dd><?php echo htmlspecialchars($general['commentaire']) ?></dd>
 <?php }
 if (isset($general['proprietaire'])) { ?>
     <dt>Proprietaire</dt>
-    <dd><?php echo $general['proprietaire'] ?></dd>
+    <dd><?php echo htmlspecialchars($general['proprietaire']) ?></dd>
 <?php }
 if (isset($general['emplacement'])) { ?>
     <dt>Emplacement</dt>
-    <dd><?php echo $general['emplacement'] ?></dd>
+    <dd><?php echo htmlspecialchars($general['emplacement']) ?></dd>
 <?php }
 if (isset($general['createur'])) { ?>
     <dt>Enregistré par</dt>
-    <dd><?php echo $general['createur'] ?></dd>
+    <dd><?php echo htmlspecialchars($general['createur']) ?></dd>
 <?php }
 if (isset($general['creation'])) { ?>
     <dt>Enregistré le</dt>
-    <dd><?php echo $general['creation'] ?></dd>
+    <dd><?php echo htmlspecialchars($general['creation']) ?></dd>
 <?php }
 if (isset($general['dernier_editeur'])) { ?>
     <dt>Dernière modification par</dt>
-    <dd><?php echo $general['dernier_editeur'] ?></dd>
+    <dd><?php echo htmlspecialchars($general['dernier_editeur']) ?></dd>
 <?php }
 if (isset($general['derniere_edition'])) { ?>
     <dt>Dernière modification le</dt>
-    <dd><?php echo $general['derniere_edition'] ?></dd>
+    <dd><?php echo htmlspecialchars($general['derniere_edition']) ?></dd>
 <?php }
 
 echo "</dl>\n";
