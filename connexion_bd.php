@@ -4,7 +4,7 @@
 $ok = mysql_connect(':/private/var/mysql/mysql.sock', 'registre', 'somepass');
 
 if ( !$ok ) {
-    reg_erreur_serveur('Impossible de se connecter au serveur MySQL : ' .
+    reg_erreur_serveur('Impossible de se connecter au serveur MySQL : '
 	. mysql_error());
 }
 
