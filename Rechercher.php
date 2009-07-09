@@ -43,4 +43,5 @@ if (!$ligne) {
     echo "</table>\n";
 } ?>
 <p>Retour à l’<a href="/Registre/">accueil</a>.
-<p>Recherche effectuée en <?php echo ($heure_fin - $heure_debut); ?> secondes.
+<p>Recherche effectuée en <?php echo round($heure_fin-$heure_debut,3); ?>
+ secondes.
