@@ -22,12 +22,18 @@ if ($general xor $film) reg_erreur_serveur('Base de donnée corrompue !');
 
 if (!$general) {
     require('headers.php');
-    ?><p>Désolé, la référence que vous avez demandé n’existe pas.<?php
+    ?>
+    <p>Désolé, la référence que vous avez demandé n’existe pas.
+    <p>Retour à l’<a href="/Registre/">accueil</a>.
+    <?php
     exit(0);
 }
 
 require('headers.php');
-echo "<dl>\n";
+?>
+<p>Retour à l’<a href="/Registre/">accueil</a>.
+<dl>
+<?php
 
 if (isset($general['titre'])) { ?>
     <dt>Titre</dt>

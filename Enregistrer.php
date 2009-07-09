@@ -53,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 
+<p>Retour à l’<a href="/Registre/">accueil</a>.
+
 <form action="Enregistrer" method="post">
 <dl>
     <dt>Titre

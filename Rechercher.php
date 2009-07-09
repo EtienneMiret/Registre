@@ -37,9 +37,10 @@ if (!$ligne) {
 } else {
     echo "<table>\n";
     do {
-	echo '<tr><th><a href="/Registre/Fiche/' . $ligne['id'] .'">';
+	echo '  <tr><th><a href="/Registre/Fiche/' . $ligne['id'] .'">';
 	echo $ligne['titre'] . "</a>\n";
     } while($ligne = mysql_fetch_assoc($res));
     echo "</table>\n";
 } ?>
+<p>Retour à l’<a href="/Registre/">accueil</a>.
 <p>Recherche effectuée en <?php echo ($heure_fin - $heure_debut); ?> secondes.
