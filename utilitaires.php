@@ -22,7 +22,7 @@ function reg_erreur_mysql() {
  */
 function reg_redirection_accueil() {
     header('HTTP/1.1 303 See Other');
-    if (isset($_SERVER['HTTPS')) {
+    if (isset($_SERVER['HTTPS'])) {
 	$proto='https';
     } else {
 	$proto='http';
