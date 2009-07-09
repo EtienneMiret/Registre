@@ -7,6 +7,9 @@ $user = reg_authentifier();
 if (!isset($_GET['q']) or $_GET['q']=='') {
     require('headers.php');
     require('formulaire-recherche.php');
+    ?>
+    <p>Retour à l’<a href="/Registre/">accueil</a>.
+    <?php
     exit(0);
 }
 
