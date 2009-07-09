@@ -7,7 +7,9 @@ $id = reg_session_verifier();
 require('headers.php');
 
 if ($id) {
-    echo '<p>Bienvenue ' . htmlspecialchars($id) . ' !'; ?>
+    echo '<p>Bienvenue ' . htmlspecialchars($id) . ' !';
+    require('formulaire-recherche.php');
+    ?>
     <p><a href="Enregistrer">Enregistrer un nouveau film</a>.
     <p><a href="ChangerMdp">Changer son mot de passe</a>.
     <p><a href="Deconnexion">Déconnexion</a>.
