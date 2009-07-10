@@ -17,7 +17,7 @@ function reg_erreur_mysql() {
     reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
 }
 
-/* Renovoie vers la page d’accueil et termine le script.
+/* Renvoie vers la page d’accueil et termine le script.
  * Même contraintes que header : pas de données envoyées avant.
  */
 function reg_redirection_accueil() {
