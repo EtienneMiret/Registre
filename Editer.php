@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     <dd><input name="titre" type="text"
 	value="<?php echo htmlspecialchars($titre); ?>">
     <dt>Type
-    <dd><?php echo $type . "\n"; ?>
+    <dd><?php echo reg_afficher_type($type) . "\n"; ?>
     <dt>Réalisateur
     <dd><input name="realisateur" type="text"
 	value="<?php echo htmlspecialchars($realisateur); ?>">

@@ -41,7 +41,7 @@ if (isset($general['titre'])) { ?>
 <?php }
 if (isset($general['type'])) { ?>
     <dt>Type</dt>
-    <dd><?php echo htmlspecialchars($general['type']) ?></dd>
+    <dd><?php echo reg_afficher_type($general['type']) ?></dd>
 <?php }
 if (isset($film['realisateur'])) { ?>
     <dt>Réalisateur</dt>
@@ -58,7 +58,7 @@ if ($acteur) { ?>
 <?php }
 if (isset($general['commentaire'])) { ?>
     <dt>Commentaire</dt>
-    <dd><?php echo htmlspecialchars($general['commentaire']) ?></dd>
+    <dd><?php echo str_replace("\n", '<br>', htmlspecialchars($general['commentaire'])) ?></dd>
 <?php }
 if (isset($general['proprietaire'])) { ?>
     <dt>Proprietaire</dt>
