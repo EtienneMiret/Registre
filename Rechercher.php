@@ -17,7 +17,7 @@ $q=$_GET['q'];
 
 $heure_debut = microtime(true);
 $res = mysql_query('SELECT id,titre '
-    . 'FROM tout JOIN acteurs USING(id) JOIN films USING(id) '
+    . 'FROM tout LEFT JOIN acteurs USING(id) JOIN films USING(id) '
     . 'WHERE tout.type="' . mysql_real_escape_string($q)
     .  '" OR tout.titre LIKE "%' . mysql_real_escape_string($q)
     . '%" OR films.realisateur LIKE "%' . mysql_real_escape_string($q)
