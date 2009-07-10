@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	. reg_mysql_quote_string($realisateur) . ')');
     if (!$ok) reg_erreur_mysql();
 
-    $acteurs = preg_split("/ *, */", $acteurs);
+    $acteurs = preg_split("/ *, */", $acteurs, -1, PREG_SPLIT_NO_EMPTY);
     foreach ($acteurs as $acteur) {
 	$ok = mysql_query('INSERT INTO acteurs VALUES(' . $id .', "'
 	    . mysql_real_escape_string($acteur) .'")');
