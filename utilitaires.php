@@ -17,18 +17,25 @@ function reg_erreur_mysql() {
     reg_erreur_serveur('Erreur de requête MySQL : ' . mysql_error());
 }
 
-/* Renvoie vers la page d’accueil et termine le script.
+/* Renvoie vers la page indiquée et termine le script.
  * Même contraintes que header : pas de données envoyées avant.
  */
-function reg_redirection_accueil() {
+function reg_redirection($path) {
     header('HTTP/1.1 303 See Other');
     if (isset($_SERVER['HTTPS'])) {
 	$proto='https';
     } else {
 	$proto='http';
     }
-    header('Location: '.$proto.'://'.$_SERVER['HTTP_HOST'].'/Registre/');
+    header('Location: '.$proto.'://'.$_SERVER['HTTP_HOST'].$path);
     exit(0);
+}
+
+/* Renvoie vers la page d’accueil et termine le script.
+ * Même contraintes que header : pas de données envoyées avant.
+ */
+function reg_redirection_accueil() {
+    reg_redirection('/Registre/');
 }
 
 /* Vérifer des identifiants utilisateurs. Ceux-ci ont été fournis par

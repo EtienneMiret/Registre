@@ -83,6 +83,7 @@ if (isset($general['dernier_editeur'])) { ?>
 if (isset($general['derniere_edition'])) { ?>
     <dt>Dernière modification le</dt>
     <dd><?php echo htmlspecialchars($general['derniere_edition']) ?></dd>
-<?php }
+<?php } ?>
+</dl>
 
-echo "</dl>\n";
+<p><a href="/Registre/Editer/<?php echo $id ?>">Modifier</a>
