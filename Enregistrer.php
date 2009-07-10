@@ -10,6 +10,7 @@ $type='DVD';
 $emplacement='';
 $commentaire='';
 $realisateur='';
+$acteurs='';
 
 if (isset($_POST['titre'])) $titre=$_POST['titre'];
 if (isset($_POST['proprietaire'])) $proprietaire=$_POST['proprietaire'];
@@ -17,6 +18,7 @@ if (isset($_POST['type'])) $type=$_POST['type'];
 if (isset($_POST['emplacement'])) $emplacement=$_POST['emplacement'];
 if (isset($_POST['commentaire'])) $commentaire=$_POST['commentaire'];
 if (isset($_POST['realisateur'])) $realisateur=$_POST['realisateur'];
+if (isset($_POST['acteurs'])) $acteurs=$_POST['acteurs'];
 
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     require('headers.php');
@@ -38,12 +40,20 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	. reg_mysql_quote_string($realisateur) . ')');
     if (!$ok) reg_erreur_mysql();
 
+    $acteurs = preg_split("/ *, */", $acteurs);
+    foreach ($acteurs as $acteur) {
+	$ok = mysql_query('INSERT INTO acteurs VALUES(' . $id .', "'
+	    . mysql_real_escape_string($acteur) .'")');
+	if (!$ok) reg_erreur_mysql();
+    }
+
     $titre='';
     $proprietaire='';
     $type='DVD';
     $emplacement='';
     $commentaire='';
     $realisateur='';
+    $acteurs='';
 
     require('headers.php');
     ?><p>Votre films a été enregistré sous le
@@ -68,6 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     <dt>Réalisateur
     <dd><input name="realisateur" type="text"
 	value="<?php echo htmlspecialchars($realisateur); ?>">
+    <dt>Acteurs
+    <dd>Veuillez indiquez la liste des acteurs, séparés par des virgules :<br>
+	<input name="acteurs" type="text">
     <dt>Commentaire
     <dd><textarea name="commentaire" rows="4" cols="40"><?php
 	echo htmlspecialchars($commentaire);
