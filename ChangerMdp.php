@@ -2,7 +2,7 @@
 require('utilitaires.php');
 require('connexion_bd.php');
 
-$id = reg_authentifier();
+$user = reg_authentifier();
 
 $old_pwd = null;
 $new_pwd1 = null;
@@ -14,7 +14,7 @@ if (isset($_POST['new_pwd2'])) $new_pwd2 = $_POST['new_pwd2'];
 
 if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 {
-    if(!reg_verifier_mdp($id, $old_pwd)) {
+    if(!reg_verifier_mdp($user, $old_pwd)) {
 	require('headers.php');
 	?>
 	<p><em class="erreur">Votre ancien mot de passe est faux.</em>
@@ -28,7 +28,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	$sel = dechex(mt_rand(0, 0xffff)) . dechex(mt_rand(0, 0xffff));
 	$mdp = hash('md5', $sel . ':' . $new_pwd1 );
 	$ok = mysql_query("UPDATE utilisateurs SET sel='$sel', mdp='$mdp' WHERE nom='" .
-	    mysql_real_escape_string($id) . "'");
+	    mysql_real_escape_string($user) . "'");
 	if ( !$ok ) {
 	    require('headers.php'); ?>
 	    <p><em class="erreur">Erreur MysQL lors de la mise à jour du mot de passe :

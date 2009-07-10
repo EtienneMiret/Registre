@@ -2,12 +2,12 @@
 require('utilitaires.php');
 require('connexion_bd.php');
 
-$id = reg_session_verifier();
+$user = reg_session_verifier();
 
 require('headers.php');
 
-if ($id) {
-    echo '<p>Bienvenue ' . htmlspecialchars($id) . ' !';
+if ($user) {
+    echo '<p>Bienvenue ' . htmlspecialchars($user) . ' !';
     require('formulaire-recherche.php');
     ?>
     <p><a href="Enregistrer">Enregistrer un nouveau film</a>.
