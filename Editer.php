@@ -110,5 +110,5 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     <dd class="emplacement"><input name="emplacement" type="text"
 	value="<?php echo htmlspecialchars($emplacement); ?>">
 </dl>
-<p><button type="submit">Enregistrer</button>
+<p><button type="submit">Enregistrer les modifications</button>
 </form>
