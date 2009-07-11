@@ -49,7 +49,7 @@ if (!$ligne) {
 } else {
     echo "<table>\n";
     do {
-	echo '  <tr><th><a href="/Registre/Fiche/' . $ligne['id'] .'">';
+	echo '  <tr><td><a href="/Registre/Fiche/' . $ligne['id'] .'">';
 	echo htmlspecialchars($ligne['titre']) . "</a>\n";
     } while($ligne = mysql_fetch_assoc($res));
     echo "</table>\n";
