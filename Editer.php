@@ -82,32 +82,32 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 
-<p>Retour à l’<a href="/Registre/">accueil</a>.
-<p><a href="/Registre/Fiche/<?php echo $id; ?>">Annuler</a> les modifications.
+<p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
+<p class="navigation"><a href="/Registre/Fiche/<?php echo $id; ?>">Annuler</a> les modifications.
 
 <form action="/Registre/Editer/<?php echo $id; ?>" method="post">
-<dl>
-    <dt>Titre
-    <dd><input name="titre" type="text"
+<dl class="editer">
+    <dt class="titre">Titre
+    <dd class="titre"><input name="titre" type="text"
 	value="<?php echo htmlspecialchars($titre); ?>">
-    <dt>Type
-    <dd><?php echo reg_afficher_type($type) . "\n"; ?>
-    <dt>Réalisateur
-    <dd><input name="realisateur" type="text"
+    <dt class="type">Type
+    <dd class="type"><?php echo reg_afficher_type($type) . "\n"; ?>
+    <dt class="realisateur">Réalisateur
+    <dd class="realisateur"><input name="realisateur" type="text"
 	value="<?php echo htmlspecialchars($realisateur); ?>">
-    <dt>Acteurs
-    <dd>Veuillez indiquez la liste des acteurs, séparés par des virgules :<br>
+    <dt class="acteurs">Acteurs
+    <dd class="acteurs">Veuillez indiquez la liste des acteurs, séparés par des virgules :<br>
 	<input name="acteurs" type="text"
 	value="<?php echo htmlspecialchars($acteurs); ?>">
-    <dt>Commentaire
-    <dd><textarea name="commentaire" rows="4" cols="40"><?php
+    <dt class="commentaire">Commentaire
+    <dd class="commentaire"><textarea name="commentaire" rows="4" cols="60"><?php
 	echo htmlspecialchars($commentaire);
     ?></textarea>
-    <dt>Propriétaire
-    <dd><input name="proprietaire" type="text"
+    <dt class="proprietaire">Propriétaire
+    <dd class="proprietaire"><input name="proprietaire" type="text"
 	value="<?php echo htmlspecialchars($proprietaire); ?>">
-    <dt>Emplacement
-    <dd><input name="emplacement" type="text"
+    <dt class="emplacement">Emplacement
+    <dd class="emplacement"><input name="emplacement" type="text"
 	value="<?php echo htmlspecialchars($emplacement); ?>">
 </dl>
 <p><button type="submit">Enregistrer</button>

@@ -9,7 +9,7 @@ if (!isset($_GET['q']) or $_GET['q']=='') {
     require('headers.php');
     require('formulaire-recherche.php');
     ?>
-    <p>Retour à l’<a href="/Registre/">accueil</a>.
+    <p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
     <?php
     exit(0);
 }
@@ -44,16 +44,17 @@ require('formulaire-recherche.php');
 $ligne = mysql_fetch_assoc($res);
 
 if (!$ligne) {
-    echo '<p>Désolé, aucun résultat correspondant à votre recherche';
-    echo ' n’a été trouvé.' . "\n";
+    echo '<p class="msg nok">Désolé, aucun résultat correspondant à votre';
+    echo ' recherche n’a été trouvé.' . "\n";
 } else {
-    echo "<table>\n";
+    echo "<table class=\"resultats-recherche\">\n";
     do {
 	echo '  <tr><td><a href="/Registre/Fiche/' . $ligne['id'] .'">';
 	echo htmlspecialchars($ligne['titre']) . "</a>\n";
     } while($ligne = mysql_fetch_assoc($res));
     echo "</table>\n";
 } ?>
-<p>Retour à l’<a href="/Registre/">accueil</a>.
-<p>Recherche effectuée en <?php echo round($heure_fin-$heure_debut,3); ?>
+<p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
+<p class="note">Recherche effectuée en <?php
+ echo round($heure_fin-$heure_debut,3); ?>
  secondes.

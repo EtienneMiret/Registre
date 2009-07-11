@@ -1,0 +1,110 @@
+* {
+    text-align: justify;
+    color: inherit;
+}
+
+body {
+    color: black;
+    background: white;
+    padding-right: 8%;
+    padding-left: 8%;
+    font-family: sans-serif;
+}
+
+/* Titre */
+
+h1 {
+    text-align: center;
+    width: 76%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    color: navy;
+}
+
+/* Liens */
+
+a[href] { color: blue; }
+
+/* Paragraphes */
+
+p {
+    text-indent: 4%;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/* Résultats de recherche */
+
+table.resultats-recherche {
+    margin: 2em 10%;
+}
+
+/* Fiche, enregistrement et edition */
+
+dl {
+    margin: 2em 10%;
+}
+
+dt {
+    font-weight: bolder;
+    margin: 1em 0 0 0;
+    padding: 0;
+}
+
+dd {
+    margin: 0 0 1em 6%;
+    padding: 0;
+}
+
+dd ul {
+    margin: 0;
+    padding: 0;
+}
+
+dd ul li {
+    margin: 0;
+    padding: 0;
+    display: list-item;
+    list-style: disc inside;
+}
+
+dl.fiche dd.titre {
+    font-weight: bolder;
+    font-size: larger;
+    color: red;
+}
+
+dt.createur, dd.createur,
+dt.creation, dd.creation,
+dt.dernier_editeur, dd.dernier_editeur,
+dt.derniere_edition, dd.derniere_edition {
+    color: #a0a0a0;
+}
+
+/* Formulaires */
+
+dl.editer textarea, dl.enregistrer textarea,
+dl.editer input, dl.enregistrer input {
+    width: 80%;
+}
+
+form.recherche input[name="q"] {
+    width: 50%;
+}
+
+/* Messages */
+
+em.erreur {
+    text-decoration: inherit;
+    text-transform: inherit;
+    color: red;
+    font-weight: bolder;
+    font-size: 100%;
+}
+
+p.note {
+    font-size: smaller;
+}

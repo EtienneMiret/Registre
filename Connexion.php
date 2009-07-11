@@ -13,7 +13,7 @@ if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
 } else {
     require('headers.php');
     ?>
-    <p>Echec de l’authentification.
+    <p class="msg nok">Echec de l’authentification.
     <?php
     require('formulaire-connexion.php');
 }

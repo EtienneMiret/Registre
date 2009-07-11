@@ -38,7 +38,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	} else {
 	    setcookie('PwdRegistre', $new_pwd1, 0, '/Registre/');
 	    require('headers.php'); ?>
-	    <p>Votre mot de passe a été changé.
+	    <p class="msg ok">Votre mot de passe a été changé.
 	    <?php
 	}
     }
@@ -47,7 +47,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 }
 
 ?>
-<p><a href="/Registre/">Annuler</a>
+<p class="navigation"><a href="/Registre/">Annuler</a>
 
 <form action="ChangerMdp" method="post">
 <p>Ancien mot de passe : <input type="password" name="old_pwd">
