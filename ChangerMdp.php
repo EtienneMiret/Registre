@@ -1,4 +1,5 @@
 <?php
+require('config.php');
 require('utilitaires.php');
 require('connexion_bd.php');
 
@@ -46,7 +47,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 }
 
 ?>
-<p class="navigation"><a href="/Registre/">Annuler</a>
+<p class="navigation"><a href="<?php echo $reg_accueil; ?>">Annuler</a>
 
 <form action="ChangerMdp" method="post" class="changer-mdp">
 <p>Ancien mot de passe : <input type="password" name="old_pwd">

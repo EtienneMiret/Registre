@@ -1,4 +1,5 @@
 <?php
+require('config.php');
 require('utilitaires.php');
 require('connexion_bd.php');
 

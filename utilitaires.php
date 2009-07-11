@@ -36,7 +36,8 @@ function reg_redirection($path) {
  * Même contraintes que header : pas de données envoyées avant.
  */
 function reg_redirection_accueil() {
-    reg_redirection('/Registre/');
+    global $reg_accueil;
+    reg_redirection($reg_accueil);
 }
 
 /* Vérifer des identifiants utilisateurs. Ceux-ci ont été fournis par
@@ -63,6 +64,7 @@ function reg_verifier_mdp($nom, $mdp) {
  * Même contraintes que header : pas de données envoyées avant.
  */
 function reg_session_creer($nom) {
+    global $reg_accueil;
     /* L'identifiant de session fait 20 charactères, correspondant à l'encodage
      * en base 64 de 15 octets. */
     $id_session = base64_encode(exec('/usr/bin/openssl rand 15 2> /dev/null'));
@@ -72,7 +74,7 @@ function reg_session_creer($nom) {
 	. mysql_real_escape_string($nom) . '", "'
 	. mysql_real_escape_string($expiration) . '")');
     if (!$ok) reg_erreur_mysql();
-    setcookie('SessionRegistre', $id_session, 0, '/Registre/');
+    setcookie('SessionRegistre', $id_session, 0, $reg_accueil);
 }
 
 /* Vérifie que la requète fait partie d'une session valide.
@@ -110,11 +112,12 @@ function reg_session_verifier() {
  * Même contraintes que header : pas de données envoyées avant.
  */
 function reg_session_fermer() {
+    global $reg_accueil;
     if (isset($_COOKIE['SessionRegistre'])) {
 	$ok = mysql_query('DELETE FROM sessions WHERE clef="'
 	    . mysql_real_escape_string($_COOKIE['SessionRegistre']) . '"');
 	if (!$ok) reg_erreur_mysql();
-	setcookie('SessionRegistre', '', 0, '/Registre/');
+	setcookie('SessionRegistre', '', 0, $reg_accueil);
     }
 }
 

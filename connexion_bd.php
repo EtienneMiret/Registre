@@ -1,7 +1,7 @@
 <?php
 
 /* Connexion au serveur MySQL. */
-$ok = mysql_connect(':/private/var/mysql/mysql.sock', 'registre', 'somepass');
+$ok = mysql_connect($reg_serveur_bd, $reg_utilisateur_bd, $reg_mdp_bd);
 
 if ( !$ok ) {
     reg_erreur_serveur('Impossible de se connecter au serveur MySQL : '
@@ -9,7 +9,7 @@ if ( !$ok ) {
 }
 
 /* Sélection de la base de données. */
-$ok = mysql_select_db('Registre');
+$ok = mysql_select_db($reg_nom_bd);
 
 if ( !$ok ) {
     reg_erreur_serveur('Impossible de séléctionner la base de données : '

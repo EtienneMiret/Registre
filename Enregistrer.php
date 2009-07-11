@@ -1,4 +1,5 @@
 <?php
+require('config.php');
 require('utilitaires.php');
 require('connexion_bd.php');
 
@@ -63,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 
-<p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
+<p class="navigation">Retour à l’<a href="<?php echo $reg_accueil; ?>">accueil</a>.
 
 <form action="Enregistrer" method="post" class="enregistrer">
 <dl class="enregistrer">

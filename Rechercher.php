@@ -1,4 +1,5 @@
 <?php
+require('config.php');
 require('utilitaires.php');
 require('connexion_bd.php');
 
@@ -9,7 +10,7 @@ if (!isset($_GET['q'])) {
     require('headers.php');
     require('formulaire-recherche.php');
     ?>
-    <p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
+    <p class="navigation">Retour à l’<a href="<?php echo $reg_accueil; ?>">accueil</a>.
     <?php
     exit(0);
 }
@@ -40,7 +41,7 @@ if (!$res) reg_erreur_mysql();
 
 require('headers.php');
 ?>
-<p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
+<p class="navigation">Retour à l’<a href="<?php echo $reg_accueil; ?>">accueil</a>.
 <?php
 require('formulaire-recherche.php');
 
@@ -55,12 +56,12 @@ if (!$ligne) { ?>
 <table class="resultats-recherche">
 <?php
     do {
-	echo '  <tr><td><a href="/Registre/Fiche/' . $ligne['id'] .'">';
+	echo '  <tr><td><a href="'. $reg_accueil . 'Fiche/'. $ligne['id'] .'">';
 	echo htmlspecialchars($ligne['titre']) . "</a>\n";
     } while($ligne = mysql_fetch_assoc($res));
     echo "</table>\n";
 } ?>
-<p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
+<p class="navigation">Retour à l’<a href="<?php echo $reg_accueil; ?>">accueil</a>.
 <p class="note">Recherche effectuée en <?php
  echo round($heure_fin-$heure_debut,3); ?>
  secondes.
