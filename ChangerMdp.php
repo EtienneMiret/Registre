@@ -38,8 +38,10 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	    <?php
 	} else {
 	    require('headers.php'); ?>
-	    <p class="msg ok">Votre mot de passe a été changé.
+<p class="msg ok">Votre mot de passe a été changé.
+<p class="navigation">Retour à l’<a href="<?php echo $reg_accueil; ?>">accueil</a>.
 	    <?php
+	    exit (0);
 	}
     }
 } else {
