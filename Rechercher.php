@@ -5,7 +5,7 @@ require('connexion_bd.php');
 $user = reg_authentifier();
 $reg_titre_page = 'Recherche';
 
-if (!isset($_GET['q']) or $_GET['q']=='') {
+if (!isset($_GET['q'])) {
     require('headers.php');
     require('formulaire-recherche.php');
     ?>
