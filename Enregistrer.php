@@ -30,8 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	. reg_mysql_quote_string($type) . ', '
 	. reg_mysql_quote_string($emplacement) . ', '
 	. reg_mysql_quote_string($commentaire) . ', '
-	. reg_mysql_quote_string($user) . ', NOW(), '
-	. reg_mysql_quote_string($user) . ', NOW())');
+	. reg_mysql_quote_string($user) . ', NOW(), NULL, NULL)');
     if (!$ok) reg_erreur_mysql();
 
     $id = mysql_insert_id();
