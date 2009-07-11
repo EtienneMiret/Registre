@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     $acteurs='';
 
     require('headers.php');
-    ?><p>Votre films a été enregistré sous le
+    ?><p>Votre film a été enregistré sous le
 <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 <?php } else {
     require('headers.php');
