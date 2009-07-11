@@ -36,7 +36,6 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	    <?php echo htmlspecialchars(mysql_error()); ?>.</em>
 	    <?php
 	} else {
-	    setcookie('PwdRegistre', $new_pwd1, 0, '/Registre/');
 	    require('headers.php'); ?>
 	    <p class="msg ok">Votre mot de passe a été changé.
 	    <?php
