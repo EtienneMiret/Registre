@@ -3,6 +3,7 @@ require('utilitaires.php');
 require('connexion_bd.php');
 
 $user = reg_authentifier();
+$reg_titre_page = 'Enregistrement d’une nouvelle référence';
 
 $titre='';
 $proprietaire='';

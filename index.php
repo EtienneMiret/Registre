@@ -3,6 +3,7 @@ require('utilitaires.php');
 require('connexion_bd.php');
 
 $user = reg_session_verifier();
+$reg_titre_page = 'Accueil';
 
 require('headers.php');
 

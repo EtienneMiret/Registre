@@ -2,6 +2,8 @@
 require('utilitaires.php');
 require('connexion_bd.php');
 
+$reg_titre_page = 'Connexion';
+
 if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
     require('headers.php');
     require('formulaire-connexion.php');

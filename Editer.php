@@ -40,6 +40,8 @@ if (isset($_POST['commentaire'])) $commentaire=$_POST['commentaire'];
 if (isset($_POST['realisateur'])) $realisateur=$_POST['realisateur'];
 if (isset($_POST['acteurs'])) $acteurs=$_POST['acteurs'];
 
+$reg_titre_page = 'Modification - ' . $titre;
+
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     require('headers.php');
 } elseif ($titre<>'') {

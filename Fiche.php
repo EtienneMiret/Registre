@@ -21,6 +21,7 @@ $film = mysql_fetch_assoc($film);
 if ($general xor $film) reg_erreur_serveur('Base de donnée corrompue !');
 
 if (!$general) {
+    $reg_titre_page = 'Référence inconnue';
     require('headers.php');
     ?>
     <p>Désolé, la référence que vous avez demandé n’existe pas.
@@ -29,6 +30,7 @@ if (!$general) {
     exit(0);
 }
 
+$reg_titre_page = $general['titre'];
 require('headers.php');
 ?>
 <p>Retour à l’<a href="/Registre/">accueil</a>.

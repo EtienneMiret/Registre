@@ -5,6 +5,7 @@
  */
 function reg_erreur_serveur($msg) {
     header('HTTP/1.1 500 Server Error');
+    $reg_titre_page = 'Erreur interne du serveur';
     require('headers.php');
     echo '<p><em class="erreur">' . htmlspecialchars($msg) . '</em>';
     exit (1);

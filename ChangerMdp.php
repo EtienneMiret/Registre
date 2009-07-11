@@ -3,6 +3,7 @@ require('utilitaires.php');
 require('connexion_bd.php');
 
 $user = reg_authentifier();
+$reg_titre_page = 'Changer de mot de passe';
 
 $old_pwd = null;
 $new_pwd1 = null;
