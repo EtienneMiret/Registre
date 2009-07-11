@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 
 <p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
 
-<form action="Enregistrer" method="post">
+<form action="Enregistrer" method="post" class="enregistrer">
 <dl class="enregistrer">
     <dt class="titre">Titre
     <dd class="titre"><input name="titre" type="text"

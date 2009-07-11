@@ -49,7 +49,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 ?>
 <p class="navigation"><a href="/Registre/">Annuler</a>
 
-<form action="ChangerMdp" method="post">
+<form action="ChangerMdp" method="post" class="changer-mdp">
 <p>Ancien mot de passe : <input type="password" name="old_pwd">
 <p>Nouveau mot de passe : <input type="password" name="new_pwd1">
 <p>Répétez le nouveau mot de passe : <input type="password" name="new_pwd2">

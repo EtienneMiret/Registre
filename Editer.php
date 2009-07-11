@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 <p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
 <p class="navigation"><a href="/Registre/Fiche/<?php echo $id; ?>">Annuler</a> les modifications.
 
-<form action="/Registre/Editer/<?php echo $id; ?>" method="post">
+<form action="/Registre/Editer/<?php echo $id; ?>" method="post" class="editer">
 <dl class="editer">
     <dt class="titre">Titre
     <dd class="titre"><input name="titre" type="text"

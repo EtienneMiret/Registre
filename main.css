@@ -91,9 +91,18 @@ dt.derniere_edition, dd.derniere_edition {
 
 /* Formulaires */
 
-dl.editer textarea, dl.enregistrer textarea,
-dl.editer input, dl.enregistrer input {
+form.editer textarea, form.enregistrer textarea,
+form.editer input, form.enregistrer input {
     width: 80%;
+}
+
+form.editer p, form.enregistrer p, form.fiche p {
+    text-align: right;
+    padding-right: 20%;
+}
+
+form.changer-mdp button {
+    margin-left: 30em;
 }
 
 form.recherche input[name="q"] {

@@ -90,4 +90,6 @@ if (isset($general['derniere_edition'])) { ?>
 <?php } ?>
 </dl>
 
-<p class="navigation"><a href="/Registre/Editer/<?php echo $id ?>">Modifier</a>
+<form action="/Registre/Editer/<?php echo $id ?>" method="get" class="fiche">
+<p><button type="submit">Modifier</button>
+</form>
