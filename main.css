@@ -38,8 +38,13 @@ p {
 
 /* Résultats de recherche */
 
+p.resultats-recherche {
+    margin-top: 2em;
+    margin-bottom: 0.2em;
+}
+
 table.resultats-recherche {
-    margin: 2em 10%;
+    margin: 0 10% 2em;
 }
 
 /* Fiche, enregistrement et edition */

@@ -46,11 +46,14 @@ require('formulaire-recherche.php');
 
 $ligne = mysql_fetch_assoc($res);
 
-if (!$ligne) {
-    echo '<p class="msg nok">Désolé, aucun résultat correspondant à votre';
-    echo ' recherche n’a été trouvé.' . "\n";
-} else {
-    echo "<table class=\"resultats-recherche\">\n";
+if (!$ligne) { ?>
+<p class="msg nok">Désolé, aucun résultat correspondant à votre recherche n’a
+    été trouvé.
+<?php } else { ?>
+<p class="msg ok resultats-recherche">Votre recherche a renvoyé
+    <?php echo mysql_num_rows($res);?> résultats :
+<table class="resultats-recherche">
+<?php
     do {
 	echo '  <tr><td><a href="/Registre/Fiche/' . $ligne['id'] .'">';
 	echo htmlspecialchars($ligne['titre']) . "</a>\n";
