@@ -23,6 +23,7 @@ if ($general xor $film) reg_erreur_serveur('Base de donnée corrompue !');
 if (!$general) {
     $reg_titre_page = 'Référence inconnue';
     require('headers.php');
+    require('formulaire-recherche.php');
     ?>
     <p class="msg nok">Désolé, la référence que vous avez demandé n’existe pas.
     <p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
@@ -32,6 +33,7 @@ if (!$general) {
 
 $reg_titre_page = $general['titre'];
 require('headers.php');
+require('formulaire-recherche.php');
 ?>
 <p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
 <dl class="fiche">

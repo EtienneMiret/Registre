@@ -39,6 +39,9 @@ $heure_fin = microtime(true);
 if (!$res) reg_erreur_mysql();
 
 require('headers.php');
+?>
+<p class="navigation">Retour à l’<a href="/Registre/">accueil</a>.
+<?php
 require('formulaire-recherche.php');
 
 $ligne = mysql_fetch_assoc($res);
