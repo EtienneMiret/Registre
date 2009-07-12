@@ -133,9 +133,11 @@ function reg_session_fermer() {
  * Même contraintes que header : pas de données envoyées avant.
  */
 function reg_authentifier() {
+    global $reg_racine;
     $res = reg_session_verifier();
     if (!$res) {
-	reg_redirection_accueil();
+	reg_redirection($reg_racine . 'Connexion?retour=' .
+	    urlencode($_SERVER['REQUEST_URI']));
     } else {
 	return $res;
     }
