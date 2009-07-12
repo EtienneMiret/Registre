@@ -70,18 +70,27 @@ function reg_verifier_mdp($nom, $mdp) {
 /* Crée une nouvelle session pour l'utilisateur donné en paramètre.
  * Même contraintes que header : pas de données envoyées avant.
  */
-function reg_session_creer($nom) {
+function reg_session_creer($nom, $persistante) {
     global $reg_racine;
     /* L'identifiant de session fait 20 charactères, correspondant à l'encodage
      * en base 64 de 15 octets. */
     $id_session = base64_encode(exec('/usr/bin/openssl rand 15 2> /dev/null'));
-    $expiration = date('Y-m-d H:i:s', time() + 7200);
+    if ($persistante) {
+	$expiration_1 = time() + 86400 * 14;
+	$expiration_2 = time() + 86400 * 28;
+	setcookie('SessionRegistre', $id_session, $expiration_1, $reg_racine);
+	setcookie('ResterRegistre', 'oui', $expiration_2, $reg_racine);
+	$expiration = date('Y-m-d H:i:s', $expiration_1);
+    } else {
+	setcookie('SessionRegistre', $id_session, 0, $reg_racine);
+	setcookie('ResterRegistre', '');
+	$expiration = date('Y-m-d H:i:s', time() + 7200);
+    }
     $ok = mysql_query('INSERT INTO sessions VALUES("'
 	. mysql_real_escape_string($id_session) .'", "'
 	. mysql_real_escape_string($nom) . '", "'
 	. mysql_real_escape_string($expiration) . '")');
     if (!$ok) reg_erreur_mysql();
-    setcookie('SessionRegistre', $id_session, 0, $reg_racine);
 }
 
 /* Vérifie que la requète fait partie d'une session valide.
@@ -125,6 +134,7 @@ function reg_session_fermer() {
 	    . mysql_real_escape_string($_COOKIE['SessionRegistre']) . '"');
 	if (!$ok) reg_erreur_mysql();
 	setcookie('SessionRegistre', '', 0, $reg_racine);
+	setcookie('ResterRegistre', '');
     }
 }
 

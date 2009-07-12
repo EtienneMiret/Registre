@@ -21,7 +21,7 @@ if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
 <?php
     require('formulaire-connexion.php');
 } elseif ($nom=reg_verifier_mdp($_POST['user'], $_POST['pwd'])) {
-    reg_session_creer($nom);
+    reg_session_creer($nom, isset($_POST['rester']));
     if (!is_null($retour)) {
 	reg_redirection($retour);
     } else {
