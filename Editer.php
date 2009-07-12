@@ -31,6 +31,7 @@ $type=$general['type'];
 $emplacement=$general['emplacement'];
 $commentaire=$general['commentaire'];
 $realisateur=$film['realisateur'];
+$compositeur=$film['compositeur'];
 $acteurs=implode(', ', $tableau_acteurs);
 
 if (isset($_POST['titre'])) $titre=$_POST['titre'];
@@ -39,6 +40,7 @@ if (isset($_POST['type'])) $type=$_POST['type'];
 if (isset($_POST['emplacement'])) $emplacement=$_POST['emplacement'];
 if (isset($_POST['commentaire'])) $commentaire=$_POST['commentaire'];
 if (isset($_POST['realisateur'])) $realisateur=$_POST['realisateur'];
+if (isset($_POST['compositeur'])) $compositeur=$_POST['compositeur'];
 if (isset($_POST['acteurs'])) $acteurs=$_POST['acteurs'];
 
 $reg_titre_page = 'Modification - ' . $titre;
@@ -60,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 
     $ok = mysql_query('UPDATE films SET realisateur=' .
 	reg_mysql_quote_string($realisateur) .
+	', compositeur=' . reg_mysql_quote_string($compositeur) .
 	' WHERE id=' . $id);
     if (!$ok) reg_erreur_mysql();
 
@@ -100,6 +103,9 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     <dd class="acteurs">Veuillez indiquez la liste des acteurs, séparés par des virgules :<br>
 	<input name="acteurs" type="text"
 	value="<?php echo htmlspecialchars($acteurs); ?>">
+    <dt class="compositeur">Compositeur
+    <dd class="compositeur"><input name="compositeur" type="text"
+	value="<?php echo htmlspecialchars($compositeur); ?>">
     <dt class="commentaire">Commentaire
     <dd class="commentaire"><textarea name="commentaire" rows="4" cols="60"><?php
 	echo htmlspecialchars($commentaire);

@@ -26,6 +26,7 @@ foreach ($termes as $k) {
 	    .  '" OR tout.titre LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR films.realisateur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR acteurs.acteur LIKE "%' . mysql_real_escape_string($k)
+	    . '%" OR films.compositeur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR tout.proprietaire LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR tout.emplacement LIKE "%' . mysql_real_escape_string($k) 
 	    . '%" OR tout.commentaire LIKE "%' . mysql_real_escape_string($k)

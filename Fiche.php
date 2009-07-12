@@ -61,6 +61,11 @@ if ($acteur) { ?>
 <?php } while ($acteur = mysql_fetch_assoc($acteurs)); ?>
 	</ul></dd>
 <?php }
+if (isset($film['compositeur'])) { ?>
+    <dt class="compositeur">Compositeur</dt>
+    <dd class="compositeur"><?php echo htmlspecialchars($film['compositeur']) ?></dd>
+<?php }
+$acteur = mysql_fetch_assoc($acteurs);
 if (isset($general['commentaire'])) { ?>
     <dt class="commentaire">Commentaire</dt>
     <dd class="commentaire"><?php echo str_replace("\n", '<br>', htmlspecialchars($general['commentaire'])) ?></dd>
