@@ -19,7 +19,7 @@ $reg_mdp_bd = 'dummypass';
 /* Addresse de la racine.
  * Il s’agit de du chemin vers la page d’accueil de Registre dans l’URL
  * (après le nom du serveur). */
-$reg_accueil = '/Registre-DEV/';
+$reg_racine = '/Registre-DEV/';
 
 /* Nom de cette instance de Registre. */
 $reg_nom = 'Registre DÉVELOPPEMENT';

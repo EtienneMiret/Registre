@@ -39,7 +39,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	} else {
 	    require('headers.php'); ?>
 <p class="msg ok">Votre mot de passe a été changé.
-<p class="navigation">Retour à l’<a href="<?php echo $reg_accueil; ?>">accueil</a>.
+<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
 	    <?php
 	    exit (0);
 	}
@@ -49,7 +49,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 }
 
 ?>
-<p class="navigation"><a href="<?php echo $reg_accueil; ?>">Annuler</a>
+<p class="navigation"><a href="<?php echo $reg_racine; ?>">Annuler</a>
 
 <form action="ChangerMdp" method="post" class="changer-mdp">
 <p>Ancien mot de passe : <input type="password" name="old_pwd">

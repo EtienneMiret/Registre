@@ -27,7 +27,7 @@ if (!$general) {
     require('formulaire-recherche.php');
     ?>
     <p class="msg nok">Désolé, la référence que vous avez demandé n’existe pas.
-    <p class="navigation">Retour à l’<a href="<?php echo $reg_accueil ?>">accueil</a>.
+    <p class="navigation">Retour à l’<a href="<?php echo $reg_racine ?>">accueil</a>.
     <?php
     exit(0);
 }
@@ -36,7 +36,7 @@ $reg_titre_page = $general['titre'];
 require('headers.php');
 require('formulaire-recherche.php');
 ?>
-<p class="navigation">Retour à l’<a href="<?php echo $reg_accueil; ?>">accueil</a>.
+<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
 <dl class="fiche">
 <?php
 
@@ -96,7 +96,7 @@ if (isset($general['derniere_edition'])) { ?>
 <?php } ?>
 </dl>
 
-<form action="<?php echo $reg_accueil ?>Editer/<?php echo $id ?>" method="get"
+<form action="<?php echo $reg_racine ?>Editer/<?php echo $id ?>" method="get"
     class="fiche">
 <p><button type="submit">Modifier</button>
 </form>

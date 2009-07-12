@@ -80,16 +80,16 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     $ok = mysql_query('UNLOCK TABLES');
     if (!$ok) reg_erreur_mysql();
 
-    reg_redirection($reg_accueil . 'Fiche/' . $id);
+    reg_redirection($reg_racine . 'Fiche/' . $id);
 } else {
     require('headers.php');
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 
-<p class="navigation">Retour à l’<a href="<?php echo $reg_accueil; ?>">accueil</a>.
-<p class="navigation"><a href="<?php echo $reg_accueil; ?>Fiche/<?php echo $id; ?>">Annuler</a> les modifications.
+<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
+<p class="navigation"><a href="<?php echo $reg_racine; ?>Fiche/<?php echo $id; ?>">Annuler</a> les modifications.
 
-<form action="<?php echo $reg_accueil; ?>Editer/<?php echo $id; ?>" method="post" class="editer">
+<form action="<?php echo $reg_racine; ?>Editer/<?php echo $id; ?>" method="post" class="editer">
 <dl class="editer">
     <dt class="titre">Titre
     <dd class="titre"><input name="titre" type="text"
