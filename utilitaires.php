@@ -43,11 +43,13 @@ function reg_redirection_accueil() {
 /* Vérifer des identifiants utilisateurs. Ceux-ci ont été fournis par
  * l’utilisateurs et peuvent contenir n’importe quoi.
  * Même contraintes que header : pas de données envoyées avant.
- * Renvoie un vrai si les identifiants sont valides, faux sinon.
+ * Renvoie le nom d’utilisateur si les identifiants sont valides, faux sinon.
+ * Le nom d’utilisateur renvoyé est celui de la base de donnée. La casse et
+ * les accents peuvent être différent de ceux du nom donné en argument.
  */
 function reg_verifier_mdp($nom, $mdp) {
 
-    $res = mysql_query ('SELECT sel, mdp FROM utilisateurs WHERE nom="'
+    $res = mysql_query ('SELECT * FROM utilisateurs WHERE nom="'
 	. mysql_real_escape_string ( $nom ) . '"');
     if (!$res) reg_erreur_mysql();
     
@@ -56,8 +58,13 @@ function reg_verifier_mdp($nom, $mdp) {
 
     $sel = $ligne['sel'];
     $hash = $ligne['mdp'];
+    $nom = $ligne['nom'];
 
-    return ( hash("md5", $sel . ':' . $mdp) == $hash );
+    if ( hash("md5", $sel . ':' . $mdp) == $hash ) {
+	return $nom;
+    } else {
+	return FALSE;
+    }
 }
 
 /* Crée une nouvelle session pour l'utilisateur donné en paramètre.
