@@ -1,14 +1,14 @@
 <?php
 require('config.php');
-require('utilitaires.php');
-require('connexion_bd.php');
+require('includes/utilitaires.php');
+require('includes/connexion_bd.php');
 
 $user = reg_authentifier();
 $reg_titre_page = 'Recherche';
 
 if (!isset($_GET['q'])) {
-    require('headers.php');
-    require('formulaire-recherche.php');
+    require('includes/headers.php');
+    require('includes/formulaire-recherche.php');
     ?>
     <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
     <?php
@@ -40,11 +40,11 @@ $res = mysql_query($query);
 $heure_fin = microtime(true);
 if (!$res) reg_erreur_mysql();
 
-require('headers.php');
+require('includes/headers.php');
 ?>
 <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
 <?php
-require('formulaire-recherche.php');
+require('includes/formulaire-recherche.php');
 
 $ligne = mysql_fetch_assoc($res);
 

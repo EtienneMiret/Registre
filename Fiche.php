@@ -1,7 +1,7 @@
 <?php
 require('config.php');
-require('utilitaires.php');
-require('connexion_bd.php');
+require('includes/utilitaires.php');
+require('includes/connexion_bd.php');
 
 $user = reg_authentifier();
 $id = 0;
@@ -23,8 +23,8 @@ if ($general xor $film) reg_erreur_serveur('Base de donnée corrompue !');
 
 if (!$general) {
     $reg_titre_page = 'Référence inconnue';
-    require('headers.php');
-    require('formulaire-recherche.php');
+    require('includes/headers.php');
+    require('includes/formulaire-recherche.php');
     ?>
     <p class="msg nok">Désolé, la référence que vous avez demandé n’existe pas.
     <p class="navigation">Retour à l’<a href="<?php echo $reg_racine ?>">accueil</a>.
@@ -33,8 +33,8 @@ if (!$general) {
 }
 
 $reg_titre_page = $general['titre'];
-require('headers.php');
-require('formulaire-recherche.php');
+require('includes/headers.php');
+require('includes/formulaire-recherche.php');
 ?>
 <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
 <dl class="fiche">

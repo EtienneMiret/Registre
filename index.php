@@ -1,16 +1,16 @@
 <?php
 require('config.php');
-require('utilitaires.php');
-require('connexion_bd.php');
+require('includes/utilitaires.php');
+require('includes/connexion_bd.php');
 
 $user = reg_session_verifier();
 $reg_titre_page = 'Accueil';
 
-require('headers.php');
+require('includes/headers.php');
 
 if ($user) {
     echo '<p>Bienvenue ' . htmlspecialchars($user) . ' !';
-    require('formulaire-recherche.php');
+    require('includes/formulaire-recherche.php');
     ?>
     <p class="navigation">Liste de
 	<a href="Rechercher?q=">tous les films</a> référencés.
@@ -22,6 +22,6 @@ if ($user) {
     ?>
     <p class="msg">Bienvenue dans le Registre de la famille Miret.
     <?php
-    require('formulaire-connexion.php');
+    require('includes/formulaire-connexion.php');
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 require('config.php');
-require('utilitaires.php');
-require('connexion_bd.php');
+require('includes/utilitaires.php');
+require('includes/connexion_bd.php');
 
 $user = reg_authentifier();
 $reg_titre_page = 'Enregistrement d’une nouvelle référence';
@@ -25,7 +25,7 @@ if (isset($_POST['compositeur'])) $compositeur=$_POST['compositeur'];
 if (isset($_POST['acteurs'])) $acteurs=$_POST['acteurs'];
 
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
-    require('headers.php');
+    require('includes/headers.php');
 } elseif ($titre<>'') {
     $ok = mysql_query('INSERT INTO tout VALUES( NULL, '
 	. reg_mysql_quote_string($titre) . ', '
@@ -60,11 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     $compositeur='';
     $acteurs='';
 
-    require('headers.php');
+    require('includes/headers.php');
     ?><p class="msg ok">Votre film a été enregistré sous le
 <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 <?php } else {
-    require('headers.php');
+    require('includes/headers.php');
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 

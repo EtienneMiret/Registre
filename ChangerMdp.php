@@ -1,7 +1,7 @@
 <?php
 require('config.php');
-require('utilitaires.php');
-require('connexion_bd.php');
+require('includes/utilitaires.php');
+require('includes/connexion_bd.php');
 
 $user = reg_authentifier();
 $reg_titre_page = 'Changer de mot de passe';
@@ -17,12 +17,12 @@ if (isset($_POST['new_pwd2'])) $new_pwd2 = $_POST['new_pwd2'];
 if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 {
     if(!reg_verifier_mdp($user, $old_pwd)) {
-	require('headers.php');
+	require('includes/headers.php');
 	?>
 	<p><em class="erreur">Votre ancien mot de passe est faux.</em>
 	<?php
     } elseif ( $new_pwd1 <> $new_pwd2 ) {
-	require('headers.php');
+	require('includes/headers.php');
 	?>
 	<p><em class="erreur">Les deux nouveaux mots de passe sont différents.</em>
 	<?php
@@ -32,12 +32,12 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	$ok = mysql_query("UPDATE utilisateurs SET sel='$sel', mdp='$mdp' WHERE nom='" .
 	    mysql_real_escape_string($user) . "'");
 	if ( !$ok ) {
-	    require('headers.php'); ?>
+	    require('includes/headers.php'); ?>
 	    <p><em class="erreur">Erreur MysQL lors de la mise à jour du mot de passe :
 	    <?php echo htmlspecialchars(mysql_error()); ?>.</em>
 	    <?php
 	} else {
-	    require('headers.php'); ?>
+	    require('includes/headers.php'); ?>
 <p class="msg ok">Votre mot de passe a été changé.
 <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
 	    <?php
@@ -45,7 +45,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	}
     }
 } else {
-    require('headers.php');
+    require('includes/headers.php');
 }
 
 ?>

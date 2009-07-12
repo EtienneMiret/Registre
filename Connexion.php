@@ -1,7 +1,7 @@
 <?php
 require('config.php');
-require('utilitaires.php');
-require('connexion_bd.php');
+require('includes/utilitaires.php');
+require('includes/connexion_bd.php');
 
 $reg_titre_page = 'Connexion';
 
@@ -16,10 +16,10 @@ if (isset($_REQUEST['retour'])
 }
 
 if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
-    require('headers.php'); ?>
+    require('includes/headers.php'); ?>
 <p class="msg">Veuillez vous identifier
 <?php
-    require('formulaire-connexion.php');
+    require('includes/formulaire-connexion.php');
 } elseif ($nom=reg_verifier_mdp($_POST['user'], $_POST['pwd'])) {
     reg_session_creer($nom, isset($_POST['rester']));
     if (!is_null($retour)) {
@@ -28,11 +28,11 @@ if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
 	reg_redirection($reg_racine);
     }
 } else {
-    require('headers.php');
+    require('includes/headers.php');
     ?>
     <p class="msg nok">Echec de l’authentification.
     <?php
-    require('formulaire-connexion.php');
+    require('includes/formulaire-connexion.php');
 }
 
 ?>

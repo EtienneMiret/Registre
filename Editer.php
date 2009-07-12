@@ -1,7 +1,7 @@
 <?php
 require('config.php');
-require('utilitaires.php');
-require('connexion_bd.php');
+require('includes/utilitaires.php');
+require('includes/connexion_bd.php');
 
 $user = reg_authentifier();
 
@@ -46,7 +46,7 @@ if (isset($_POST['acteurs'])) $acteurs=$_POST['acteurs'];
 $reg_titre_page = 'Modification - ' . $titre;
 
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
-    require('headers.php');
+    require('includes/headers.php');
 } elseif ($titre<>'') {
     $ok = mysql_query('LOCK TABLES tout WRITE, films WRITE, acteurs WRITE');
     if (!$ok) reg_erreur_mysql();
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 
     reg_redirection($reg_racine . 'Fiche/' . $id);
 } else {
-    require('headers.php');
+    require('includes/headers.php');
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 
