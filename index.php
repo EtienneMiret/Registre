@@ -13,8 +13,8 @@ if ($user) {
     require('formulaire-recherche.php');
     ?>
     <p class="navigation">Liste de
-	<a href="Rechercher?q=">tous les films</a> enregistrés.
-    <p class="navigation"><a href="Enregistrer">Enregistrer un nouveau film</a>.
+	<a href="Rechercher?q=">tous les films</a> référencés.
+    <p class="navigation"><a href="Enregistrer">Référencer un nouveau film</a>.
     <p class="navigation"><a href="ChangerMdp">Changer son mot de passe</a>.
     <p class="navigation"><a href="Deconnexion">Déconnexion</a>.
     <?php
