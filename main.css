@@ -31,7 +31,8 @@ a[href] { color: blue; }
 /* Paragraphes */
 
 p {
-    margin: 1em 0 0 4%;
+    text-indent: 4%;
+    margin: 1em 0;
     padding: 0;
 }
 
