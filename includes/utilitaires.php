@@ -4,6 +4,7 @@
  * Même contraintes que header : pas de données envoyées avant.
  */
 function reg_erreur_serveur($msg) {
+    global $reg_nom, $reg_racine;
     header('HTTP/1.1 500 Server Error');
     $reg_titre_page = 'Erreur interne du serveur';
     require('headers.php');
