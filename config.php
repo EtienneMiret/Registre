@@ -7,10 +7,10 @@
  * chemin vers une socket locale, sous la forme : ":/path/to/socket". */
 $reg_serveur_bd = ':/private/var/mysql/mysql.sock';
 
-/* Nom de la base de donnée. */
+/* Nom de la base de données. */
 $reg_nom_bd = 'Registre_dev';
 
-/* Nom d’utilisateur pour se connecter à la base de donnée. */
+/* Nom d’utilisateur pour se connecter à la base de données. */
 $reg_utilisateur_bd = 'registre_dev';
 
 /* Mot de passe de l’utilisateur $reg_utilisateur_bd. */
