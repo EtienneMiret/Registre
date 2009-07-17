@@ -62,10 +62,3 @@ CREATE TABLE `sessions` (
   `expiration` datetime NOT NULL,
   PRIMARY KEY  (`clef`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `utilisateurs`
---
-
-LOCK TABLES `utilisateurs` WRITE;
-UNLOCK TABLES;
