@@ -70,6 +70,12 @@ if (isset($general['commentaire'])) { ?>
     <dt class="commentaire">Commentaire</dt>
     <dd class="commentaire"><?php echo str_replace("\n", '<br>', htmlspecialchars($general['commentaire'])) ?></dd>
 <?php }
+if (isset($film['genres'])) { ?>
+    <dt class="genres">Genres</dt>
+    <dd class="genres"><?php
+	echo htmlspecialchars(ucfirst(str_replace(',', ', ', $film['genres'])));	echo '.';
+    ?></dd>
+<?php }
 if (isset($general['proprietaire'])) { ?>
     <dt class="proprietaire">Proprietaire</dt>
     <dd class="proprietaire"><?php echo htmlspecialchars($general['proprietaire']) ?></dd>

@@ -14,6 +14,16 @@ $commentaire='';
 $realisateur='';
 $compositeur='';
 $acteurs='';
+$g_action=FALSE;
+$g_docu=FALSE;
+$g_fantastique=FALSE;
+$g_guerre=FALSE;
+$g_vrai=FALSE;
+$g_historique=FALSE;
+$g_humour=FALSE;
+$g_policier=FALSE;
+$g_romantique=FALSE;
+$g_SF=FALSE;
 
 if (isset($_POST['titre'])) $titre=$_POST['titre'];
 if (isset($_POST['proprietaire'])) $proprietaire=$_POST['proprietaire'];
@@ -23,6 +33,19 @@ if (isset($_POST['commentaire'])) $commentaire=$_POST['commentaire'];
 if (isset($_POST['realisateur'])) $realisateur=$_POST['realisateur'];
 if (isset($_POST['compositeur'])) $compositeur=$_POST['compositeur'];
 if (isset($_POST['acteurs'])) $acteurs=$_POST['acteurs'];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $g_action=isset($_POST['action']);
+    $g_docu=isset($_POST['docu']);
+    $g_fantastique=isset($_POST['fantastique']);
+    $g_guerre=isset($_POST['guerre']);
+    $g_vrai=isset($_POST['vrai']);
+    $g_historique=isset($_POST['historique']);
+    $g_humour=isset($_POST['humour']);
+    $g_policier=isset($_POST['policier']);
+    $g_romantique=isset($_POST['romantique']);
+    $g_SF=isset($_POST['SF']);
+}
 
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     require('includes/headers.php');
@@ -39,9 +62,22 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     $id = mysql_insert_id();
     if (!$id) reg_erreur_mysql();
 
+    $genres = '';
+    if ($g_action) $genres .= 'action,';
+    if ($g_docu) $genres .= 'documentaire,';
+    if ($g_fantastique) $genres .= 'fantastique,';
+    if ($g_guerre) $genres .= 'film de guerre,';
+    if ($g_vrai) $genres .= 'histoire vraie,';
+    if ($g_historique) $genres .= 'historique,';
+    if ($g_humour) $genres .= 'humour,';
+    if ($g_policier) $genres .= 'policier,';
+    if ($g_romantique) $genres .= 'romantique,';
+    if ($g_SF) $genres .= 'science-fiction,';
+
     $ok = mysql_query('INSERT INTO films VALUES(' . $id . ', '
 	. reg_mysql_quote_string($realisateur) . ', '
-	. reg_mysql_quote_string($compositeur) . ')');
+	. reg_mysql_quote_string($compositeur) . ', '
+	. reg_mysql_quote_string($genres) . ')');
     if (!$ok) reg_erreur_mysql();
 
     $acteurs = preg_split("/ *, */", $acteurs, -1, PREG_SPLIT_NO_EMPTY);
@@ -59,6 +95,16 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     $realisateur='';
     $compositeur='';
     $acteurs='';
+    $g_action=FALSE;
+    $g_docu=FALSE;
+    $g_fantastique=FALSE;
+    $g_guerre=FALSE;
+    $g_vrai=FALSE;
+    $g_historique=FALSE;
+    $g_humour=FALSE;
+    $g_policier=FALSE;
+    $g_romantique=FALSE;
+    $g_SF=FALSE;
 
     require('includes/headers.php');
     ?><p class="msg ok">Votre film a été enregistré sous le
@@ -93,6 +139,29 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     <dd class="commentaire"><textarea name="commentaire" rows="4" cols="60"><?php
 	echo htmlspecialchars($commentaire);
     ?></textarea>
+    <dt class="genres">Genres
+    <dd class="genres"><ul>
+	<li><input name="action" type="checkbox"<?php
+	    if ($g_action) echo ' checked'; ?>>Action</li>
+	<li><input name="docu" type="checkbox"<?php
+	    if ($g_docu) echo ' checked'; ?>>Documentaire</li>
+	<li><input name="fantastique" type="checkbox"<?php
+	    if ($g_fantastique) echo ' checked'; ?>>Fantastique</li>
+	<li><input name="guerre" type="checkbox"<?php
+	    if ($g_guerre) echo ' checked'; ?>>Film de guerre</li>
+	<li><input name="vrai" type="checkbox"<?php
+	    if ($g_vrai) echo ' checked'; ?>>Histoire vraie</li>
+	<li><input name="historique" type="checkbox"<?php
+	    if ($g_historique) echo ' checked'; ?>>Historique</li>
+	<li><input name="humour" type="checkbox"<?php
+	    if ($g_humour) echo ' checked'; ?>>Humour</li>
+	<li><input name="policier" type="checkbox"<?php
+	    if ($g_policier) echo ' checked'; ?>>Policier</li>
+	<li><input name="romantique" type="checkbox"<?php
+	    if ($g_romantique) echo ' checked'; ?>>Romantique</li>
+	<li><input name="SF" type="checkbox"<?php
+	    if ($g_SF) echo ' checked'; ?>>Science-fiction</li>
+    </ul>
     <dt class="proprietaire">Propriétaire
     <dd class="proprietaire"><input name="proprietaire" type="text"
 	value="<?php echo htmlspecialchars($proprietaire); ?>">

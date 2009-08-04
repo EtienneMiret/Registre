@@ -26,6 +26,9 @@ CREATE TABLE `films` (
   `id` int(10) unsigned NOT NULL,
   `realisateur` varchar(20) default NULL,
   `compositeur` varchar(20) default NULL,
+  `genres` set('action','documentaire','fantastique','film de guerre',
+    'histoire vraie','historique','humour','policier','romantique',
+    'science-fiction') default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
