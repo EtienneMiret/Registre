@@ -23,6 +23,7 @@ if ($general xor $film) reg_erreur_serveur('Base de donnée corrompue !');
 
 if (!$general) {
     $reg_titre_page = 'Référence inconnue';
+    header('HTTP/1.1 404 Not Found');
     require('includes/headers.php');
     require('includes/formulaire-recherche.php');
     ?>
