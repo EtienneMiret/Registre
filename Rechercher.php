@@ -7,12 +7,24 @@ $user = reg_authentifier();
 $reg_titre_page = 'Recherche';
 
 if (!isset($_GET['q'])) {
-    require('includes/headers.php');
-    require('includes/formulaire-recherche.php');
-    ?>
-    <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
-    <?php
-    exit(0);
+    $reg_titre_page = 'Recherche avancée';
+    header('Content-Script-Type: application/ecmascript');
+    require('includes/headers.php'); ?>
+<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
+<form onsubmit="rechercheAvancee();">
+<script type='application/ecmascript' src='recherche-avancee'></script>
+<p>Rechercher : <input id="tout">
+<p>Titre : <input id="titre">
+<p>Réalisateur : <input id="realisateur">
+<p>Acteurs : <input id="acteur">
+<p>Compositeur : <input id="compositeur">
+<p>Commentaire : <input id="commentaire">
+<p>Proprietaire : <input id="proprietaire">
+<p>Emplacement : <input id="emplacement">
+<p><button>Rechercher</button>
+<form>
+<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
+<?php exit(0);
 }
 
 $q=$_GET['q'];
@@ -21,7 +33,35 @@ $termes=explode(' ', $q);
 $query = 'SELECT id,titre '
     . 'FROM tout LEFT JOIN acteurs USING(id) JOIN films USING(id) WHERE ';
 foreach ($termes as $k) {
-    if ($k<>'') {
+    if (preg_match('/^titre:/', $k)) {
+	$k = preg_replace('/^titre:/', '', $k);
+	$query .= 'tout.titre LIKE "%' . mysql_real_escape_string($k)
+	    . '%" AND ';
+    } elseif (preg_match('/^realisateur:/', $k)) {
+	$k = preg_replace('/^realisateur:/', '', $k);
+	$query .= 'films.realisateur LIKE "%' . mysql_real_escape_string($k)
+	    . '%" AND ';
+    } elseif (preg_match('/^acteur:/', $k)) {
+	$k = preg_replace('/^acteur:/', '', $k);
+	$query .= 'acteurs.acteur LIKE "%' . mysql_real_escape_string($k)
+	    . '%" AND ';
+    } elseif (preg_match('/^compositeur:/', $k)) {
+	$k = preg_replace('/^compositeur:/', '', $k);
+	$query .= 'films.compositeur LIKE "%' . mysql_real_escape_string($k)
+	    . '%" AND ';
+    } elseif (preg_match('/^proprietaire:/', $k)) {
+	$k = preg_replace('/^proprietaire:/', '', $k);
+	$query .= 'tout.proprietaire LIKE "%' . mysql_real_escape_string($k)
+	    . '%" AND ';
+    } elseif (preg_match('/^emplacement:/', $k)) {
+	$k = preg_replace('/^emplacement:/', '', $k);
+	$query .= 'tout.emplacement LIKE "%' . mysql_real_escape_string($k)
+	    . '%" AND ';
+    } elseif (preg_match('/^commentaire:/', $k)) {
+	$k = preg_replace('/^commentaire:/', '', $k);
+	$query .= 'tout.commentaire LIKE "%' . mysql_real_escape_string($k)
+	    . '%" AND ';
+    } elseif ($k<>'') {
 	$query .=  '(tout.type="' . mysql_real_escape_string($k)
 	    .  '" OR tout.titre LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR films.realisateur LIKE "%' . mysql_real_escape_string($k)
