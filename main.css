@@ -92,7 +92,7 @@ dt.derniere_edition, dd.derniere_edition {
 /* Formulaires */
 
 form.editer textarea, form.enregistrer textarea,
-form.editer input, form.enregistrer input {
+form.editer input[type="text"], form.enregistrer input[type="text"] {
     width: 80%;
 }
 
