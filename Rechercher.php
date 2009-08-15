@@ -33,6 +33,10 @@ if (isset($_GET['proprietaire']) && $_GET['proprietaire'] <> '')
     $q.= ' proprietaire:(' . $_GET['proprietaire'] . ')';
 if (isset($_GET['emplacement']) && $_GET['emplacement'] <> '')
     $q.= ' emplacement:(' . $_GET['emplacement'] . ')';
+if (isset($_GET['createur']) && $_GET['createur'] <> '')
+    $q.= ' createur:(' . $_GET['createur'] . ')';
+if (isset($_GET['editeur']) && $_GET['editeur'] <> '')
+    $q.= ' editeur:(' . $_GET['editeur'] . ')';
 // Suppression d’éventuelles espaces au début.
 $q = preg_replace('/^\s+/', '', $q);
 
@@ -44,6 +48,8 @@ define('REG_RECH_COMPOSITEUR', 4);
 define('REG_RECH_COMMENTAIRE', 5);
 define('REG_RECH_PROPRIETAIRE', 6);
 define('REG_RECH_EMPLACEMENT', 7);
+define('REG_RECH_CREATEUR', 8);
+define('REG_RECH_EDITEUR', 9);
 
 unset($cle_sans_parenthese);
 $cle_sans_parenthese[REG_RECH_TITRE]	    = '/^titre:([^\)\s]*)/';
@@ -53,6 +59,8 @@ $cle_sans_parenthese[REG_RECH_COMPOSITEUR]  = '/^compositeur:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_COMMENTAIRE]  = '/^commentaire:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_PROPRIETAIRE] = '/^proprietaire:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_EMPLACEMENT]  = '/^emplacement:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_CREATEUR]	    = '/^createur:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_EDITEUR]	    = '/^editeur:([^\)\s]*)/';
 
 unset($cle_avec_parenchese);
 $cle_avec_parenthese[REG_RECH_TITRE]	    = '/^titre:\(/';
@@ -62,6 +70,8 @@ $cle_avec_parenthese[REG_RECH_COMPOSITEUR]  = '/^compositeur:\(/';
 $cle_avec_parenthese[REG_RECH_COMMENTAIRE]  = '/^commentaire:\(/';
 $cle_avec_parenthese[REG_RECH_PROPRIETAIRE] = '/^proprietaire:\(/';
 $cle_avec_parenthese[REG_RECH_EMPLACEMENT]  = '/^emplacement:\(/';
+$cle_avec_parenthese[REG_RECH_CREATEUR]	    = '/^createur:\(/';
+$cle_avec_parenthese[REG_RECH_EDITEUR]	    = '/^editeur:\(/';
 
 /* Analyse de la recherche et construction des tableaux $termes et $types. */
 
@@ -152,6 +162,14 @@ foreach ($termes as $i => $k) {
 	case REG_RECH_COMMENTAIRE:
 	    $query .= 'tout.commentaire LIKE "%' . mysql_real_escape_string($k)
 		. '%" AND ';
+	    break;
+	case REG_RECH_CREATEUR:
+	    $query .= 'tout.createur LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_EDITEUR:
+	    $query .= 'tout.dernier_editeur LIKE "%' .
+		mysql_real_escape_string($k) . '% AND ';
 	    break;
 	case REG_RECH_TOUT:
 	    $query .=  '(tout.type="' . mysql_real_escape_string($k)

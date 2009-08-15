@@ -18,6 +18,8 @@ require('includes/headers.php');
 <p>Commentaire : <input name="commentaire">
 <p>Proprietaire : <input name="proprietaire">
 <p>Emplacement : <input name="emplacement">
+<p>Enregistré par : <input name="createur">
+<p>Dernière modification par : <input name="editeur">
 <p><button>Rechercher</button>
 </form>
 <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
