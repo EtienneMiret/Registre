@@ -37,7 +37,7 @@ if ($ligne) {
     echo ' ajouté.'.PHP_EOL;
 }
 
-/* Champ 'genres' dans la table 'films' */
+/* Champ 'genres' dans la table 'films'. */
 mysql_data_seek($films, 0);
 echo 'Champ \'genres\' dans la table \'films\'...';
 while ($ligne=mysql_fetch_assoc($films)) {
