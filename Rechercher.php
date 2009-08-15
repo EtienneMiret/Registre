@@ -7,62 +7,135 @@ $user = reg_authentifier();
 $reg_titre_page = 'Recherche';
 
 if (!isset($_GET['q'])) {
-    $reg_titre_page = 'Recherche avancée';
-    header('Content-Script-Type: application/ecmascript');
-    require('includes/headers.php'); ?>
-<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
-<form onsubmit="rechercheAvancee();">
-<script type='application/ecmascript' src='recherche-avancee'></script>
-<p>Rechercher : <input id="tout">
-<p>Titre : <input id="titre">
-<p>Réalisateur : <input id="realisateur">
-<p>Acteurs : <input id="acteur">
-<p>Compositeur : <input id="compositeur">
-<p>Commentaire : <input id="commentaire">
-<p>Proprietaire : <input id="proprietaire">
-<p>Emplacement : <input id="emplacement">
-<p><button>Rechercher</button>
-<form>
-<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
-<?php exit(0);
+    require('includes/headers.php');
+    require('includes/formulaire-recherche.php');
+    ?>
+    <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
+    <?php
+    exit(0);
 }
 
 $q=$_GET['q'];
-$termes=explode(' ', $q);
+
+define('REG_RECH_TOUT', 0);
+define('REG_RECH_TITRE', 1);
+define('REG_RECH_REALISATEUR', 2);
+define('REG_RECH_ACTEUR', 3);
+define('REG_RECH_COMPOSITEUR', 4);
+define('REG_RECH_COMMENTAIRE', 5);
+define('REG_RECH_PROPRIETAIRE', 6);
+define('REG_RECH_EMPLACEMENT', 7);
+
+unset($cle_sans_parenthese);
+$cle_sans_parenthese[REG_RECH_TITRE]	    = '/^titre:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_REALISATEUR]  = '/^realisateur:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_ACTEUR]	    = '/^acteur:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_COMPOSITEUR]  = '/^compositeur:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_COMMENTAIRE]  = '/^commentaire:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_PROPRIETAIRE] = '/^proprietaire:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_EMPLACEMENT]  = '/^emplacement:([^\)\s]*)/';
+
+unset($cle_avec_parenchese);
+$cle_avec_parenthese[REG_RECH_TITRE]	    = '/^titre:\(/';
+$cle_avec_parenthese[REG_RECH_REALISATEUR]  = '/^realisateur:\(/';
+$cle_avec_parenthese[REG_RECH_ACTEUR]	    = '/^acteur:\(/';
+$cle_avec_parenthese[REG_RECH_COMPOSITEUR]  = '/^compositeur:\(/';
+$cle_avec_parenthese[REG_RECH_COMMENTAIRE]  = '/^commentaire:\(/';
+$cle_avec_parenthese[REG_RECH_PROPRIETAIRE] = '/^proprietaire:\(/';
+$cle_avec_parenthese[REG_RECH_EMPLACEMENT]  = '/^emplacement:\(/';
+
+/* Analyse de la recherche et construction des tableaux $termes et $types. */
+
+$rech=$q;
+$type_actif=REG_RECH_TOUT;
+$termes=array();
+$types=array();
+while ( $rech <> '') {
+
+    /* Espaces */
+    $espaces='/^\s+/';
+    if (preg_match($espaces, $rech)) {
+	$rech = preg_replace($espaces, '', $rech);
+	continue;
+    }
+
+    /* Mot-clé avec parenthèse ouvrante */
+    foreach ($cle_avec_parenthese as $i => $k) {
+	if (preg_match($k, $rech)) {
+	    $rech = preg_replace($k, '', $rech);
+	    $type_actif = $i;
+	    continue 2;
+	}
+    }
+
+    /* Mot-clé sans parenthèse ouvrante */
+    foreach ($cle_sans_parenthese as $i => $k) {
+	if (preg_match($k, $rech, $matches)) {
+	    $rech = preg_replace($k, '', $rech);
+	    $types[] = $i;
+	    $termes[] = $matches[1];
+	    continue 2;
+	}
+    }
+
+    /* Parenthèse fermante */
+    $parenthese_fermante='/^\)/';
+    if (preg_match($parenthese_fermante, $rech)) {
+	$rech = preg_replace($parenthese_fermante, '', $rech);
+	$type_actif=REG_RECH_TOUT;
+	continue;
+    }
+
+    /* Terme recherché */
+    $terme='/^[^\)\s]+/';
+    if (preg_match($terme, $rech, $matches)) {
+	$rech = preg_replace($terme, '', $rech);
+	$types[]=$type_actif;
+	$termes[]=$matches[0];
+	continue;
+    }
+
+    /* Rien trouvé */
+    reg_erreur_serveur('Impossible d’analyser la recherche : ' . $q);
+
+}
+
+/* Construction de la requête MySQL à partir des tableaux $termes et $types. */
 
 $query = 'SELECT id,titre '
     . 'FROM tout LEFT JOIN acteurs USING(id) JOIN films USING(id) WHERE ';
-foreach ($termes as $k) {
-    if (preg_match('/^titre:/', $k)) {
-	$k = preg_replace('/^titre:/', '', $k);
-	$query .= 'tout.titre LIKE "%' . mysql_real_escape_string($k)
-	    . '%" AND ';
-    } elseif (preg_match('/^realisateur:/', $k)) {
-	$k = preg_replace('/^realisateur:/', '', $k);
-	$query .= 'films.realisateur LIKE "%' . mysql_real_escape_string($k)
-	    . '%" AND ';
-    } elseif (preg_match('/^acteur:/', $k)) {
-	$k = preg_replace('/^acteur:/', '', $k);
-	$query .= 'acteurs.acteur LIKE "%' . mysql_real_escape_string($k)
-	    . '%" AND ';
-    } elseif (preg_match('/^compositeur:/', $k)) {
-	$k = preg_replace('/^compositeur:/', '', $k);
-	$query .= 'films.compositeur LIKE "%' . mysql_real_escape_string($k)
-	    . '%" AND ';
-    } elseif (preg_match('/^proprietaire:/', $k)) {
-	$k = preg_replace('/^proprietaire:/', '', $k);
-	$query .= 'tout.proprietaire LIKE "%' . mysql_real_escape_string($k)
-	    . '%" AND ';
-    } elseif (preg_match('/^emplacement:/', $k)) {
-	$k = preg_replace('/^emplacement:/', '', $k);
-	$query .= 'tout.emplacement LIKE "%' . mysql_real_escape_string($k)
-	    . '%" AND ';
-    } elseif (preg_match('/^commentaire:/', $k)) {
-	$k = preg_replace('/^commentaire:/', '', $k);
-	$query .= 'tout.commentaire LIKE "%' . mysql_real_escape_string($k)
-	    . '%" AND ';
-    } elseif ($k<>'') {
-	$query .=  '(tout.type="' . mysql_real_escape_string($k)
+foreach ($termes as $i => $k) {
+    switch ($types[$i]) {
+	case REG_RECH_TITRE:
+	    $query .= 'tout.titre LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_REALISATEUR:
+	    $query .= 'films.realisateur LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_ACTEUR:
+	    $query .= 'acteurs.acteur LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_COMPOSITEUR:
+	    $query .= 'films.compositeur LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_PROPRIETAIRE:
+	    $query .= 'tout.proprietaire LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_EMPLACEMENT:
+	    $query .= 'tout.emplacement LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_COMMENTAIRE:
+	    $query .= 'tout.commentaire LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_TOUT:
+	    $query .=  '(tout.type="' . mysql_real_escape_string($k)
 	    .  '" OR tout.titre LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR films.realisateur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR acteurs.acteur LIKE "%' . mysql_real_escape_string($k)
@@ -70,7 +143,11 @@ foreach ($termes as $k) {
 	    . '%" OR tout.proprietaire LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR tout.emplacement LIKE "%' . mysql_real_escape_string($k) 
 	    . '%" OR tout.commentaire LIKE "%' . mysql_real_escape_string($k)
-	. '%") AND ';
+	    . '%") AND ';
+	    break;
+	default:
+	    reg_erreur_serveur('Recherche avec un numéro de type inconnu : '
+		. $types[$i]);
     }
 }
 $query .='TRUE GROUP BY id ORDER BY titre,id';
