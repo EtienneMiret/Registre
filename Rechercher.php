@@ -15,7 +15,26 @@ if (!isset($_GET['q'])) {
     exit(0);
 }
 
+/* Construction de la chaine de recherche en incluant les paramètres de
+ * recherche avancée. */
+
 $q=$_GET['q'];
+if (isset($_GET['titre']) && $_GET['titre'] <> '')
+    $q.= ' titre:(' . $_GET['titre'] . ')';
+if (isset($_GET['realisateur']) && $_GET['realisateur'] <> '')
+    $q.= ' realisateur:(' . $_GET['realisateur'] . ')';
+if (isset($_GET['acteur']) && $_GET['acteur'] <> '')
+    $q.= ' acteur:(' . $_GET['acteur'] . ')';
+if (isset($_GET['compositeur']) && $_GET['compositeur'] <> '')
+    $q.= ' compositeur:(' . $_GET['compositeur'] . ')';
+if (isset($_GET['commentaire']) && $_GET['commentaire'] <> '')
+    $q.= ' commentaire:(' . $_GET['commentaire'] . ')';
+if (isset($_GET['proprietaire']) && $_GET['proprietaire'] <> '')
+    $q.= ' proprietaire:(' . $_GET['proprietaire'] . ')';
+if (isset($_GET['emplacement']) && $_GET['emplacement'] <> '')
+    $q.= ' emplacement:(' . $_GET['emplacement'] . ')';
+// Suppression d’éventuelles espaces au début.
+$q = preg_replace('/^\s+/', '', $q);
 
 define('REG_RECH_TOUT', 0);
 define('REG_RECH_TITRE', 1);
