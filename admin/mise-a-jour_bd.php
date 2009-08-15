@@ -47,7 +47,8 @@ if ($ligne) {
     echo ' ok.'.PHP_EOL;
 } else {
     mysql_query('ALTER TABLE films ADD genres SET("action","documentaire",' .
-	'"fantastique","film de guerre","histoire vraie","historique",' .
-	'"humour","policier","romantique","science-fiction")');
+	    '"fantastique","film de guerre","histoire vraie","historique",' .
+	    '"humour","policier","romantique","science-fiction")')
+	or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
     echo ' ajouté.'.PHP_EOL;
 }
