@@ -45,6 +45,8 @@ $g_policier=in_array('policier',$tableau_genres);
 $g_romantique=in_array('romantique',$tableau_genres);
 $g_SF=in_array('science-fiction',$tableau_genres);
 
+$reg_titre_page = 'Modification - ' . $titre;
+
 if (isset($_POST['titre'])) $titre=$_POST['titre'];
 if (isset($_POST['proprietaire'])) $proprietaire=$_POST['proprietaire'];
 if (isset($_POST['type'])) $type=$_POST['type'];
@@ -66,8 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $g_romantique=isset($_POST['romantique']);
     $g_SF=isset($_POST['SF']);
 }
-
-$reg_titre_page = 'Modification - ' . $titre;
 
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     require('includes/headers.php');
