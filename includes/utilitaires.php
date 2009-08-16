@@ -169,13 +169,5 @@ function reg_mysql_quote_string($string) {
 /* Transforme un type MySQL en type affichable.
  */
 function reg_afficher_type($string) {
-    switch ($string) {
-	case 'DVD':
-	    return 'DVD';
-	case 'cassette':
-	    return 'Cassette';
-	default:
-	    // N’est pas censé arriver, mais on ne sait jamais.
-	    return htmlspecialchars($string);
-    }
+    return htmlspecialchars(ucfirst($string));
 }
