@@ -19,6 +19,8 @@ mysql_set_charset('utf8')
     . mysql_error().PHP_EOL);
 
 /* Récupération des informations sur l'état de la base de données. */
+$tables = mysql_query('SHOW TABLES;')
+    or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
 $films = mysql_query('DESCRIBE films;')
     or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
 
@@ -51,4 +53,37 @@ if ($ligne) {
 	    '"humour","policier","romantique","science-fiction")')
 	or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
     echo ' ajouté.'.PHP_EOL;
+}
+
+/* Table 'bd'. */
+mysql_data_seek($tables, 0);
+echo 'Table \'bd\'...';
+while ($ligne=mysql_fetch_row($tables)) {
+    if ($ligne[0]=='bd') break;
+}
+if ($ligne) {
+    echo ' ok.' . PHP_EOL;
+} else {
+    mysql_query('CREATE TABLE bd (id INT UNSIGNED PRIMARY KEY,' .
+	    ' dessinateur VARCHAR(20), scenariste VARCHAR(20),' .
+	    ' serie VARCHAR(80), numero INT UNSIGNED) DEFAULT CHARSET utf8;')
+	or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
+    echo ' ajouté.' . PHP_EOL;
+}
+
+/* Table 'livres'. */
+mysql_data_seek($tables, 0);
+echo 'Table \'livres\'...';
+while ($ligne=mysql_fetch_row($tables)) {
+    if ($ligne[0]=='livres') break;
+}
+if ($ligne) {
+    echo ' ok.' . PHP_EOL;
+} else {
+    mysql_query('CREATE TABLE livres (id INT UNSIGNED PRIMARY KEY,' .
+	    ' auteur VARCHAR(20), genres SET("fantastique","histoire vraie",' .
+	    '"historique","humour","policier","romantique",' .
+	    '"science-fiction")) DEFAULT CHARACTER SET utf8;')
+	or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
+    echo ' ajouté.' . PHP_EOL;
 }

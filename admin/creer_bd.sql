@@ -43,6 +43,33 @@ CREATE TABLE `acteurs` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `bd`
+--
+
+DROP TABLE IF EXISTS `bd`;
+CREATE TABLE `bd` (
+  `id` int(10) unsigned NOT NULL,
+  `dessinateur` varchar(20) default NULL,
+  `scenariste` varchar(20) default NULL,
+  `serie` varchar(80) default NULL,
+  `numero` int(10) unsigned default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `livres`
+--
+
+DROP TABLE IF EXISTS `livres`;
+CREATE TABLE `livres` (
+  `id` int(10) unsigned NOT NULL,
+  `auteur` varchar(20) default NULL,
+  `genres` set('fantastique','histoire vraie','historique','humour','policier',
+    'romantique','science-fiction') default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
 -- Table structure for table `utilisateurs`
 --
 

@@ -15,11 +15,15 @@ $film = mysql_query('SELECT * FROM films WHERE id=' . $id)
     or reg_erreur_mysql();
 $acteurs = mysql_query('SELECT * FROM acteurs WHERE id=' . $id)
     or reg_erreur_mysql();
+$livre = mysql_query('SELECT * from livres WHERE id=' . $id)
+    or reg_erreur_mysql();
+$bd = mysql_query('SELECT * from bd WHERE id=' . $id)
+    or reg_erreur_mysql();
 
 $general = mysql_fetch_assoc($general);
 $film = mysql_fetch_assoc($film);
-
-if ($general xor $film) reg_erreur_serveur('Base de donnée corrompue !');
+$livre = mysql_fetch_assoc($livre);
+$bd = mysql_fetch_assoc($bd);
 
 if (!$general) {
     $reg_titre_page = 'Référence inconnue';
@@ -66,15 +70,42 @@ if (isset($film['compositeur'])) { ?>
     <dt class="compositeur">Compositeur</dt>
     <dd class="compositeur"><?php echo htmlspecialchars($film['compositeur']) ?></dd>
 <?php }
-if (isset($general['commentaire'])) { ?>
-    <dt class="commentaire">Commentaire</dt>
-    <dd class="commentaire"><?php echo str_replace("\n", '<br>', htmlspecialchars($general['commentaire'])) ?></dd>
-<?php }
 if (isset($film['genres'])) { ?>
     <dt class="genres">Genres</dt>
     <dd class="genres"><?php
 	echo htmlspecialchars(ucfirst(str_replace(',', ', ', $film['genres'])));	echo '.';
     ?></dd>
+<?php }
+if (isset($livre['auteur'])) { ?>
+    <dt class="auteur">Auteur</dt>
+    <dd class="auteur"><?php echo htmlspecialchars($livre['auteur']) ?></dd>
+<?php }
+if (isset($livre['genres'])) { ?>
+    <dt class="genres">Genres</dt>
+    <dd class="genres"><?php
+	echo htmlspecialchars(ucfirst(str_replace(',',', ',$livre['genres'])));
+	echo '.';
+    ?></dd>
+<?php }
+if (isset($bd['dessinateur'])) { ?>
+    <dt class="dessinateur">Dessinateur</dt>
+    <dd class="dessinateur"><?php echo htmlspecialchars($bd['dessinateur']) ?></dd>
+<?php }
+if (isset($bd['scenariste'])) { ?>
+    <dt class="scenariste">Scénariste</dt>
+    <dd class="scenariste"><?php echo htmlspecialchars($bd['scenariste']) ?></dd>
+<?php }
+if (isset($bd['serie'])) { ?>
+    <dt class="serie">Série</dt>
+    <dd class="serie"><?php echo htmlspecialchars($bd['serie']) ?></dd>
+<?php }
+if (isset($bd['numero'])) { ?>
+    <dt class="numero">Numéro</dt>
+    <dd class="numero"><?php echo htmlspecialchars($bd['numero']) ?></dd>
+<?php }
+if (isset($general['commentaire'])) { ?>
+    <dt class="commentaire">Commentaire</dt>
+    <dd class="commentaire"><?php echo str_replace("\n", '<br>', htmlspecialchars($general['commentaire'])) ?></dd>
 <?php }
 if (isset($general['proprietaire'])) { ?>
     <dt class="proprietaire">Proprietaire</dt>
