@@ -12,7 +12,7 @@ if (isset($_REQUEST['retour'])
 {
     $retour=$_REQUEST['retour'];
 } else {
-    $retour=null;
+    $retour=$reg_racine;
 }
 
 if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
@@ -22,11 +22,7 @@ if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
     require('includes/formulaire-connexion.php');
 } elseif ($nom=reg_verifier_mdp($_POST['user'], $_POST['pwd'])) {
     reg_session_creer($nom, isset($_POST['rester']));
-    if (!is_null($retour)) {
-	reg_redirection($retour);
-    } else {
-	reg_redirection($reg_racine);
-    }
+    reg_redirection($retour);
 } else {
     require('includes/headers.php');
     ?>
