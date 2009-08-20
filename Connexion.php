@@ -15,6 +15,10 @@ if (isset($_REQUEST['retour'])
     $retour=$reg_racine;
 }
 
+if (reg_session_verifier()) {
+    reg_redirection($retour);
+}
+
 if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
     require('includes/headers.php'); ?>
 <p class="msg">Veuillez vous identifier
