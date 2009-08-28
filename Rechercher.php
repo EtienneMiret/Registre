@@ -169,7 +169,7 @@ foreach ($termes as $i => $k) {
 	    break;
 	case REG_RECH_EDITEUR:
 	    $query .= 'tout.dernier_editeur LIKE "%' .
-		mysql_real_escape_string($k) . '% AND ';
+		mysql_real_escape_string($k) . '%" AND ';
 	    break;
 	case REG_RECH_TOUT:
 	    $query .=  '(tout.type="' . mysql_real_escape_string($k)
