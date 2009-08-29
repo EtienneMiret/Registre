@@ -8,7 +8,7 @@ $reg_titre_page = 'Enregistrement d’une nouvelle référence';
 
 header('Content-Script-Type: application/ecmascript');
 $reg_head[]='<style type="text/css">.genres.livre { display: none; }</style>';
-$reg_head[]='<script type="application/ecmascript" src="enregistrement"></script>';
+$reg_head[]='<script type="application/ecmascript" src="registre"></script>';
 $reg_onload='masquerChampsInutilises(document.getElementById("type").value);';
 
 $titre='';
