@@ -1,0 +1,23 @@
+/* vim: ft=javascript
+ */
+
+function masquerChampsInutilises(type) {
+    /* On récupère le premier (et unique) élément <style> de la page. */
+    style=document.getElementsByTagName("style").item(0);
+
+    /* style.firstChild est le nœud de texte contenue dans l’élément <style>. */
+    switch(type) {
+	case "DVD":
+	case "Cassette":
+	    style.firstChild.data=".livre, .bd { display: none; }";
+	    break;
+	case "Livre":
+	    style.firstChild.data=".film, .bd { display: none; }";
+	    break;
+	case "BD":
+	    style.firstChild.data=".film, .livre { display: none; }";
+	    break;
+	default:
+	    style.firstChild.data=".livre.genres { display: none; }";
+    }
+}
