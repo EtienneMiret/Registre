@@ -33,6 +33,8 @@ if (isset($_GET['proprietaire']) && $_GET['proprietaire'] <> '')
     $q.= ' proprietaire:(' . $_GET['proprietaire'] . ')';
 if (isset($_GET['emplacement']) && $_GET['emplacement'] <> '')
     $q.= ' emplacement:(' . $_GET['emplacement'] . ')';
+if (isset($_GET['type']) && $_GET['type'] <> '')
+    $q.= ' type:(' . $_GET['type'] . ')';
 if (isset($_GET['createur']) && $_GET['createur'] <> '')
     $q.= ' createur:(' . $_GET['createur'] . ')';
 if (isset($_GET['editeur']) && $_GET['editeur'] <> '')
@@ -60,8 +62,9 @@ define('REG_RECH_AUTEUR', 8);
 define('REG_RECH_DESSINATEUR', 9);
 define('REG_RECH_SCENARISTE', 10);
 define('REG_RECH_SERIE', 11);
-define('REG_RECH_CREATEUR', 12);
-define('REG_RECH_EDITEUR', 13);
+define('REG_RECH_TYPE', 1000);
+define('REG_RECH_CREATEUR', 1001);
+define('REG_RECH_EDITEUR', 1002);
 
 unset($cle_sans_parenthese);
 $cle_sans_parenthese[REG_RECH_TITRE]	    = '/^titre:([^\)\s]*)/';
@@ -75,6 +78,7 @@ $cle_sans_parenthese[REG_RECH_AUTEUR]	    = '/^auteur:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_DESSINATEUR]  = '/^dessinateur:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_SCENARISTE]   = '/^scenariste:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_SERIE]	    = '/^serie:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_TYPE]	    = '/^type:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_CREATEUR]	    = '/^createur:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_EDITEUR]	    = '/^editeur:([^\)\s]*)/';
 
@@ -90,6 +94,7 @@ $cle_avec_parenthese[REG_RECH_AUTEUR]	    = '/^auteur:\(/';
 $cle_avec_parenthese[REG_RECH_DESSINATEUR]  = '/^dessinateur:\(/';
 $cle_avec_parenthese[REG_RECH_SCENARISTE]   = '/^scenariste:\(/';
 $cle_avec_parenthese[REG_RECH_SERIE]	    = '/^serie:\(/';
+$cle_avec_parenthese[REG_RECH_TYPE]	    = '/^type:\(/';
 $cle_avec_parenthese[REG_RECH_CREATEUR]	    = '/^createur:\(/';
 $cle_avec_parenthese[REG_RECH_EDITEUR]	    = '/^editeur:\(/';
 
@@ -199,6 +204,10 @@ foreach ($termes as $i => $k) {
 	case REG_RECH_SERIE:
 	    $query .= 'bd.serie LIKE "%' . mysql_real_escape_string($k)
 		. '%" AND ';
+	    break;
+	case REG_RECH_TYPE:
+	    $query .= 'tout.type="' . mysql_real_escape_string($k)
+		. '" AND ';
 	    break;
 	case REG_RECH_CREATEUR:
 	    $query .= 'tout.createur LIKE "%' . mysql_real_escape_string($k)
