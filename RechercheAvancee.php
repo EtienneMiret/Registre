@@ -39,6 +39,7 @@ require('includes/headers.php');
   <li>Emplacement : <input name="emplacement">
   <li>Enregistré par : <input name="createur">
   <li>Dernière modification par : <input name="editeur">
+</ul>
 <p><button>Rechercher</button>
 </form>
 <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
