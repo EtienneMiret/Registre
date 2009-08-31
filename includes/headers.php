@@ -5,6 +5,6 @@
 <?php } else { ?>
 <title><?php echo htmlspecialchars($reg_titre_page); ?> - <?php echo $reg_nom ?></title>
 <?php } ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $reg_racine; ?>main.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $reg_racine; ?>main">
 <body>
 <h1><?php echo htmlspecialchars($reg_titre_page); ?></h1>
