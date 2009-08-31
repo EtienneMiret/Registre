@@ -45,6 +45,20 @@ p.non-commence {
     margin-top: 0;
 }
 
+/* Listes */
+
+ul, ol {
+    margin: 0 0 0 4%;
+    padding: 0 0 0 2em;
+}
+
+li {
+    margin: 0;
+    padding: 0;
+    display: list-item;
+    list-style: disc outside;
+}
+
 /* Résultats de recherche */
 
 p.resultats-recherche {
@@ -116,10 +130,6 @@ form.changer-mdp button {
 
 form.recherche input[name="q"] {
     width: 50%;
-}
-
-form.recherche-avancee ul {
-    margin: 0 0 0 2em;
 }
 
 /* Messages */
