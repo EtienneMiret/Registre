@@ -112,6 +112,10 @@ form.recherche input[name="q"] {
     width: 50%;
 }
 
+form.recherche-avancee ul {
+    margin: 0 0 0 2em;
+}
+
 /* Messages */
 
 em.erreur {
