@@ -1,0 +1,38 @@
+/* vim: ft=javascript
+ */
+
+function viderNoeud(noeud) {
+    while (noeud.hasChildNodes()) {
+	noeud.removeChild(noeud.firstChild);
+    }
+}
+
+function masquerChampsInutilises(type) {
+    /* On récupère le premier (et unique) élément <style> de la page. */
+    style=document.getElementsByTagName("style").item(0);
+
+    /* On supprime son (éventuel) contenu. */
+    viderNoeud(style);
+
+    /* On défini son nouveau contenu. */
+    switch(type) {
+	case "DVD":
+	case "Cassette":
+	    texte=document.createTextNode(".livre, .bd { display: none; }");
+	    break;
+	case "Livre":
+	    texte=document.createTextNode(".film, .bd { display: none; }");
+	    break;
+	case "BD":
+	    texte=document.createTextNode(".film, .livre { display: none; }");
+	    break;
+	case "":
+	    texte=document.createTextNode("");
+	    break;
+	default:
+	    texte=document.createTextNode(".livre.genres { display: none; }");
+    }
+
+    /* On place le nouveau contenu dans la balise <style>. */
+    style.appendChild(texte);
+}

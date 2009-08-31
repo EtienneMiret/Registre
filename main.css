@@ -36,6 +36,9 @@ p {
     padding: 0;
 }
 
+p.non-fini { margin-bottom: 0; }
+p.non-commence { margin-top: 0; }
+
 /* Résultats de recherche */
 
 p.resultats-recherche {
@@ -107,6 +110,10 @@ form.changer-mdp button {
 
 form.recherche input[name="q"] {
     width: 50%;
+}
+
+form.recherche-avancee ul {
+    margin: 0 0 0 2em;
 }
 
 /* Messages */

@@ -16,15 +16,23 @@ $film = mysql_query('SELECT * FROM films WHERE id=' . $id)
     or reg_erreur_mysql();
 $liste_a = mysql_query('SELECT * FROM acteurs WHERE id=' . $id)
     or reg_erreur_mysql();
+$livre = mysql_query('SELECT * FROM livres WHERE id=' . $id)
+    or reg_erreur_mysql();
+$bd = mysql_query('SELECT * FROM bd WHERE id=' . $id)
+    or reg_erreur_mysql();
 
 $general = mysql_fetch_assoc($general);
 $film = mysql_fetch_assoc($film);
+$livre = mysql_fetch_assoc($livre);
+$bd = mysql_fetch_assoc($bd);
 
 $tableau_acteurs=array();
 while($ligne = mysql_fetch_assoc($liste_a)) {
     $tableau_acteurs[]=$ligne['acteur'];
 }
-$tableau_genres=explode(',', $film['genres']);
+$tableau_genres=array();
+if (isset($film['genres'])) $tableau_genres=explode(',', $film['genres']);
+if (isset($livre['genres'])) $tableau_genres=explode(',', $livre['genres']);
 
 $titre=$general['titre'];
 $proprietaire=$general['proprietaire'];
@@ -34,6 +42,12 @@ $commentaire=$general['commentaire'];
 $realisateur=$film['realisateur'];
 $compositeur=$film['compositeur'];
 $acteurs=implode(', ', $tableau_acteurs);
+$auteur=$livre['auteur'];
+$dessinateur=$bd['dessinateur'];
+$scenariste=$bd['scenariste'];
+$serie=$bd['serie'];
+$numero=$bd['numero'];
+
 $g_action=in_array('action',$tableau_genres);
 $g_docu=in_array('documentaire',$tableau_genres);
 $g_fantastique=in_array('fantastique',$tableau_genres);
@@ -49,12 +63,18 @@ $reg_titre_page = 'Modification - ' . $titre;
 
 if (isset($_POST['titre'])) $titre=$_POST['titre'];
 if (isset($_POST['proprietaire'])) $proprietaire=$_POST['proprietaire'];
-if (isset($_POST['type'])) $type=$_POST['type'];
 if (isset($_POST['emplacement'])) $emplacement=$_POST['emplacement'];
 if (isset($_POST['commentaire'])) $commentaire=$_POST['commentaire'];
 if (isset($_POST['realisateur'])) $realisateur=$_POST['realisateur'];
 if (isset($_POST['compositeur'])) $compositeur=$_POST['compositeur'];
 if (isset($_POST['acteurs'])) $acteurs=$_POST['acteurs'];
+if (isset($_POST['auteur'])) $auteur=$_POST['auteur'];
+if (isset($_POST['dessinateur'])) $dessinateur=$_POST['dessinateur'];
+if (isset($_POST['scenariste'])) $scenariste=$_POST['scenariste'];
+if (isset($_POST['serie'])) $serie=$_POST['serie'];
+if (isset($_POST['numero'])) $numero=$_POST['numero'];
+
+if ($type=='BD' && !preg_match('/^\d*$/', $numero)) $numero = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $g_action=isset($_POST['action']);
@@ -72,7 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     require('includes/headers.php');
 } elseif ($titre<>'') {
-    $ok = mysql_query('LOCK TABLES tout WRITE, films WRITE, acteurs WRITE');
+    $ok = mysql_query('LOCK TABLES tout WRITE, films WRITE, acteurs WRITE,' .
+	'livres WRITE, bd WRITE');
     if (!$ok) reg_erreur_mysql();
 
     $ok = mysql_query('UPDATE tout ' .
@@ -84,34 +105,75 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	', derniere_edition=NOW() WHERE id=' . $id);
     if (!$ok) reg_erreur_mysql();
 
-    $genres = '';
-    if ($g_action) $genres .= 'action,';
-    if ($g_docu) $genres .= 'documentaire,';
-    if ($g_fantastique) $genres .= 'fantastique,';
-    if ($g_guerre) $genres .= 'film de guerre,';
-    if ($g_vrai) $genres .= 'histoire vraie,';
-    if ($g_historique) $genres .= 'historique,';
-    if ($g_humour) $genres .= 'humour,';
-    if ($g_policier) $genres .= 'policier,';
-    if ($g_romantique) $genres .= 'romantique,';
-    if ($g_SF) $genres .= 'science-fiction,';
+    switch ($type) {
 
-    $ok = mysql_query('UPDATE films SET realisateur=' .
-	reg_mysql_quote_string($realisateur) .
-	', compositeur=' . reg_mysql_quote_string($compositeur) .
-	', genres=' . reg_mysql_quote_string($genres) .
-	' WHERE id=' . $id);
-    if (!$ok) reg_erreur_mysql();
+	/* Mise à jour d’un film. */
 
-    $acteurs = preg_split("/ *, */", $acteurs, -1, PREG_SPLIT_NO_EMPTY);
-    if (implode(", ", $acteurs) <> implode(", ", $tableau_acteurs)) {
-	$ok = mysql_query('DELETE FROM acteurs WHERE id=' . $id);
-	if (!$ok) reg_erreur_mysql();
-	foreach ($acteurs as $acteur) {
-	    $ok = mysql_query('INSERT INTO acteurs VALUES(' . $id .', "' .
-		mysql_real_escape_string($acteur) .'")');
+	case 'DVD':
+	case 'cassette':
+	    $genres = '';
+	    if ($g_action) $genres .= 'action,';
+	    if ($g_docu) $genres .= 'documentaire,';
+	    if ($g_fantastique) $genres .= 'fantastique,';
+	    if ($g_guerre) $genres .= 'film de guerre,';
+	    if ($g_vrai) $genres .= 'histoire vraie,';
+	    if ($g_historique) $genres .= 'historique,';
+	    if ($g_humour) $genres .= 'humour,';
+	    if ($g_policier) $genres .= 'policier,';
+	    if ($g_romantique) $genres .= 'romantique,';
+	    if ($g_SF) $genres .= 'science-fiction,';
+
+	    $ok = mysql_query('UPDATE films ' .
+		'SET realisateur=' . reg_mysql_quote_string($realisateur) .
+		', compositeur=' . reg_mysql_quote_string($compositeur) .
+		', genres=' . reg_mysql_quote_string($genres) .
+		' WHERE id=' . $id);
 	    if (!$ok) reg_erreur_mysql();
-	}
+
+	    $acteurs = preg_split("/ *, */", $acteurs, -1, PREG_SPLIT_NO_EMPTY);
+	    if (implode(", ", $acteurs) <> implode(", ", $tableau_acteurs)) {
+		$ok = mysql_query('DELETE FROM acteurs WHERE id=' . $id);
+		if (!$ok) reg_erreur_mysql();
+		foreach ($acteurs as $acteur) {
+		    $ok = mysql_query('INSERT INTO acteurs VALUES('.$id.', "' .
+			mysql_real_escape_string($acteur) .'")');
+		    if (!$ok) reg_erreur_mysql();
+		}
+	    }
+	    break;
+
+	/* Mise à jour d’un livre. */
+
+	case 'livre':
+	    $genres = '';
+	    if ($g_fantastique) $genres .= 'fantastique,';
+	    if ($g_vrai) $genres .= 'histoire vraie,';
+	    if ($g_historique) $genres .= 'historique,';
+	    if ($g_humour) $genres .= 'humour,';
+	    if ($g_policier) $genres .= 'policier,';
+	    if ($g_romantique) $genres .= 'romantique,';
+	    if ($g_SF) $genres .= 'science-fiction,';
+
+	    $ok = mysql_query('UPDATE livres ' .
+		'SET auteur=' . reg_mysql_quote_string($auteur) .
+		', genres=' . reg_mysql_quote_string($genres) .
+		' WHERE id=' . $id);
+	    if (!$ok) reg_erreur_mysql();
+	    break;
+
+	/* Mise à jour d’une bande-dessinée. */
+
+	case 'BD':
+	    $ok = mysql_query('UPDATE bd ' .
+		'SET dessinateur=' .  reg_mysql_quote_string($dessinateur) .
+		', scenariste=' . reg_mysql_quote_string($scenariste) .
+		', serie=' . reg_mysql_quote_string($serie) .
+		', numero=' . reg_mysql_quote_string($numero) .
+		' WHERE id=' . $id);
+	    if (!$ok) reg_erreur_mysql();
+	    break;
+
+	default:
     }
 
     $ok = mysql_query('UNLOCK TABLES');
@@ -133,6 +195,11 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	value="<?php echo htmlspecialchars($titre); ?>">
     <dt class="type">Type
     <dd class="type"><?php echo reg_afficher_type($type) . "\n"; ?>
+<?php
+switch($type) {
+    case 'DVD':
+    case 'cassette': /* Films. */
+?>
     <dt class="realisateur">Réalisateur
     <dd class="realisateur"><input name="realisateur" type="text"
 	value="<?php echo htmlspecialchars($realisateur); ?>">
@@ -143,10 +210,6 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     <dt class="compositeur">Compositeur
     <dd class="compositeur"><input name="compositeur" type="text"
 	value="<?php echo htmlspecialchars($compositeur); ?>">
-    <dt class="commentaire">Commentaire
-    <dd class="commentaire"><textarea name="commentaire" rows="4" cols="60"><?php
-	echo htmlspecialchars($commentaire);
-    ?></textarea>
     <dt class="genres">Genres
     <dd class="genres"><ul>
 	<li><input name="action" type="checkbox"<?php
@@ -170,6 +233,55 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	<li><input name="SF" type="checkbox"<?php
 	    if ($g_SF) echo ' checked'; ?>>Science-fiction</li>
     </ul>
+<?php
+	break;
+    case 'livre': /* Livres. */
+?>
+    <dt class="auteur">Auteur
+    <dd class="auteur"><input name="auteur" type="text"
+	value="<?php echo htmlspecialchars($auteur); ?>">
+    <dt class="genres">Genres
+    <dd class="genres"><ul>
+	<li><input name="fantastique" type="checkbox"<?php
+	    if ($g_fantastique) echo ' checked'; ?>>Fantastique</li>
+	<li><input name="vrai" type="checkbox"<?php
+	    if ($g_vrai) echo ' checked'; ?>>Histoire vraie</li>
+	<li><input name="historique" type="checkbox"<?php
+	    if ($g_historique) echo ' checked'; ?>>Historique</li>
+	<li><input name="humour" type="checkbox"<?php
+	    if ($g_humour) echo ' checked'; ?>>Humour</li>
+	<li><input name="policier" type="checkbox"<?php
+	    if ($g_policier) echo ' checked'; ?>>Policier</li>
+	<li><input name="romantique" type="checkbox"<?php
+	    if ($g_romantique) echo ' checked'; ?>>Romantique</li>
+	<li><input name="SF" type="checkbox"<?php
+	    if ($g_SF) echo ' checked'; ?>>Science-fiction</li>
+    </ul>
+<?php
+	break;
+    case 'BD': /* Bandes-dessinées. */
+?>
+    <dt class="dessinateur">Dessinateur
+    <dd class="dessinateur"><input name="dessinateur" type="text"
+	value="<?php echo htmlspecialchars($dessinateur); ?>">
+    <dt class="scenariste">Scénariste
+    <dd class="scenariste"><input name="scenariste" type="text"
+	value="<?php echo htmlspecialchars($scenariste); ?>">
+    <dt class="serie">Série
+    <dd class="serie"><input name="serie" type="text"
+	value="<?php echo htmlspecialchars($serie); ?>">
+    <dt class="numero">Numéro
+    <dd class="numero"><input name="numero" type="text"
+	value="<?php echo htmlspecialchars($numero); ?>">
+<?php
+	break;
+    default:
+}
+?>
+    <dt class="commentaire">Commentaire
+    <dd class="commentaire"><textarea name="commentaire" rows="4" cols="60"><?php
+	echo htmlspecialchars($commentaire);
+    ?></textarea>
     <dt class="proprietaire">Propriétaire
     <dd class="proprietaire"><input name="proprietaire" type="text"
 	value="<?php echo htmlspecialchars($proprietaire); ?>">

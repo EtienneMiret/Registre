@@ -33,10 +33,20 @@ if (isset($_GET['proprietaire']) && $_GET['proprietaire'] <> '')
     $q.= ' proprietaire:(' . $_GET['proprietaire'] . ')';
 if (isset($_GET['emplacement']) && $_GET['emplacement'] <> '')
     $q.= ' emplacement:(' . $_GET['emplacement'] . ')';
+if (isset($_GET['type']) && $_GET['type'] <> '')
+    $q.= ' type:(' . $_GET['type'] . ')';
 if (isset($_GET['createur']) && $_GET['createur'] <> '')
     $q.= ' createur:(' . $_GET['createur'] . ')';
 if (isset($_GET['editeur']) && $_GET['editeur'] <> '')
     $q.= ' editeur:(' . $_GET['editeur'] . ')';
+if (isset($_GET['auteur']) && $_GET['auteur'] <> '')
+    $q.= ' auteur:(' . $_GET['auteur'] . ')';
+if (isset($_GET['dessinateur']) && $_GET['dessinateur'] <> '')
+    $q.= ' dessinateur:(' . $_GET['dessinateur'] . ')';
+if (isset($_GET['scenariste']) && $_GET['scenariste'] <> '')
+    $q.= ' scenariste:(' . $_GET['scenariste'] . ')';
+if (isset($_GET['serie']) && $_GET['serie'] <> '')
+    $q.= ' serie:(' . $_GET['serie'] . ')';
 // Suppression d’éventuelles espaces au début.
 $q = preg_replace('/^\s+/', '', $q);
 
@@ -48,8 +58,13 @@ define('REG_RECH_COMPOSITEUR', 4);
 define('REG_RECH_COMMENTAIRE', 5);
 define('REG_RECH_PROPRIETAIRE', 6);
 define('REG_RECH_EMPLACEMENT', 7);
-define('REG_RECH_CREATEUR', 8);
-define('REG_RECH_EDITEUR', 9);
+define('REG_RECH_AUTEUR', 8);
+define('REG_RECH_DESSINATEUR', 9);
+define('REG_RECH_SCENARISTE', 10);
+define('REG_RECH_SERIE', 11);
+define('REG_RECH_TYPE', 1000);
+define('REG_RECH_CREATEUR', 1001);
+define('REG_RECH_EDITEUR', 1002);
 
 unset($cle_sans_parenthese);
 $cle_sans_parenthese[REG_RECH_TITRE]	    = '/^titre:([^\)\s]*)/';
@@ -59,6 +74,11 @@ $cle_sans_parenthese[REG_RECH_COMPOSITEUR]  = '/^compositeur:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_COMMENTAIRE]  = '/^commentaire:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_PROPRIETAIRE] = '/^proprietaire:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_EMPLACEMENT]  = '/^emplacement:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_AUTEUR]	    = '/^auteur:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_DESSINATEUR]  = '/^dessinateur:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_SCENARISTE]   = '/^scenariste:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_SERIE]	    = '/^serie:([^\)\s]*)/';
+$cle_sans_parenthese[REG_RECH_TYPE]	    = '/^type:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_CREATEUR]	    = '/^createur:([^\)\s]*)/';
 $cle_sans_parenthese[REG_RECH_EDITEUR]	    = '/^editeur:([^\)\s]*)/';
 
@@ -70,6 +90,11 @@ $cle_avec_parenthese[REG_RECH_COMPOSITEUR]  = '/^compositeur:\(/';
 $cle_avec_parenthese[REG_RECH_COMMENTAIRE]  = '/^commentaire:\(/';
 $cle_avec_parenthese[REG_RECH_PROPRIETAIRE] = '/^proprietaire:\(/';
 $cle_avec_parenthese[REG_RECH_EMPLACEMENT]  = '/^emplacement:\(/';
+$cle_avec_parenthese[REG_RECH_AUTEUR]	    = '/^auteur:\(/';
+$cle_avec_parenthese[REG_RECH_DESSINATEUR]  = '/^dessinateur:\(/';
+$cle_avec_parenthese[REG_RECH_SCENARISTE]   = '/^scenariste:\(/';
+$cle_avec_parenthese[REG_RECH_SERIE]	    = '/^serie:\(/';
+$cle_avec_parenthese[REG_RECH_TYPE]	    = '/^type:\(/';
 $cle_avec_parenthese[REG_RECH_CREATEUR]	    = '/^createur:\(/';
 $cle_avec_parenthese[REG_RECH_EDITEUR]	    = '/^editeur:\(/';
 
@@ -131,8 +156,9 @@ while ( $rech <> '') {
 
 /* Construction de la requête MySQL à partir des tableaux $termes et $types. */
 
-$query = 'SELECT id,titre '
-    . 'FROM tout LEFT JOIN acteurs USING(id) JOIN films USING(id) WHERE ';
+$query = 'SELECT id,titre,type '
+    . 'FROM tout LEFT JOIN acteurs USING(id) LEFT JOIN films USING(id) '
+    . 'LEFT JOIN livres USING(id) LEFT JOIN bd USING(id) WHERE ';
 foreach ($termes as $i => $k) {
     switch ($types[$i]) {
 	case REG_RECH_TITRE:
@@ -163,6 +189,26 @@ foreach ($termes as $i => $k) {
 	    $query .= 'tout.commentaire LIKE "%' . mysql_real_escape_string($k)
 		. '%" AND ';
 	    break;
+	case REG_RECH_AUTEUR:
+	    $query .= 'livres.auteur LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_DESSINATEUR:
+	    $query .= 'bd.dessinateur LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_SCENARISTE:
+	    $query .= 'bd.scenariste LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_SERIE:
+	    $query .= 'bd.serie LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
+	    break;
+	case REG_RECH_TYPE:
+	    $query .= 'tout.type="' . mysql_real_escape_string($k)
+		. '" AND ';
+	    break;
 	case REG_RECH_CREATEUR:
 	    $query .= 'tout.createur LIKE "%' . mysql_real_escape_string($k)
 		. '%" AND ';
@@ -180,6 +226,10 @@ foreach ($termes as $i => $k) {
 	    . '%" OR tout.proprietaire LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR tout.emplacement LIKE "%' . mysql_real_escape_string($k) 
 	    . '%" OR tout.commentaire LIKE "%' . mysql_real_escape_string($k)
+	    . '%" OR livres.auteur LIKE "%' . mysql_real_escape_string($k)
+	    . '%" OR bd.dessinateur LIKE "%' . mysql_real_escape_string($k)
+	    . '%" OR bd.scenariste LIKE "%' . mysql_real_escape_string($k)
+	    . '%" OR bd.serie LIKE "%' . mysql_real_escape_string($k)
 	    . '%") AND ';
 	    break;
 	default:
@@ -213,6 +263,7 @@ if (!$ligne) { ?>
     do {
 	echo '  <tr><td><a href="'. $reg_racine . 'Fiche/'. $ligne['id'] .'">';
 	echo htmlspecialchars($ligne['titre']) . "</a>\n";
+	echo '    <td>' . reg_afficher_type($ligne['type']) . PHP_EOL;
     } while($ligne = mysql_fetch_assoc($res));
     echo "</table>\n";
 } ?>

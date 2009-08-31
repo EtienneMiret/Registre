@@ -15,7 +15,7 @@ if ($user) {
     <p class="navigation">Liste de
 	<a href="Rechercher?q=">tous les films</a> référencés.
     <p class="navigation"><a href="RechercheAvancee">Recherche avancée</a>.
-    <p class="navigation"><a href="Enregistrer">Référencer un nouveau film</a>.
+    <p class="navigation"><a href="Enregistrer">Ajouter une référence</a>.
     <p class="navigation"><a href="ChangerMdp">Changer son mot de passe</a>.
     <p class="navigation"><a href="Deconnexion">Déconnexion</a>.
     <?php
