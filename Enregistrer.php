@@ -147,16 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     }
 
     $titre='';
-    $proprietaire='';
-    $emplacement='';
-    $commentaire='';
-    $realisateur='';
-    $compositeur='';
-    $acteurs='';
-    $auteur='';
-    $dessinateur='';
-    $scenariste='';
-    $serie='';
     $numero='';
 
     $g_action=FALSE;
