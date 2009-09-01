@@ -26,6 +26,8 @@ $film = mysql_fetch_assoc($film);
 $livre = mysql_fetch_assoc($livre);
 $bd = mysql_fetch_assoc($bd);
 
+if (!$general) reg_redirection_accueil();
+
 $tableau_acteurs=array();
 while($ligne = mysql_fetch_assoc($liste_a)) {
     $tableau_acteurs[]=$ligne['acteur'];
