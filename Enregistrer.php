@@ -171,8 +171,16 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     $g_SF=FALSE;
 
     require('includes/headers.php');
-    ?><p class="msg ok">Votre <?php echo $type;?> a été référencé sous
-le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
+    ?><p class="msg ok">Votre <?php echo reg_type_dans_phrase($type);?> a été
+<?php if (is_null(reg_type_masculin($type))) { // genre de $type inconnu
+    echo 'référencé(e) ';
+} elseif (reg_type_masculin($type)) { // $type est masculin
+    echo 'référencé ';
+} else { // $type est féminin
+    echo 'référencée ';
+}
+?>
+sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 <?php } else {
     require('includes/headers.php');
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>

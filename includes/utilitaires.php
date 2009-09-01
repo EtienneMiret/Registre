@@ -171,3 +171,42 @@ function reg_mysql_quote_string($string) {
 function reg_afficher_type($string) {
     return htmlspecialchars(ucfirst($string));
 }
+
+/* Formate un type pour l’afficher dans une phrase.
+ */
+function reg_type_dans_phrase($type) {
+    switch ($type) {
+	case 'Cassette':
+	    return 'cassette';
+	case 'Livre':
+	    return 'livre';
+	case 'BD':
+	case 'bd':
+	    return 'bande-dessinée';
+	default:
+	    return htmlspecialchars($type);
+    }
+}
+
+/* Indique le genre d’un type.
+ * Renvoie :
+ *  - TRUE si masculin,
+ *  - FALSE si feminin,
+ *  - null si inconnu.
+ */
+function reg_type_masculin($type) {
+    switch ($type) {
+	case 'DVD':
+	case 'dvd':
+	case 'Livre':
+	case 'livre':
+	    return TRUE;
+	case 'Cassette':
+	case 'cassette':
+	case 'BD':
+	case 'bd':
+	    return FALSE;
+	default:
+	    return null;
+    }
+}
