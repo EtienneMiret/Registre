@@ -72,27 +72,35 @@ table.resultats-recherche {
 
 /* Fiche, enregistrement et edition */
 
-dl {
+dl.fiche, dl.editer, dl.enregistrer {
     margin: 2em 10%;
 }
 
-dt {
+dl.fiche dt,
+dl.editer dt,
+dl.enregistrer dt {
     font-weight: bolder;
     margin: 1em 0 0 0;
     padding: 0;
 }
 
-dd {
+dl.fiche dd,
+dl.editer dd,
+dl.enregistrer dd {
     margin: 0 0 1em 6%;
     padding: 0;
 }
 
-dd ul {
+dl.fiche dd ul,
+dl.editer dd ul,
+dl.enregistrer dd ul {
     margin: 0;
     padding: 0;
 }
 
-dd ul li {
+dl.fiche dd ul li,
+dl.editer dd ul li,
+dl.enregistrer dd ul li {
     margin: 0;
     padding: 0;
     display: list-item;
