@@ -74,6 +74,7 @@ table.resultats-recherche {
 
 dl.fiche, dl.editer, dl.enregistrer {
     margin: 2em 10%;
+    padding: 0;
 }
 
 dl.fiche dt,
