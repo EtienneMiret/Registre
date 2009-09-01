@@ -14,6 +14,7 @@ $reg_onload='masquerChampsInutilises(document.getElementById("type").value);';
 require('includes/headers.php');
 ?>
 <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
+<p class="navigation"><a href="Aide#Recherche">Aide</a>.
 <form action="Rechercher" class="recherche-avancee">
 <p class="non-fini">Rechercher <select name="type" id="type"
     onchange="masquerChampsInutilises(this.value);">

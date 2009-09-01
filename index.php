@@ -17,6 +17,7 @@ if ($user) {
     <p class="navigation"><a href="RechercheAvancee">Recherche avancée</a>.
     <p class="navigation"><a href="Enregistrer">Ajouter une référence</a>.
     <p class="navigation"><a href="ChangerMdp">Changer son mot de passe</a>.
+    <p class="navigation"><a href="Aide">Aide</a>.
     <p class="navigation"><a href="Deconnexion">Déconnexion</a>.
     <?php
 } else {

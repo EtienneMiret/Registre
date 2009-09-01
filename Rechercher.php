@@ -247,6 +247,7 @@ if (!$res) reg_erreur_mysql();
 require('includes/headers.php');
 ?>
 <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
+<p class="navigation"><a href="Aide#Recherche">Aide</a>.
 <?php
 require('includes/formulaire-recherche.php');
 
