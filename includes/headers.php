@@ -6,14 +6,10 @@
 <title><?php echo htmlspecialchars($reg_titre_page); ?> - <?php echo $reg_nom ?></title>
 <?php } ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $reg_racine; ?>main">
-<?php
-if (isset($reg_head)) {
-    foreach($reg_head as $balise) {
-	echo $balise . PHP_EOL;
-    }
-}
-?>
-<body<?php if (isset($reg_onload)) {
+<?php foreach($reg_head as $balise) {
+    echo $balise . PHP_EOL;
+} ?>
+<body<?php if ($reg_onload) {
     echo ' onload="' . htmlspecialchars($reg_onload) . '"';
 } ?>>
 <h1><?php echo htmlspecialchars($reg_titre_page); ?></h1>
