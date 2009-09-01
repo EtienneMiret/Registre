@@ -1,5 +1,12 @@
 <form action="Connexion" method="post" class="connexion">
-<p>Nom : <input type="text" name="user">
+<p>Nom : <input type="text" name="user"<?php
+/* On tente de préremplir le nom d’utilisateur. */
+if (isset($_POST['user'])) {
+    echo ' value="' . htmlspecialchars($_POST['user']) . '"';
+} elseif (isset($_COOKIE['UtilisateurRegistre'])) {
+    echo ' value="' . htmlspecialchars($_COOKIE['UtilisateurRegistre']) . '"';
+}
+?>>
 <p>Mot de passe : <input type="password" name="pwd">
 <p><input type="checkbox" name="rester"<?php
 /* Si le formulaire vient d’être soumis, on récupère l’état de la case
@@ -7,7 +14,7 @@
 if (isset($_POST['user'])) {
     if (isset($_POST['rester'])) echo ' checked="yes"';
 } else {
-    if (isset($_COOKIE['ResterRegistre'])) echo ' checked="yes"';
+    if (isset($_COOKIE['UtilisateurRegistre'])) echo ' checked="yes"';
 }
 ?>>Rester connecté après la fermeture de mon
     navigateur.

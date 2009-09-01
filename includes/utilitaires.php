@@ -80,11 +80,11 @@ function reg_session_creer($nom, $persistante) {
 	$expiration_1 = time() + 86400 * 14;
 	$expiration_2 = time() + 86400 * 28;
 	setcookie('SessionRegistre', $id_session, $expiration_1, $reg_racine);
-	setcookie('ResterRegistre', 'oui', $expiration_2, $reg_racine);
+	setcookie('UtilisateurRegistre', $nom, $expiration_2, $reg_racine);
 	$expiration = date('Y-m-d H:i:s', $expiration_1);
     } else {
 	setcookie('SessionRegistre', $id_session, 0, $reg_racine);
-	setcookie('ResterRegistre', '');
+	setcookie('UtilisateurRegistre', '');
 	$expiration = date('Y-m-d H:i:s', time() + 7200);
     }
     $ok = mysql_query('INSERT INTO sessions VALUES("'
@@ -135,7 +135,7 @@ function reg_session_fermer() {
 	    . mysql_real_escape_string($_COOKIE['SessionRegistre']) . '"');
 	if (!$ok) reg_erreur_mysql();
 	setcookie('SessionRegistre', '', 0, $reg_racine);
-	setcookie('ResterRegistre', '');
+	setcookie('UtilisateurRegistre', '');
     }
 }
 
