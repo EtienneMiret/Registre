@@ -29,16 +29,16 @@ require('includes/headers.php');
 <ul>
   <li>N’importe quel champ contient : <input name="q">
   <li>Titre : <input name="titre">
-  <li class="film">Réalisateur : <input name="realisateur">
-  <li class="film">Acteurs : <input name="acteur">
-  <li class="film">Compositeur : <input name="compositeur">
+  <li class="film">Réalisateur : <input name="realisateur">
+  <li class="film">Acteurs : <input name="acteur">
+  <li class="film">Compositeur : <input name="compositeur">
   <li class="livre">Auteur : <input name="auteur">
   <li class="bd">Dessinateur : <input name="dessinateur">
   <li class="bd">Scénariste : <input name="scenariste">
   <li class="bd">Série : <input name="serie">
-  <li>Commentaire : <input name="commentaire">
-  <li>Proprietaire : <input name="proprietaire">
-  <li>Emplacement : <input name="emplacement">
+  <li>Commentaire : <input name="commentaire">
+  <li>Proprietaire : <input name="proprietaire">
+  <li>Emplacement : <input name="emplacement">
   <li>Enregistré par : <input name="createur">
   <li>Dernière modification par : <input name="editeur">
 </ul>
