@@ -14,7 +14,7 @@ if ($user) {
     require('includes/formulaire-recherche.php');
     ?>
     <p class="navigation">Liste de
-	<a href="Rechercher?q=">tous les films</a> référencés.
+	<a href="Rechercher?q=">toutes les références</a>.
     <p class="navigation"><a href="RechercheAvancee">Recherche avancée</a>.
     <p class="navigation"><a href="Enregistrer">Ajouter une référence</a>.
     <p class="navigation"><a href="ChangerMdp">Changer son mot de passe</a>.
