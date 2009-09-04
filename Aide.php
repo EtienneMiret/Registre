@@ -67,6 +67,10 @@ type de fiche que vous éditez.
 Seuls les champs <em class="nom-champ">titre</em> et
 <em class="nom-champ">type</em> sont obligatoires.
 
+<p>L’<em class="nom-champ">emplacement</em> est le lieu de rangement de la
+référence. Il faut penser à le mettre à jour quand on décide de déplacer des
+livres ou des bandes-dessinées.
+
 <p class="non-fini">Pour les films et les livres, on peut indiquer un ou
 plusieurs genres.
 Les genres existants sont :
