@@ -51,7 +51,8 @@ if (isset($_POST['scenariste'])) $scenariste=$_POST['scenariste'];
 if (isset($_POST['serie'])) $serie=$_POST['serie'];
 if (isset($_POST['numero'])) $numero=$_POST['numero'];
 
-if (!in_array($type, array('DVD', 'Cassette', 'Livre', 'BD'))) $type='DVD';
+if (!in_array($type, array('Disque Blu-ray', 'DVD', 'Cassette', 'Livre', 'BD')))
+    $type='DVD';
 if ($type=='BD' && !preg_match('/^\d*$/', $numero)) $numero='';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -86,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 
 	/* Enregistrement d’un film. */
 
+	case 'Disque Blu-ray':
 	case 'DVD':
 	case 'Cassette':
 	    $genres = '';
@@ -187,6 +189,8 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
     <dt class="type">Type
     <dd class="type"><select name="type" id="type"
 	onchange="masquerChampsInutilises(this.value)">
+	<option<?php if($type=='Disque Blu-ray') echo ' selected';?>
+	    >Disque Blu-ray</option>
 	<option<?php if($type=='DVD') echo ' selected';?>>DVD</option>
 	<option<?php if($type=='Cassette') echo ' selected';?>>Cassette</option>
 	<option<?php if($type=='Livre') echo ' selected';?>>Livre</option>

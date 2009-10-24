@@ -196,6 +196,8 @@ function reg_type_dans_phrase($type) {
  */
 function reg_type_masculin($type) {
     switch ($type) {
+	case 'Disque Blu-ray':
+	case 'disque Blu-ray':
 	case 'DVD':
 	case 'dvd':
 	case 'Livre':

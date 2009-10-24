@@ -23,6 +23,8 @@ $tables = mysql_query('SHOW TABLES;')
     or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
 $films = mysql_query('DESCRIBE films;')
     or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
+$tout = mysql_query('DESCRIBE tout;')
+    or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
 
 /* Mise à jour de la base de données. */
 
@@ -86,4 +88,21 @@ if ($ligne) {
 	    '"science-fiction")) DEFAULT CHARACTER SET utf8;')
 	or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
     echo ' ajouté.' . PHP_EOL;
+}
+
+/* Ajout des disques Blu-ray. */
+mysql_data_seek($tout, 0);
+echo 'Prise en charge des Blu-ray...';
+while ($ligne=mysql_fetch_assoc($tout)) {
+    if ($ligne['Field'] == 'type') break;
+}
+if (is_null($ligne))
+    die('Erreur : pas de champ \'type\' dans la table \'tout\' !' . PHP_EOL);
+if (strpos($ligne['Type'], 'disque Blu-ray')!==FALSE) {
+    echo ' ok.' . PHP_EOL;
+} else {
+    mysql_query('ALTER TABLE tout CHANGE type ' .
+	    'type ENUM("disque Blu-ray","DVD","cassette","livre","BD");')
+	or die ('Erreur MysQL : ' . mysql_error() . PHP_EOL);
+    echo ' ajoutée.' . PHP_EOL;
 }

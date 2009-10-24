@@ -20,6 +20,7 @@ require('includes/headers.php');
 <p class="non-fini">Rechercher <select name="type" id="type"
     onchange="masquerChampsInutilises(this.value);">
   <option value="" selected>toutes les références</option>
+  <option value="Disque Blu-ray">les disques Blu-ray</option>
   <option value="DVD">les DVD</option>
   <option value="Cassette">les cassettes</option>
   <option value="Livre">les livres</option>

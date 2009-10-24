@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 
 	/* Mise à jour d’un film. */
 
+	case 'disque Blu-ray':
 	case 'DVD':
 	case 'cassette':
 	    $genres = '';
@@ -201,6 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     <dd class="type"><?php echo reg_afficher_type($type) . "\n"; ?>
 <?php
 switch($type) {
+    case 'disque Blu-ray':
     case 'DVD':
     case 'cassette': /* Films. */
 ?>

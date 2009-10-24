@@ -7,7 +7,7 @@ CREATE TABLE `tout` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `titre` varchar(80) NOT NULL,
   `proprietaire` varchar(20) default NULL,
-  `type` enum('DVD','cassette','livre','BD') NOT NULL,
+  `type` enum('disque Blu-ray', 'DVD','cassette','livre','BD') NOT NULL,
   `emplacement` varchar(80) default NULL,
   `commentaire` text,
   `createur` varchar(20) default NULL,
