@@ -176,6 +176,8 @@ function reg_afficher_type($string) {
  */
 function reg_type_dans_phrase($type) {
     switch ($type) {
+	case 'Disque Blu-ray':
+	    return 'disque Blu-ray';
 	case 'Cassette':
 	    return 'cassette';
 	case 'Livre':
