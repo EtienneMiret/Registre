@@ -207,8 +207,8 @@ foreach ($termes as $i => $k) {
 		. '%" AND ';
 	    break;
 	case REG_RECH_TYPE:
-	    $query .= 'tout.type="' . mysql_real_escape_string($k)
-		. '" AND ';
+	    $query .= 'tout.type LIKE "%' . mysql_real_escape_string($k)
+		. '%" AND ';
 	    break;
 	case REG_RECH_CREATEUR:
 	    $query .= 'tout.createur LIKE "%' . mysql_real_escape_string($k)
@@ -219,8 +219,8 @@ foreach ($termes as $i => $k) {
 		mysql_real_escape_string($k) . '%" AND ';
 	    break;
 	case REG_RECH_TOUT:
-	    $query .=  '(tout.type="' . mysql_real_escape_string($k)
-	    .  '" OR tout.titre LIKE "%' . mysql_real_escape_string($k)
+	    $query .=  '(tout.type LIKE "%' . mysql_real_escape_string($k)
+	    . '%" OR tout.titre LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR films.realisateur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR acteurs.acteur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR films.compositeur LIKE "%' . mysql_real_escape_string($k)
