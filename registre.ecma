@@ -16,6 +16,7 @@ function masquerChampsInutilises(type) {
 
     /* On défini son nouveau contenu. */
     switch(type) {
+	case "Disque Blu-ray":
 	case "DVD":
 	case "Cassette":
 	    texte=document.createTextNode(".livre, .bd { display: none; }");
