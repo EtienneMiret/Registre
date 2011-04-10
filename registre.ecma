@@ -47,3 +47,13 @@ function ajouterActeurAvant(ref) {
     ref.parentNode.insertBefore(li, ref);
     nombreLignesActeurs++;
 }
+
+function ajouterBouton(liste) {
+    bouton=document.createElement("input");
+    bouton.type="button";
+    bouton.value="+";
+    bouton.setAttribute("onclick", "ajouterActeurAvant(this.parentNode);");
+    li=document.createElement("li");
+    li.appendChild(bouton);
+    liste.appendChild(li);
+}

@@ -9,6 +9,10 @@ define("LIGNES_ACTEURS_VIDES", 2);
 
 $user = reg_authentifier();
 
+header('Content-Script-Type: application/ecmascript');
+$reg_head[]='<script type="application/ecmascript" src="'.$reg_racine.'registre"></script>';
+$reg_onload='ajouterBouton(document.getElementById("liste-acteurs"));';
+
 $id = 0;
 if (isset($_GET['id'])) $id = (int) $_GET['id'];
 
@@ -78,16 +82,16 @@ if (isset($_POST['dessinateur'])) $dessinateur=$_POST['dessinateur'];
 if (isset($_POST['scenariste'])) $scenariste=$_POST['scenariste'];
 if (isset($_POST['serie'])) $serie=$_POST['serie'];
 if (isset($_POST['numero'])) $numero=$_POST['numero'];
-if (isset($_POST['acteur0'])) {
-    $acteurs = array();
-    for ($i=0; isset($_POST['acteur'.$i]); $i++)
-	$acteurs[$i]=$_POST['acteur'.$i];
-}
+if (isset($_POST['acteur0'])) $acteurs = array();
+for ($i=0; isset($_POST['acteur'.$i]); $i++) $acteurs[$i]=$_POST['acteur'.$i];
 
 /* Ajout des lignes vides à la fin de la liste d’acteurs. */
 for ($i=0; $i < LIGNES_ACTEURS_VIDES; $i++) {
     $acteurs[] = '';
 }
+
+$reg_head[]='<script type="application/ecmascript">nombreLignesActeurs=' .
+    count($acteurs) . '</script>';
 
 if ($type=='BD' && !preg_match('/^\d*$/', $numero)) $numero = '';
 
@@ -223,7 +227,7 @@ switch($type) {
     <dd class="realisateur"><input name="realisateur" type="text"
 	value="<?php echo htmlspecialchars($realisateur); ?>">
     <dt class="acteurs">Acteurs
-    <dd class="acteurs"><ul>
+    <dd class="acteurs"><ul id="liste-acteurs">
 <?php foreach($acteurs as $i => $a) { ?>
 	<li><input name="acteur<?php echo $i; ?>" type="text"
 	    value="<?php echo htmlspecialchars($a); ?>">

@@ -13,7 +13,8 @@ $reg_titre_page = 'Enregistrement d’une nouvelle référence';
 header('Content-Script-Type: application/ecmascript');
 $reg_head[]='<style type="text/css">.genres.livre { display: none; }</style>';
 $reg_head[]='<script type="application/ecmascript" src="registre"></script>';
-$reg_onload='masquerChampsInutilises(document.getElementById("type").value);';
+$reg_onload='masquerChampsInutilises(document.getElementById("type").value); '
+    . 'ajouterBouton(document.getElementById("liste-acteurs"));';
 
 $titre='';
 $proprietaire='';
@@ -63,6 +64,9 @@ if (isset($_POST['acteur0'])) {
 if (!in_array($type, array('Disque Blu-ray', 'DVD', 'Cassette', 'Livre', 'BD')))
     $type='DVD';
 if ($type=='BD' && !preg_match('/^\d*$/', $numero)) $numero='';
+
+$reg_head[]='<script type="application/ecmascript">nombreLignesActeurs='
+    . count($acteurs) . '</script>';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $g_action=isset($_POST['action']);
@@ -210,7 +214,7 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
     <dd class="film realisateur"><input name="realisateur" type="text"
 	value="<?php echo htmlspecialchars($realisateur); ?>">
     <dt class="film acteurs">Acteurs
-    <dd class="film acteurs"><ul>
+    <dd class="film acteurs"><ul id="liste-acteurs">
 <?php foreach($acteurs as $i => $a) { ?>
 	<li><input name="acteur<?php echo $i; ?>" type="text"
 	    value="<?php echo htmlspecialchars($a); ?>">
