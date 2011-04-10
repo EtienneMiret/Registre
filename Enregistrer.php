@@ -4,6 +4,9 @@ require('includes/initialiser.php');
 require('includes/utilitaires.php');
 require('includes/connexion_bd.php');
 
+/* Nombre de lignes par défaut pour enregistrer des acteurs. */
+define("NOMBRE_LIGNES_ACTEURS", 3);
+
 $user = reg_authentifier();
 $reg_titre_page = 'Enregistrement d’une nouvelle référence';
 
@@ -19,12 +22,14 @@ $emplacement='';
 $commentaire='';
 $realisateur='';
 $compositeur='';
-$acteurs='';
+$acteurs=array();
 $auteur='';
 $dessinateur='';
 $scenariste='';
 $serie='';
 $numero='';
+
+for ($i=0; $i < NOMBRE_LIGNES_ACTEURS; $i++) $acteurs[]='';
 
 $g_action=FALSE;
 $g_docu=FALSE;
@@ -44,12 +49,16 @@ if (isset($_POST['emplacement'])) $emplacement=$_POST['emplacement'];
 if (isset($_POST['commentaire'])) $commentaire=$_POST['commentaire'];
 if (isset($_POST['realisateur'])) $realisateur=$_POST['realisateur'];
 if (isset($_POST['compositeur'])) $compositeur=$_POST['compositeur'];
-if (isset($_POST['acteurs'])) $acteurs=$_POST['acteurs'];
 if (isset($_POST['auteur'])) $auteur=$_POST['auteur'];
 if (isset($_POST['dessinateur'])) $dessinateur=$_POST['dessinateur'];
 if (isset($_POST['scenariste'])) $scenariste=$_POST['scenariste'];
 if (isset($_POST['serie'])) $serie=$_POST['serie'];
 if (isset($_POST['numero'])) $numero=$_POST['numero'];
+if (isset($_POST['acteur0'])) {
+    $acteurs=array();
+    for ($i=0; isset($_POST['acteur'.$i]); $i++)
+	$acteurs[$i]=$_POST['acteur'.$i];
+}
 
 if (!in_array($type, array('Disque Blu-ray', 'DVD', 'Cassette', 'Livre', 'BD')))
     $type='DVD';
@@ -108,11 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 		. reg_mysql_quote_string($genres) . ')');
 	    if (!$ok) reg_erreur_mysql();
 
-	    $acteurs = preg_split("/ *, */", $acteurs, -1, PREG_SPLIT_NO_EMPTY);
 	    foreach ($acteurs as $acteur) {
-		$ok = mysql_query('INSERT INTO acteurs VALUES(' . $id .', "'
-		    . mysql_real_escape_string($acteur) .'")');
-		if (!$ok) reg_erreur_mysql();
+		if ($acteur <> '') {
+		    $ok = mysql_query('INSERT INTO acteurs VALUES(' . $id .', "'
+			. mysql_real_escape_string($acteur) .'")');
+		    if (!$ok) reg_erreur_mysql();
+		}
 	    }
 	    break;
 
@@ -189,8 +199,8 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
     <dt class="type">Type
     <dd class="type"><select name="type" id="type"
 	onchange="masquerChampsInutilises(this.value)">
-	<option<?php if($type=='Disque Blu-ray') echo ' selected';?>
-	    >Disque Blu-ray</option>
+	<option<?php if($type=='Disque Blu-ray') echo ' selected';
+	    ?>>Disque Blu-ray</option>
 	<option<?php if($type=='DVD') echo ' selected';?>>DVD</option>
 	<option<?php if($type=='Cassette') echo ' selected';?>>Cassette</option>
 	<option<?php if($type=='Livre') echo ' selected';?>>Livre</option>
@@ -200,8 +210,12 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
     <dd class="film realisateur"><input name="realisateur" type="text"
 	value="<?php echo htmlspecialchars($realisateur); ?>">
     <dt class="film acteurs">Acteurs
-    <dd class="film acteurs">Veuillez indiquez la liste des acteurs, séparés par des virgules :<br>
-	<input name="acteurs" type="text">
+    <dd class="film acteurs"><ul>
+<?php foreach($acteurs as $i => $a) { ?>
+	<li><input name="acteur<?php echo $i; ?>" type="text"
+	    value="<?php echo htmlspecialchars($a); ?>">
+<?php } ?>
+    </ul>
     <dt class="film compositeur">Compositeur
     <dd class="film compositeur"><input name="compositeur" type="text"
 	value="<?php echo htmlspecialchars($compositeur); ?>">

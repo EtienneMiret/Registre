@@ -4,6 +4,9 @@ require('includes/initialiser.php');
 require('includes/utilitaires.php');
 require('includes/connexion_bd.php');
 
+/* Nombre de lignes vides à la fin de la liste des acteurs. */
+define("LIGNES_ACTEURS_VIDES", 2);
+
 $user = reg_authentifier();
 
 $id = 0;
@@ -29,9 +32,9 @@ $bd = mysql_fetch_assoc($bd);
 
 if (!$general) reg_redirection_accueil();
 
-$tableau_acteurs=array();
+$acteurs_origine=array();
 while($ligne = mysql_fetch_assoc($liste_a)) {
-    $tableau_acteurs[]=$ligne['acteur'];
+    $acteurs_origine[]=$ligne['acteur'];
 }
 $tableau_genres=array();
 if (isset($film['genres'])) $tableau_genres=explode(',', $film['genres']);
@@ -44,7 +47,7 @@ $emplacement=$general['emplacement'];
 $commentaire=$general['commentaire'];
 $realisateur=$film['realisateur'];
 $compositeur=$film['compositeur'];
-$acteurs=implode(', ', $tableau_acteurs);
+$acteurs=$acteurs_origine;
 $auteur=$livre['auteur'];
 $dessinateur=$bd['dessinateur'];
 $scenariste=$bd['scenariste'];
@@ -70,12 +73,21 @@ if (isset($_POST['emplacement'])) $emplacement=$_POST['emplacement'];
 if (isset($_POST['commentaire'])) $commentaire=$_POST['commentaire'];
 if (isset($_POST['realisateur'])) $realisateur=$_POST['realisateur'];
 if (isset($_POST['compositeur'])) $compositeur=$_POST['compositeur'];
-if (isset($_POST['acteurs'])) $acteurs=$_POST['acteurs'];
 if (isset($_POST['auteur'])) $auteur=$_POST['auteur'];
 if (isset($_POST['dessinateur'])) $dessinateur=$_POST['dessinateur'];
 if (isset($_POST['scenariste'])) $scenariste=$_POST['scenariste'];
 if (isset($_POST['serie'])) $serie=$_POST['serie'];
 if (isset($_POST['numero'])) $numero=$_POST['numero'];
+if (isset($_POST['acteur0'])) {
+    $acteurs = array();
+    for ($i=0; isset($_POST['acteur'.$i]); $i++)
+	$acteurs[$i]=$_POST['acteur'.$i];
+}
+
+/* Ajout des lignes vides à la fin de la liste d’acteurs. */
+for ($i=0; $i < LIGNES_ACTEURS_VIDES; $i++) {
+    $acteurs[] = '';
+}
 
 if ($type=='BD' && !preg_match('/^\d*$/', $numero)) $numero = '';
 
@@ -134,14 +146,15 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 		' WHERE id=' . $id);
 	    if (!$ok) reg_erreur_mysql();
 
-	    $acteurs = preg_split("/ *, */", $acteurs, -1, PREG_SPLIT_NO_EMPTY);
-	    if (implode(", ", $acteurs) <> implode(", ", $tableau_acteurs)) {
+	    if ($acteurs <> $acteurs_origine) {
 		$ok = mysql_query('DELETE FROM acteurs WHERE id=' . $id);
 		if (!$ok) reg_erreur_mysql();
 		foreach ($acteurs as $acteur) {
-		    $ok = mysql_query('INSERT INTO acteurs VALUES('.$id.', "' .
-			mysql_real_escape_string($acteur) .'")');
-		    if (!$ok) reg_erreur_mysql();
+		    if($acteur <> '') {
+			$ok = mysql_query('INSERT INTO acteurs VALUES(' . $id .
+			    ', "' . mysql_real_escape_string($acteur) .'")');
+			if (!$ok) reg_erreur_mysql();
+		    }
 		}
 	    }
 	    break;
@@ -210,9 +223,12 @@ switch($type) {
     <dd class="realisateur"><input name="realisateur" type="text"
 	value="<?php echo htmlspecialchars($realisateur); ?>">
     <dt class="acteurs">Acteurs
-    <dd class="acteurs">Veuillez indiquez la liste des acteurs, séparés par des virgules :<br>
-	<input name="acteurs" type="text"
-	value="<?php echo htmlspecialchars($acteurs); ?>">
+    <dd class="acteurs"><ul>
+<?php foreach($acteurs as $i => $a) { ?>
+	<li><input name="acteur<?php echo $i; ?>" type="text"
+	    value="<?php echo htmlspecialchars($a); ?>">
+<?php } ?>
+    </ul>
     <dt class="compositeur">Compositeur
     <dd class="compositeur"><input name="compositeur" type="text"
 	value="<?php echo htmlspecialchars($compositeur); ?>">
