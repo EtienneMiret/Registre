@@ -120,7 +120,7 @@ dl.enregistrer dd ul li {
     margin: 0;
     padding: 0;
     display: list-item;
-    list-style: disc inside;
+    list-style: disc outside;
 }
 
 dl.fiche dd.titre {
