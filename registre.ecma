@@ -37,3 +37,13 @@ function masquerChampsInutilises(type) {
     /* On place le nouveau contenu dans la balise <style>. */
     style.appendChild(texte);
 }
+
+function ajouterActeurAvant(ref) {
+    i++;
+    input=document.createElement("input");
+    input.name="acteur"+i;
+    input.type="text";
+    li=document.createElement("li");
+    li.appendChild(input);
+    ref.parentNode.insertBefore(li, ref);
+}
