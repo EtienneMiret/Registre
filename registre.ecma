@@ -39,11 +39,11 @@ function masquerChampsInutilises(type) {
 }
 
 function ajouterActeurAvant(ref) {
-    i++;
     input=document.createElement("input");
-    input.name="acteur"+i;
+    input.name="acteur"+nombreLignesActeurs;
     input.type="text";
     li=document.createElement("li");
     li.appendChild(input);
     ref.parentNode.insertBefore(li, ref);
+    nombreLignesActeurs++;
 }
