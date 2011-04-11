@@ -155,10 +155,25 @@ while ( $rech <> '') {
 
 }
 
+/* Recherche des acteurs et constructions du tableau $films_acteur. */
+
+$films_acteur=Array();
+foreach ($termes as $i => $k) {
+    $films_acteur[$i]=Array();
+    if ($type[$i]==REG_RECH_TOUT || $type[$i]=REG_RECH_ACTEUR) {
+	$res = mysql_query('SELECT id FROM acteurs WHERE acteur LIKE "%' .
+	    mysql_real_escape_string($k) . '%" GROUP BY id');
+	if (!$res) reg_erreur_mysql();
+	while ($ligne=mysql_fetch_assoc($res)) {
+	    $films_acteur[$i][]=$ligne['id'];
+	}
+    }
+}
+
 /* Construction de la requête MySQL à partir des tableaux $termes et $types. */
 
 $query = 'SELECT id,titre,type '
-    . 'FROM tout LEFT JOIN acteurs USING(id) LEFT JOIN films USING(id) '
+    . 'FROM tout LEFT JOIN films USING(id) '
     . 'LEFT JOIN livres USING(id) LEFT JOIN bd USING(id) WHERE ';
 foreach ($termes as $i => $k) {
     switch ($types[$i]) {
@@ -171,8 +186,11 @@ foreach ($termes as $i => $k) {
 		. '%" AND ';
 	    break;
 	case REG_RECH_ACTEUR:
-	    $query .= 'acteurs.acteur LIKE "%' . mysql_real_escape_string($k)
-		. '%" AND ';
+	    $query .= '(';
+	    foreach ($films_acteur[$i] as $id) {
+		$query .= 'id=' . $id . ' OR ';
+	    }
+	    $query .= 'FALSE) AND ';
 	    break;
 	case REG_RECH_COMPOSITEUR:
 	    $query .= 'films.compositeur LIKE "%' . mysql_real_escape_string($k)
@@ -222,7 +240,6 @@ foreach ($termes as $i => $k) {
 	    $query .=  '(tout.type LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR tout.titre LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR films.realisateur LIKE "%' . mysql_real_escape_string($k)
-	    . '%" OR acteurs.acteur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR films.compositeur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR tout.proprietaire LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR tout.emplacement LIKE "%' . mysql_real_escape_string($k) 
@@ -231,14 +248,18 @@ foreach ($termes as $i => $k) {
 	    . '%" OR bd.dessinateur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR bd.scenariste LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR bd.serie LIKE "%' . mysql_real_escape_string($k)
-	    . '%") AND ';
+	    . '%" OR ';
+	    foreach ($films_acteur[$i] as $id) {
+		$query .= 'id=' . $id . ' OR ';
+	    }
+	    $query .= 'FALSE) AND ';
 	    break;
 	default:
 	    reg_erreur_serveur('Recherche avec un numéro de type inconnu : '
 		. $types[$i]);
     }
 }
-$query .='TRUE GROUP BY id ORDER BY titre,id';
+$query .='TRUE ORDER BY titre,id';
 
 $heure_debut = microtime(true);
 $res = mysql_query($query);
