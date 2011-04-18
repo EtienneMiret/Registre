@@ -9,10 +9,6 @@ $reg_titre_page = 'Recherche';
 
 if (!isset($_GET['q'])) {
     require('includes/headers.php');
-    require('includes/formulaire-recherche.php');
-    ?>
-    <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
-    <?php
     exit(0);
 }
 
@@ -267,11 +263,6 @@ $heure_fin = microtime(true);
 if (!$res) reg_erreur_mysql();
 
 require('includes/headers.php');
-?>
-<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
-<p class="navigation"><a href="Aide#Recherche">Aide</a>.
-<?php
-require('includes/formulaire-recherche.php');
 
 $ligne = mysql_fetch_assoc($res);
 

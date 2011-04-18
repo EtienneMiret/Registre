@@ -206,9 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 
-<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
 <p class="navigation"><a href="<?php echo $reg_racine; ?>Fiche/<?php echo $id; ?>">Annuler</a> les modifications.
-<p class="navigation"><a href="<?php echo $reg_racine; ?>Aide#Enregistrement">Aide</a>.
 
 <form action="<?php echo $reg_racine; ?>Editer/<?php echo $id; ?>" method="post" class="editer">
 <dl class="editer">

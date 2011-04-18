@@ -11,7 +11,6 @@ require('includes/headers.php');
 
 if ($user) {
     echo '<p>Bienvenue ' . htmlspecialchars($user) . ' !';
-    require('includes/formulaire-recherche.php');
     ?>
     <p class="navigation">Liste de
 	<a href="Rechercher?q=">toutes les références</a>.

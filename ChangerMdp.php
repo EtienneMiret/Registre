@@ -50,8 +50,8 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 }
 
 ?>
-<p class="navigation"><a href="<?php echo $reg_racine; ?>">Annuler</a>
 
+<h2>Changer de mot de passe</h2>
 <form action="ChangerMdp" method="post" class="changer-mdp">
 <p>Ancien mot de passe : <input type="password" name="old_pwd">
 <p>Nouveau mot de passe : <input type="password" name="new_pwd1">

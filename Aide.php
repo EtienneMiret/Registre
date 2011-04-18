@@ -7,7 +7,6 @@ require('includes/connexion_bd.php');
 $reg_titre_page='Aide';
 require('includes/headers.php');
 ?>
-<p class="navigation">Retour à l’<a href="./">accueil</a>.
 <h2 id="Introduction">Introduction</h2>
 
 <p>Registre est une base de données dans laquelle vous pouvez référencer votre

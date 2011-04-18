@@ -30,19 +30,15 @@ if (!$general) {
     $reg_titre_page = 'Référence inconnue';
     header('HTTP/1.1 404 Not Found');
     require('includes/headers.php');
-    require('includes/formulaire-recherche.php');
     ?>
     <p class="msg nok">Désolé, la référence que vous avez demandé n’existe pas.
-    <p class="navigation">Retour à l’<a href="<?php echo $reg_racine ?>">accueil</a>.
     <?php
     exit(0);
 }
 
 $reg_titre_page = $general['titre'];
 require('includes/headers.php');
-require('includes/formulaire-recherche.php');
 ?>
-<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
 <dl class="fiche">
 <?php
 
