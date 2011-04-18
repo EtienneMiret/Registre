@@ -5,3 +5,4 @@
 
 $reg_head = Array();
 $reg_onload = FALSE;
+$reg_titre_page = '';
