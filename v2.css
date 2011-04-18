@@ -1,0 +1,41 @@
+h1 {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+#bouton-connexion {
+    float: right;
+}
+
+ul#nav-bar {
+    display: table;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+ul#nav-bar > li {
+    display: table-cell;
+    padding: 1ex;
+    border: 1px solid blue;
+    text-align: center;
+}
+
+ul#nav-bar button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+hr {
+    margin: 1ex 0 1.5em 0;
+    padding: 1px;
+    border-top: 2px solid black;
+    border-bottom: 1ex solid green;
+    border-left: none;
+    border-right: none;
+}
