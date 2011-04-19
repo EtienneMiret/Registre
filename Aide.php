@@ -97,4 +97,3 @@ Les genres existants sont :
   <dt>Science-fiction
   <dd>L’histoire met en scène une technogie supérieure à la notre.
 </dl>
-<p class="navigation">Retour à l’<a href="./">accueil</a>.
