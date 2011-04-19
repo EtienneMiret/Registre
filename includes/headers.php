@@ -28,9 +28,9 @@ Bienvenue Etienne ! |
   <li><a href="<?php
     echo htmlspecialchars($reg_racine); ?>ChangerMdp">Mon profil</a>
   <li><a href="<?php
-    echo htmlspecialchars($reg_racine); ?>Rechercher?q=">Tous les films</a>
+    echo htmlspecialchars($reg_racine); ?>Rechercher?q=">Toutes les références</a>
   <li><a href="<?php
-    echo htmlspecialchars($reg_racine); ?>Enregistrer">Ajouter un film</a>
+    echo htmlspecialchars($reg_racine); ?>Enregistrer">Ajouter une référence</a>
   <li><a href="<?php
     echo htmlspecialchars($reg_racine); ?>Aide">Besoin d’aide&nbsp;?</a>
   <li><form action="<?php
