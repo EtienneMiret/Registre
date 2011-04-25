@@ -26,6 +26,10 @@ ul#nav-bar > li {
     vertical-align: middle;
 }
 
+ul#nav-bar * {
+    vertical-align: middle;
+}
+
 ul#nav-bar a {
     color: rgb(106,166,224);
     text-decoration: none;
