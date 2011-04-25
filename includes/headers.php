@@ -35,8 +35,7 @@ Bienvenue Etienne ! |
     echo htmlspecialchars($reg_racine); ?>Aide">Besoin d’aide&nbsp;?</a>
   <li><form action="<?php
     echo htmlspecialchars($reg_racine); ?>Rechercher" method="get">
-      <input name="q">
-      <button type="submit"><img src="<?php
+      <input name="q"><button type="submit"><img src="<?php
 	echo htmlspecialchars($reg_racine); ?>Loupe"></button>
     </form>
   <li><a href="<?php
