@@ -33,7 +33,7 @@ Bienvenue Etienne ! |
     echo htmlspecialchars($reg_racine); ?>Enregistrer">Ajouter une référence</a>
   <li><a href="<?php
     echo htmlspecialchars($reg_racine); ?>Aide">Besoin d’aide&nbsp;?</a>
-  <li><form action="<?php
+  <li><form id="form-recherche" action="<?php
     echo htmlspecialchars($reg_racine); ?>Rechercher" method="get">
       <input name="q"><button type="submit"><img src="<?php
 	echo htmlspecialchars($reg_racine); ?>Loupe"></button>
