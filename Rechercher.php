@@ -10,14 +10,16 @@ $reg_titre_page = 'Recherche';
 $reg_page = PAGE_RECHERCHE;
 
 if (!isset($_GET['q'])) {
-    require('includes/headers.php');
-    exit(0);
+    $q = '';
+} else {
+    $q = $_GET['q'];
 }
+
+if ($q == '') $reg_page = PAGE_TOUT;
 
 /* Construction de la chaine de recherche en incluant les paramètres de
  * recherche avancée. */
 
-$q=$_GET['q'];
 if (isset($_GET['titre']) && $_GET['titre'] <> '')
     $q.= ' titre:(' . $_GET['titre'] . ')';
 if (isset($_GET['realisateur']) && $_GET['realisateur'] <> '')
