@@ -80,3 +80,20 @@ hr {
     border-left: none;
     border-right: none;
 }
+
+table.resultats-recherche {
+    border-collapse: collapse;
+}
+
+table.resultats-recherche tr:nth-child(even) {
+    background: rgb(241,244,249);
+}
+
+table.resultats-recherche tr:nth-child(odd) {
+    background: rgb(235,239,249);
+}
+
+table.resultats-recherche td {
+    border: 1px solid rgb(211,220,244);
+    padding: 1ex;
+}
