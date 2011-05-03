@@ -10,7 +10,7 @@ define("NOMBRE_LIGNES_ACTEURS", 3);
 
 $user = reg_authentifier();
 $reg_titre_page = 'Enregistrement d’une nouvelle référence';
-$reg_page = PAGE_ENREGISTRER;
+$reg_page = PAGE_AJOUTER;
 
 header('Content-Script-Type: application/ecmascript');
 $reg_head[]='<style type="text/css">.genres.livre { display: none; }</style>';

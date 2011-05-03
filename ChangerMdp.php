@@ -7,7 +7,7 @@ require('includes/connexion_bd.php');
 
 $user = reg_authentifier();
 $reg_titre_page = 'Changer de mot de passe';
-$reg_page = PAGE_PROFILE;
+$reg_page = PAGE_PROFIL;
 
 $old_pwd = null;
 $new_pwd1 = null;
