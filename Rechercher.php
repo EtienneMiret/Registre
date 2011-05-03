@@ -274,8 +274,13 @@ if (!$ligne) { ?>
 <p class="msg nok">Désolé, aucun résultat correspondant à votre recherche n’a
     été trouvé.
 <?php } else { ?>
+<?php if ($q == '') { ?>
+<p class="msg ok resultats-recherche">Il y a
+    <?php echo mysql_num_rows($res);?> références en tout :
+<?php } else { ?>
 <p class="msg ok resultats-recherche">Votre recherche a renvoyé
     <?php echo mysql_num_rows($res);?> résultats :
+<?php } ?>
 <table class="resultats-recherche">
 <?php
     do {
