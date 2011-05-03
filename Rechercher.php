@@ -7,6 +7,7 @@ require('includes/connexion_bd.php');
 
 $user = reg_authentifier();
 $reg_titre_page = 'Recherche';
+$reg_page = PAGE_RECHERCHE;
 
 if (!isset($_GET['q'])) {
     require('includes/headers.php');

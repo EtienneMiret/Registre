@@ -6,6 +6,7 @@ require('includes/utilitaires.php');
 require('includes/connexion_bd.php');
 
 $reg_titre_page='Aide';
+$reg_page=PAGE_AIDE;
 require('includes/headers.php');
 ?>
 <h2 id="Introduction">Introduction</h2>

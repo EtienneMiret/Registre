@@ -6,6 +6,7 @@ require('includes/utilitaires.php');
 require('includes/connexion_bd.php');
 
 $reg_titre_page = 'Connexion';
+$reg_page = PAGE_CONNEXION;
 
 if (isset($_REQUEST['retour'])
     && strpos($_REQUEST['retour'], '/') === 0
