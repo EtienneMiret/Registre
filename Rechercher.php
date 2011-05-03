@@ -15,8 +15,6 @@ if (!isset($_GET['q'])) {
     $q = $_GET['q'];
 }
 
-if ($q == '') $reg_page = PAGE_TOUT;
-
 /* Construction de la chaine de recherche en incluant les paramètres de
  * recherche avancée. */
 
@@ -50,6 +48,9 @@ if (isset($_GET['serie']) && $_GET['serie'] <> '')
     $q.= ' serie:(' . $_GET['serie'] . ')';
 // Suppression d’éventuelles espaces au début.
 $q = preg_replace('/^\s+/', '', $q);
+
+/* Si besoin, on redéfinit $reg_page. */
+if ($q == '') $reg_page = PAGE_TOUT;
 
 define('REG_RECH_TOUT', 0);
 define('REG_RECH_TITRE', 1);
