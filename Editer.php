@@ -212,8 +212,8 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 
 <form action="<?php echo $reg_racine; ?>Editer/<?php echo $id; ?>" method="post" class="editer">
 <dl class="editer">
-    <dt class="titre">Titre
-    <dd class="titre"><input name="titre" type="text"
+    <dt class="titre"><label for="titre">Titre</label>
+    <dd class="titre"><input name="titre" type="text" id="titre"
 	value="<?php echo htmlspecialchars($titre); ?>">
     <dt class="type">Type
     <dd class="type"><?php echo reg_afficher_type($type) . "\n"; ?>
@@ -223,9 +223,9 @@ switch($type) {
     case 'DVD':
     case 'cassette': /* Films. */
 ?>
-    <dt class="realisateur">Réalisateur
+    <dt class="realisateur"><label for="realisateur">Réalisateur</label>
     <dd class="realisateur"><input name="realisateur" type="text"
-	value="<?php echo htmlspecialchars($realisateur); ?>">
+	id="realisateur" value="<?php echo htmlspecialchars($realisateur); ?>">
     <dt class="acteurs">Acteurs
     <dd class="acteurs"><ul id="liste-acteurs">
 <?php foreach($acteurs as $i => $a) { ?>
@@ -233,87 +233,88 @@ switch($type) {
 	    value="<?php echo htmlspecialchars($a); ?>">
 <?php } ?>
     </ul>
-    <dt class="compositeur">Compositeur
+    <dt class="compositeur"><label for="compositeur">Compositeur</label>
     <dd class="compositeur"><input name="compositeur" type="text"
-	value="<?php echo htmlspecialchars($compositeur); ?>">
+	id="compositeur" value="<?php echo htmlspecialchars($compositeur); ?>">
     <dt class="genres">Genres
     <dd class="genres"><ul>
-	<li><input name="action" type="checkbox"<?php
-	    if ($g_action) echo ' checked'; ?>>Action</li>
-	<li><input name="docu" type="checkbox"<?php
-	    if ($g_docu) echo ' checked'; ?>>Documentaire</li>
-	<li><input name="fantastique" type="checkbox"<?php
-	    if ($g_fantastique) echo ' checked'; ?>>Fantastique</li>
-	<li><input name="guerre" type="checkbox"<?php
-	    if ($g_guerre) echo ' checked'; ?>>Film de guerre</li>
-	<li><input name="vrai" type="checkbox"<?php
-	    if ($g_vrai) echo ' checked'; ?>>Histoire vraie</li>
-	<li><input name="historique" type="checkbox"<?php
-	    if ($g_historique) echo ' checked'; ?>>Historique</li>
-	<li><input name="humour" type="checkbox"<?php
-	    if ($g_humour) echo ' checked'; ?>>Humour</li>
-	<li><input name="policier" type="checkbox"<?php
-	    if ($g_policier) echo ' checked'; ?>>Policier</li>
-	<li><input name="romantique" type="checkbox"<?php
-	    if ($g_romantique) echo ' checked'; ?>>Romantique</li>
-	<li><input name="SF" type="checkbox"<?php
-	    if ($g_SF) echo ' checked'; ?>>Science-fiction</li>
+	<li><label><input name="action" type="checkbox"<?php
+	    if ($g_action) echo ' checked'; ?>>Action</label></li>
+	<li><label><input name="docu" type="checkbox"<?php
+	    if ($g_docu) echo ' checked'; ?>>Documentaire</label></li>
+	<li><label><input name="fantastique" type="checkbox"<?php
+	    if ($g_fantastique) echo ' checked'; ?>>Fantastique</label></li>
+	<li><label><input name="guerre" type="checkbox"<?php
+	    if ($g_guerre) echo ' checked'; ?>>Film de guerre</label></li>
+	<li><label><input name="vrai" type="checkbox"<?php
+	    if ($g_vrai) echo ' checked'; ?>>Histoire vraie</label></li>
+	<li><label><input name="historique" type="checkbox"<?php
+	    if ($g_historique) echo ' checked'; ?>>Historique</label></li>
+	<li><label><input name="humour" type="checkbox"<?php
+	    if ($g_humour) echo ' checked'; ?>>Humour</label></li>
+	<li><label><input name="policier" type="checkbox"<?php
+	    if ($g_policier) echo ' checked'; ?>>Policier</label></li>
+	<li><label><input name="romantique" type="checkbox"<?php
+	    if ($g_romantique) echo ' checked'; ?>>Romantique</label></li>
+	<li><label><input name="SF" type="checkbox"<?php
+	    if ($g_SF) echo ' checked'; ?>>Science-fiction</label></li>
     </ul>
 <?php
 	break;
     case 'livre': /* Livres. */
 ?>
-    <dt class="auteur">Auteur
-    <dd class="auteur"><input name="auteur" type="text"
+    <dt class="auteur"><label for="auteur">Auteur</label>
+    <dd class="auteur"><input name="auteur" type="text" id="auteur"
 	value="<?php echo htmlspecialchars($auteur); ?>">
     <dt class="genres">Genres
     <dd class="genres"><ul>
-	<li><input name="fantastique" type="checkbox"<?php
-	    if ($g_fantastique) echo ' checked'; ?>>Fantastique</li>
-	<li><input name="vrai" type="checkbox"<?php
-	    if ($g_vrai) echo ' checked'; ?>>Histoire vraie</li>
-	<li><input name="historique" type="checkbox"<?php
-	    if ($g_historique) echo ' checked'; ?>>Historique</li>
-	<li><input name="humour" type="checkbox"<?php
-	    if ($g_humour) echo ' checked'; ?>>Humour</li>
-	<li><input name="policier" type="checkbox"<?php
-	    if ($g_policier) echo ' checked'; ?>>Policier</li>
-	<li><input name="romantique" type="checkbox"<?php
-	    if ($g_romantique) echo ' checked'; ?>>Romantique</li>
-	<li><input name="SF" type="checkbox"<?php
-	    if ($g_SF) echo ' checked'; ?>>Science-fiction</li>
+	<li><label><input name="fantastique" type="checkbox"<?php
+	    if ($g_fantastique) echo ' checked'; ?>>Fantastique</label></li>
+	<li><label><input name="vrai" type="checkbox"<?php
+	    if ($g_vrai) echo ' checked'; ?>>Histoire vraie</label></li>
+	<li><label><input name="historique" type="checkbox"<?php
+	    if ($g_historique) echo ' checked'; ?>>Historique</label></li>
+	<li><label><input name="humour" type="checkbox"<?php
+	    if ($g_humour) echo ' checked'; ?>>Humour</label></li>
+	<li><label><input name="policier" type="checkbox"<?php
+	    if ($g_policier) echo ' checked'; ?>>Policier</label></li>
+	<li><label><input name="romantique" type="checkbox"<?php
+	    if ($g_romantique) echo ' checked'; ?>>Romantique</label></li>
+	<li><label><input name="SF" type="checkbox"<?php
+	    if ($g_SF) echo ' checked'; ?>>Science-fiction</label></li>
     </ul>
 <?php
 	break;
     case 'BD': /* Bandes-dessinées. */
 ?>
-    <dt class="dessinateur">Dessinateur
+    <dt class="dessinateur"><label for="dessinateur">Dessinateur</label>
     <dd class="dessinateur"><input name="dessinateur" type="text"
-	value="<?php echo htmlspecialchars($dessinateur); ?>">
-    <dt class="scenariste">Scénariste
+	id="dessinateur" value="<?php echo htmlspecialchars($dessinateur); ?>">
+    <dt class="scenariste"><label for="scenariste">Scénariste</label>
     <dd class="scenariste"><input name="scenariste" type="text"
-	value="<?php echo htmlspecialchars($scenariste); ?>">
-    <dt class="serie">Série
-    <dd class="serie"><input name="serie" type="text"
+	id="scenariste" value="<?php echo htmlspecialchars($scenariste); ?>">
+    <dt class="serie"><label for="serie">Série</label>
+    <dd class="serie"><input name="serie" type="text" id="serie"
 	value="<?php echo htmlspecialchars($serie); ?>">
-    <dt class="numero">Numéro
-    <dd class="numero"><input name="numero" type="text"
+    <dt class="numero"><label for="numero">Numéro</label>
+    <dd class="numero"><input name="numero" type="text" id="numero"
 	value="<?php echo htmlspecialchars($numero); ?>">
 <?php
 	break;
     default:
 }
 ?>
-    <dt class="commentaire">Commentaire
-    <dd class="commentaire"><textarea name="commentaire" rows="4" cols="60"><?php
+    <dt class="commentaire"><label for="commentaire">Commentaire</label>
+    <dd class="commentaire">
+      <textarea name="commentaire" id="commentaire" rows="4" cols="60"><?php
 	echo htmlspecialchars($commentaire);
     ?></textarea>
-    <dt class="proprietaire">Propriétaire
+    <dt class="proprietaire"><label for="propriétaire">Propriétaire</label>
     <dd class="proprietaire"><input name="proprietaire" type="text"
-	value="<?php echo htmlspecialchars($proprietaire); ?>">
-    <dt class="emplacement">Emplacement
+	id="proprietaire" value="<?php echo htmlspecialchars($proprietaire); ?>">
+    <dt class="emplacement"><label for="emplacement">Emplacement</label>
     <dd class="emplacement"><input name="emplacement" type="text"
-	value="<?php echo htmlspecialchars($emplacement); ?>">
+	id="emplacement" value="<?php echo htmlspecialchars($emplacement); ?>">
 </dl>
 <p><button type="submit">Enregistrer les modifications</button>
 </form>

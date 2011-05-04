@@ -28,20 +28,20 @@ require('includes/headers.php');
 </select> qui vérifient les critères suivant :
 
 <ul>
-  <li>N’importe quel champ contient : <input name="q">
-  <li>Titre : <input name="titre">
-  <li class="film">Réalisateur : <input name="realisateur">
-  <li class="film">Acteurs : <input name="acteur">
-  <li class="film">Compositeur : <input name="compositeur">
-  <li class="livre">Auteur : <input name="auteur">
-  <li class="bd">Dessinateur : <input name="dessinateur">
-  <li class="bd">Scénariste : <input name="scenariste">
-  <li class="bd">Série : <input name="serie">
-  <li>Commentaire : <input name="commentaire">
-  <li>Proprietaire : <input name="proprietaire">
-  <li>Emplacement : <input name="emplacement">
-  <li>Enregistré par : <input name="createur">
-  <li>Dernière modification par : <input name="editeur">
+  <li><label>N’importe quel champ contient : <input name="q"></label>
+  <li><label>Titre : <input name="titre"></label>
+  <li class="film"><label>Réalisateur : <input name="realisateur"></label>
+  <li class="film"><label>Acteurs : <input name="acteur"></label>
+  <li class="film"><label>Compositeur : <input name="compositeur"></label>
+  <li class="livre"><label>Auteur : <input name="auteur"></label>
+  <li class="bd"><label>Dessinateur : <input name="dessinateur"></label>
+  <li class="bd"><label>Scénariste : <input name="scenariste"></label>
+  <li class="bd"><label>Série : <input name="serie"></label>
+  <li><label>Commentaire : <input name="commentaire"></label>
+  <li><label>Proprietaire : <input name="proprietaire"></label>
+  <li><label>Emplacement : <input name="emplacement"></label>
+  <li><label>Enregistré par : <input name="createur"></label>
+  <li><label>Dernière modification par : <input name="editeur"></label>
 </ul>
 <p><button>Rechercher</button>
 </form>
