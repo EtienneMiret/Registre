@@ -75,7 +75,7 @@ function reg_session_creer($nom, $persistante) {
     global $reg_racine;
     /* L'identifiant de session fait 20 charactères, correspondant à l'encodage
      * en base 64 de 15 octets. */
-    $id_session = base64_encode(exec('/usr/bin/openssl rand 15 2> /dev/null'));
+    $id_session = base64_encode(openssl_random_pseudo_bytes(15));
     if ($persistante) {
 	$expiration_1 = time() + 86400 * 14;
 	$expiration_2 = time() + 86400 * 28;
