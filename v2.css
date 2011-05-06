@@ -83,6 +83,8 @@ hr {
 
 table.resultats-recherche {
     border-collapse: collapse;
+    width: 80%;
+    margin: 1em auto;
 }
 
 table.resultats-recherche tr:nth-child(even) {
