@@ -18,7 +18,7 @@
 } ?>>
 <?php if ($reg_user) { ?>
 <div id="bouton-connexion">
-Bienvenue <?php echo htmlspecialchars($user); ?> ! |
+Bienvenue <?php echo htmlspecialchars($reg_user); ?> ! |
 <a href="<?php
     echo htmlspecialchars($reg_racine); ?>Deconnexion">Déconnexion</a>
 </div>
