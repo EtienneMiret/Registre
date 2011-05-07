@@ -16,7 +16,7 @@ header('Content-Script-Type: application/ecmascript');
 $reg_head[]='<style type="text/css">.genres.livre { display: none; }</style>';
 $reg_head[]='<script type="application/ecmascript" src="registre"></script>';
 $reg_onload='masquerChampsInutilises(document.getElementById("type").value); '
-    . 'ajouterBouton(document.getElementById("liste-acteurs"));';
+    . 'ajouterBoutonListeActeurs();';
 
 $titre='';
 $proprietaire='';
@@ -85,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     require('includes/headers.php');
+    require('includes/nav-bar.php');
 } elseif ($titre<>'') {
     $ok = mysql_query('INSERT INTO tout VALUES( NULL, '
 	. reg_mysql_quote_string($titre) . ', '
@@ -179,6 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     $g_SF=FALSE;
 
     require('includes/headers.php');
+    require('includes/nav-bar.php');
     ?><p class="msg ok">Votre <?php echo reg_type_dans_phrase($type);?> a été
 <?php if (is_null(reg_type_masculin($type))) { // genre de $type inconnu
     echo 'référencé(e) ';
@@ -191,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 <?php } else {
     require('includes/headers.php');
+    require('includes/nav-bar.php');
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 

@@ -48,12 +48,12 @@ function ajouterActeurAvant(ref) {
     nombreLignesActeurs++;
 }
 
-function ajouterBouton(liste) {
+function ajouterBoutonListeActeurs() {
     bouton=document.createElement("input");
     bouton.type="button";
     bouton.value="+";
     bouton.setAttribute("onclick", "ajouterActeurAvant(this.parentNode);");
     li=document.createElement("li");
     li.appendChild(bouton);
-    liste.appendChild(li);
+    document.getElementById("liste-acteurs").appendChild(li);
 }

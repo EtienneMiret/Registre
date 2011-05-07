@@ -11,6 +11,7 @@ $reg_titre_page = 'Accueil';
 require('includes/headers.php');
 
 if ($user) {
+    require('includes/nav-bar.php');
     echo '<p>Bienvenue ' . htmlspecialchars($user) . ' !';
     ?>
     <p class="navigation">Liste de

@@ -8,6 +8,7 @@ require('includes/connexion_bd.php');
 $reg_titre_page='Aide';
 $reg_page=PAGE_AIDE;
 require('includes/headers.php');
+require('includes/nav-bar.php');
 ?>
 <h2 id="Introduction">Introduction</h2>
 

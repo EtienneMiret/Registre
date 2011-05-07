@@ -12,7 +12,7 @@ $user = reg_authentifier();
 
 header('Content-Script-Type: application/ecmascript');
 $reg_head[]='<script type="application/ecmascript" src="'.$reg_racine.'registre"></script>';
-$reg_onload='ajouterBouton(document.getElementById("liste-acteurs"));';
+$reg_onload='ajouterBoutonListeActeurs();';
 
 $id = 0;
 if (isset($_GET['id'])) $id = (int) $_GET['id'];
@@ -111,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     require('includes/headers.php');
+    require('includes/nav-bar.php');
 } elseif ($titre<>'') {
     $ok = mysql_query('LOCK TABLES tout WRITE, films WRITE, acteurs WRITE,' .
 	'livres WRITE, bd WRITE');
@@ -204,6 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     reg_redirection($reg_racine . 'Fiche/' . $id);
 } else {
     require('includes/headers.php');
+    require('includes/nav-bar.php');
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 

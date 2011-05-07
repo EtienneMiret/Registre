@@ -32,6 +32,7 @@ if (!$general) {
     $reg_titre_page = 'Référence inconnue';
     header('HTTP/1.1 404 Not Found');
     require('includes/headers.php');
+    require('includes/nav-bar.php');
     ?>
     <p class="msg nok">Désolé, la référence que vous avez demandé n’existe pas.
     <?php
@@ -40,6 +41,7 @@ if (!$general) {
 
 $reg_titre_page = $general['titre'];
 require('includes/headers.php');
+require('includes/nav-bar.php');
 ?>
 <dl class="fiche">
 <?php
