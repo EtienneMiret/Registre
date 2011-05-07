@@ -7,3 +7,4 @@ $reg_head = Array();
 $reg_onload = FALSE;
 $reg_titre_page = '';
 $reg_page = PAGE_INCONNUE;
+$reg_user = FALSE;

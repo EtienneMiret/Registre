@@ -5,6 +5,7 @@ require('includes/initialiser.php');
 require('includes/utilitaires.php');
 require('includes/connexion_bd.php');
 
+$reg_user = reg_authentifier();
 $reg_titre_page='Aide';
 $reg_page=PAGE_AIDE;
 require('includes/headers.php');

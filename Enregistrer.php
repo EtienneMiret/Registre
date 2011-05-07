@@ -8,7 +8,7 @@ require('includes/connexion_bd.php');
 /* Nombre de lignes par défaut pour enregistrer des acteurs. */
 define("NOMBRE_LIGNES_ACTEURS", 3);
 
-$user = reg_authentifier();
+$reg_user = reg_authentifier();
 $reg_titre_page = 'Enregistrement d’une nouvelle référence';
 $reg_page = PAGE_AJOUTER;
 
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	. reg_mysql_quote_string($type) . ', '
 	. reg_mysql_quote_string($emplacement) . ', '
 	. reg_mysql_quote_string($commentaire) . ', '
-	. reg_mysql_quote_string($user) . ', NOW(), NULL, NULL)');
+	. reg_mysql_quote_string($reg_user) . ', NOW(), NULL, NULL)');
     if (!$ok) reg_erreur_mysql();
 
     $id = mysql_insert_id();

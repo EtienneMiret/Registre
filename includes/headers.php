@@ -16,10 +16,12 @@
 <body<?php if ($reg_onload) {
     echo ' onload="' . htmlspecialchars($reg_onload) . '"';
 } ?>>
+<?php if ($reg_user) { ?>
 <div id="bouton-connexion">
-Bienvenue Etienne ! |
+Bienvenue <?php echo htmlspecialchars($user); ?> ! |
 <a href="<?php
     echo htmlspecialchars($reg_racine); ?>Deconnexion">Déconnexion</a>
 </div>
+<?php } ?>
 <h1>Registre</h1>
 <hr>

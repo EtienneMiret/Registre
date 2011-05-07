@@ -5,14 +5,14 @@ require('includes/initialiser.php');
 require('includes/utilitaires.php');
 require('includes/connexion_bd.php');
 
-$user = reg_session_verifier();
+$reg_user = reg_session_verifier();
 $reg_titre_page = 'Accueil';
 
 require('includes/headers.php');
 
-if ($user) {
+if ($reg_user) {
     require('includes/nav-bar.php');
-    echo '<p>Bienvenue ' . htmlspecialchars($user) . ' !';
+    echo '<p>Bienvenue ' . htmlspecialchars($reg_user) . ' !';
     ?>
     <p class="navigation">Liste de
 	<a href="Rechercher?q=">toutes les références</a>.

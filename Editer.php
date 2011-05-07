@@ -8,7 +8,7 @@ require('includes/connexion_bd.php');
 /* Nombre de lignes vides à la fin de la liste des acteurs. */
 define("LIGNES_ACTEURS_VIDES", 2);
 
-$user = reg_authentifier();
+$reg_user = reg_authentifier();
 
 header('Content-Script-Type: application/ecmascript');
 $reg_head[]='<script type="application/ecmascript" src="'.$reg_racine.'registre"></script>';
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	', proprietaire=' . reg_mysql_quote_string($proprietaire) .
 	', emplacement=' . reg_mysql_quote_string($emplacement) .
 	', commentaire=' . reg_mysql_quote_string($commentaire) .
-	', dernier_editeur=' . reg_mysql_quote_string($user) .
+	', dernier_editeur=' . reg_mysql_quote_string($reg_user) .
 	', derniere_edition=NOW() WHERE id=' . $id);
     if (!$ok) reg_erreur_mysql();
 
