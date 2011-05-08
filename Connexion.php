@@ -39,3 +39,4 @@ if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
 }
 
 ?>
+<?php require('includes/footer.php'); ?>

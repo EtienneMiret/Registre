@@ -8,11 +8,11 @@ require('includes/connexion_bd.php');
 /* Nombre de lignes vides à la fin de la liste des acteurs. */
 define("LIGNES_ACTEURS_VIDES", 2);
 
-$user = reg_authentifier();
+$reg_user = reg_authentifier();
 
 header('Content-Script-Type: application/ecmascript');
 $reg_head[]='<script type="application/ecmascript" src="'.$reg_racine.'registre"></script>';
-$reg_onload='ajouterBouton(document.getElementById("liste-acteurs"));';
+$reg_onload='ajouterBoutonListeActeurs();';
 
 $id = 0;
 if (isset($_GET['id'])) $id = (int) $_GET['id'];
@@ -111,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     require('includes/headers.php');
+    require('includes/nav-bar.php');
 } elseif ($titre<>'') {
     $ok = mysql_query('LOCK TABLES tout WRITE, films WRITE, acteurs WRITE,' .
 	'livres WRITE, bd WRITE');
@@ -121,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	', proprietaire=' . reg_mysql_quote_string($proprietaire) .
 	', emplacement=' . reg_mysql_quote_string($emplacement) .
 	', commentaire=' . reg_mysql_quote_string($commentaire) .
-	', dernier_editeur=' . reg_mysql_quote_string($user) .
+	', dernier_editeur=' . reg_mysql_quote_string($reg_user) .
 	', derniere_edition=NOW() WHERE id=' . $id);
     if (!$ok) reg_erreur_mysql();
 
@@ -203,8 +204,8 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 
     reg_redirection($reg_racine . 'Fiche/' . $id);
 } else {
-    require('includes/headers.php');
-    ?><p><em class="erreur">Vous devez indiquer un titre.</em>
+    require('includes/headers.php');?>
+	<p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 
 <p class="navigation"><a href="<?php echo $reg_racine; ?>Fiche/<?php echo $id; ?>">Annuler</a> les modifications.
@@ -317,3 +318,4 @@ switch($type) {
 </dl>
 <p><button type="submit">Enregistrer les modifications</button>
 </form>
+<?php require('includes/footer.php'); ?>

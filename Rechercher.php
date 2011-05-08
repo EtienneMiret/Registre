@@ -5,7 +5,7 @@ require('includes/initialiser.php');
 require('includes/utilitaires.php');
 require('includes/connexion_bd.php');
 
-$user = reg_authentifier();
+$reg_user = reg_authentifier();
 $reg_titre_page = 'Recherche';
 $reg_page = PAGE_RECHERCHE;
 
@@ -295,3 +295,4 @@ if (!$ligne) { ?>
 <p class="note">Recherche effectuée en <?php
  echo round($heure_fin-$heure_debut,3); ?>
  secondes.
+<?php require('includes/footer.php'); ?>

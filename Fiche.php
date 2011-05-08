@@ -5,7 +5,7 @@ require('includes/initialiser.php');
 require('includes/utilitaires.php');
 require('includes/connexion_bd.php');
 
-$user = reg_authentifier();
+$reg_user = reg_authentifier();
 $reg_page = PAGE_FICHE;
 $id = 0;
 if (isset($_GET['id'])) $id = (int) $_GET['id'];
@@ -136,3 +136,4 @@ if (isset($general['derniere_edition'])) { ?>
     class="fiche">
 <p><button type="submit">Modifier</button>
 </form>
+<?php require('includes/footer.php'); ?>

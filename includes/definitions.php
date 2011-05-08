@@ -1,11 +1,12 @@
 <?php
 
 define('PAGE_INCONNUE',0);
-define('PAGE_PROFIL',1);
-define('PAGE_TOUT',2);
-define('PAGE_AJOUTER',3);
-define('PAGE_EDITER',4);
-define('PAGE_AIDE',5);
-define('PAGE_RECHERCHE',6);
-define('PAGE_RECHERCHE_AVANCEE',7);
-define('PAGE_FICHE',7);
+define('PAGE_HOME',1);
+define('PAGE_PROFIL',2);
+define('PAGE_TOUT',3);
+define('PAGE_AJOUTER',4);
+define('PAGE_EDITER',5);
+define('PAGE_AIDE',6);
+define('PAGE_RECHERCHE',7);
+define('PAGE_RECHERCHE_AVANCEE',8);
+define('PAGE_FICHE',9);

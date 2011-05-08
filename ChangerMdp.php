@@ -5,7 +5,7 @@ require('includes/initialiser.php');
 require('includes/utilitaires.php');
 require('includes/connexion_bd.php');
 
-$user = reg_authentifier();
+$reg_user = reg_authentifier();
 $reg_titre_page = 'Changer de mot de passe';
 $reg_page = PAGE_PROFIL;
 
@@ -19,13 +19,12 @@ if (isset($_POST['new_pwd2'])) $new_pwd2 = $_POST['new_pwd2'];
 
 if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 {
-    if(!reg_verifier_mdp($user, $old_pwd)) {
-	require('includes/headers.php');
-	?>
+    if(!reg_verifier_mdp($reg_user, $old_pwd)) {
+	require('includes/headers.php'); ?>
 	<p><em class="erreur">Votre ancien mot de passe est faux.</em>
 	<?php
     } elseif ( $new_pwd1 <> $new_pwd2 ) {
-	require('includes/headers.php');
+	require('includes/headers.php'); ?>
 	?>
 	<p><em class="erreur">Les deux nouveaux mots de passe sont différents.</em>
 	<?php
@@ -33,7 +32,7 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	$sel = dechex(mt_rand(0, 0xffff)) . dechex(mt_rand(0, 0xffff));
 	$mdp = hash('md5', $sel . ':' . $new_pwd1 );
 	$ok = mysql_query("UPDATE utilisateurs SET sel='$sel', mdp='$mdp' WHERE nom='" .
-	    mysql_real_escape_string($user) . "'");
+	    mysql_real_escape_string($reg_user) . "'");
 	if ( !$ok ) {
 	    require('includes/headers.php'); ?>
 	    <p><em class="erreur">Erreur MysQL lors de la mise à jour du mot de passe :
@@ -53,10 +52,25 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 
 ?>
 
-<h2>Changer de mot de passe</h2>
-<form action="ChangerMdp" method="post" class="changer-mdp">
-<p>Ancien mot de passe : <input type="password" name="old_pwd">
-<p>Nouveau mot de passe : <input type="password" name="new_pwd1">
-<p>Répétez le nouveau mot de passe : <input type="password" name="new_pwd2">
-<p><button type="submit">Changer</button>
-</form>
+	<h2>Changer de mot de passe</h2>
+
+	<form action="ChangerMdp" method="post" class="changer-mdp">
+		<div class="form-row">
+			<label for="old_pwd">Ancien mot de passe :</label>
+			<input type="password" name="old_pwd" id="old_pwd">
+		</div>
+
+		<div class="form-row">
+			<label for="new_pwd1">Nouveau mot de passe :</label>
+			<input type="password" name="new_pwd1" id="new_pwd1">
+		</div>
+
+		<div class="form-row">
+			<label for="new_pwd2">Répétez le nouveau mot de passe :</label>
+			<input type="text" name="new_pwd2" id="new_pwd2">
+		</div>
+
+		<button type="submit">Changer</button>
+	</form>
+
+	<?php require('includes/footer.php'); ?>

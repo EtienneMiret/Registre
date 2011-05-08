@@ -214,3 +214,55 @@ function reg_type_masculin($type) {
 	    return null;
     }
 }
+
+/* Retourne un nom de class CSS déterminé
+ * d'après la page en cours de visualisation.
+ */
+function reg_current_page($reg_page) {
+	switch ($reg_page) {
+		case 0:
+			return '404';
+		case 1:
+			return 'home';
+		case 2:
+			return 'profil';
+		case 3:
+			return 'all-ref';
+		case 4:
+			return 'add-ref';
+		case 5:
+			return 'edit-ref';
+		case 6:
+			return 'help';
+		case 7:
+			return 'search';
+		case 8:
+			return 'advanced-search';
+		case 9:
+			return 'ref';
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
