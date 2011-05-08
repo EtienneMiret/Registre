@@ -243,7 +243,7 @@ foreach ($termes as $i => $k) {
 	    . '%" OR films.realisateur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR films.compositeur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR tout.proprietaire LIKE "%' . mysql_real_escape_string($k)
-	    . '%" OR tout.emplacement LIKE "%' . mysql_real_escape_string($k) 
+	    . '%" OR tout.emplacement LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR tout.commentaire LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR livres.auteur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR bd.dessinateur LIKE "%' . mysql_real_escape_string($k)
@@ -281,7 +281,7 @@ if (!$ligne) { ?>
 <?php } else { ?>
 	<p class="msg msg-ok">Votre recherche a renvoyé <span><?php echo mysql_num_rows($res);?></span> résultats :</p>
 <?php } ?>
-	
+
 	<table border="0" cellspacing="0" cellpadding="0">
 
 		<col span="1" style="width: 600px;"/>
@@ -313,7 +313,7 @@ if (!$ligne) { ?>
 
 	<p>Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.</p>
 	<p>Recherche effectuée en <?php echo round($heure_fin-$heure_debut,3); ?> secondes.</p>
- 
+
 <?php require('includes/footer.php'); ?>
 
 
