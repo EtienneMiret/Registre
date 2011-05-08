@@ -274,27 +274,67 @@ require('includes/debut-contenu-principal.php');
 $ligne = mysql_fetch_assoc($res);
 
 if (!$ligne) { ?>
-<p class="msg nok">Désolé, aucun résultat correspondant à votre recherche n’a
-    été trouvé.
+	<p class="msg msg-nok">Désolé, aucun résultat correspondant à votre recherche n’a été trouvé.</p>
 <?php } else { ?>
 <?php if ($q == '') { ?>
-<p class="msg ok resultats-recherche">Il y a
-    <?php echo mysql_num_rows($res);?> références en tout :
+	<p class="msg msg-ok">Il y a <span><?php echo mysql_num_rows($res);?></span> références en tout :</p>
 <?php } else { ?>
-<p class="msg ok resultats-recherche">Votre recherche a renvoyé
-    <?php echo mysql_num_rows($res);?> résultats :
+	<p class="msg msg-ok">Votre recherche a renvoyé <span><?php echo mysql_num_rows($res);?></span> résultats :</p>
 <?php } ?>
-<table class="resultats-recherche">
-<?php
-    do {
-	echo '  <tr><td><a href="'. $reg_racine . 'Fiche/'. $ligne['id'] .'">';
-	echo htmlspecialchars($ligne['titre']) . "</a>\n";
-	echo '    <td>' . reg_afficher_type($ligne['type']) . PHP_EOL;
-    } while($ligne = mysql_fetch_assoc($res));
-    echo "</table>\n";
-} ?>
-<p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
-<p class="note">Recherche effectuée en <?php
- echo round($heure_fin-$heure_debut,3); ?>
- secondes.
+	
+	<table border="0" cellspacing="0" cellpadding="0">
+
+		<col span="1" style="width: 600px;"/>
+		<col span="1" style="width: 360px;"/>
+
+		<thead>
+			<tr>
+				<th>Références</th>
+				<th class="last">Types</th>
+			</tr>
+		</thead>
+
+		<tbody>
+		<?php do { ?>
+			<tr onclick="document.location='#'">
+				<td>
+					<a href="<?php echo $reg_racine; ?>Fiche/<?php echo $ligne['id']; ?>">
+						<?php echo htmlspecialchars($ligne['titre']); ?>
+					</a>
+				</td>
+				<!-- <td></td> -->
+				<td class="last"><?php echo reg_afficher_type($ligne['type']) . PHP_EOL; ?></td>
+			</tr>
+		<?php } while($ligne = mysql_fetch_assoc($res)); ?>
+		</tbody>
+
+	</table>
+<?php } ?>
+
+	<p>Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.</p>
+	<p>Recherche effectuée en <?php echo round($heure_fin-$heure_debut,3); ?> secondes.</p>
+ 
 <?php require('includes/footer.php'); ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

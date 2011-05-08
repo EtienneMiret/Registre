@@ -60,12 +60,27 @@ button span{position:relative;display:block;margin:0;padding:0;}
 form ul li:last-child{margin-bottom:0;}
 
 
+/* Table */
+table{width:100%;margin-bottom:20px;}
+table thead tr{background-color:#c2cff1;}
+table thead tr th{font-weight:normal;text-align:left;font-size:23px;padding:10px 0 8px 20px;color:#f6f6f8;border:1px solid #fff;border-width:0 1px 1px 0;}
+table .last{border-right:none;font-weight:normal;}
+table tbody tr{background-color:#ebeffa;}
+table tbody tr.zebra{background-color:#f1f4f9;}
+table tbody tr:hover{background-color:#fcfdff;cursor:pointer;}
+table tbody tr td{padding:10px 20px 12px;color:#303030;font-size:16px;font-weight:bold;border:1px solid #d4dff3;border-width:0 1px 1px 0;}
+table tbody tr td a:hover{text-decoration:none;}
+
 /* General rules */
 ul{margin:0 0 15px 20px;}
 ul li{margin-bottom:10px;list-style:disc inside;}
 dl{margin-bottom:15px;}
 dl dt{margin-bottom:4px;font-weight:bold;}
 dl dd{margin-bottom:14px;text-indent:14px;}
+.msg{display:inline-block;padding:8px 10px;font-size:14px;}
+.msg-ok{background:#fffed2;}
+.msg-nok{background:#fec9a1;}
+.msg span{font-weight:bold;color:#a5cc55;}
 
 
 /* Header */
