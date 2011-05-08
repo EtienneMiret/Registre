@@ -1,4 +1,3 @@
-			<nav id="main-nav">
 				<ul>
 					<li class="<?php if ($reg_page == 2) echo 'active'; ?>"><a href="<?php echo htmlspecialchars($reg_racine); ?>ChangerMdp">Mon profil</a></li>
 					<li class="<?php if ($reg_page == 3) echo 'active'; ?>"><a href="<?php echo htmlspecialchars($reg_racine); ?>Rechercher?q=">Toutes les références</a></li>
@@ -16,4 +15,3 @@
 					</li>
 					<li class="<?php if ($reg_page == 8) echo 'active'; ?>"><a href="<?php echo htmlspecialchars($reg_racine); ?>RechercheAvancee">Recherche avancée</a></li>
 				</ul>
-			</nav>

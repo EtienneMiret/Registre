@@ -25,7 +25,7 @@ if (reg_session_verifier()) {
 if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
     require('includes/headers.php');
     require('includes/debut-contenu-principal.php'); ?>
-<p class="msg">Veuillez vous identifier
+<p class="msg msg-ok">Veuillez vous identifier
 <?php
     require('includes/formulaire-connexion.php');
 } elseif ($nom=reg_verifier_mdp($_POST['user'], $_POST['pwd'])) {
@@ -35,7 +35,7 @@ if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
     require('includes/headers.php');
     require('includes/debut-contenu-principal.php');
     ?>
-    <p class="msg nok">Echec de l’authentification.
+    <p class="msg msg-nok">Echec de l’authentification.
     <?php
     require('includes/formulaire-connexion.php');
 }

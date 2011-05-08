@@ -71,6 +71,7 @@ table tbody tr:hover{background-color:#fcfdff;cursor:pointer;}
 table tbody tr td{padding:10px 20px 12px;color:#303030;font-size:16px;font-weight:bold;border:1px solid #d4dff3;border-width:0 1px 1px 0;}
 table tbody tr td a:hover{text-decoration:none;}
 
+
 /* General rules */
 ul{margin:0 0 15px 20px;}
 ul li{margin-bottom:10px;list-style:disc inside;}
