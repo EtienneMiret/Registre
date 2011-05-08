@@ -16,6 +16,7 @@ $reg_onload='masquerChampsInutilises(document.getElementById("type").value);';
 
 require('includes/headers.php');
 require('includes/nav-bar.php');
+require('includes/debut-contenu-principal.php');
 ?>
 <form action="Rechercher" class="recherche-avancee">
 <p class="non-fini">Rechercher <select name="type" id="type"
@@ -46,3 +47,4 @@ require('includes/nav-bar.php');
 </ul>
 <p><button>Rechercher</button>
 </form>
+<?php require('includes/footer.php'); ?>

@@ -23,7 +23,8 @@ if (reg_session_verifier()) {
 }
 
 if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
-    require('includes/headers.php'); ?>
+    require('includes/headers.php');
+    require('includes/debut-contenu-principal.php'); ?>
 <p class="msg">Veuillez vous identifier
 <?php
     require('includes/formulaire-connexion.php');
@@ -32,6 +33,7 @@ if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
     reg_redirection($retour);
 } else {
     require('includes/headers.php');
+    require('includes/debut-contenu-principal.php');
     ?>
     <p class="msg nok">Echec de l’authentification.
     <?php
@@ -39,3 +41,4 @@ if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
 }
 
 ?>
+<?php require('includes/footer.php'); ?>

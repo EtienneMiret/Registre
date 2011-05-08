@@ -269,6 +269,7 @@ if (!$res) reg_erreur_mysql();
 
 require('includes/headers.php');
 require('includes/nav-bar.php');
+require('includes/debut-contenu-principal.php');
 
 $ligne = mysql_fetch_assoc($res);
 
@@ -296,3 +297,4 @@ if (!$ligne) { ?>
 <p class="note">Recherche effectuée en <?php
  echo round($heure_fin-$heure_debut,3); ?>
  secondes.
+<?php require('includes/footer.php'); ?>

@@ -10,6 +10,7 @@ $reg_titre_page='Aide';
 $reg_page=PAGE_AIDE;
 require('includes/headers.php');
 require('includes/nav-bar.php');
+require('includes/debut-contenu-principal.php');
 ?>
 <h2 id="Introduction">Introduction</h2>
 
@@ -78,26 +79,27 @@ livres ou des bandes-dessinées.
 plusieurs genres.
 Les genres existants sont :
 <dl>
-  <dt>Action
+  <dt>Action :
   <dd>Les problèmes de l’histoires sont résolus par l’action, plus que par
     la discution ou la réflexion.
-  <dt>Documentaire
+  <dt>Documentaire :
   <dd>Le film a pour objectif d’informer le spectateur sur un sujet quelquonque.
-  <dt>Fantastique
+  <dt>Fantastique :
   <dd>L’œuvre met en scène des elfes, des orcs, des dragons, de la magie ou
     des inventions similaires.
-  <dt>Film de guerre
+  <dt>Film de guerre :
   <dd>L’action se déroule lors d’un conflit armé.
-  <dt>Histoire vraie
+  <dt>Histoire vraie :
   <dd>L’histoire est inspirée de faits rééls.
-  <dt>Historique
+  <dt>Historique :
   <dd>L’action se déroule à une époque passée du monde réel.
-  <dt>Humour
+  <dt>Humour :
   <dd>L’œuvre est drôle ou amusante.
-  <dt>Policier
+  <dt>Policier :
   <dd>L’histoire raconte une enquète criminelle.
-  <dt>Romantique
+  <dt>Romantique :
   <dd>L’intrigue est basés sur les sentiments amoureux des personnages.
-  <dt>Science-fiction
+  <dt>Science-fiction :
   <dd>L’histoire met en scène une technogie supérieure à la notre.
 </dl>
+<?php require('includes/footer.php'); ?>
