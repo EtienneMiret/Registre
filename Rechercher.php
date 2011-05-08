@@ -284,8 +284,8 @@ if (!$ligne) { ?>
 
 	<table border="0" cellspacing="0" cellpadding="0">
 
-		<col span="1" style="width: 600px;"/>
-		<col span="1" style="width: 360px;"/>
+		<col span="1" style="width: 760px;"/>
+		<col span="1" style="width: 200px;"/>
 
 		<thead>
 			<tr>
@@ -296,13 +296,12 @@ if (!$ligne) { ?>
 
 		<tbody>
 		<?php do { ?>
-			<tr onclick="document.location='#'">
+			<tr>
 				<td>
 					<a href="<?php echo $reg_racine; ?>Fiche/<?php echo $ligne['id']; ?>">
 						<?php echo htmlspecialchars($ligne['titre']); ?>
 					</a>
 				</td>
-				<!-- <td></td> -->
 				<td class="last"><?php echo reg_afficher_type($ligne['type']) . PHP_EOL; ?></td>
 			</tr>
 		<?php } while($ligne = mysql_fetch_assoc($res)); ?>
