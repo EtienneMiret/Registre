@@ -101,7 +101,7 @@ dl dd{margin-bottom:14px;text-indent:14px;}
 #main-nav ul .active a{color:#303030;text-decoration:none;cursor:default;}
 #form-recherche{width:inherit;padding:4px 5px 0;}
 #form-recherche input{float:left;width:220px;padding:10px;font-size:13px;color:#c7d2f2;background:#fff;border:1px solid #c2cff1;}
-#form-recherche button{float:inherit;width:38px;height:38px;padding:0;text-indent:-9999px;background: url(Loupe.png) no-repeat;}
+#form-recherche button{float:inherit;width:38px;height:38px;padding:0;text-indent:-9999px;background: url(Loupe) no-repeat;}
 
 
 /* Specific page's rules */
