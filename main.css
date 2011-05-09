@@ -45,7 +45,7 @@ em{font-style:italic;}
 
 /* Form */
 form{overflow:hidden;width:540px;}
-.form-row{overflow:hidden;margin-bottom:5px;padding:10px;background:#f0f3f8;}
+.form-line{overflow:hidden;margin-bottom:5px;padding:10px;background:#f0f3f8;}
 button,input,textarea,select{font-size:12px;font-family:Arial, sans-serif;}
 label, .label{display:inline-block;width:228px;padding:0 10px 10px 0;}
 .with-checkbox label{padding-left:12px;cursor:pointer;}

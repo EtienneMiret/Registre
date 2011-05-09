@@ -58,17 +58,17 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	<h2>Changer de mot de passe</h2>
 
 	<form action="ChangerMdp" method="post" class="changer-mdp">
-		<div class="form-row">
+		<div class="form-line">
 			<label for="old_pwd">Ancien mot de passe :</label>
 			<input type="password" name="old_pwd" id="old_pwd">
 		</div>
 
-		<div class="form-row">
+		<div class="form-line">
 			<label for="new_pwd1">Nouveau mot de passe :</label>
 			<input type="password" name="new_pwd1" id="new_pwd1">
 		</div>
 
-		<div class="form-row">
+		<div class="form-line">
 			<label for="new_pwd2">Répétez le nouveau mot de passe :</label>
 			<input type="text" name="new_pwd2" id="new_pwd2">
 		</div>

@@ -1,5 +1,5 @@
 	<form action="Connexion" method="post" class="connexion">
-		<div class="form-row">
+		<div class="form-line">
 			<label for="user">Nom :</label>
 			<input type="text" name="user" id="user" <?php
 			/* On tente de préremplir le nom d’utilisateur. */
@@ -11,12 +11,12 @@
 			?> />
 		</div>
 
-		<div class="form-row">
+		<div class="form-line">
 			<label for="pwd">Mot de passe :</label>
 			<input type="password" name="pwd" id="pwd"/>
 		</div>
 
-		<div class="form-row with-checkbox">
+		<div class="form-line with-checkbox">
 			<label for="rester">Rester connecté après la fermeture de mon navigateur.</label>
 			<input type="checkbox" name="rester" id="rester" <?php
 			/* Si le formulaire vient d’être soumis, on récupère l’état de la case

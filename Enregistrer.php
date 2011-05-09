@@ -197,12 +197,12 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 	<h2>Ajouter une référence</h2>
 
 	<form action="Enregistrer" method="post">
-		<div class="titre form-row">
+		<div class="titre form-line">
 			<label for="titre">Titre :</label>
 			<input name="titre" type="text" id="titre" value="<?php echo htmlspecialchars($titre); ?>" />
 		</div>
 
-		<div class="type form-row">
+		<div class="type form-line">
 			<label for="type">Type :</label>
 			<select name="type" id="type" onchange="masquerChampsInutilises(this.value)">
 				<option <?php if($type=='Disque Blu-ray') echo ' selected'; ?>>Disque Blu-ray</option>
@@ -213,12 +213,12 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 			</select>
 		</div>
 
-		<div class="film realisateur form-row">
+		<div class="film realisateur form-line">
 			<label for="realisateur">Réalisateur :</label>
 			<input name="realisateur" type="text" id="realisateur" value="<?php echo htmlspecialchars($realisateur); ?>" />
 		</div>
 
-		<div class="film acteurs form-row">
+		<div class="film acteurs form-line">
 			<label>Acteurs :</label>
 			<ul id="liste-acteurs">
 			<?php foreach($acteurs as $i => $a) { ?>
@@ -227,12 +227,12 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 			</ul>
 		</div>
 
-		<div class="film compositeur form-row">
+		<div class="film compositeur form-line">
 			<label for="compositeur">Compositeur :</label>
 			<input name="compositeur" type="text" id="compositeur" value="<?php echo htmlspecialchars($compositeur); ?>" />
 		</div>
 
-		<div class="film genres form-row">
+		<div class="film genres form-line">
 			<span class="label">Genres :</span>
 			<ul id="liste-genres" class="with-checkbox">
 				<li>
@@ -278,12 +278,12 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 			</ul>
 		</div>
 
-		<div class="livre auteur form-row">
+		<div class="livre auteur form-line">
 			<label for="auteur">Auteur :</label>
 			<input name="auteur" type="text" id="auteur" value="<?php echo htmlspecialchars($auteur); ?>" />
 		</div>
 
-		<div class="livre genres form-row">
+		<div class="livre genres form-line">
 			<span class="label">Genres :</span>
 			<ul id="liste-genres" class="with-checkbox">
 			    <li>
@@ -317,39 +317,39 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 			</ul>
 		</div>
 
-		<div class="bd dessinateur form-row">
+		<div class="bd dessinateur form-line">
 			<label for="dessinateur">Dessinateur :</label>
 			<input name="dessinateur" type="text" id="dessinateur" value="<?php echo htmlspecialchars($dessinateur); ?>" />
 		</div>
 
-		<div class="bd scenariste form-row">
+		<div class="bd scenariste form-line">
 			<label for="scenariste">Scénariste :</label>
 			<input name="scenariste" type="text" id="scenariste" value="<?php echo htmlspecialchars($scenariste); ?>" />
 		</div>
 
-		<div class="bd serie form-row">
+		<div class="bd serie form-line">
 			<label for="serie">Série :</label>
 			<input name="serie" type="text" id="serie" value="<?php echo htmlspecialchars($serie); ?>" />
 		</div>
 
-		<div class="bd numero form-row">
+		<div class="bd numero form-line">
 			<label for="numero">Numéro :</label>
 			<input name="numero" type="text" id="numero" value="<?php echo htmlspecialchars($numero); ?>" />
 		</div>
 
-		<div class="commentaire form-row">
+		<div class="commentaire form-line">
 			<label for="commentaire">Commentaire :</label>
 			<textarea name="commentaire" id="commentaire">
 				<?php echo htmlspecialchars($commentaire);?>
 			</textarea>
 		</div>
 
-		<div class="proprietaire form-row">
+		<div class="proprietaire form-line">
 			<label for="proprietaire">Propriétaire :</label>
 			<input name="proprietaire" type="text" id="proprietaire" value="<?php echo htmlspecialchars($proprietaire); ?>" />
 		</div>
 
-		<div class="emplacement form-row">
+		<div class="emplacement form-line">
 			<label for="emplacement">Emplacement :</label>
 			<input name="emplacement" type="text" id="emplacement" value="<?php echo htmlspecialchars($emplacement); ?>" />
 		</div>
