@@ -204,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     reg_redirection($reg_racine . 'Fiche/' . $id);
 } else {
     require('includes/headers.php');
-    ?><p><em class="erreur">Vous devez indiquer un titre.</em>
+    ?><p class="msg msg-nok">Vous devez indiquer un titre.</p>
 <?php } ?>
 
 <p class="navigation"><a href="<?php echo $reg_racine; ?>Fiche/<?php echo $id; ?>">Annuler</a> les modifications.

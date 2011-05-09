@@ -33,7 +33,7 @@ if (!$general) {
     header('HTTP/1.1 404 Not Found');
     require('includes/headers.php');
     ?>
-    <p class="msg nok">Désolé, la référence que vous avez demandé n’existe pas.
+    <p class="msg msg-nok">Désolé, la référence que vous avez demandé n’existe pas.
     <?php
     exit(0);
 }

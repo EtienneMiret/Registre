@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     $g_SF=FALSE;
 
     require('includes/headers.php');
-    ?><p class="msg ok">Votre <?php echo reg_type_dans_phrase($type);?> a été
+    ?><p class="msg msg-ok">Votre <?php echo reg_type_dans_phrase($type);?> a été
 <?php if (is_null(reg_type_masculin($type))) { // genre de $type inconnu
     echo 'référencé(e) ';
 } elseif (reg_type_masculin($type)) { // $type est masculin
@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 <?php } else {
     require('includes/headers.php');
-    ?><p><em class="erreur">Vous devez indiquer un titre.</em>
+    ?><p class="msg msg-nok">Vous devez indiquer un titre.</p>
 <?php } ?>
 
 	<h2>Ajouter une référence</h2>
