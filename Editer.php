@@ -111,8 +111,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     require('includes/headers.php');
-    require('includes/nav-bar.php');
-    require('includes/debut-contenu-principal.php');
 } elseif ($titre<>'') {
     $ok = mysql_query('LOCK TABLES tout WRITE, films WRITE, acteurs WRITE,' .
 	'livres WRITE, bd WRITE');
@@ -206,8 +204,6 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     reg_redirection($reg_racine . 'Fiche/' . $id);
 } else {
     require('includes/headers.php');
-    require('includes/nav-bar.php');
-    require('includes/debut-contenu-principal.php');
     ?><p><em class="erreur">Vous devez indiquer un titre.</em>
 <?php } ?>
 

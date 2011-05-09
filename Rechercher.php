@@ -268,8 +268,6 @@ $heure_fin = microtime(true);
 if (!$res) reg_erreur_mysql();
 
 require('includes/headers.php');
-require('includes/nav-bar.php');
-require('includes/debut-contenu-principal.php');
 
 $ligne = mysql_fetch_assoc($res);
 

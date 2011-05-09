@@ -21,14 +21,12 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 {
     if(!reg_verifier_mdp($reg_user, $old_pwd)) {
 	require('includes/headers.php');
-	require('includes/nav-bar.php');
-	require('includes/debut-contenu-principal.php'); ?>
+	?>
 	<p><em class="erreur">Votre ancien mot de passe est faux.</em>
 	<?php
     } elseif ( $new_pwd1 <> $new_pwd2 ) {
 	require('includes/headers.php');
-	require('includes/nav-bar.php');
-	require('includes/debut-contenu-principal.php'); ?>
+	?>
 	<p><em class="erreur">Les deux nouveaux mots de passe sont différents.</em>
 	<?php
     } else {
@@ -38,15 +36,13 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
 	    mysql_real_escape_string($reg_user) . "'");
 	if ( !$ok ) {
 	    require('includes/headers.php');
-	    require('includes/nav-bar.php');
-	    require('includes/debut-contenu-principal.php'); ?>
+	    ?>
 	    <p><em class="erreur">Erreur MysQL lors de la mise à jour du mot de passe :
 	    <?php echo htmlspecialchars(mysql_error()); ?>.</em>
 	    <?php
 	} else {
 	    require('includes/headers.php');
-	    require('includes/nav-bar.php');
-	    require('includes/debut-contenu-principal.php'); ?>
+	    ?>
 <p class="msg ok">Votre mot de passe a été changé.
 <p class="navigation">Retour à l’<a href="<?php echo $reg_racine; ?>">accueil</a>.
 	    <?php
@@ -55,8 +51,6 @@ if( !is_null($old_pwd) or !is_null($new_pwd1) or !is_null($new_pwd2) )
     }
 } else {
     require('includes/headers.php');
-    require('includes/nav-bar.php');
-    require('includes/debut-contenu-principal.php');
 }
 
 ?>

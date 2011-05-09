@@ -9,8 +9,6 @@ $reg_user = reg_authentifier();
 $reg_titre_page='Aide';
 $reg_page=PAGE_AIDE;
 require('includes/headers.php');
-require('includes/nav-bar.php');
-require('includes/debut-contenu-principal.php');
 ?>
 <h2 id="Introduction">Introduction</h2>
 
