@@ -287,32 +287,32 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 			<span class="label">Genres :</span>
 			<ul id="liste-genres" class="with-checkbox">
 			    <li>
-				<label for="fantastique">Fantastique</label>
-				<input name="fantastique" type="checkbox" id="fantastique" <?php if ($g_fantastique) echo 'checked'; ?>>
+					<label for="fantastique">Fantastique</label>
+					<input name="fantastique" type="checkbox" id="fantastique" <?php if ($g_fantastique) echo 'checked'; ?> />
 			    </li>
 			    <li>
-				<label for="vrai">Histoire vraie</label>
-				<input name="vrai" type="checkbox" id="vrai" <?php if ($g_vrai) echo 'checked'; ?>>
+					<label for="vrai">Histoire vraie</label>
+					<input name="vrai" type="checkbox" id="vrai" <?php if ($g_vrai) echo 'checked'; ?> />
 			    </li>
 			    <li>
-				<label for="historique">Historique</label>
-				<input name="historique" type="checkbox" id="historique" <?php if ($g_historique) echo 'checked'; ?>>
+					<label for="historique">Historique</label>
+					<input name="historique" type="checkbox" id="historique" <?php if ($g_historique) echo 'checked'; ?> />
 			    </li>
 			    <li>
-				<label for="humour">Humour</label>
-				<input name="humour" type="checkbox" id="humour" <?php if ($g_humour) echo 'checked'; ?>>
+					<label for="humour">Humour</label>
+					<input name="humour" type="checkbox" id="humour" <?php if ($g_humour) echo 'checked'; ?> />
 			    </li>
 			    <li>
-				<label for="policier">Policier</label>
-				<input name="policier" type="checkbox" id="policier" <?php if ($g_policier) echo 'checked'; ?>>
+					<label for="policier">Policier</label>
+					<input name="policier" type="checkbox" id="policier" <?php if ($g_policier) echo 'checked'; ?> />
 			    </li>
 			    <li>
-				<label for="romantique">Romantique</label>
-				<input name="romantique" type="checkbox" id="romantique" <?php if ($g_romantique) echo 'checked'; ?>>
+					<label for="romantique">Romantique</label>
+					<input name="romantique" type="checkbox" id="romantique" <?php if ($g_romantique) echo 'checked'; ?> />
 			    </li>
 			    <li>
-				<label for="SF">Science-fiction</label>
-				<input name="SF" type="checkbox" id="SF" <?php if ($g_SF) echo 'checked'; ?>>
+					<label for="SF">Science-fiction</label>
+					<input name="SF" type="checkbox" id="SF" <?php if ($g_SF) echo 'checked'; ?> />
 			    </li>
 			</ul>
 		</div>
