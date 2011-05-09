@@ -119,5 +119,6 @@ dl dd{margin-bottom:14px;text-indent:14px;}
 .advanced-search form{width:540px;}
 .advanced-search form ul{margin:0;}
 .advanced-search form ul li{list-style:inherit;}
+.advanced-search form ul li:last-child{margin-bottom:5px;}
 
 .help #main-content{width:600px;}
