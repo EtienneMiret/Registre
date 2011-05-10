@@ -113,7 +113,8 @@ dl dd{margin-bottom:14px;text-indent:14px;}
 .add-ref form label{width:140px;}
 .add-ref form ul li{list-style:inherit;}
 .add-ref #liste-acteurs{float:right;margin:0;}
-.add-ref #liste-genres{margin-bottom:0;}
+.add-ref #liste-genres-film{margin-bottom:0;}
+.add-ref #liste-genres-livre{margin-bottom:0;}
 
 .advanced-search form p select{width:185px;}
 .advanced-search form{width:540px;}
