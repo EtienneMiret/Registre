@@ -67,7 +67,8 @@ table thead tr th{font-weight:normal;text-align:left;font-size:23px;padding:10px
 table .last{border-right:none;font-weight:normal;}
 table tbody tr{background-color:#ebeffa;}
 table tbody tr:nth-child(odd){background-color:#f1f4f9;}
-table tbody tr td{padding:10px 20px 12px;color:#303030;font-size:16px;font-weight:bold;border:1px solid #d4dff3;border-width:0 1px 1px 0;}
+table tbody tr td{padding:10px 20px 12px;color:#303030;font-size:16px;border:1px solid #d4dff3;border-width:0 1px 1px 0;}
+table tbody tr .ref-name{font-weight:bold;}
 table tbody tr td a:hover{text-decoration:none;}
 
 
@@ -123,3 +124,8 @@ dl dd{margin-bottom:14px;text-indent:14px;}
 .advanced-search form ul li:last-child{margin-bottom:5px;}
 
 .help #main-content{width:600px;}
+
+.edit-ref form ul li{list-style:inherit;}
+.edit-ref #liste-acteurs{float:right;margin:0;}
+.edit-ref #liste-genres-film{margin-bottom:0;}
+.edit-ref #liste-genres-livre{margin-bottom:0;}

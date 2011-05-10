@@ -282,8 +282,9 @@ if (!$ligne) { ?>
 
 	<table border="0" cellspacing="0" cellpadding="0">
 
-		<col span="1" style="width: 760px;"/>
-		<col span="1" style="width: 200px;"/>
+		<col span="1" style="width: 570px;"/>
+		<col span="1" style="width: 215px;"/>
+		<col span="1" style="width: 215px;"/>
 
 		<thead>
 			<tr>
@@ -296,13 +297,13 @@ if (!$ligne) { ?>
 		<tbody>
 		<?php do { ?>
 			<tr>
-				<td>
+				<td class="ref-name">
 					<a href="<?php echo $reg_racine; ?>Fiche/<?php echo $ligne['id']; ?>">
 						<?php echo htmlspecialchars($ligne['titre']); ?>
 					</a>
 				</td>
 				<td>
-						<?php if ($ligne['serie']) echo htmlspecialchars($ligne['serie']); ?>
+					<?php if ($ligne['serie']) echo htmlspecialchars($ligne['serie']); ?>
 				</td>
 				<td class="last"><?php echo reg_afficher_type($ligne['type']) . PHP_EOL; ?></td>
 			</tr>
