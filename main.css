@@ -38,7 +38,7 @@ h1,h2,h3,h4{font-family:Arial, sans-serif;}
 a{line-height:12px;text-decoration:none;color:#66a7e1;}
 a:hover{text-decoration:underline;color:#4f8dc4;}
 a img, h1 img{display:block;}
-p{margin-bottom:14px;line-height:19px;}
+p{margin-bottom:14px;line-height:19px;text-align:justify}
 p+h2, ul+h2{margin-top:32px;}
 em{font-style:italic;}
 
