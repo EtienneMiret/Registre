@@ -234,46 +234,46 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 
 		<div class="film genres form-line">
 			<span class="label">Genres :</span>
-			<ul id="liste-genres" class="with-checkbox">
+			<ul id="liste-genres-film" class="with-checkbox">
 				<li>
-					<label for="action">Action</label>
-					<input name="action" type="checkbox" id="action" <?php if ($g_action) echo 'checked'; ?>>
+					<label for="gf-action">Action</label>
+					<input name="action" type="checkbox" id="gf-action" <?php if ($g_action) echo 'checked'; ?>>
 				</li>
 				<li>
-					<label for="docu">Documentaire</label>
-					<input name="docu" type="checkbox" id="docu" <?php if ($g_docu) echo 'checked'; ?>>
+					<label for="gf-docu">Documentaire</label>
+					<input name="docu" type="checkbox" id="gf-docu" <?php if ($g_docu) echo 'checked'; ?>>
 				</li>
 				<li>
-					<label for="fantastique">Fantastique</label>
-					<input name="fantastique" type="checkbox" id="fantastique" <?php if ($g_fantastique) echo 'checked'; ?>>
+					<label for="gf-fantastique">Fantastique</label>
+					<input name="fantastique" type="checkbox" id="gf-fantastique" <?php if ($g_fantastique) echo 'checked'; ?>>
 				</li>
 				<li>
-					<label for="guerre">Film de guerre</label>
-					<input name="guerre" type="checkbox" id="guerre" <?php if ($g_guerre) echo 'checked'; ?>>
+					<label for="gf-guerre">Film de guerre</label>
+					<input name="guerre" type="checkbox" id="gf-guerre" <?php if ($g_guerre) echo 'checked'; ?>>
 				</li>
 				<li>
-					<label for="vrai">Histoire vraie</label>
-					<input name="vrai" type="checkbox" id="vrai" <?php if ($g_vrai) echo 'checked'; ?>>
+					<label for="gf-vrai">Histoire vraie</label>
+					<input name="vrai" type="checkbox" id="gf-vrai" <?php if ($g_vrai) echo 'checked'; ?>>
 				</li>
 				<li>
-					<label for="historique">Historique</label>
-					<input name="historique" type="checkbox" id="historique" <?php if ($g_historique) echo 'checked'; ?>>
+					<label for="gf-historique">Historique</label>
+					<input name="historique" type="checkbox" id="gf-historique" <?php if ($g_historique) echo 'checked'; ?>>
 				</li>
 				<li>
-					<label for="humour">Humour</label>
-					<input name="humour" type="checkbox" id="humour" <?php if ($g_humour) echo 'checked'; ?>>
+					<label for="gf-humour">Humour</label>
+					<input name="humour" type="checkbox" id="gf-humour" <?php if ($g_humour) echo 'checked'; ?>>
 				</li>
 				<li>
-					<label for="policier">Policier</label>
-					<input name="policier" type="checkbox" id="policier" <?php if ($g_policier) echo 'checked'; ?>>
+					<label for="gf-policier">Policier</label>
+					<input name="policier" type="checkbox" id="gf-policier" <?php if ($g_policier) echo 'checked'; ?>>
 				</li>
 				<li>
-					<label for="romantique">Romantique</label>
-					<input name="romantique" type="checkbox" id="romantique" <?php if ($g_romantique) echo 'checked'; ?>>
+					<label for="gf-romantique">Romantique</label>
+					<input name="romantique" type="checkbox" id="gf-romantique" <?php if ($g_romantique) echo 'checked'; ?>>
 				</li>
 				<li>
-					<label for="SF">Science-fiction</label>
-					<input name="SF" type="checkbox" id="SF" <?php if ($g_SF) echo 'checked'; ?>>
+					<label for="gf-SF">Science-fiction</label>
+					<input name="SF" type="checkbox" id="gf-SF" <?php if ($g_SF) echo 'checked'; ?>>
 				</li>
 			</ul>
 		</div>
@@ -285,34 +285,34 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 
 		<div class="livre genres form-line">
 			<span class="label">Genres :</span>
-			<ul id="liste-genres" class="with-checkbox">
+			<ul id="liste-genres-livre" class="with-checkbox">
 			    <li>
-					<label for="fantastique">Fantastique</label>
-					<input name="fantastique" type="checkbox" id="fantastique" <?php if ($g_fantastique) echo 'checked'; ?> />
+					<label for="gl-fantastique">Fantastique</label>
+					<input name="fantastique" type="checkbox" id="gl-fantastique" <?php if ($g_fantastique) echo 'checked'; ?> />
 			    </li>
 			    <li>
-					<label for="vrai">Histoire vraie</label>
-					<input name="vrai" type="checkbox" id="vrai" <?php if ($g_vrai) echo 'checked'; ?> />
+					<label for="gl-vrai">Histoire vraie</label>
+					<input name="vrai" type="checkbox" id="gl-vrai" <?php if ($g_vrai) echo 'checked'; ?> />
 			    </li>
 			    <li>
-					<label for="historique">Historique</label>
-					<input name="historique" type="checkbox" id="historique" <?php if ($g_historique) echo 'checked'; ?> />
+					<label for="gl-historique">Historique</label>
+					<input name="historique" type="checkbox" id="gl-historique" <?php if ($g_historique) echo 'checked'; ?> />
 			    </li>
 			    <li>
-					<label for="humour">Humour</label>
-					<input name="humour" type="checkbox" id="humour" <?php if ($g_humour) echo 'checked'; ?> />
+					<label for="gl-humour">Humour</label>
+					<input name="humour" type="checkbox" id="gl-humour" <?php if ($g_humour) echo 'checked'; ?> />
 			    </li>
 			    <li>
-					<label for="policier">Policier</label>
-					<input name="policier" type="checkbox" id="policier" <?php if ($g_policier) echo 'checked'; ?> />
+					<label for="gl-policier">Policier</label>
+					<input name="policier" type="checkbox" id="gl-policier" <?php if ($g_policier) echo 'checked'; ?> />
 			    </li>
 			    <li>
-					<label for="romantique">Romantique</label>
-					<input name="romantique" type="checkbox" id="romantique" <?php if ($g_romantique) echo 'checked'; ?> />
+					<label for="gl-romantique">Romantique</label>
+					<input name="romantique" type="checkbox" id="gl-romantique" <?php if ($g_romantique) echo 'checked'; ?> />
 			    </li>
 			    <li>
-					<label for="SF">Science-fiction</label>
-					<input name="SF" type="checkbox" id="SF" <?php if ($g_SF) echo 'checked'; ?> />
+					<label for="gl-SF">Science-fiction</label>
+					<input name="SF" type="checkbox" id="gl-SF" <?php if ($g_SF) echo 'checked'; ?> />
 			    </li>
 			</ul>
 		</div>
