@@ -219,7 +219,7 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 		</div>
 
 		<div class="film acteurs form-line">
-			<label>Acteurs :</label>
+			<span class="label">Acteurs :</span>
 			<ul id="liste-acteurs">
 			<?php foreach($acteurs as $i => $a) { ?>
 				<li><input name="acteur<?php echo $i; ?>" type="text" value="<?php echo htmlspecialchars($a); ?>" /></li>
