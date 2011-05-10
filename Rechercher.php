@@ -173,7 +173,7 @@ foreach ($termes as $i => $k) {
 
 /* Construction de la requête MySQL à partir des tableaux $termes et $types. */
 
-$query = 'SELECT id,titre,type '
+$query = 'SELECT id,titre,type,serie '
     . 'FROM tout LEFT JOIN films USING(id) '
     . 'LEFT JOIN livres USING(id) LEFT JOIN bd USING(id) WHERE ';
 foreach ($termes as $i => $k) {
@@ -288,6 +288,7 @@ if (!$ligne) { ?>
 		<thead>
 			<tr>
 				<th>Références</th>
+				<th>Série</th>
 				<th class="last">Types</th>
 			</tr>
 		</thead>
@@ -299,6 +300,9 @@ if (!$ligne) { ?>
 					<a href="<?php echo $reg_racine; ?>Fiche/<?php echo $ligne['id']; ?>">
 						<?php echo htmlspecialchars($ligne['titre']); ?>
 					</a>
+				</td>
+				<td>
+						<?php if ($ligne['serie']) echo htmlspecialchars($ligne['serie']); ?>
 				</td>
 				<td class="last"><?php echo reg_afficher_type($ligne['type']) . PHP_EOL; ?></td>
 			</tr>
