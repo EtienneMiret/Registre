@@ -339,9 +339,9 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 
 		<div class="commentaire form-line">
 			<label for="commentaire">Commentaire :</label>
-			<textarea name="commentaire" id="commentaire">
-				<?php echo htmlspecialchars($commentaire);?>
-			</textarea>
+			<textarea name="commentaire" id="commentaire"><?php
+			    echo htmlspecialchars($commentaire);
+			?></textarea>
 		</div>
 
 		<div class="proprietaire form-line">
