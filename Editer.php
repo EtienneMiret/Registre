@@ -56,7 +56,7 @@ $acteurs=$acteurs_origine;
 $auteur=$livre['auteur'];
 $dessinateur=$bd['dessinateur'];
 $scenariste=$bd['scenariste'];
-$serie=$bd['serie'];
+$serie=$general['serie'];
 $numero=$bd['numero'];
 
 $g_action=in_array('action',$tableau_genres);
@@ -118,6 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 
     $ok = mysql_query('UPDATE tout ' .
 	'SET titre=' . reg_mysql_quote_string($titre) .
+	', serie=' . reg_mysql_quote_string($serie) .
 	', proprietaire=' . reg_mysql_quote_string($proprietaire) .
 	', emplacement=' . reg_mysql_quote_string($emplacement) .
 	', commentaire=' . reg_mysql_quote_string($commentaire) .
@@ -189,7 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	    $ok = mysql_query('UPDATE bd ' .
 		'SET dessinateur=' .  reg_mysql_quote_string($dessinateur) .
 		', scenariste=' . reg_mysql_quote_string($scenariste) .
-		', serie=' . reg_mysql_quote_string($serie) .
 		', numero=' . reg_mysql_quote_string($numero) .
 		' WHERE id=' . $id);
 	    if (!$ok) reg_erreur_mysql();
@@ -292,9 +292,6 @@ switch($type) {
     <dt class="scenariste"><label for="scenariste">Scénariste</label>
     <dd class="scenariste"><input name="scenariste" type="text"
 	id="scenariste" value="<?php echo htmlspecialchars($scenariste); ?>">
-    <dt class="serie"><label for="serie">Série</label>
-    <dd class="serie"><input name="serie" type="text" id="serie"
-	value="<?php echo htmlspecialchars($serie); ?>">
     <dt class="numero"><label for="numero">Numéro</label>
     <dd class="numero"><input name="numero" type="text" id="numero"
 	value="<?php echo htmlspecialchars($numero); ?>">
@@ -303,6 +300,9 @@ switch($type) {
     default:
 }
 ?>
+    <dt class="serie"><label for="serie">Série</label>
+    <dd class="serie"><input name="serie" type="text" id="serie"
+	value="<?php echo htmlspecialchars($serie); ?>">
     <dt class="commentaire"><label for="commentaire">Commentaire</label>
     <dd class="commentaire">
       <textarea name="commentaire" id="commentaire" rows="4" cols="60"><?php

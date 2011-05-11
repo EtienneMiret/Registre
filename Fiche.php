@@ -94,9 +94,9 @@ if (isset($bd['scenariste'])) { ?>
     <dt class="scenariste">Scénariste</dt>
     <dd class="scenariste"><?php echo htmlspecialchars($bd['scenariste']) ?></dd>
 <?php }
-if (isset($bd['serie'])) { ?>
+if (isset($general['serie'])) { ?>
     <dt class="serie">Série</dt>
-    <dd class="serie"><?php echo htmlspecialchars($bd['serie']) ?></dd>
+    <dd class="serie"><?php echo htmlspecialchars($general['serie']) ?></dd>
 <?php }
 if (isset($bd['numero'])) { ?>
     <dt class="numero">Numéro</dt>

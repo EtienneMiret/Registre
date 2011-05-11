@@ -88,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 } elseif ($titre<>'') {
     $ok = mysql_query('INSERT INTO tout VALUES( NULL, '
 	. reg_mysql_quote_string($titre) . ', '
+	. reg_mysql_quote_string($serie) . ', '
 	. reg_mysql_quote_string($proprietaire) . ', '
 	. reg_mysql_quote_string($type) . ', '
 	. reg_mysql_quote_string($emplacement) . ', '
@@ -155,7 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	    $ok = mysql_query('INSERT INTO bd VALUES(' . $id . ', '
 		. reg_mysql_quote_string($dessinateur) . ', '
 		. reg_mysql_quote_string($scenariste) . ', '
-		. reg_mysql_quote_string($serie) . ', '
 		. reg_mysql_quote_string($numero) . ')');
 	    if (!$ok) reg_erreur_mysql();
 	    break;
@@ -327,7 +327,7 @@ sous le <a href="Fiche/<?php echo $id; ?>">numéro <?php echo $id; ?></a>.
 			<input name="scenariste" type="text" id="scenariste" value="<?php echo htmlspecialchars($scenariste); ?>" />
 		</div>
 
-		<div class="bd serie form-line">
+		<div class="serie form-line">
 			<label for="serie">Série :</label>
 			<input name="serie" type="text" id="serie" value="<?php echo htmlspecialchars($serie); ?>" />
 		</div>
