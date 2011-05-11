@@ -59,9 +59,9 @@ if (!isset($_POST['user']) || !isset($_POST['pwd'])) {
 			/* Si le formulaire vient d’être soumis, on récupère l’état de la case
 			 * dans la variable POST, et sinon dans le cookie. */
 			if (isset($_POST['user'])) {
-				if (isset($_POST['rester'])) echo ' checked="yes"';
+				if (isset($_POST['rester'])) echo ' checked';
 			} else {
-				if (isset($_COOKIE['UtilisateurRegistre'])) echo ' checked="yes"';
+				if (isset($_COOKIE['UtilisateurRegistre'])) echo ' checked';
 			}
 			?> />
 			<?php if (isset($_REQUEST['retour'])) { ?>
