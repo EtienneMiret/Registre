@@ -32,6 +32,10 @@ require('includes/headers.php');
 				<label for="q">N’importe quel champ contient :</label>
 				<input type="text" name="q" id="q"/>
 			</li>
+			<li class="form-line">
+				<label for="titre">Titre :</label>
+				<input type="text" name="titre" id="titre">
+			</li>
 			<li class="film form-line">
 				<label for="realisateur">Réalisateur :</label>
 				<input type="text" name="realisateur" id="realisateur"/>
