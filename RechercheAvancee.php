@@ -16,7 +16,7 @@ $reg_onload='masquerChampsInutilises(document.getElementById("type").value);';
 
 require('includes/headers.php');
 ?>
-	<form action="Rechercher" class="recherche-avancee">
+	<form action="./" class="recherche-avancee">
 		<p>Rechercher 
 			<select name="type" id="type" onchange="masquerChampsInutilises(this.value);">
 				<option value="" selected>toutes les références</option>
