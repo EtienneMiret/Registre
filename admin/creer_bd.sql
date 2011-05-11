@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `tout`;
 CREATE TABLE `tout` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `titre` varchar(80) NOT NULL,
+  `serie` varchar(80) default NULL,
   `proprietaire` varchar(20) default NULL,
   `type` enum('disque Blu-ray', 'DVD','cassette','livre','BD') NOT NULL,
   `emplacement` varchar(80) default NULL,
@@ -51,7 +52,6 @@ CREATE TABLE `bd` (
   `id` int(10) unsigned NOT NULL,
   `dessinateur` varchar(20) default NULL,
   `scenariste` varchar(20) default NULL,
-  `serie` varchar(80) default NULL,
   `numero` int(10) unsigned default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

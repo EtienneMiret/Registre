@@ -106,3 +106,21 @@ if (strpos($ligne['Type'], 'disque Blu-ray')!==FALSE) {
 	or die ('Erreur MysQL : ' . mysql_error() . PHP_EOL);
     echo ' ajoutée.' . PHP_EOL;
 }
+
+/* Champs « série » généralisé (changement 8b9943c2142c). */
+mysql_data_seek($tout, 0);
+echo 'Champ \'serie\' dans la table \'tout\'...';
+while ($ligne=mysql_fetch_assoc($tout)) {
+    if ($ligne['Field']=='serie') break;
+}
+if ($ligne) {
+    echo ' ok.'.PHP_EOL;
+} else {
+    mysql_query('ALTER TABLE tout ADD serie VARCHAR(80) AFTER titre')
+        or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
+    mysql_query('UPDATE tout,bd SET tout.serie=bd.serie WHERE tout.id=bd.id')
+        or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
+    mysql_query('ALTER TABLE bd DROP serie')
+        or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
+    echo ' déplacé.'.PHP_EOL;
+}
