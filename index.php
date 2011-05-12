@@ -222,7 +222,7 @@ foreach ($termes as $i => $k) {
 		. '%" AND ';
 	    break;
 	case REG_RECH_SERIE:
-	    $query .= 'bd.serie LIKE "%' . mysql_real_escape_string($k)
+	    $query .= 'tout.serie LIKE "%' . mysql_real_escape_string($k)
 		. '%" AND ';
 	    break;
 	case REG_RECH_TYPE:
@@ -248,7 +248,7 @@ foreach ($termes as $i => $k) {
 	    . '%" OR livres.auteur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR bd.dessinateur LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR bd.scenariste LIKE "%' . mysql_real_escape_string($k)
-	    . '%" OR bd.serie LIKE "%' . mysql_real_escape_string($k)
+	    . '%" OR tout.serie LIKE "%' . mysql_real_escape_string($k)
 	    . '%" OR ';
 	    foreach ($films_acteur[$i] as $id) {
 		$query .= 'id=' . $id . ' OR ';
