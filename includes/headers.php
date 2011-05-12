@@ -43,7 +43,7 @@ if ($reg_user) { ?>
 					<li>
 						<form id="form-recherche" action="<?php echo htmlspecialchars($reg_racine); ?>" method="get">
 						    <div>
-							<input name="q" type="text" />
+							<input name="q" type="text"<?php if ($reg_recherche) echo ' value="' . htmlspecialchars($reg_recherche) . '"' ?>/>
 							<button type="submit">
 								<span>Rechercher</span>
 							</button>

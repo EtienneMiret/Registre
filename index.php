@@ -267,6 +267,7 @@ $res = mysql_query($query);
 $heure_fin = microtime(true);
 if (!$res) reg_erreur_mysql();
 
+$reg_recherche = $q;
 require('includes/headers.php');
 
 $ligne = mysql_fetch_assoc($res);
