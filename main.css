@@ -125,6 +125,9 @@ dl dd{margin-bottom:14px;text-indent:14px;}
 
 .help #main-content{width:600px;}
 
+.edit-ref form{width:492px;}
+.edit-ref form label,
+.edit-ref form .label{width:180px;}
 .edit-ref form ul li{list-style:inherit;}
 .edit-ref #liste-acteurs{float:right;margin:0;}
 .edit-ref #liste-genres-film{margin-bottom:0;}

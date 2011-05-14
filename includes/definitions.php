@@ -1,7 +1,7 @@
 <?php
 
 define('PAGE_INCONNUE',0);
-define('PAGE_HOME',1);
+define('PAGE_CONNEXION',1);
 define('PAGE_PROFIL',2);
 define('PAGE_TOUT',3);
 define('PAGE_AJOUTER',4);
