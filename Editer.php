@@ -351,11 +351,6 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 		</div>
 
 		<div class="form-line">
-			<label for="serie">Série :</label>
-			<input name="serie" type="text" id="serie" value="<?php echo htmlspecialchars($serie); ?>" />
-		</div>
-
-		<div class="form-line">
 			<label for="numero">Numéro :</label>
 			<input name="numero" type="text" id="numero" value="<?php echo htmlspecialchars($numero); ?>" />
 		</div>
