@@ -57,7 +57,7 @@ $acteurs=$acteurs_origine;
 $auteur=$livre['auteur'];
 $dessinateur=$bd['dessinateur'];
 $scenariste=$bd['scenariste'];
-$serie=$bd['serie'];
+$serie=$general['serie'];
 $numero=$bd['numero'];
 
 $g_action=in_array('action',$tableau_genres);
@@ -119,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 
     $ok = mysql_query('UPDATE tout ' .
 	'SET titre=' . reg_mysql_quote_string($titre) .
+	', serie=' . reg_mysql_quote_string($serie) .
 	', proprietaire=' . reg_mysql_quote_string($proprietaire) .
 	', emplacement=' . reg_mysql_quote_string($emplacement) .
 	', commentaire=' . reg_mysql_quote_string($commentaire) .
@@ -190,7 +191,6 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	    $ok = mysql_query('UPDATE bd ' .
 		'SET dessinateur=' .  reg_mysql_quote_string($dessinateur) .
 		', scenariste=' . reg_mysql_quote_string($scenariste) .
-		', serie=' . reg_mysql_quote_string($serie) .
 		', numero=' . reg_mysql_quote_string($numero) .
 		' WHERE id=' . $id);
 	    if (!$ok) reg_erreur_mysql();
