@@ -41,99 +41,98 @@ if (!$general) {
 $reg_titre_page = $general['titre'];
 require('includes/headers.php');
 ?>
-<dl class="fiche">
-<?php
 
-if (isset($general['titre'])) { ?>
-    <dt class="titre">Titre</dt>
-    <dd class="titre"><?php echo htmlspecialchars($general['titre']) ?></dd>
-<?php }
-if (isset($general['type'])) { ?>
-    <dt class="type">Type</dt>
-    <dd class="type"><?php echo reg_afficher_type($general['type']) ?></dd>
-<?php }
-if (isset($film['realisateur'])) { ?>
-    <dt class="realisateur">Réalisateur</dt>
-    <dd class="realisateur"><?php echo htmlspecialchars($film['realisateur']) ?></dd>
-<?php }
-$acteur = mysql_fetch_assoc($acteurs);
-if ($acteur) { ?>
-    <dt class="acteurs">Acteurs</dt>
-    <dd class="acteurs"><ul>
-<?php do { ?>
-	    <li><?php echo htmlspecialchars($acteur['acteur']) ?></li>
-<?php } while ($acteur = mysql_fetch_assoc($acteurs)); ?>
-	</ul></dd>
-<?php }
-if (isset($film['compositeur'])) { ?>
-    <dt class="compositeur">Compositeur</dt>
-    <dd class="compositeur"><?php echo htmlspecialchars($film['compositeur']) ?></dd>
-<?php }
-if (isset($film['genres'])) { ?>
-    <dt class="genres">Genres</dt>
-    <dd class="genres"><?php
-	echo htmlspecialchars(ucfirst(str_replace(',', ', ', $film['genres'])));	echo '.';
-    ?></dd>
-<?php }
-if (isset($livre['auteur'])) { ?>
-    <dt class="auteur">Auteur</dt>
-    <dd class="auteur"><?php echo htmlspecialchars($livre['auteur']) ?></dd>
-<?php }
-if (isset($livre['genres'])) { ?>
-    <dt class="genres">Genres</dt>
-    <dd class="genres"><?php
-	echo htmlspecialchars(ucfirst(str_replace(',',', ',$livre['genres'])));
-	echo '.';
-    ?></dd>
-<?php }
-if (isset($bd['dessinateur'])) { ?>
-    <dt class="dessinateur">Dessinateur</dt>
-    <dd class="dessinateur"><?php echo htmlspecialchars($bd['dessinateur']) ?></dd>
-<?php }
-if (isset($bd['scenariste'])) { ?>
-    <dt class="scenariste">Scénariste</dt>
-    <dd class="scenariste"><?php echo htmlspecialchars($bd['scenariste']) ?></dd>
-<?php }
-if (isset($general['serie'])) { ?>
-    <dt class="serie">Série</dt>
-    <dd class="serie"><?php echo htmlspecialchars($general['serie']) ?></dd>
-<?php }
-if (isset($bd['numero'])) { ?>
-    <dt class="numero">Numéro</dt>
-    <dd class="numero"><?php echo htmlspecialchars($bd['numero']) ?></dd>
-<?php }
-if (isset($general['commentaire'])) { ?>
-    <dt class="commentaire">Commentaire</dt>
-    <dd class="commentaire"><?php echo str_replace("\n", '<br>', htmlspecialchars($general['commentaire'])) ?></dd>
-<?php }
-if (isset($general['proprietaire'])) { ?>
-    <dt class="proprietaire">Proprietaire</dt>
-    <dd class="proprietaire"><?php echo htmlspecialchars($general['proprietaire']) ?></dd>
-<?php }
-if (isset($general['emplacement'])) { ?>
-    <dt class="emplacement">Emplacement</dt>
-    <dd class="emplacement"><?php echo htmlspecialchars($general['emplacement']) ?></dd>
-<?php }
-if (isset($general['createur'])) { ?>
-    <dt class="createur">Enregistré par</dt>
-    <dd class="createur"><?php echo htmlspecialchars($general['createur']) ?></dd>
-<?php }
-if (isset($general['creation'])) { ?>
-    <dt class="creation">Enregistré le</dt>
-    <dd class="creation"><?php echo htmlspecialchars($general['creation']) ?></dd>
-<?php }
-if (isset($general['dernier_editeur'])) { ?>
-    <dt class="dernier_editeur">Dernière modification par</dt>
-    <dd class="dernier_editeur"><?php echo htmlspecialchars($general['dernier_editeur']) ?></dd>
-<?php }
-if (isset($general['derniere_edition'])) { ?>
-    <dt class="derniere_edition">Dernière modification le</dt>
-    <dd class="derniere_edition"><?php echo htmlspecialchars($general['derniere_edition']) ?></dd>
-<?php } ?>
-</dl>
 
-<form action="<?php echo $reg_racine ?>Editer/<?php echo $id ?>" method="get"
-    class="fiche">
-<p><button type="submit">Modifier</button>
-</form>
+	<?php if (isset($general['titre'])) { ?>
+	<h1><?php echo htmlspecialchars($general['titre']) ?></h1>
+
+	<div class="grid-200 box-data-side">
+		<?php } $picture = false; if ($picture == true) { ?>
+		<img class="picture" width="200" src="<?php echo htmlspecialchars($reg_racine); ?>placeholder" />
+
+		<?php } else { ?>
+		<div class="picture picture-placeholder">
+			<p>Pas encore d'image pour le moment.</p>
+		</div>
+		<?php } ?>
+		
+		<?php if (isset($film['genres'])) { ?>
+		<p>Genres : <?php echo htmlspecialchars(ucfirst(str_replace(',', ', ', $film['genres']))); echo '.'; ?></p>
+
+		<?php } if (isset($livre['genres'])) { ?>
+		<p>Genres : <?php echo htmlspecialchars(ucfirst(str_replace(',',', ', $livre['genres']))); echo '.'; ?></p>
+		<?php } ?>
+	</div>
+
+
+	<div class="grid-430 box-data-main">
+		<div class="inner">
+			<?php if (isset($film['realisateur'])) { ?>
+			<p>Réalisé par <strong><?php echo htmlspecialchars($film['realisateur']) ?></strong></p>
+
+			<?php } $acteur = mysql_fetch_assoc($acteurs); if ($acteur) { ?>
+			<p>Avec
+				<?php do { ?>
+					<span><?php echo htmlspecialchars($acteur['acteur']) ?></span>,
+				<?php } while ($acteur = mysql_fetch_assoc($acteurs)); ?>
+			</p>
+
+			<?php } if (isset($film['compositeur'])) { ?>
+			<p>Compositeur : <?php echo htmlspecialchars($film['compositeur']) ?></p>
+
+			<?php } if (isset($livre['auteur'])) { ?>
+			<p>Écrit par <strong><?php echo htmlspecialchars($livre['auteur']) ?></strong></p>
+
+			<?php } if (isset($bd['dessinateur'])) { ?>
+			<p>Dessiné par <strong><?php echo htmlspecialchars($bd['dessinateur']) ?></strong></p>
+
+			<?php } if (isset($bd['scenariste'])) { ?>
+			<p>Scénarisé par <span><?php echo htmlspecialchars($bd['scenariste']) ?></span></p>
+
+			<?php } if (isset($general['serie'])) { ?>
+			<p>Série <span><?php echo htmlspecialchars($general['serie']) ?></span></p>
+
+			<?php } if (isset($bd['numero'])) { ?>
+			<p>Numéro : <span><?php echo htmlspecialchars($bd['numero']) ?></span></p>
+			<?php } ?>
+
+			<ul>
+				<li>
+					<?php if (isset($general['type'])) { ?>
+					<span><?php echo reg_afficher_type($general['type']) ?></span>
+
+					<?php } if (isset($general['proprietaire'])) { ?>
+					appartenant à <span><?php echo htmlspecialchars($general['proprietaire']) ?></span>.
+				</li>
+
+				<?php } if (isset($general['createur'])) { ?>
+				<li>Enregistré par <?php echo htmlspecialchars($general['createur']) ?></li>
+
+				<?php } if (isset($general['creation'])) { ?>
+				<li>Enregistré le <?php echo htmlspecialchars($general['creation']) ?></li>
+
+				<?php } if (isset($general['emplacement'])) { ?>
+				<li>ce trouve actuellement ici : <?php echo htmlspecialchars($general['emplacement']) ?></li>
+				<?php } ?>
+				
+				<li>
+					<?php if (isset($general['dernier_editeur'])) { ?>
+					Dernière modification par <?php echo htmlspecialchars($general['dernier_editeur']) ?>
+
+					<?php } if (isset($general['derniere_edition'])) { ?>
+					le <?php echo htmlspecialchars($general['derniere_edition']) ?>
+				</li>
+				<?php } ?>
+
+				<?php if (isset($general['commentaire'])) { ?>
+				<li>Commentaire : <?php echo str_replace("\n", '<br>', htmlspecialchars($general['commentaire'])) ?></li>
+				<?php } ?>
+			</ul>
+		</div>
+
+		<form action="<?php echo $reg_racine ?>Editer/<?php echo $id ?>" method="get" class="fiche">
+			<button type="submit">Modifier</button>
+		</form>
+	</div>
+
 <?php require('includes/footer.php'); ?>
