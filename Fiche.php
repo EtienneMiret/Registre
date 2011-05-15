@@ -45,9 +45,10 @@ require('includes/headers.php');
 
 	<?php if (isset($general['titre'])) { ?>
 	<h1><?php echo htmlspecialchars($general['titre']) ?></h1>
-
+	<?php } ?>
+	
 	<div class="grid-200 box-data-side">
-		<?php } $picture = false; if ($picture == true) { ?>
+		<?php $picture = false; if ($picture == true) { ?>
 		<img class="picture" width="200" src="<?php echo htmlspecialchars($reg_racine); ?>placeholder" />
 
 		<?php } else { ?>
@@ -90,7 +91,7 @@ require('includes/headers.php');
 			<p>Scénarisé par <span><?php echo htmlspecialchars($bd['scenariste']) ?></span></p>
 
 			<?php } if (isset($general['serie'])) { ?>
-			<p>Série <span><?php echo htmlspecialchars($general['serie']) ?></span></p>
+			<p>Série : <strong><?php echo htmlspecialchars($general['serie']) ?></strong></p>
 
 			<?php } if (isset($bd['numero'])) { ?>
 			<p>Numéro : <span><?php echo htmlspecialchars($bd['numero']) ?></span></p>
@@ -113,18 +114,13 @@ require('includes/headers.php');
 
 				<?php } if (isset($general['emplacement'])) { ?>
 				<li>ce trouve actuellement ici : <?php echo htmlspecialchars($general['emplacement']) ?></li>
-				<?php } ?>
-				
+				<?php } if (isset($general['dernier_editeur'])) { ?>
 				<li>
-					<?php if (isset($general['dernier_editeur'])) { ?>
 					Dernière modification par <?php echo htmlspecialchars($general['dernier_editeur']) ?>
-
 					<?php } if (isset($general['derniere_edition'])) { ?>
 					le <?php echo htmlspecialchars($general['derniere_edition']) ?>
 				</li>
-				<?php } ?>
-
-				<?php if (isset($general['commentaire'])) { ?>
+				<?php } if (isset($general['commentaire'])) { ?>
 				<li>Commentaire : <?php echo str_replace("\n", '<br>', htmlspecialchars($general['commentaire'])) ?></li>
 				<?php } ?>
 			</ul>
