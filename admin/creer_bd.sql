@@ -11,6 +11,7 @@ CREATE TABLE `tout` (
   `type` enum('disque Blu-ray', 'DVD','cassette','livre','BD') NOT NULL,
   `emplacement` varchar(80) default NULL,
   `commentaire` text,
+  `image` enum('YES') default NULL,
   `createur` varchar(20) default NULL,
   `creation` datetime default NULL,
   `dernier_editeur` varchar(20) default NULL,

@@ -93,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	. reg_mysql_quote_string($type) . ', '
 	. reg_mysql_quote_string($emplacement) . ', '
 	. reg_mysql_quote_string($commentaire) . ', '
+	. 'NULL, '
 	. reg_mysql_quote_string($reg_user) . ', NOW(), NULL, NULL)');
     if (!$ok) reg_erreur_mysql();
 

@@ -124,3 +124,18 @@ if ($ligne) {
         or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
     echo ' déplacé.'.PHP_EOL;
 }
+
+/* Ajout du champ « image ». */
+mysql_data_seek($tout, 0);
+echo 'Champ \'image\'...';
+while ($ligne=mysql_fetch_assoc($tout)) {
+    if ($ligne['Field']=='image') break;
+}
+if ($ligne) {
+    echo ' ok.' . PHP_EOL;
+} else {
+    mysql_query('ALTER TABLE tout ADD image enum(\'YES\') default NULL
+		AFTER commentaire');
+	or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
+    echo ' ajouté.' . PHP_EOL;
+}

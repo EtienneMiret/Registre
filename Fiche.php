@@ -48,8 +48,8 @@ require('includes/headers.php');
 	<?php } ?>
 	
 	<div class="grid-200 box-data-side">
-		<?php $picture = false; if ($picture == true) { ?>
-		<img class="picture" width="200" src="<?php echo htmlspecialchars($reg_racine); ?>placeholder" />
+		<?php if ($general['image']) { ?>
+		<img class="picture" width="200" src="<?php echo htmlspecialchars($reg_racine); ?>img/<?php echo $id; ?>" />
 
 		<?php } else { ?>
 		<div class="picture picture-placeholder">
