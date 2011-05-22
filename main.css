@@ -112,6 +112,7 @@ dl dd{margin-bottom:14px;text-indent:14px;}
 
 
 /* Specific page's rules */
+.home #main-content{padding:31px 0 0;border-top:8px solid #a5cc55;}
 .home form{width:422px;}
 .home form label{width:110px;}
 .home form .with-checkbox{padding:18px 10px 21px;}
