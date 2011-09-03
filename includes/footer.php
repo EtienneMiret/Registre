@@ -1,4 +1,4 @@
-		</section> <!-- /#main-content -->
-	</div> <!-- /#wrapper -->
+    </div> <!-- #main-content -->
+  </div> <!-- #wrapper -->
 </body>
 </html>
