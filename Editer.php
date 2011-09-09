@@ -14,10 +14,6 @@ define('DOSSIER_IMAGES', './img/');
 $reg_user = reg_authentifier();
 $reg_page = PAGE_EDITER;
 
-header('Content-Script-Type: application/ecmascript');
-$reg_head[]='<script type="application/ecmascript" src="'.$reg_racine.'registre"></script>';
-$reg_onload='ajouterBoutonListeActeurs();';
-
 $id = 0;
 if (isset($_GET['id'])) $id = (int) $_GET['id'];
 
@@ -95,8 +91,18 @@ for ($i=0; $i < LIGNES_ACTEURS_VIDES; $i++) {
     $acteurs[] = '';
 }
 
-$reg_head[]='<script type="application/ecmascript">nombreLignesActeurs=' .
-    count($acteurs) . '</script>';
+switch($type) {
+    case 'disque Blu-ray':
+    case 'DVD':
+    case 'cassette':
+	header('Content-Script-Type: application/ecmascript');
+	$reg_head[]='<script type="application/ecmascript" src="'.$reg_racine.'registre"></script>';
+	$reg_head[]='<script type="application/ecmascript">nombreLignesActeurs='
+	    . count($acteurs) . '</script>';
+	$reg_onload='ajouterBoutonListeActeurs();';
+	break;
+    default:
+}
 
 if ($type=='BD' && !preg_match('/^\d*$/', $numero)) $numero = '';
 
