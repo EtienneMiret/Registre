@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
     /* Ajout d’une image. */
     if (isset($_FILES['image'])
 	    && $_FILES['image']['error'] == UPLOAD_ERR_OK
-	    && $_FILES['image']['type'] == 'image/jpeg'
+	    && strtolower($_FILES['image']['type']) == 'image/jpeg'
 	    && move_uploaded_file(
 		$_FILES['image']['tmp_name'],
 		DOSSIER_IMAGES . $id . '.jpg')) {
