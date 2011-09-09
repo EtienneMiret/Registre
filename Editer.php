@@ -8,6 +8,9 @@ require('includes/connexion_bd.php');
 /* Nombre de lignes vides à la fin de la liste des acteurs. */
 define("LIGNES_ACTEURS_VIDES", 2);
 
+/* Dossier où sont enregistrés les images. */
+define('DOSSIER_IMAGES', './img/');
+
 $reg_user = reg_authentifier();
 $reg_page = PAGE_EDITER;
 
@@ -199,6 +202,17 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	default:
     }
 
+    /* Ajout d’une image. */
+    if (isset($_FILES['image'])
+	    && $_FILES['image']['error'] == UPLOAD_ERR_OK
+	    && $_FILES['image']['type'] == 'image/jpeg'
+	    && move_uploaded_file(
+		$_FILES['image']['tmp_name'],
+		DOSSIER_IMAGES . $id . '.jpg')) {
+	$ok = mysql_query('UPDATE tout SET image=\'YES\' WHERE id=' . $id);
+	if (!$ok) reg_erreur_mysql();
+    }
+
     $ok = mysql_query('UNLOCK TABLES');
     if (!$ok) reg_erreur_mysql();
 
@@ -209,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 <?php } ?>
       <p class="navigation"><a href="<?php echo $reg_racine; ?>Fiche/<?php echo $id; ?>">Annuler</a> les modifications.
 
-      <form action="<?php echo $reg_racine; ?>Editer/<?php echo $id; ?>" method="post" class="editer">
+      <form action="<?php echo $reg_racine; ?>Editer/<?php echo $id; ?>" method="post" class="editer" enctype="multipart/form-data">
 	<div class="form-line">
 	  <label for="titre">Titre :</label>
 	  <input name="titre" type="text" id="titre" value="<?php echo htmlspecialchars($titre); ?>">
@@ -363,6 +377,10 @@ if ($_SERVER['REQUEST_METHOD'] <> 'POST') {
 	<div class="form-line">
 	  <label for="emplacement">Emplacement :</label>
 	  <input name="emplacement" type="text" id="emplacement" value="<?php echo htmlspecialchars($emplacement); ?>">
+	</div>
+	<div class="form-line">
+	  <label for="image">Image :</label>
+	  <input name="image" type="file" id="image">
 	</div>
 	<button type="submit">Enregistrer les modifications</button>
       </form>
