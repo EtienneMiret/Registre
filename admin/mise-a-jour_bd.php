@@ -135,7 +135,7 @@ if ($ligne) {
     echo ' ok.' . PHP_EOL;
 } else {
     mysql_query('ALTER TABLE tout ADD image enum(\'YES\') default NULL
-		AFTER commentaire');
-	or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL)
+		AFTER commentaire')
+	or die ('Erreur MySQL : ' . mysql_error() . PHP_EOL);
     echo ' ajouté.' . PHP_EOL;
 }
