@@ -1,8 +1,12 @@
 package fr.elimerl.registre.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Test de la classe {@link Utilisateur}.
@@ -22,9 +26,7 @@ public class UtilisateurTest {
     private static final String[] MOTS_DE_PASSE =
 	    new String[] { "azerty", "AZERTY", "Eoqk", "9Juj","a2(;Xz" };
 
-    /**
-     * Un seul mot de passe encodé de manières différentes.
-     */
+    /** Un seul mot de passe encodé de manières différentes. */
     private static final String[] MOT_DE_PASSE_ENCODÉ =
 	    new String[] {
 		"stéèàñÑçff",
@@ -34,6 +36,10 @@ public class UtilisateurTest {
 		// st  e   ´  e   `  a   `  n   ~  N   ~  c   ¸    ff
 		"\ufb06e\u0301e\u0300a\u0300n\u0303N\u0303c\u0327\ufb00" };
 
+    /** Loggeur de cette classe. */
+    private static final Logger logger =
+	    LoggerFactory.getLogger(UtilisateurTest.class);
+
     /**
      * Teste la création d’un utilisateur, ainsi que les méthodes
      * {@link Utilisateur#getNom() getNom()} et
@@ -41,6 +47,7 @@ public class UtilisateurTest {
      */
     @Test
     public void testCréation() {
+	logger.info("Test création.");
 	final Utilisateur utilisateur =
 		new Utilisateur(NOM, MOT_DE_PASSE_INITIAL);
 	assertEquals("Il y a un problème dans le nom de l’utilisateur.",
@@ -59,6 +66,7 @@ public class UtilisateurTest {
      */
     @Test
     public void testDéfinirMotDePasse() {
+	logger.info("Test définir mot de passe.");
 	final Utilisateur utilisateur =
 		new Utilisateur(NOM, MOT_DE_PASSE_INITIAL);
 	for (final String mdp : MOTS_DE_PASSE) {
@@ -82,6 +90,7 @@ public class UtilisateurTest {
      */
     @Test
     public void testMotDePasseEncodé() {
+	logger.info("Test mot de passe encodé.");
 	final Utilisateur utilisateur =
 		new Utilisateur(NOM, MOT_DE_PASSE_INITIAL);
 	for (int i = 0; i < MOT_DE_PASSE_ENCODÉ.length; i++) {

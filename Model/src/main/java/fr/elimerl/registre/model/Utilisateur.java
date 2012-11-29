@@ -13,6 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Un utilisateur de l’application.
  */
@@ -34,6 +37,12 @@ public class Utilisateur {
      * Générateur de nombres aléatoires utilisé pour générer les sels.
      */
     private static final Random random = new Random();
+
+    /**
+     * Loggeur de cette classe.
+     */
+    private static final Logger logger =
+	    LoggerFactory.getLogger(Utilisateur.class);
 
     /**
      * Identifiant de cet objet dans la base de données.
@@ -82,7 +91,9 @@ public class Utilisateur {
     public Utilisateur(final String nom, final String mdp) {
 	super();
 	this.nom = nom;
-	définirMdp(mdp);
+	sel = selAléatoire();
+	hashMdp = hacherMdp(mdp);
+	logger.debug("Création de l’utilisateur : {}", this);
     }
 
     /**
@@ -94,6 +105,7 @@ public class Utilisateur {
     public void définirMdp(final String mdp) {
 	sel = selAléatoire();
 	hashMdp = hacherMdp(mdp);
+	logger.debug("Mot de passe de {} changé.", this, hashMdp);
     }
 
     /**
@@ -142,6 +154,7 @@ public class Utilisateur {
 	    selBuilder.append('0');
 	}
 	selBuilder.append(baseSel);
+	logger.debug("Sel généré : {}", selBuilder);
 	return selBuilder.toString();
     }
 
@@ -177,8 +190,9 @@ public class Utilisateur {
 	/* Convertir le hash en héxadécimal. */
 	final StringBuilder hexBuilder = new StringBuilder(hash.length * 2);
 	for (final byte b : hash) {
-	    hexBuilder.append(String.format("%2x", Byte.valueOf(b)));
+	    hexBuilder.append(String.format("%02x", Byte.valueOf(b)));
 	}
+	logger.debug("Hash calculé : {}", hexBuilder);
 	return hexBuilder.toString();
     }
 
