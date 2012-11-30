@@ -29,7 +29,7 @@ public class Utilisateur {
     private static final int TAILLE_SEL = 8;
 
     /**
-     * Encodage de caractère utilisé 
+     * Encodage de caractère utilisé pour calculer le hash.
      */
     private static final Charset UTF_8 = Charset.forName("UTF-8");
 
@@ -67,7 +67,7 @@ public class Utilisateur {
 
     /**
      * Hash MD5 du mot de passe salé. Est constitué du {@link #sel}, du
-     * caractère ‘:’ et du vrai mot de passe, concaténés et hachés. 
+     * caractère ‘:’ et du vrai mot de passe, concaténés et hachés.
      */
     @Column(name = "mdp")
     private String hashMdp;

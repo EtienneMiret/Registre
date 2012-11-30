@@ -24,7 +24,7 @@ public class UtilisateurTest {
      * {@link #MOT_DE_PASSE_INITIAL} et différents les uns des autres.
      */
     private static final String[] MOTS_DE_PASSE =
-	    new String[] { "azerty", "AZERTY", "Eoqk", "9Juj","a2(;Xz" };
+	    new String[] {"azerty", "AZERTY", "Eoqk", "9Juj", "a2(;Xz" };
 
     /** Un seul mot de passe encodé de manières différentes. */
     private static final String[] MOT_DE_PASSE_ENCODÉ =
@@ -96,8 +96,8 @@ public class UtilisateurTest {
 	for (int i = 0; i < MOT_DE_PASSE_ENCODÉ.length; i++) {
 	    utilisateur.définirMdp(MOT_DE_PASSE_ENCODÉ[i]);
 	    for (int j = 0; j < MOT_DE_PASSE_ENCODÉ.length; j++) {
-		assertTrue("Problème de vérification des mots de passe non-ascii : "
-			+ i + "≠" + j,
+		assertTrue("Problème de vérification des mots de passe "
+			+ "non-ascii : " + i + "≠" + j,
 			utilisateur.vérifierMdp(MOT_DE_PASSE_ENCODÉ[j]));
 	    }
 	}
