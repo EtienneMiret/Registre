@@ -40,6 +40,9 @@ public abstract class Nommé {
      */
     public Nommé(final String nom) {
 	this.nom = nom;
+	if (nom != null) {
+	    logger.debug("Création de {}.", this);
+	}
     }
 
     /**
