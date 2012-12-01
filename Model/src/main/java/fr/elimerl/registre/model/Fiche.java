@@ -318,4 +318,9 @@ public abstract class Fiche {
         return dernièreÉdition;
     }
 
+    @Override
+    public String toString() {
+	return "Fiche:" + id + ":" + titre;
+    }
+
 }
