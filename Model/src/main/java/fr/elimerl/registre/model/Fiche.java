@@ -79,13 +79,13 @@ public abstract class Fiche {
      * Utilisateur qui a créé cette référence.
      */
     @ManyToOne
-    @JoinColumn(name = "createur")
+    @JoinColumn(name = "createur", updatable = false)
     private Utilisateur créateur;
 
     /**
      * Date de création de cette référence.
      */
-    @Column(name = "creation")
+    @Column(name = "creation", updatable = false)
     private Date création;
 
     /**
