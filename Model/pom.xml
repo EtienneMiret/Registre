@@ -4,7 +4,7 @@
 
   <groupId>fr.elimerl.Registre</groupId>
   <artifactId>Model</artifactId>
-  <version>master</version>
+  <version>master-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Model</name>
