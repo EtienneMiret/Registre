@@ -41,6 +41,15 @@ public class NomméTest {
     }
 
     /**
+     * Tests sur la classe {@link Emplacement}.
+     */
+    @Test
+    public void emplacements() {
+	final Emplacement emplacement = new Emplacement(NOM_CRÉATION);
+	testerTout(emplacement);
+    }
+
+    /**
      * Teste les méthodes {@link Nommé#getNom() getNom()} et
      * {@link Nommé#setNom(String) setNom(String)} sur le {@link Nommé} passé
      * en paramètre.
