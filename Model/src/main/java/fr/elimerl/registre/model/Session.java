@@ -111,4 +111,9 @@ public class Session {
 	return now.before(expiration);
     }
 
+    @Override
+    public String toString() {
+	return "Session:" + clef + ":" + utilisateur.getNom();
+    }
+
 }
