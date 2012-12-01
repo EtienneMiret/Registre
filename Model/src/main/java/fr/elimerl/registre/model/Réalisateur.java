@@ -1,8 +1,13 @@
 package fr.elimerl.registre.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Cette classe représente le réalisateur d’un film.
  */
+@Entity
+@Table(name = "realisateurs")
 public class Réalisateur extends Nommé {
 
     /**
