@@ -32,6 +32,15 @@ public class NomméTest {
     }
 
     /**
+     * Tests sur la classe {@link Série}.
+     */
+    @Test
+    public void série() {
+	final Série série = new Série(NOM_CRÉATION);
+	testerTout(série);
+    }
+
+    /**
      * Teste les méthodes {@link Nommé#getNom() getNom()} et
      * {@link Nommé#setNom(String) setNom(String)} sur le {@link Nommé} passé
      * en paramètre.
