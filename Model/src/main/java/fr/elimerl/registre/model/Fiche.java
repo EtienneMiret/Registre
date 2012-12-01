@@ -123,13 +123,6 @@ public abstract class Fiche {
     }
 
     /**
-     * Constructeur sans arguments, requis par Hibernate.
-     */
-    public Fiche() {
-	this(null, null);
-    }
-
-    /**
      * Indique que l’utilisateur passé en argument vient de modifier la fiche.
      * Met à jour le dernier éditeur et la date de dernière modification.
      *
