@@ -44,9 +44,18 @@ public class NomméTest {
      * Tests sur la classe {@link Emplacement}.
      */
     @Test
-    public void emplacements() {
+    public void emplacement() {
 	final Emplacement emplacement = new Emplacement(NOM_CRÉATION);
 	testerTout(emplacement);
+    }
+
+    /**
+     * Tests sur la classe {@link Acteur}.
+     */
+    @Test
+    public void acteur() {
+	final Acteur acteur = new Acteur(NOM_CRÉATION);
+	testerTout(acteur);
     }
 
     /**
