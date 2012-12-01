@@ -59,6 +59,15 @@ public class NomméTest {
     }
 
     /**
+     * Tests sur la classe {@link Réalisateur}.
+     */
+    @Test
+    public void réalisateur() {
+	final Réalisateur réalisateur = new Réalisateur(NOM_CRÉATION);
+	testerTout(réalisateur);
+    }
+
+    /**
      * Teste les méthodes {@link Nommé#getNom() getNom()} et
      * {@link Nommé#setNom(String) setNom(String)} sur le {@link Nommé} passé
      * en paramètre.
