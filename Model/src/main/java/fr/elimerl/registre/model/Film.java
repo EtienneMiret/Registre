@@ -23,12 +23,31 @@ public class Film extends Fiche {
      * Support physique sur lequel est enregistré un film.
      */
     public enum Support {
+
 	/** Une cassette. */
-	K7,
+	K7("Cassette"),
 	/** Un DVD. */
-	DVD,
+	DVD("DVD"),
 	/** Un disque Blu-Ray. */
-	BRD;
+	BRD("Blu-Ray");
+
+	/** Nom de ce support à afficher dans l’IHM. */
+	private final String nom;
+
+	/**
+	 * Définit le nom de ce support.
+	 *
+	 * @param nom
+	 *            nom de ce support à afficher dans l’IHM.
+	 */
+	private Support(final String nom) {
+	    this.nom = nom;
+	}
+
+	@Override
+	public String toString() {
+	    return nom;
+	}
     }
 
     /** Support physique sur lequel est enregistré ce film. */
