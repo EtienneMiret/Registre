@@ -68,7 +68,9 @@ public class Session {
 	if (utilisateur != null) {
 	    /* Champ clef. */
 	    final byte[] octets = new byte[TAILLE_CLEF];
-	    random.nextBytes(octets);
+	    synchronized (random) {
+		random.nextBytes(octets);
+	    }
 	    clef = DatatypeConverter.printBase64Binary(octets);
 
 	    /* Champ utilisateur. */
