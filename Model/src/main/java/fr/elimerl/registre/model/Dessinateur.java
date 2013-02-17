@@ -25,7 +25,7 @@ public class Dessinateur extends Nommé {
      * Constructeur sans arguments, requis par Hibernate.
      */
     public Dessinateur() {
-	this(null);
+	super();
     }
 
 }

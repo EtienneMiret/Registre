@@ -42,7 +42,7 @@ public class BandeDessinée extends Fiche {
      * Constructeur sans arguments, requis par Hibernate.
      */
     public BandeDessinée() {
-	this(null, null);
+	super();
     }
 
     /**

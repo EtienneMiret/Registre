@@ -126,16 +126,14 @@ public class Film extends Fiche {
 	    final Support support) {
 	super(titre, créateur);
 	this.support = support;
-	if (créateur != null) {
-	    this.acteurs = new HashSet<Acteur>();
-	}
+	this.acteurs = new HashSet<Acteur>();
     }
 
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
     public Film() {
-	this(null, null, null);
+	super();
     }
 
     /**

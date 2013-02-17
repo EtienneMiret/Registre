@@ -65,32 +65,28 @@ public class Session {
      *            durée de cette session en millisecondes.
      */
     public Session(final Utilisateur utilisateur, final long durée) {
-	if (utilisateur != null) {
-	    /* Champ clef. */
-	    final byte[] octets = new byte[TAILLE_CLEF];
-	    synchronized (random) {
-		random.nextBytes(octets);
-	    }
-	    clef = DatatypeConverter.printBase64Binary(octets);
-
-	    /* Champ utilisateur. */
-	    this.utilisateur = utilisateur;
-
-	    /* Champ expiration. */
-	    expiration = new Date();
-	    final long now = expiration.getTime();
-	    expiration.setTime(now + durée);
-
-	    logger.debug("Session {} créée pour {}.", clef,
-		    utilisateur.getNom());
+	/* Champ clef. */
+	final byte[] octets = new byte[TAILLE_CLEF];
+	synchronized (random) {
+	    random.nextBytes(octets);
 	}
+	clef = DatatypeConverter.printBase64Binary(octets);
+
+	/* Champ utilisateur. */
+	this.utilisateur = utilisateur;
+
+	/* Champ expiration. */
+	expiration = new Date();
+	final long now = expiration.getTime();
+	expiration.setTime(now + durée);
+
+	logger.debug("Session {} créée pour {}.", clef, utilisateur.getNom());
     }
 
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
     public Session() {
-	this(null, 0L);
     }
 
     /**

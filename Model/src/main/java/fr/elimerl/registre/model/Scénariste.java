@@ -25,7 +25,7 @@ public class Scénariste extends Nommé {
      * Constructeur sans arguments, requis par Hibernate.
      */
     public Scénariste() {
-	this(null);
+	super();
     }
 
 }

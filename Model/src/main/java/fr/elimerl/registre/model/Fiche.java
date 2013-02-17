@@ -102,6 +102,12 @@ public abstract class Fiche {
     private Date dernièreÉdition;
 
     /**
+     * Constructeur sans arguments, requis par Hibernate.
+     */
+    public Fiche() {
+    }
+
+    /**
      * Crée une nouvelle fiche.
      *
      * @param titre
@@ -110,16 +116,14 @@ public abstract class Fiche {
      *            utilisateur qui crée cette nouvelle fiche.
      */
     public Fiche(final String titre, final Utilisateur créateur) {
-	if (créateur != null) {
-	    final Date maintenant = new Date();
-	    this.titre = titre;
-	    this.commentaire = "";
-	    this.créateur = créateur;
-	    this.création = maintenant;
-	    this.dernierÉditeur = créateur;
-	    this.dernièreÉdition = maintenant;
-	    logger.debug("{} crée une fiche pour « {} ».", créateur, titre);
-	}
+	final Date maintenant = new Date();
+	this.titre = titre;
+	this.commentaire = "";
+	this.créateur = créateur;
+	this.création = maintenant;
+	this.dernierÉditeur = créateur;
+	this.dernièreÉdition = maintenant;
+	logger.debug("{} crée une fiche pour « {} ».", créateur, titre);
     }
 
     /**

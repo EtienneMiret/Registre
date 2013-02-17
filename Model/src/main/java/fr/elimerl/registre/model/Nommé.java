@@ -32,6 +32,12 @@ public abstract class Nommé {
     private String nom;
 
     /**
+     * Constructeur sans argument, requis par Hibernate.
+     */
+    public Nommé() {
+    }
+
+    /**
      * Construit un nouveau {@link Nommé} à partir d’un nom. Deux nommés ne
      * peuvent avoir le même nom.
      *
@@ -40,9 +46,7 @@ public abstract class Nommé {
      */
     public Nommé(final String nom) {
 	this.nom = nom;
-	if (nom != null) {
-	    logger.debug("Création de {}.", this);
-	}
+	logger.debug("Création de {}.", this);
     }
 
     /**

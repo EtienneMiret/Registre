@@ -24,7 +24,7 @@ public class Réalisateur extends Nommé {
      * Constructeur sans arguments, requis par Hibernate.
      */
     public Réalisateur() {
-	this(null);
+	super();
     }
 
 }
