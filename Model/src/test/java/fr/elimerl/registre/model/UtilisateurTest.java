@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,6 +104,18 @@ public class UtilisateurTest {
 			utilisateur.vérifierMdp(MOT_DE_PASSE_ENCODÉ[j]));
 	    }
 	}
+    }
+
+    /**
+     * Teste les méthodes {@link Utilisateur#equals(Object) equals()} et
+     * {@link Utilisateur#hashCode() hashCode()}.
+     */
+    @Test
+    public void equalsEtHashCode() {
+	final EqualsVerifier<Utilisateur> equalsVerifier =
+		EqualsVerifier.forClass(Utilisateur.class);
+	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
+	equalsVerifier.verify();
     }
 
 }

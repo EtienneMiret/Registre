@@ -133,7 +133,30 @@ public class Utilisateur {
 
     @Override
     public String toString() {
-	return "Utilisateur:" + nom;
+	return nom;
+    }
+
+    @Override
+    public boolean equals(final Object autre) {
+	if (this == autre) {
+	    return true;
+	} else if (autre == null) {
+	    return false;
+	} else if (autre instanceof Utilisateur) {
+	    final Utilisateur autreUtilisateur = (Utilisateur) autre;
+	    if (this.nom == null) {
+		return (autreUtilisateur.nom == null);
+	    } else {
+		return this.nom.equals(autreUtilisateur.nom);
+	    }
+	} else {
+	    return false;
+	}
+    }
+
+    @Override
+    public int hashCode() {
+	return (nom == null ? 0 : nom.hashCode());
     }
 
     /**
