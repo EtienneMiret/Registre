@@ -80,7 +80,7 @@ public abstract class Nommé {
 
     @Override
     public String toString() {
-	return getClass().getSimpleName() + ":" + nom;
+	return nom;
     }
 
 }
