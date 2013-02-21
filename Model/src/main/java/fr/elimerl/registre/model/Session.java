@@ -80,7 +80,7 @@ public class Session {
 	final long now = expiration.getTime();
 	expiration.setTime(now + durée);
 
-	logger.debug("Session {} créée pour {}.", clef, utilisateur.getNom());
+	logger.debug("Session {} créée pour {}.", clef, utilisateur);
     }
 
     /**
@@ -111,7 +111,30 @@ public class Session {
 
     @Override
     public String toString() {
-	return "Session:" + clef + ":" + utilisateur.getNom();
+	return clef + ":" + utilisateur;
+    }
+
+    @Override
+    public boolean equals(final Object autre) {
+	if (this == autre) {
+	    return true;
+	} else if (autre == null) {
+	    return false;
+	} else if (autre instanceof Session) {
+	    final Session autreSession = (Session) autre;
+	    if (this.clef == null) {
+		return (autreSession.clef == null);
+	    } else {
+		return this.clef.equals(autreSession.clef);
+	    }
+	} else {
+	    return false;
+	}
+    }
+
+    @Override
+    public int hashCode() {
+	return (clef == null ? 0 : clef.hashCode());
     }
 
 }

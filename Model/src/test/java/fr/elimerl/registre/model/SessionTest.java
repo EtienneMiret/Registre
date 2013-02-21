@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 import org.junit.Test;
 
 /**
@@ -65,6 +68,18 @@ public class SessionTest {
 	final Session session = new Session(utilisateur, 1000);
 	assertTrue("Une session qui expire plus tard n’est pas valide.",
 		session.estValide());
+    }
+
+    /**
+     * Teste les méthodes {@link Session#equals(Object) equals()} et
+     * {@link Session#hashCode() hashCode()}.
+     */
+    @Test
+    public void equalsEtHashCode() {
+	final EqualsVerifier<Session> equalsVerifier =
+		EqualsVerifier.forClass(Session.class);
+	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
+	equalsVerifier.verify();
     }
 
 }
