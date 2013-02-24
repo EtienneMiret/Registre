@@ -10,19 +10,20 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  * Type de fiche qui représente un film.
  */
 @Entity
-@Table(name = "film")
+@Table(name = "films")
 public class Film extends Fiche {
 
     /**
      * Support physique sur lequel est enregistré un film.
      */
-    public enum Support {
+    public static enum Support {
 
 	/** Une cassette. */
 	K7("Cassette"),
@@ -52,11 +53,12 @@ public class Film extends Fiche {
 
     /** Support physique sur lequel est enregistré ce film. */
     @Enumerated(EnumType.STRING)
-    @Column(name = "support", nullable = false)
+    @Column(name = "support")
     private Support support;
 
     /** Le réalisateur de ce film. */
-    @Column(name = "realisateur")
+    @ManyToOne
+    @JoinColumn(name = "realisateur")
     private Réalisateur réalisateur;
 
     /** Les acteurs ayant joué dans ce film. */
@@ -69,7 +71,8 @@ public class Film extends Fiche {
     private Set<Acteur> acteurs;
 
     /** Le compositeur de la musique de ce film. */
-    @Column(name = "compositeur")
+    @ManyToOne
+    @JoinColumn(name = "compositeur")
     private Compositeur compositeur;
 
     /** Est-ce que ce film est un film d’action ? */
@@ -396,6 +399,27 @@ public class Film extends Fiche {
      */
     public void setGenreRomantique(final Boolean genreRomantique) {
         this.genreRomantique = genreRomantique;
+    }
+
+    /**
+     * Est-ce que ce film est un film de science-fiction ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreSf() {
+	return genreSf;
+    }
+
+    /**
+     * Définit si ce film est un film de science-fiction.
+     *
+     * @param genreSf
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreSf(final Boolean genreSf) {
+	this.genreSf = genreSf;
     }
 
 }

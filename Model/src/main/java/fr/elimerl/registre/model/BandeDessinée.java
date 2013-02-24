@@ -1,22 +1,29 @@
 package fr.elimerl.registre.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Type de fiche qui représente une bande-dessinée.
  */
+@Entity
+@Table(name = "bande_dessinees")
 public class BandeDessinée extends Fiche {
 
     /**
      * Dessinateur de cette bande-dessinée.
      */
+    @ManyToOne
     @JoinColumn(name = "dessinateur")
     private Dessinateur dessinateur;
 
     /**
      * Scénariste de cette bande-dessinée.
      */
+    @ManyToOne
     @JoinColumn(name = "scenariste")
     private Scénariste scénariste;
 

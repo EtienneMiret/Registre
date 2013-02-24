@@ -118,7 +118,6 @@ public abstract class Fiche {
     public Fiche(final String titre, final Utilisateur créateur) {
 	final Date maintenant = new Date();
 	this.titre = titre;
-	this.commentaire = "";
 	this.créateur = créateur;
 	this.création = maintenant;
 	this.dernierÉditeur = créateur;

@@ -123,6 +123,15 @@ public class Utilisateur {
     }
 
     /**
+     * Renvoie l’identifiant de cet utilisateur en base de donnée.
+     *
+     * @return l’identifiant de cet utilisateur en base de donnée.
+     */
+    public Long getId() {
+	return id;
+    }
+
+    /**
      * Renvoie le nom de cet utilisateur.
      *
      * @return le nom de cet utilisateur.

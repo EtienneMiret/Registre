@@ -7,6 +7,8 @@ import java.util.Random;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.DatatypeConverter;
 
@@ -43,7 +45,8 @@ public class Session {
     private String clef;
 
     /** Utilisateur qui a créé cette session. */
-    @Column(name = "utilisateur")
+    @ManyToOne
+    @JoinColumn(name = "utilisateur")
     private Utilisateur utilisateur;
 
     /**
@@ -96,6 +99,24 @@ public class Session {
      */
     public Utilisateur getUtilisateur() {
 	return utilisateur;
+    }
+
+    /**
+     * Renvoie l’identifiant de cette session (sa clef).
+     *
+     * @return l’identifiant de cette session (sa clef).
+     */
+    public String getClef() {
+	return clef;
+    }
+
+    /**
+     * Renvoie la date d’expiration de cette session.
+     *
+     * @return la date d’expiration de cette session.
+     */
+    public Date getExpiration() {
+	return expiration;
     }
 
     /**
