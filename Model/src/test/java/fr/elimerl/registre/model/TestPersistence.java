@@ -7,12 +7,17 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.junit.After;
 import org.junit.Before;
@@ -34,6 +39,18 @@ public class TestPersistence {
     /** Nom qui ne doit appartenir à aucun {@link Nommé} en base. */
     private static final String NOM = "Test de persistence JUnit";
 
+    /** L’entier 0, défini comme une constante. */
+    private static final int ZÉRO = 0;
+
+    /** L’entier 1, défini comme une constante. */
+    private static final int UN = 1;
+
+    /** L’entier 2, défini comme une constante. */
+    private static final int DEUX = 2;
+
+    /** L’entier 3, défini comme une constante. */
+    private static final int TROIS = 3;
+
     /** Loggeur de cette classe. */
     private static final Logger logger =
 	    LoggerFactory.getLogger(TestPersistence.class);
@@ -50,10 +67,16 @@ public class TestPersistence {
     private EntityManager em;
 
     /**
+     * Fabrique de requêtes.
+     */
+    private CriteriaBuilder builder;
+
+    /**
      * Prépare l’environnement pour les tests.
      */
     @Before
     public void setUp() {
+	builder = emf.getCriteriaBuilder();
 	em = emf.createEntityManager();
 	em.getTransaction().begin();
     }
@@ -331,7 +354,7 @@ public class TestPersistence {
 
 	assertEquals(réalisateur, film.getRéalisateur());
 	assertNotNull(film.getActeurs());
-	assertEquals(1 + 1 + 1, film.getActeurs().size());
+	assertEquals(TROIS, film.getActeurs().size());
 	assertTrue(film.getActeurs().contains(acteur1));
 	assertTrue(film.getActeurs().contains(acteur2));
 	assertTrue(film.getActeurs().contains(acteur3));
@@ -443,6 +466,37 @@ public class TestPersistence {
 		+ "identiques.");
 	em.merge(new Utilisateur(NOM, "azerty"));
 	em.merge(new Utilisateur(NOM, "qwerty"));
+    }
+
+    /**
+     * Teste le chargement des utilisateurs insérés dans la base de données par
+     * le fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerUtilisateurs() {
+	logger.info("Chargement des utilisateurs de test-data.sql.");
+	final CriteriaQuery<Utilisateur> query =
+		builder.createQuery(Utilisateur.class);
+	final Root<Utilisateur> root = query.from(Utilisateur.class);
+	query.orderBy(builder.asc(root.get("id")));
+	final List<Utilisateur> utilisateurs =
+		em.createQuery(query).getResultList();
+	final Iterator<Utilisateur> iterator = utilisateurs.iterator();
+
+	final Utilisateur etienne = iterator.next();
+	assertEquals(ZÉRO, etienne.getId().intValue());
+	assertEquals("Etienne", etienne.getNom());
+	assertTrue(etienne.vérifierMdp("qwerty"));
+
+	final Utilisateur grégoire = iterator.next();
+	assertEquals(UN, grégoire.getId().intValue());
+	assertEquals("Grégoire", grégoire.getNom());
+	assertTrue(grégoire.vérifierMdp("azerty"));
+
+	final Utilisateur claire = iterator.next();
+	assertEquals(DEUX, claire.getId().intValue());
+	assertEquals("Claire", claire.getNom());
+	assertTrue(claire.vérifierMdp("AZERTY"));
     }
 
 }
