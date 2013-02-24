@@ -12,6 +12,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -345,6 +346,103 @@ public class TestPersistence {
 	assertEquals(Boolean.FALSE, film.getGenrePolicier());
 	assertEquals(Boolean.TRUE, film.getGenreRomantique());
 	assertEquals(Boolean.FALSE, film.getGenreSf());
+    }
+
+    /**
+     * Teste l’enregistrement de deux acteurs ayant le même nom.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxActeursIdentiques() {
+	logger.info("Test de l’enregistrement de deux acteurs identiques.");
+	em.merge(new Acteur(NOM));
+	em.merge(new Acteur(NOM));
+    }
+
+    /**
+     * Teste l’enregistrement de deux compositeurs ayant le même nom.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxCompositeursIdentiques() {
+	logger.info("Test de l’enregistrement de deux compositeurs "
+		+ "identiques.");
+	em.merge(new Compositeur(NOM));
+	em.merge(new Compositeur(NOM));
+    }
+
+    /**
+     * Teste l’enregistrement de deux dessinateurs ayant le même nom.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxDessinateursIdentiques() {
+	logger.info("Test de l’enregistrement de deux dessinateurs "
+		+ "identiques");
+	em.merge(new Dessinateur(NOM));
+	em.merge(new Dessinateur(NOM));
+    }
+
+    /**
+     * Teste l’enregistrement de deux emplacements ayant le même nom.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxEmplacementsIdentiques() {
+	logger.info("Test de l’enregistrement de deux emplacements "
+		+ "identiques");
+	em.merge(new Emplacement(NOM));
+	em.merge(new Emplacement(NOM));
+    }
+
+    /**
+     * Teste l’enregistrement de deux propriétaires ayant le même nom.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxPropriétairesIdentiques() {
+	logger.info("Test de l’enregistrement de deux propriétaires "
+		+ "identiques.");
+	em.merge(new Propriétaire(NOM));
+	em.merge(new Propriétaire(NOM));
+    }
+
+    /**
+     * Teste l’enregistrement de deux réalisateurs ayant le même nom.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxRéalisateursIdentiques() {
+	logger.info("Test de l’enregistrement de deux réalisateurs "
+		+ "identiques.");
+	em.merge(new Réalisateur(NOM));
+	em.merge(new Réalisateur(NOM));
+    }
+
+    /**
+     * Teste l’enregistrement de deux scénariste ayant le même nom.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxScénaristesIdentiques() {
+	logger.info("Test de l’enregistrement de deux scénaristes "
+		+ "identiques.");
+	em.merge(new Scénariste(NOM));
+	em.merge(new Scénariste(NOM));
+    }
+
+    /**
+     * Teste l’enregistrement de deux série ayant le même nom.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxSériesIdentiques() {
+	logger.info("Test de l’enregistrement de deux séries identiques.");
+	em.merge(new Série(NOM));
+	em.merge(new Série(NOM));
+    }
+
+    /**
+     * Teste l’enregistrement de deux utilisateurs ayant le même nom.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxUtilisateursIdentiques() {
+	logger.info("Test de l’enregistrement de deux utilisateurs "
+		+ "identiques.");
+	em.merge(new Utilisateur(NOM, "azerty"));
+	em.merge(new Utilisateur(NOM, "qwerty"));
     }
 
 }
