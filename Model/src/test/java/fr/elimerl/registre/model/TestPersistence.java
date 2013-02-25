@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -372,7 +371,8 @@ public class TestPersistence {
     }
 
     /**
-     * Teste l’enregistrement de deux acteurs ayant le même nom.
+     * Teste l’enregistrement de deux acteurs ayant le même nom. Comme deux
+     * acteurs ne peuvent avoir le même nom, une erreur doit se produire.
      */
     @Test(expected = PersistenceException.class)
     public void deuxActeursIdentiques() {
@@ -382,7 +382,8 @@ public class TestPersistence {
     }
 
     /**
-     * Teste l’enregistrement de deux compositeurs ayant le même nom.
+     * Teste l’enregistrement de deux compositeurs ayant le même nom. Comme deux
+     * compositeurs ne peuvent avoir le même nom, une erreur doit se produire.
      */
     @Test(expected = PersistenceException.class)
     public void deuxCompositeursIdentiques() {
@@ -393,7 +394,8 @@ public class TestPersistence {
     }
 
     /**
-     * Teste l’enregistrement de deux dessinateurs ayant le même nom.
+     * Teste l’enregistrement de deux dessinateurs ayant le même nom. Comme deux
+     * dessinateurs ne peuvent avoir le même nom, une erreur doit se produire.
      */
     @Test(expected = PersistenceException.class)
     public void deuxDessinateursIdentiques() {
@@ -404,7 +406,8 @@ public class TestPersistence {
     }
 
     /**
-     * Teste l’enregistrement de deux emplacements ayant le même nom.
+     * Teste l’enregistrement de deux emplacements ayant le même nom. Comme deux
+     * emplacements ne peuvent avoir le même nom, une erreur doit se produire.
      */
     @Test(expected = PersistenceException.class)
     public void deuxEmplacementsIdentiques() {
@@ -415,7 +418,9 @@ public class TestPersistence {
     }
 
     /**
-     * Teste l’enregistrement de deux propriétaires ayant le même nom.
+     * Teste l’enregistrement de deux propriétaires ayant le même nom. Comme
+     * deux propriétaires ne peuvent avoir le même nom, une erreur doit se
+     * produire.
      */
     @Test(expected = PersistenceException.class)
     public void deuxPropriétairesIdentiques() {
@@ -426,7 +431,8 @@ public class TestPersistence {
     }
 
     /**
-     * Teste l’enregistrement de deux réalisateurs ayant le même nom.
+     * Teste l’enregistrement de deux réalisateurs ayant le même nom. Comme deux
+     * réalisateurs ne peuvent avoir le même nom, une erreur doit se produire.
      */
     @Test(expected = PersistenceException.class)
     public void deuxRéalisateursIdentiques() {
@@ -437,7 +443,8 @@ public class TestPersistence {
     }
 
     /**
-     * Teste l’enregistrement de deux scénariste ayant le même nom.
+     * Teste l’enregistrement de deux scénaristes ayant le même nom. Comme deux
+     * scénaristes ne peuvent avoir le même nom, une erreur doit se produire.
      */
     @Test(expected = PersistenceException.class)
     public void deuxScénaristesIdentiques() {
@@ -448,7 +455,8 @@ public class TestPersistence {
     }
 
     /**
-     * Teste l’enregistrement de deux série ayant le même nom.
+     * Teste l’enregistrement de deux séries ayant le même nom. Comme deux
+     * séries ne peuvent avoir le même nom, une erreur doit se produire.
      */
     @Test(expected = PersistenceException.class)
     public void deuxSériesIdentiques() {
@@ -458,7 +466,8 @@ public class TestPersistence {
     }
 
     /**
-     * Teste l’enregistrement de deux utilisateurs ayant le même nom.
+     * Teste l’enregistrement de deux utilisateurs ayant le même nom. Comme deux
+     * utilisateurs ne peuvent avoir le même nom, une erreur doit se produire.
      */
     @Test(expected = PersistenceException.class)
     public void deuxUtilisateursIdentiques() {
@@ -466,6 +475,25 @@ public class TestPersistence {
 		+ "identiques.");
 	em.merge(new Utilisateur(NOM, "azerty"));
 	em.merge(new Utilisateur(NOM, "qwerty"));
+    }
+
+    /**
+     * Teste l’enregistrement de nommés ayant le même nom mais venant tous
+     * d’implémentations différentes. Dans ce cas, il ne doit y avoir aucune
+     * erreur.
+     */
+    @Test
+    public void nommésDifférentsAvecLeMêmeNom() {
+	logger.info("Test de l’enregistrement de nommés différents mais avec "
+		+ "le même nom.");
+	em.merge(new Acteur(NOM));
+	em.merge(new Compositeur(NOM));
+	em.merge(new Dessinateur(NOM));
+	em.merge(new Emplacement(NOM));
+	em.merge(new Propriétaire(NOM));
+	em.merge(new Réalisateur(NOM));
+	em.merge(new Scénariste(NOM));
+	em.merge(new Série(NOM));
     }
 
     /**
@@ -479,21 +507,20 @@ public class TestPersistence {
 		builder.createQuery(Utilisateur.class);
 	final Root<Utilisateur> root = query.from(Utilisateur.class);
 	query.orderBy(builder.asc(root.get("id")));
-	final List<Utilisateur> utilisateurs =
-		em.createQuery(query).getResultList();
-	final Iterator<Utilisateur> iterator = utilisateurs.iterator();
+	final Iterator<Utilisateur> utilisateurs =
+		em.createQuery(query).getResultList().iterator();
 
-	final Utilisateur etienne = iterator.next();
+	final Utilisateur etienne = utilisateurs.next();
 	assertEquals(ZÉRO, etienne.getId().intValue());
 	assertEquals("Etienne", etienne.getNom());
 	assertTrue(etienne.vérifierMdp("qwerty"));
 
-	final Utilisateur grégoire = iterator.next();
+	final Utilisateur grégoire = utilisateurs.next();
 	assertEquals(UN, grégoire.getId().intValue());
 	assertEquals("Grégoire", grégoire.getNom());
 	assertTrue(grégoire.vérifierMdp("azerty"));
 
-	final Utilisateur claire = iterator.next();
+	final Utilisateur claire = utilisateurs.next();
 	assertEquals(DEUX, claire.getId().intValue());
 	assertEquals("Claire", claire.getNom());
 	assertTrue(claire.vérifierMdp("AZERTY"));
