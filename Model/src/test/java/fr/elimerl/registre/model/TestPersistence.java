@@ -497,6 +497,198 @@ public class TestPersistence {
     }
 
     /**
+     * Charge de la base de donnée tous les nommés dont le type est donné en
+     * argument.
+     *
+     * @param type
+     *            classe des objets à charger.
+     * @param <T>
+     *            type des objets à charger.
+     * @return tous les objets de la classe {@code type} présents en base, triés
+     *         par noms croissants.
+     */
+    private <T extends Nommé> Iterator<T> chargerNommés(final Class<T> type) {
+	final CriteriaQuery<T> query = builder.createQuery(type);
+	final Root<T> root = query.from(type);
+	query.orderBy(builder.asc(root.get("nom")));
+	return em.createQuery(query).getResultList().iterator();
+    }
+
+    /**
+     * Teste le chargement des acteurs insérés dans la base de données par le
+     * fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerActeurs() {
+	logger.info("Chargement des acteurs de test-data.sql.");
+	final Iterator<Acteur> acteurs = chargerNommés(Acteur.class);
+
+	final Acteur emmaWatson = acteurs.next();
+	assertEquals(TROIS, emmaWatson.getId().intValue());
+	assertEquals("Emma Watson", emmaWatson.getNom());
+
+	final Acteur evaMendes = acteurs.next();
+	assertEquals(UN, evaMendes.getId().intValue());
+	assertEquals("Eva Mendes", evaMendes.getNom());
+
+	final Acteur georgeClooney = acteurs.next();
+	assertEquals(DEUX, georgeClooney.getId().intValue());
+	assertEquals("George Clooney", georgeClooney.getNom());
+
+	final Acteur willSmith = acteurs.next();
+	assertEquals(ZÉRO, willSmith.getId().intValue());
+	assertEquals("Will Smith", willSmith.getNom());
+    }
+
+    /**
+     * Teste le chargement des compositeurs insérés dans la base de données par
+     * le fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerCompositeurs() {
+	logger.info("Chargement des compositeurs de test-data.sql.");
+	final Iterator<Compositeur> compositeurs =
+		chargerNommés(Compositeur.class);
+
+	final Compositeur hansZimmer = compositeurs.next();
+	assertEquals(UN, hansZimmer.getId().intValue());
+	assertEquals("Hans Zimmer", hansZimmer.getNom());
+
+	final Compositeur howardShore = compositeurs.next();
+	assertEquals(ZÉRO, howardShore.getId().intValue());
+	assertEquals("Howard Shore", howardShore.getNom());
+
+	final Compositeur lisaGerrard = compositeurs.next();
+	assertEquals(DEUX, lisaGerrard.getId().intValue());
+	assertEquals("Lisa Gerrard", lisaGerrard.getNom());
+    }
+
+    /**
+     * Teste le chargement des dessinateurs insérés dans la base de données par
+     * le fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerDessinateurs() {
+	logger.info("Chargement des dessinateurs de test-data.sql.");
+	final Iterator<Dessinateur> dessinateurs =
+		chargerNommés(Dessinateur.class);
+
+	final Dessinateur alainHenriet = dessinateurs.next();
+	assertEquals(UN, alainHenriet.getId().intValue());
+	assertEquals("Alain Henriet", alainHenriet.getNom());
+
+	final Dessinateur jigounov = dessinateurs.next();
+	assertEquals(ZÉRO, jigounov.getId().intValue());
+	assertEquals("Jigounov", jigounov.getNom());
+    }
+
+    /**
+     * Teste le chargement des emplacements insérés dans la base de données par
+     * le fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerEmplacement() {
+	logger.info("Chargement des emplacements de test-data.sql.");
+	final Iterator<Emplacement> emplacements =
+		chargerNommés(Emplacement.class);
+
+	final Emplacement laRocheSurYon = emplacements.next();
+	assertEquals(UN, laRocheSurYon.getId().intValue());
+	assertEquals("La Roche sur Yon", laRocheSurYon.getNom());
+
+	final Emplacement lyon = emplacements.next();
+	assertEquals(DEUX, lyon.getId().intValue());
+	assertEquals("Lyon", lyon.getNom());
+
+	final Emplacement singapour = emplacements.next();
+	assertEquals(TROIS, singapour.getId().intValue());
+	assertEquals("Singapour", singapour.getNom());
+
+	final Emplacement verneuil = emplacements.next();
+	assertEquals(ZÉRO, verneuil.getId().intValue());
+	assertEquals("Verneuil", verneuil.getNom());
+    }
+
+    /**
+     * Teste le chargement des propriétaires insérés dans la base de données par
+     * le fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerPropriétaires() {
+	logger.info("Chargement des propriétaires de test-data.sql.");
+	final Iterator<Propriétaire> propriétaires =
+		chargerNommés(Propriétaire.class);
+
+	final Propriétaire claire = propriétaires.next();
+	assertEquals(DEUX, claire.getId().intValue());
+	assertEquals("Claire", claire.getNom());
+
+	final Propriétaire etienne = propriétaires.next();
+	assertEquals(ZÉRO, etienne.getId().intValue());
+	assertEquals("Etienne", etienne.getNom());
+
+	final Propriétaire grégoire = propriétaires.next();
+	assertEquals(UN, grégoire.getId().intValue());
+	assertEquals("Grégoire", grégoire.getNom());
+    }
+
+    /**
+     * Teste le chargement des réalisateurs insérés dans la base de données par
+     * le fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerRéalisateurs() {
+	logger.info("Chargement des réalisateurs de test-data.sql.");
+	final Iterator<Réalisateur> réalisateurs =
+		chargerNommés(Réalisateur.class);
+
+	final Réalisateur georgeLucas = réalisateurs.next();
+	assertEquals(UN, georgeLucas.getId().intValue());
+	assertEquals("George Lucas", georgeLucas.getNom());
+
+	final Réalisateur stevenSpielberg = réalisateurs.next();
+	assertEquals(ZÉRO, stevenSpielberg.getId().intValue());
+	assertEquals("Steven Spielberg", stevenSpielberg.getNom());
+    }
+
+    /**
+     * Teste le chargement des scénaristes insérés dans la base de données par
+     * le fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerScénaristes() {
+	logger.info("Chargement des scénaristes de test-data.sql.");
+	final Iterator<Scénariste> scénaristes =
+		chargerNommés(Scénariste.class);
+
+	final Scénariste vanHamme = scénaristes.next();
+	assertEquals(ZÉRO, vanHamme.getId().intValue());
+	assertEquals("Jean Van Hamme", vanHamme.getNom());
+
+	final Scénariste renard = scénaristes.next();
+	assertEquals(UN, renard.getId().intValue());
+	assertEquals("Renard", renard.getNom());
+    }
+
+    /**
+     * Teste le chargement des séries insérées dans la base de données par le
+     * fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerSéries() {
+	logger.info("Chargement des séries de test-data.sql.");
+	final Iterator<Série> séries = chargerNommés(Série.class);
+
+	final Série bouleEtBill = séries.next();
+	assertEquals(ZÉRO, bouleEtBill.getId().intValue());
+	assertEquals("Boule et Bill", bouleEtBill.getNom());
+
+	final Série merlin = séries.next();
+	assertEquals(UN, merlin.getId().intValue());
+	assertEquals("Merlin", merlin.getNom());
+    }
+
+    /**
      * Teste le chargement des utilisateurs insérés dans la base de données par
      * le fichier src/test/resources/test-data.sql.
      */
