@@ -2,6 +2,7 @@ package fr.elimerl.registre.model;
 
 import static fr.elimerl.registre.model.Film.Support.BRD;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -538,6 +539,8 @@ public class TestPersistence {
 	final Acteur willSmith = acteurs.next();
 	assertEquals(ZÉRO, willSmith.getId().intValue());
 	assertEquals("Will Smith", willSmith.getNom());
+
+	assertFalse(acteurs.hasNext());
     }
 
     /**
@@ -561,6 +564,8 @@ public class TestPersistence {
 	final Compositeur lisaGerrard = compositeurs.next();
 	assertEquals(DEUX, lisaGerrard.getId().intValue());
 	assertEquals("Lisa Gerrard", lisaGerrard.getNom());
+
+	assertFalse(compositeurs.hasNext());
     }
 
     /**
@@ -580,6 +585,8 @@ public class TestPersistence {
 	final Dessinateur jigounov = dessinateurs.next();
 	assertEquals(ZÉRO, jigounov.getId().intValue());
 	assertEquals("Jigounov", jigounov.getNom());
+
+	assertFalse(dessinateurs.hasNext());
     }
 
     /**
@@ -607,6 +614,8 @@ public class TestPersistence {
 	final Emplacement verneuil = emplacements.next();
 	assertEquals(ZÉRO, verneuil.getId().intValue());
 	assertEquals("Verneuil", verneuil.getNom());
+
+	assertFalse(emplacements.hasNext());
     }
 
     /**
@@ -630,6 +639,8 @@ public class TestPersistence {
 	final Propriétaire grégoire = propriétaires.next();
 	assertEquals(UN, grégoire.getId().intValue());
 	assertEquals("Grégoire", grégoire.getNom());
+
+	assertFalse(propriétaires.hasNext());
     }
 
     /**
@@ -649,6 +660,8 @@ public class TestPersistence {
 	final Réalisateur stevenSpielberg = réalisateurs.next();
 	assertEquals(ZÉRO, stevenSpielberg.getId().intValue());
 	assertEquals("Steven Spielberg", stevenSpielberg.getNom());
+
+	assertFalse(réalisateurs.hasNext());
     }
 
     /**
@@ -668,6 +681,8 @@ public class TestPersistence {
 	final Scénariste renard = scénaristes.next();
 	assertEquals(UN, renard.getId().intValue());
 	assertEquals("Renard", renard.getNom());
+
+	assertFalse(scénaristes.hasNext());
     }
 
     /**
@@ -686,6 +701,8 @@ public class TestPersistence {
 	final Série merlin = séries.next();
 	assertEquals(UN, merlin.getId().intValue());
 	assertEquals("Merlin", merlin.getNom());
+
+	assertFalse(séries.hasNext());
     }
 
     /**
@@ -716,6 +733,8 @@ public class TestPersistence {
 	assertEquals(DEUX, claire.getId().intValue());
 	assertEquals("Claire", claire.getNom());
 	assertTrue(claire.vérifierMdp("AZERTY"));
+
+	assertFalse(utilisateurs.hasNext());
     }
 
 }
