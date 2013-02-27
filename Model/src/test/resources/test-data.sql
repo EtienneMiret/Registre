@@ -63,7 +63,7 @@ insert into films (id, support, realisateur, compositeur) values (
 	(1, 'BRD', null, 0)
 );
 
-insert into bande_dessinees (id, dessinateur, scenariste, numero) values (
+insert into bandes_dessinees (id, dessinateur, scenariste, numero) values (
 	(0, 0, 1, 12)
 );
 

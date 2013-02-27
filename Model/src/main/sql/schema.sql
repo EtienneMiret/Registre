@@ -78,7 +78,7 @@ create table films (
 	genre_sf boolean
 );
 
-create table bande_dessinees (
+create table bandes_dessinees (
 	id bigint primary key references fiches (id),
 	dessinateur bigint references dessinateurs (id),
 	scenariste bigint references scenaristes (id),

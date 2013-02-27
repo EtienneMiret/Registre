@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * Type de fiche qui représente une bande-dessinée.
  */
 @Entity
-@Table(name = "bande_dessinees")
+@Table(name = "bandes_dessinees")
 public class BandeDessinée extends Fiche {
 
     /**
