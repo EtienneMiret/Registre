@@ -7,6 +7,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.UUID;
@@ -27,6 +30,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import fr.elimerl.registre.model.Film.Support;
 
 /**
  * Dans ce test JUnit, on vérifie le mapping Hibernate, le schéma de la base
@@ -50,6 +55,9 @@ public class TestPersistence {
 
     /** L’entier 3, défini comme une constante. */
     private static final int TROIS = 3;
+
+    /** L’entier 12, défini comme une constante. */
+    private static final int DOUZE = 12;
 
     /** Loggeur de cette classe. */
     private static final Logger logger =
@@ -735,6 +743,64 @@ public class TestPersistence {
 	assertTrue(claire.vérifierMdp("AZERTY"));
 
 	assertFalse(utilisateurs.hasNext());
+    }
+
+    /**
+     * Teste le chargement des fiches insérées dans la base de données par le
+     * fichier src/test/resources/test-data.sql.
+     *
+     * @throws ParseException
+     *             Jamais.
+     */
+    @Test
+    public void chargerFiches() throws ParseException {
+	logger.info("Chargement des fiches de test-data.sql.");
+	final CriteriaQuery<Fiche> query = builder.createQuery(Fiche.class);
+	final Root<Fiche> root = query.from(Fiche.class);
+	query.orderBy(builder.asc(root.get("titre")));
+	final Iterator<Fiche> fiches =
+		em.createQuery(query).getResultList().iterator();
+	logger.debug("Fiches chargées.");
+
+	final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	final BandeDessinée bouleEtBill = (BandeDessinée) fiches.next();
+	assertEquals(ZÉRO, bouleEtBill.getId().intValue());
+	assertEquals("Globe-trotters", bouleEtBill.getTitre());
+	assertEquals("Boule et Bill", bouleEtBill.getSérie().getNom());
+	assertNull(bouleEtBill.getCommentaire());
+	assertNull(bouleEtBill.getImage());
+	assertEquals("Claire", bouleEtBill.getPropriétaire().getNom());
+	assertEquals("Verneuil", bouleEtBill.getEmplacement().getNom());
+	assertEquals("Etienne", bouleEtBill.getCréateur().getNom());
+	assertEquals(df.parse("2012-12-25 22:18:30"),
+		bouleEtBill.getCréation());
+	assertEquals("Grégoire", bouleEtBill.getDernierÉditeur().getNom());
+	assertEquals(df.parse("2013-02-16 22:19:58"),
+		bouleEtBill.getDernièreÉdition());
+	assertEquals("Jigounov", bouleEtBill.getDessinateur().getNom());
+	assertEquals("Renard", bouleEtBill.getScénariste().getNom());
+	assertEquals(DOUZE, bouleEtBill.getNuméro().intValue());
+
+	final Film merlin = (Film) fiches.next();
+	assertEquals(UN, merlin.getId().intValue());
+	assertEquals("Merlin, Saison 1", merlin.getTitre());
+	assertEquals("Merlin", merlin.getSérie().getNom());
+	assertEquals("Une super série !", merlin.getCommentaire());
+	assertNull(merlin.getImage());
+	assertEquals("Etienne", merlin.getPropriétaire().getNom());
+	assertEquals("Verneuil", merlin.getEmplacement().getNom());
+	assertEquals("Etienne", merlin.getCréateur().getNom());
+	assertEquals(df.parse("2012-12-25 22:21:29"), merlin.getCréation());
+	assertEquals("Claire", merlin.getDernierÉditeur().getNom());
+	assertEquals(df.parse("2013-02-26 22:22:06"),
+		merlin.getDernièreÉdition());
+	assertEquals(Support.BRD, merlin.getSupport());
+	assertNull(merlin.getRéalisateur());
+	assertEquals("Howard Shore", merlin.getCompositeur().getNom());
+	assertEquals(DEUX, merlin.getActeurs().size());
+
+	assertFalse(fiches.hasNext());
     }
 
 }

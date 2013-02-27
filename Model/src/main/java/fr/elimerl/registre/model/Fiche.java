@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +48,8 @@ public abstract class Fiche {
     /**
      * Série dont fait partie l’objet référencé. Peut être {@code null}.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "serie")
     private Série série;
 
@@ -64,21 +68,21 @@ public abstract class Fiche {
     /**
      * Propriétaire de l’objet référencé. Peut être {@code null}.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proprietaire")
     private Propriétaire propriétaire;
 
     /**
      * Emplacement où est rangé l’objet référencé. Peut être {@code null}.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emplacement")
     private Emplacement emplacement;
 
     /**
      * Utilisateur qui a créé cette référence.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createur", updatable = false)
     private Utilisateur créateur;
 
@@ -91,7 +95,7 @@ public abstract class Fiche {
     /**
      * Dernier utilisateur à avoir modifié cette fiche.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dernier_editeur")
     private Utilisateur dernierÉditeur;
 

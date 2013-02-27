@@ -2,6 +2,7 @@ package fr.elimerl.registre.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,14 +17,14 @@ public class BandeDessinée extends Fiche {
     /**
      * Dessinateur de cette bande-dessinée.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dessinateur")
     private Dessinateur dessinateur;
 
     /**
      * Scénariste de cette bande-dessinée.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "scenariste")
     private Scénariste scénariste;
 

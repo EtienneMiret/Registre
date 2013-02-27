@@ -49,3 +49,25 @@ insert into series (id, nom) values (
 	(default, 'Boule et Bill'),
 	(default, 'Merlin')
 );
+
+insert into fiches (id, titre, serie, commentaire, image, proprietaire,
+		emplacement, createur, creation, dernier_editeur,
+		derniere_edition) values (
+	(default, 'Globe-trotters', 0, null, null, 2,
+		0, 0, '2012-12-25 22:18:30', 1, '2013-02-16 22:19:58'),
+	(default, 'Merlin, Saison 1', 1, 'Une super série !', null, 0,
+		0, 0, '2012-12-25 22:21:29', 2, '2013-02-26 22:22:06')
+);
+
+insert into films (id, support, realisateur, compositeur) values (
+	(1, 'BRD', null, 0)
+);
+
+insert into bande_dessinees (id, dessinateur, scenariste, numero) values (
+	(0, 0, 1, 12)
+);
+
+insert into joue_dans (acteur, film) values (
+	(0, 1),
+	(3, 1)
+);

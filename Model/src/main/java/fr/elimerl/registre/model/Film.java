@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -57,12 +58,12 @@ public class Film extends Fiche {
     private Support support;
 
     /** Le réalisateur de ce film. */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "realisateur")
     private Réalisateur réalisateur;
 
     /** Les acteurs ayant joué dans ce film. */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
 	name = "joue_dans",
 	joinColumns = @JoinColumn(name = "film"),
@@ -71,7 +72,7 @@ public class Film extends Fiche {
     private Set<Acteur> acteurs;
 
     /** Le compositeur de la musique de ce film. */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "compositeur")
     private Compositeur compositeur;
 
