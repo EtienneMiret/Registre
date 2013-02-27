@@ -506,6 +506,26 @@ public class TestPersistence {
     }
 
     /**
+     * Charge de la base de données tous les objets dont le type est donné en
+     * argument.
+     *
+     * @param type
+     *            classe des objets à charger.
+     * @param <T>
+     *            type des objets à charger.
+     * @param ordre
+     *            attribut selon lequel trier les objets à charger.
+     * @return tous les objets de la classe {@code type} présents en base, triés
+     *         suivant leur attribut {@code ordre} croissant.
+     */
+    private <T> Iterator<T> charger(final Class<T> type, final String ordre) {
+	final CriteriaQuery<T> query = builder.createQuery(type);
+	final Root<T> root = query.from(type);
+	query.orderBy(builder.asc(root.get(ordre)));
+	return em.createQuery(query).getResultList().iterator();
+    }
+
+    /**
      * Charge de la base de donnée tous les nommés dont le type est donné en
      * argument.
      *
@@ -517,10 +537,7 @@ public class TestPersistence {
      *         par noms croissants.
      */
     private <T extends Nommé> Iterator<T> chargerNommés(final Class<T> type) {
-	final CriteriaQuery<T> query = builder.createQuery(type);
-	final Root<T> root = query.from(type);
-	query.orderBy(builder.asc(root.get("nom")));
-	return em.createQuery(query).getResultList().iterator();
+	return charger(type, "nom");
     }
 
     /**
@@ -720,12 +737,8 @@ public class TestPersistence {
     @Test
     public void chargerUtilisateurs() {
 	logger.info("Chargement des utilisateurs de test-data.sql.");
-	final CriteriaQuery<Utilisateur> query =
-		builder.createQuery(Utilisateur.class);
-	final Root<Utilisateur> root = query.from(Utilisateur.class);
-	query.orderBy(builder.asc(root.get("id")));
 	final Iterator<Utilisateur> utilisateurs =
-		em.createQuery(query).getResultList().iterator();
+		charger(Utilisateur.class, "id");
 
 	final Utilisateur etienne = utilisateurs.next();
 	assertEquals(ZÉRO, etienne.getId().intValue());
@@ -755,11 +768,7 @@ public class TestPersistence {
     @Test
     public void chargerFiches() throws ParseException {
 	logger.info("Chargement des fiches de test-data.sql.");
-	final CriteriaQuery<Fiche> query = builder.createQuery(Fiche.class);
-	final Root<Fiche> root = query.from(Fiche.class);
-	query.orderBy(builder.asc(root.get("titre")));
-	final Iterator<Fiche> fiches =
-		em.createQuery(query).getResultList().iterator();
+	final Iterator<Fiche> fiches = charger(Fiche.class, "titre");
 	logger.debug("Fiches chargées.");
 
 	final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
