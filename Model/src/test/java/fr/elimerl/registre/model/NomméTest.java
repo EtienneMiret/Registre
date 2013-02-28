@@ -103,7 +103,7 @@ public class NomméTest {
      *            le nommé à tester. Le nom initial doit être
      *            {@link #NOM_CRÉATION}.
      */
-    private void testerTout(final Nommé nommé) {
+    private static void testerTout(final Nommé nommé) {
 	logger.info("Test de l’implémentation {}.",
 		nommé.getClass().getSimpleName());
 	assertEquals("Problème de récupération d’un nom initial.",

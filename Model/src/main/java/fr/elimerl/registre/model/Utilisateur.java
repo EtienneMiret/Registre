@@ -175,7 +175,7 @@ public class Utilisateur {
      * @return un sel aléatoire.
      * @see #sel
      */
-    private String selAléatoire() {
+    private static String selAléatoire() {
 	final int sel;
 	synchronized (random) {
 	    sel = random.nextInt();
