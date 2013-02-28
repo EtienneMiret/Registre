@@ -105,7 +105,7 @@ public class Utilisateur {
     public void définirMdp(final String mdp) {
 	sel = selAléatoire();
 	hashMdp = hacherMdp(mdp);
-	logger.debug("Mot de passe de {} changé.", this, hashMdp);
+	logger.debug("Mot de passe de {} changé.", this);
     }
 
     /**
