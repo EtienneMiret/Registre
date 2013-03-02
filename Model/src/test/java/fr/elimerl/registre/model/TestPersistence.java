@@ -96,6 +96,7 @@ public class TestPersistence {
     @After
     public void tearDown() {
 	em.getTransaction().rollback();
+	em.close();
     }
 
     /**
