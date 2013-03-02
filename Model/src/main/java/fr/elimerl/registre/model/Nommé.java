@@ -2,6 +2,7 @@ package fr.elimerl.registre.model;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -23,7 +24,7 @@ public abstract class Nommé {
      * Id de cet objet dans la base de donnée.
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
