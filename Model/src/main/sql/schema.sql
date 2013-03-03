@@ -1,5 +1,7 @@
 -- Schéma de la base de données de Registre, en HSQL.
 
+set database collation fr_FR;
+
 create table acteurs (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null
@@ -95,4 +97,17 @@ create table sessions (
 	clef char(20) primary key,
 	utilisateur bigint references utilisateurs (id),
 	expiration datetime
+);
+
+create table dictionaire (
+	id bigint generated always as identity primary key,
+	mot varchar(50) unique not null
+);
+
+create table "index" (
+	id bigint generated always as identity primary key,
+	mot bigint not null references dictionaire (id),
+	champ varchar(20) not null,
+	fiche bigint not null references fiches (id),
+	unique (mot, champ, fiche)
 );

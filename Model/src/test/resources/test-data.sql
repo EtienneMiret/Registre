@@ -71,3 +71,15 @@ insert into joue_dans (acteur, film) values (
 	(0, 1),
 	(3, 1)
 );
+
+insert into dictionaire (id, mot) values (
+	(default, 'une'),
+	(default, 'super'),
+	(default, 'série')
+);
+
+insert into "index" (id, mot, champ, fiche) values (
+	(default, 0, 'COMMENTAIRE', 1),
+	(default, 1, 'COMMENTAIRE', 1),
+	(default, 2, 'COMMENTAIRE', 1)
+);

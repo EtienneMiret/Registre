@@ -32,6 +32,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.elimerl.registre.model.Film.Support;
+import fr.elimerl.registre.model.Référence.Champ;
 
 /**
  * Dans ce test JUnit, on vérifie le mapping Hibernate, le schéma de la base
@@ -43,6 +44,9 @@ public class TestPersistence {
 
     /** Nom qui ne doit appartenir à aucun {@link Nommé} en base. */
     private static final String NOM = "Test de persistence JUnit";
+
+    /** Mot qui ne doit pas exister dans le dictionnaire de la base. */
+    private static final String MOT = "Test JUnit";
 
     /** L’entier 0, défini comme une constante. */
     private static final int ZÉRO = 0;
@@ -381,6 +385,45 @@ public class TestPersistence {
     }
 
     /**
+     * Teste qu’on peut enregistrer un mot en base.
+     */
+    @Test
+    public void enregistrementMot() {
+	logger.info("Test d’enregistrement d’un mot.");
+	Mot mot = new Mot(MOT);
+	assertNull(mot.getId());
+	mot = em.merge(mot);
+	assertNotNull(mot.getId());
+	assertEquals(MOT, mot.getValeur());
+    }
+
+    /**
+     * Teste qu’on peut enregistrer une référence en base.
+     */
+    @Test
+    public void enregistrementRéférence() {
+	logger.info("Test d’enregistrement d’une référence.");
+
+	final String titre = "Titre";
+	final Champ champ = Champ.TITRE;
+	Utilisateur créateur = new Utilisateur(NOM, MOT);
+	créateur = em.merge(créateur);
+	Fiche fiche = new Film(titre, créateur, BRD);
+	fiche = em.merge(fiche);
+	Mot mot = new Mot(MOT);
+	mot = em.merge(mot);
+	Référence référence = new Référence(mot, champ, fiche);
+	assertNull(référence.getId());
+
+	référence = em.merge(référence);
+
+	assertNotNull(référence.getId());
+	assertEquals(mot, référence.getMot());
+	assertEquals(champ, référence.getChamp());
+	assertEquals(fiche, référence.getFiche());
+    }
+
+    /**
      * Teste l’enregistrement de deux acteurs ayant le même nom. Comme deux
      * acteurs ne peuvent avoir le même nom, une erreur doit se produire.
      */
@@ -504,6 +547,38 @@ public class TestPersistence {
 	em.merge(new Réalisateur(NOM));
 	em.merge(new Scénariste(NOM));
 	em.merge(new Série(NOM));
+    }
+
+    /**
+     * Teste l’enregistrement de deux mots identiques. La base de données doit
+     * générer une erreur dans ce cas.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxMotsIdentiques() {
+	logger.info("Test de l’enregistrement de deux mots identiques.");
+	em.merge(new Mot(MOT));
+	em.merge(new Mot(MOT));
+    }
+
+    /**
+     * Teste l’enregistrement de deux références identiques. La base de données
+     * doit générer une erreur dans ce cas.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxRéférencesIdentiques() {
+	logger.info("Test de l’enregistrement de deux références identiques.");
+
+	final String titre = "Titre";
+	final Champ champ = Champ.TITRE;
+	Utilisateur créateur = new Utilisateur(NOM, MOT);
+	créateur = em.merge(créateur);
+	Fiche fiche = new Film(titre, créateur, BRD);
+	fiche = em.merge(fiche);
+	Mot mot = new Mot(MOT);
+	mot = em.merge(mot);
+
+	em.merge(new Référence(mot, champ, fiche));
+	em.merge(new Référence(mot, champ, fiche));
     }
 
     /**
@@ -811,6 +886,64 @@ public class TestPersistence {
 	assertEquals(DEUX, merlin.getActeurs().size());
 
 	assertFalse(fiches.hasNext());
+    }
+
+    /**
+     * Teste le chargement des mots insérés dans la base de données par le
+     * fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerMots() {
+	logger.info("Chargement des mots de test-data.sql.");
+	final Iterator<Mot> mots = charger(Mot.class, "valeur");
+
+	final Mot série = mots.next();
+	assertEquals(DEUX, série.getId().intValue());
+	assertEquals("série", série.getValeur());
+
+	final Mot _super = mots.next();
+	assertEquals(UN, _super.getId().intValue());
+	assertEquals("super", _super.getValeur());
+
+	final Mot une = mots.next();
+	assertEquals(ZÉRO, une.getId().intValue());
+	assertEquals("une", une.getValeur());
+
+	assertFalse(mots.hasNext());
+    }
+
+    /**
+     * Teste le chargement des références insérées dans la base de données par
+     * le fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void chargerRéférences() {
+	logger.info("Chargement des références de test-data.sql.");
+	final Iterator<Référence> références = charger(Référence.class, "id");
+	logger.debug("Références chargées.");
+
+	{
+	    final Référence référence = références.next();
+	    assertEquals(ZÉRO, référence.getId().intValue());
+	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
+	    assertEquals(UN, référence.getFiche().getId().intValue());
+	}
+
+	{
+	    final Référence référence = références.next();
+	    assertEquals(UN, référence.getId().intValue());
+	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
+	    assertEquals(UN, référence.getFiche().getId().intValue());
+	}
+
+	{
+	    final Référence référence = références.next();
+	    assertEquals(DEUX, référence.getId().intValue());
+	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
+	    assertEquals(UN, référence.getFiche().getId().intValue());
+	}
+
+	assertFalse(références.hasNext());
     }
 
 }

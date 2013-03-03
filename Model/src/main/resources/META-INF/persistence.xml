@@ -13,9 +13,11 @@
     <class>fr.elimerl.registre.model.Emplacement</class>
     <class>fr.elimerl.registre.model.Fiche</class>
     <class>fr.elimerl.registre.model.Film</class>
+    <class>fr.elimerl.registre.model.Mot</class>
     <class>fr.elimerl.registre.model.Nommé</class>
     <class>fr.elimerl.registre.model.Propriétaire</class>
     <class>fr.elimerl.registre.model.Réalisateur</class>
+    <class>fr.elimerl.registre.model.Référence</class>
     <class>fr.elimerl.registre.model.Scénariste</class>
     <class>fr.elimerl.registre.model.Série</class>
     <class>fr.elimerl.registre.model.Session</class>
