@@ -925,6 +925,7 @@ public class TestPersistence {
 	{
 	    final Référence référence = références.next();
 	    assertEquals(ZÉRO, référence.getId().intValue());
+	    assertEquals("une", référence.getMot().getValeur());
 	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
 	    assertEquals(UN, référence.getFiche().getId().intValue());
 	}
@@ -932,6 +933,7 @@ public class TestPersistence {
 	{
 	    final Référence référence = références.next();
 	    assertEquals(UN, référence.getId().intValue());
+	    assertEquals("super", référence.getMot().getValeur());
 	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
 	    assertEquals(UN, référence.getFiche().getId().intValue());
 	}
@@ -939,6 +941,7 @@ public class TestPersistence {
 	{
 	    final Référence référence = références.next();
 	    assertEquals(DEUX, référence.getId().intValue());
+	    assertEquals("série", référence.getMot().getValeur());
 	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
 	    assertEquals(UN, référence.getFiche().getId().intValue());
 	}
