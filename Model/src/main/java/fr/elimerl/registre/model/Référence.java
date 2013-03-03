@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,7 +54,7 @@ public class Référence {
     private Long id;
 
     /** Le {@code Mot} référencé. */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mot")
     private Mot mot;
 
@@ -63,7 +64,7 @@ public class Référence {
     private Champ champ;
 
     /** La {@code Fiche} dans laquelle se trouve cette référence. */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fiche")
     private Fiche fiche;
 
