@@ -4,13 +4,21 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/jdbc
-           http://www.springframework.org/schema/jdbc/spring-jdbc.xsd ">
+           http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
   <bean
     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
     id="embeddedEmf">
     <property name="dataSource" ref="embeddedDataSource"/>
     <property name="persistenceUnitName" value="Registre" />
+  </bean>
+
+  <bean id="gestionnaireEntités"
+    class="fr.elimerl.registre.model.GestionnaireEntités"/>
+
+  <bean id="gestionnaireTransactions"
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="embeddedDataSource"/>
   </bean>
 
   <jdbc:embedded-database id="embeddedDataSource">
