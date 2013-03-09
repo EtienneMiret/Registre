@@ -116,6 +116,33 @@ public class TestGestionnaireEntités {
     }
 
     /**
+     * Teste la méthode {@link GestionnaireEntités#fournirAuteur(String)
+     * fournirAuteur(String)}.
+     */
+    @Test
+    public void fournirAuteur() {
+	logger.info("Recherche d’auteurs.");
+
+	final String nomHerbert = "Frank Hebert";
+	final Auteur herbert = gestionnaire.fournirAuteur(nomHerbert);
+	assertNotNull(herbert);
+	assertNull(herbert.getId());
+	assertEquals(nomHerbert, herbert.getNom());
+
+	final String nomAsimov = "Isaac Asimov";
+	final Auteur asimov = gestionnaire.fournirAuteur(nomAsimov);
+	assertNotNull(asimov);
+	assertNotNull(asimov.getId());
+	assertEquals(nomAsimov, asimov.getNom());
+
+	final String nomTolkien = "J.R.R. Tolkien";
+	final Auteur tolkien = gestionnaire.fournirAuteur(nomTolkien);
+	assertNotNull(tolkien);
+	assertNull(tolkien.getId());
+	assertEquals(nomTolkien, tolkien.getNom());
+    }
+
+    /**
      * Teste la méthode {@link GestionnaireEntités#fournirCompositeur(String)
      * fournirCompositeur(String)}.
      */

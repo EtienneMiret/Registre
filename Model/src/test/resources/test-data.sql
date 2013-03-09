@@ -11,6 +11,12 @@ insert into acteurs (id, nom) values (
 	(default, 'Emma Watson')
 );
 
+insert into auteurs (id, nom) values (
+	(default, 'Tom Clancy'),
+	(default, 'Isaac Asimov'),
+	(default, 'John Grisham')
+);
+
 insert into compositeurs (id, nom) values (
 	(default, 'Howard Shore'),
 	(default, 'Hans Zimmer'),

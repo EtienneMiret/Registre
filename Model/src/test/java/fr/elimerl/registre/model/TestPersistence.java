@@ -128,6 +128,15 @@ public class TestPersistence {
     }
 
     /**
+     * Teste qu’on peut enregistrer un auteur en base.
+     */
+    @Test
+    public void enregistrementAuteur() {
+	logger.info("Test d’enregistrement d’un auteur.");
+	enregistrementNommé(new Auteur(NOM));
+    }
+
+    /**
      * Teste qu’on peut enregistrer un compositeur en base.
      */
     @Test
@@ -435,6 +444,17 @@ public class TestPersistence {
     }
 
     /**
+     * Teste l’enregistrement de deux auteurs ayant le même nom. Comme deux
+     * auteurs ne peuvent avoir le même nom, une erreur doit se produire.
+     */
+    @Test(expected = PersistenceException.class)
+    public void deuxAuteursIdentiques() {
+	logger.info("Test de l’enregistrement de deux auteurs identiques.");
+	em.merge(new Auteur(NOM));
+	em.merge(new Auteur(NOM));
+    }
+
+    /**
      * Teste l’enregistrement de deux compositeurs ayant le même nom. Comme deux
      * compositeurs ne peuvent avoir le même nom, une erreur doit se produire.
      */
@@ -540,6 +560,7 @@ public class TestPersistence {
 	logger.info("Test de l’enregistrement de nommés différents mais avec "
 		+ "le même nom.");
 	em.merge(new Acteur(NOM));
+	em.merge(new Auteur(NOM));
 	em.merge(new Compositeur(NOM));
 	em.merge(new Dessinateur(NOM));
 	em.merge(new Emplacement(NOM));
@@ -642,6 +663,30 @@ public class TestPersistence {
 	assertEquals("Will Smith", willSmith.getNom());
 
 	assertFalse(acteurs.hasNext());
+    }
+
+    /**
+     * Teste le chargement des auteurs insérés dans la base de données par le
+     * fichier src/test/resources/test-data.sql.
+     */
+    @Test
+    public void charcherAuteurs() {
+	logger.info("Chargement des auteurs de test-data.sql.");
+	final Iterator<Auteur> auteurs = chargerNommés(Auteur.class);
+
+	final Auteur asimov = auteurs.next();
+	assertEquals(UN, asimov.getId().intValue());
+	assertEquals("Isaac Asimov", asimov.getNom());
+
+	final Auteur grisham = auteurs.next();
+	assertEquals(DEUX, grisham.getId().intValue());
+	assertEquals("John Grisham", grisham.getNom());
+
+	final Auteur clancy = auteurs.next();
+	assertEquals(ZÉRO, clancy.getId().intValue());
+	assertEquals("Tom Clancy", clancy.getNom());
+
+	assertFalse(auteurs.hasNext());
     }
 
     /**

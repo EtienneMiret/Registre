@@ -7,6 +7,11 @@ create table acteurs (
 	nom varchar(200) unique not null
 );
 
+create table auteurs (
+	id bigint generated always as identity primary key,
+	nom varchar(200) unique not null
+);
+
 create table compositeurs (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null

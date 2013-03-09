@@ -7,6 +7,7 @@
 
     <!-- Classes à persister. -->
     <class>fr.elimerl.registre.model.Acteur</class>
+    <class>fr.elimerl.registre.model.Auteur</class>
     <class>fr.elimerl.registre.model.BandeDessinée</class>
     <class>fr.elimerl.registre.model.Compositeur</class>
     <class>fr.elimerl.registre.model.Dessinateur</class>

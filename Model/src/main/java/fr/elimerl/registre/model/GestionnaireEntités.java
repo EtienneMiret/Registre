@@ -106,6 +106,19 @@ public class GestionnaireEntités {
     }
 
     /**
+     * Fournit un auteur ayant le nom donné en argument. Le récupère de la base
+     * de données s’il existe déjà, le crée sinon.
+     *
+     * @param nom
+     *            nom de l’auteur voulu.
+     * @return l’auteur ayant le nom donné en argument.
+     */
+    public Auteur fournirAuteur(final String nom) {
+	final Auteur enBase = chercherNommé(Auteur.class, nom);
+	return (enBase == null ? new Auteur(nom) : enBase);
+    }
+
+    /**
      * Fournit un compositeur ayant le nom donné en argument. Le récupère de la
      * base de données s’il existe déjà, le crée sinon.
      *

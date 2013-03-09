@@ -95,6 +95,15 @@ public class NomméTest {
     }
 
     /**
+     * Tests sur la classe {@link Auteur}.
+     */
+    @Test
+    public void auteurs() {
+	final Auteur auteur = new Auteur(NOM_CRÉATION);
+	testerTout(auteur);
+    }
+
+    /**
      * Teste les méthodes {@link Nommé#getNom() getNom()} et
      * {@link Nommé#setNom(String) setNom(String)} sur le {@link Nommé} passé
      * en paramètre.
