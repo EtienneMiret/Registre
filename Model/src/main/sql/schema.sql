@@ -91,6 +91,18 @@ create table bandes_dessinees (
 	numero int
 );
 
+create table livres (
+	id bigint primary key references fiches(id),
+	auteur bigint references auteurs(id),
+	genre_fantastique boolean,
+	genre_histoire_vraie boolean,
+	genre_historique boolean,
+	genre_humour boolean,
+	genre_policier boolean,
+	genre_romantique boolean,
+	genre_sf boolean
+);
+
 create table joue_dans (
 	acteur bigint not null references acteurs (id),
 	film bigint not null references films (id),

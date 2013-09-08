@@ -394,6 +394,57 @@ public class TestPersistence {
     }
 
     /**
+     * Teste qu’on peut enregistrer un livre en base. On ne vérifie pas les
+     * champs hérités de {@code Fiche} car l’enregistrement de ceux-ci est
+     * vérifié dans {@link #enregistrementBandeDessinée()}.
+     */
+    @Test
+    public void enregistrementLivre() {
+	logger.info("Test d’enregistrement d’un livre.");
+
+	final String titre = "L’Assassin royal";
+	Utilisateur créateur = new Utilisateur("Créateur", "*****");
+	Utilisateur éditeur = new Utilisateur("Éditeur", "*****");
+	créateur = em.merge(créateur);
+	éditeur = em.merge(éditeur);
+	Livre livre = new Livre(titre, créateur);
+
+	livre = em.merge(livre);
+
+	assertNull(livre.getAuteur());
+	assertNull(livre.getGenreFantastique());
+	assertNull(livre.getGenreHistoireVraie());
+	assertNull(livre.getGenreHistorique());
+	assertNull(livre.getGenreHumour());
+	assertNull(livre.getGenrePolicier());
+	assertNull(livre.getGenreRomantique());
+	assertNull(livre.getGenreSf());
+
+	Auteur auteur = new Auteur("Robin Hobb");
+	auteur = em.merge(auteur);
+
+	livre.setAuteur(auteur);
+	livre.setGenreFantastique(Boolean.TRUE);
+	livre.setGenreHistoireVraie(Boolean.FALSE);
+	livre.setGenreHistorique(Boolean.TRUE);
+	livre.setGenreHumour(Boolean.FALSE);
+	livre.setGenrePolicier(Boolean.TRUE);
+	livre.setGenreRomantique(Boolean.FALSE);
+	livre.setGenreSf(Boolean.TRUE);
+
+	livre = em.merge(livre);
+
+	assertEquals(auteur, livre.getAuteur());
+	assertEquals(Boolean.TRUE, livre.getGenreFantastique());
+	assertEquals(Boolean.FALSE, livre.getGenreHistoireVraie());
+	assertEquals(Boolean.TRUE, livre.getGenreHistorique());
+	assertEquals(Boolean.FALSE, livre.getGenreHumour());
+	assertEquals(Boolean.TRUE, livre.getGenrePolicier());
+	assertEquals(Boolean.FALSE, livre.getGenreRomantique());
+	assertEquals(Boolean.TRUE, livre.getGenreSf());
+    }
+
+    /**
      * Teste qu’on peut enregistrer un mot en base.
      */
     @Test
@@ -929,6 +980,16 @@ public class TestPersistence {
 	assertNull(merlin.getRéalisateur());
 	assertEquals("Howard Shore", merlin.getCompositeur().getNom());
 	assertEquals(DEUX, merlin.getActeurs().size());
+
+	final Livre rainbowSix = (Livre) fiches.next();
+	assertEquals(DEUX, rainbowSix.getId().intValue());
+	assertEquals("Rainbow Six", rainbowSix.getTitre());
+	assertNull(rainbowSix.getSérie());
+	assertNull(rainbowSix.getCommentaire());
+	assertNull(rainbowSix.getImage());
+	assertEquals("Etienne", rainbowSix.getPropriétaire().getNom());
+	assertEquals("Verneuil", rainbowSix.getEmplacement().getNom());
+	assertEquals("Etienne", rainbowSix.getCréateur().getNom());
 
 	assertFalse(fiches.hasNext());
     }
