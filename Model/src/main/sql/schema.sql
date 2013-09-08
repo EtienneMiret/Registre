@@ -50,8 +50,7 @@ create table series (
 create table utilisateurs (
 	id bigint generated always as identity primary key,
 	nom varchar(100) unique not null,
-	sel char(8) not null,
-	mdp char(32) not null
+	email varchar(100) unique not null
 );
 
 create table fiches (

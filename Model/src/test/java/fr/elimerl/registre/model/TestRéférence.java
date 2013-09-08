@@ -22,7 +22,7 @@ public class TestRéférence {
 	final Mot mot = new Mot("Demain");
 	final Champ champ = Champ.TITRE;
 	final Fiche fiche = new Film("Demain ne meurt jamais",
-		new Utilisateur("Etienne", "****"), Support.DVD);
+		new Utilisateur("Etienne", "etienne@email"), Support.DVD);
 	final Référence référence = new Référence(mot, champ, fiche);
 	assertEquals(mot, référence.getMot());
 	assertEquals(champ, référence.getChamp());

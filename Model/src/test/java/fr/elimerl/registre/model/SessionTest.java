@@ -17,8 +17,8 @@ public class SessionTest {
     /** Nom de l’{@link #utilisateur}. */
     private static final String NOM_UTILISATEUR = "Etienne";
 
-    /** Mot de passe de l’{@link #utilisateur}. */
-    private static final String MDP_UTILISATEUR = "azerty";
+    /** Adresse email de l’{@link #utilisateur}. */
+    private static final String EMAIL_UTILISATEUR = "azerty";
 
     /** Utilisateur de la session testée. */
     private final Utilisateur utilisateur;
@@ -27,7 +27,7 @@ public class SessionTest {
      * Unique constructeur.
      */
     public SessionTest() {
-	utilisateur = new Utilisateur(NOM_UTILISATEUR, MDP_UTILISATEUR);
+	utilisateur = new Utilisateur(NOM_UTILISATEUR, EMAIL_UTILISATEUR);
     }
 
     /**

@@ -205,13 +205,13 @@ public class TestPersistence {
     @Test
     public void enregistrementUtilisateur() {
 	logger.info("Test d’enregistrement d’un utilisateur.");
-	final String mdp = "somePasswørd";
-	Utilisateur utilisateur = new Utilisateur(NOM, mdp);
+	final String email = "une.adresse@email";
+	Utilisateur utilisateur = new Utilisateur(NOM, email);
 	assertNull(utilisateur.getId());
 	utilisateur = em.merge(utilisateur);
 	assertNotNull(utilisateur.getId());
 	assertEquals(NOM, utilisateur.getNom());
-	assertTrue(utilisateur.vérifierMdp(mdp));
+	assertEquals(email, utilisateur.getEmail());
     }
 
     /**
@@ -220,7 +220,7 @@ public class TestPersistence {
     @Test
     public void enregistrementSession() {
 	logger.info("Test d’enregistrement d’une session.");
-	Utilisateur utilisateur = new Utilisateur(NOM, "***");
+	Utilisateur utilisateur = new Utilisateur(NOM, "adresse@email");
 	utilisateur = em.merge(utilisateur);
 	Session session = new Session(utilisateur, 0L);
 	final String clef = session.getClef();
@@ -241,8 +241,8 @@ public class TestPersistence {
 	logger.info("Test d’enregistrement d’une bande dessinée");
 
 	final String titre = "Une super BD";
-	Utilisateur créateur = new Utilisateur("Créateur", "***");
-	Utilisateur éditeur = new Utilisateur("Éditeur", "***");
+	Utilisateur créateur = new Utilisateur("Créateur", "createur@email");
+	Utilisateur éditeur = new Utilisateur("Éditeur", "editeur@email");
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
 	BandeDessinée bandeDessinée = new BandeDessinée(titre, créateur);
@@ -320,8 +320,8 @@ public class TestPersistence {
 	logger.info("Test d’enregistrement d’un film.");
 
 	final String titre = "Un super film";
-	Utilisateur créateur = new Utilisateur("Créateur", "***");
-	Utilisateur éditeur = new Utilisateur("Éditeur", "***");
+	Utilisateur créateur = new Utilisateur("Créateur", "createur@email");
+	Utilisateur éditeur = new Utilisateur("Éditeur", "editeur@email");
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
 	Film film = new Film(titre, créateur, BRD);
@@ -546,8 +546,8 @@ public class TestPersistence {
     public void deuxUtilisateursIdentiques() {
 	logger.info("Test de l’enregistrement de deux utilisateurs "
 		+ "identiques.");
-	em.merge(new Utilisateur(NOM, "azerty"));
-	em.merge(new Utilisateur(NOM, "qwerty"));
+	em.merge(new Utilisateur(NOM, "email1@email"));
+	em.merge(new Utilisateur(NOM, "email2@email"));
     }
 
     /**
@@ -864,17 +864,17 @@ public class TestPersistence {
 	final Utilisateur etienne = utilisateurs.next();
 	assertEquals(ZÉRO, etienne.getId().intValue());
 	assertEquals("Etienne", etienne.getNom());
-	assertTrue(etienne.vérifierMdp("qwerty"));
+	assertEquals("etienne@email", etienne.getEmail());
 
 	final Utilisateur grégoire = utilisateurs.next();
 	assertEquals(UN, grégoire.getId().intValue());
 	assertEquals("Grégoire", grégoire.getNom());
-	assertTrue(grégoire.vérifierMdp("azerty"));
+	assertEquals("gregoire@email", grégoire.getEmail());
 
 	final Utilisateur claire = utilisateurs.next();
 	assertEquals(DEUX, claire.getId().intValue());
 	assertEquals("Claire", claire.getNom());
-	assertTrue(claire.vérifierMdp("AZERTY"));
+	assertEquals("claire@email", claire.getEmail());
 
 	assertFalse(utilisateurs.hasNext());
     }

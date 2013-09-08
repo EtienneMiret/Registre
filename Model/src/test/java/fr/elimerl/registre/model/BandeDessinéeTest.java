@@ -17,7 +17,7 @@ public class BandeDessinéeTest {
 
     /** Un exemple d’{@code Utilisateur} quelquonque. */
     private static final Utilisateur CRÉATEUR =
-	    new Utilisateur("Etienne", "*******");
+	    new Utilisateur("Etienne", "etienne@email");
 
     /** Loggeur de cette classe. */
     private static final Logger logger =

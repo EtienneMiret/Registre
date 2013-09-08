@@ -30,11 +30,11 @@ public class FilmTest {
 
     /** Un premier exemple utilisateur. */
     private static final Utilisateur CRÉATEUR =
-	    new Utilisateur("Etienne", "*****");
+	    new Utilisateur("Etienne", "etienne@email");
 
     /** Un deuxième exemple d’utilisateur. */
     private static final Utilisateur MODIFIEUR =
-	    new Utilisateur("Grégoire", "*****");
+	    new Utilisateur("Grégoire", "gregoire@email");
 
     /** Loggeur de cette classe. */
     private static final Logger logger =
