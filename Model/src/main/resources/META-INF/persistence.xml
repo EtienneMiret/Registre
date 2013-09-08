@@ -14,6 +14,7 @@
     <class>fr.elimerl.registre.model.Emplacement</class>
     <class>fr.elimerl.registre.model.Fiche</class>
     <class>fr.elimerl.registre.model.Film</class>
+    <class>fr.elimerl.registre.model.Livre</class>
     <class>fr.elimerl.registre.model.Mot</class>
     <class>fr.elimerl.registre.model.Nommé</class>
     <class>fr.elimerl.registre.model.Propriétaire</class>

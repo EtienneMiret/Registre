@@ -51,7 +51,13 @@ public class TestGestionnaireEntités {
 	assertEquals(idMerlin, merlin.getId());
 	assertTrue(merlin instanceof Film);
 
-	final Fiche vide = gestionnaire.chercherFiche(Long.valueOf(2));
+	final Long idAssassinRoyal = Long.valueOf(2);
+	final Fiche assassinRoyal = gestionnaire.chercherFiche(idAssassinRoyal);
+	assertNotNull(assassinRoyal);
+	assertEquals(idAssassinRoyal, assassinRoyal.getId());
+	assertTrue(assassinRoyal instanceof Livre);
+
+	final Fiche vide = gestionnaire.chercherFiche(Long.valueOf(3));
 	assertNull(vide);
     }
 

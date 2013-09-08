@@ -62,7 +62,9 @@ insert into fiches (id, titre, serie, commentaire, image, proprietaire,
 	(default, 'Globe-trotters', 0, null, null, 2,
 		0, 0, '2012-12-25 22:18:30', 1, '2013-02-16 22:19:58'),
 	(default, 'Merlin, Saison 1', 1, 'Une super série !', null, 0,
-		0, 0, '2012-12-25 22:21:29', 2, '2013-02-26 22:22:06')
+		0, 0, '2012-12-25 22:21:29', 2, '2013-02-26 22:22:06'),
+	(default, 'Rainbow Six', null, null, null, 0,
+		0, 0, '2013-07-04 21:48:00', 0, '2013-07-04 21:48:00')
 );
 
 insert into films (id, support, realisateur, compositeur) values (
@@ -71,6 +73,10 @@ insert into films (id, support, realisateur, compositeur) values (
 
 insert into bandes_dessinees (id, dessinateur, scenariste, numero) values (
 	(0, 0, 1, 12)
+);
+
+insert into livres (id, auteur) values (
+	(2, 0)
 );
 
 insert into joue_dans (acteur, film) values (
