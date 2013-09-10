@@ -403,8 +403,8 @@ public class TestPersistence {
 	logger.info("Test d’enregistrement d’un livre.");
 
 	final String titre = "L’Assassin royal";
-	Utilisateur créateur = new Utilisateur("Créateur", "*****");
-	Utilisateur éditeur = new Utilisateur("Éditeur", "*****");
+	Utilisateur créateur = new Utilisateur("Créateur", "createur@email");
+	Utilisateur éditeur = new Utilisateur("Éditeur", "editeur@email");
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
 	Livre livre = new Livre(titre, créateur);
