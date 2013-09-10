@@ -14,7 +14,7 @@
   </bean>
 
   <bean id="gestionnaireEntités"
-    class="fr.elimerl.registre.model.GestionnaireEntités"/>
+    class="fr.elimerl.registre.modèle.entités.GestionnaireEntités"/>
 
   <bean id="gestionnaireTransactions"
     class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
