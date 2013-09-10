@@ -12,7 +12,7 @@ import org.junit.Test;
 /**
  * Test de la classe {@link Session}.
  */
-public class SessionTest {
+public class TestSession {
 
     /** Nom de l’{@link #utilisateur}. */
     private static final String NOM_UTILISATEUR = "Etienne";
@@ -26,7 +26,7 @@ public class SessionTest {
     /**
      * Unique constructeur.
      */
-    public SessionTest() {
+    public TestSession() {
 	utilisateur = new Utilisateur(NOM_UTILISATEUR, EMAIL_UTILISATEUR);
     }
 

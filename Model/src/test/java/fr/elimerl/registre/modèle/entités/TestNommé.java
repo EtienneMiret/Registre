@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 /**
  * Teste les méthodes de {@link Nommé} sur ses différentes implémentations.
  */
-public class NomméTest {
+public class TestNommé {
 
     /** Loggeur de cette classe de test. */
     private static final Logger logger =
-	    LoggerFactory.getLogger(NomméTest.class);
+	    LoggerFactory.getLogger(TestNommé.class);
 
     /** Nom des objets à leur création. */
     private static final String NOM_CRÉATION = "Etienne";

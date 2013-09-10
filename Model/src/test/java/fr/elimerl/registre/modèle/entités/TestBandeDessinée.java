@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Classe de test de la classe {@link BandeDessinée}.
  */
-public class BandeDessinéeTest {
+public class TestBandeDessinée {
 
     /** Titre de la bande dessinée testée. */
     private static final String TITRE = "Le démon de minuit";
@@ -21,7 +21,7 @@ public class BandeDessinéeTest {
 
     /** Loggeur de cette classe. */
     private static final Logger logger =
-	    LoggerFactory.getLogger(BandeDessinéeTest.class);
+	    LoggerFactory.getLogger(TestBandeDessinée.class);
 
     /** {@code BandeDessinée} qui va être testée. */
     private BandeDessinée bandeDessinée;

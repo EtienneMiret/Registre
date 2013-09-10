@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Test de la classe {@link Utilisateur}.
  */
-public class UtilisateurTest {
+public class TestUtilisateur {
 
     /** Nom de l’utilisateur dans ces tests. */
     private static final String NOM = "Etienne";
@@ -21,7 +21,7 @@ public class UtilisateurTest {
 
     /** Loggeur de cette classe. */
     private static final Logger logger =
-	    LoggerFactory.getLogger(UtilisateurTest.class);
+	    LoggerFactory.getLogger(TestUtilisateur.class);
 
     /**
      * Teste la création d’un utilisateur, ainsi que les méthodes

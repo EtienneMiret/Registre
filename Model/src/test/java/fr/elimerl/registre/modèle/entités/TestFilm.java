@@ -17,7 +17,7 @@ import fr.elimerl.registre.modèle.entités.Film.Support;
 /**
  * Classe de test de la classe {@link Film}.
  */
-public class FilmTest {
+public class TestFilm {
 
     /**
      * Temps d’attente entre deux opération pour s’assurer qu’elles ont lieu
@@ -38,7 +38,7 @@ public class FilmTest {
 
     /** Loggeur de cette classe. */
     private static final Logger logger =
-	    LoggerFactory.getLogger(FilmTest.class);
+	    LoggerFactory.getLogger(TestFilm.class);
 
     /** Film qui va être tester. */
     private Film film;
