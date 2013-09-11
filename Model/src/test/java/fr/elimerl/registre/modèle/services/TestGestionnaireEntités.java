@@ -1,4 +1,4 @@
-package fr.elimerl.registre.modèle.entités;
+package fr.elimerl.registre.modèle.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -14,6 +14,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import fr.elimerl.registre.modèle.entités.Acteur;
+import fr.elimerl.registre.modèle.entités.Auteur;
+import fr.elimerl.registre.modèle.entités.BandeDessinée;
+import fr.elimerl.registre.modèle.entités.Compositeur;
+import fr.elimerl.registre.modèle.entités.Dessinateur;
+import fr.elimerl.registre.modèle.entités.Emplacement;
+import fr.elimerl.registre.modèle.entités.Fiche;
+import fr.elimerl.registre.modèle.entités.Film;
+import fr.elimerl.registre.modèle.entités.Livre;
+import fr.elimerl.registre.modèle.entités.Mot;
+import fr.elimerl.registre.modèle.entités.Propriétaire;
+import fr.elimerl.registre.modèle.entités.Réalisateur;
+import fr.elimerl.registre.modèle.entités.Scénariste;
+import fr.elimerl.registre.modèle.entités.Série;
 
 /**
  * Classe de teste pour le {@link GestionnaireEntités}.
