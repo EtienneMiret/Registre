@@ -17,6 +17,7 @@ public final class MotClé extends Signe {
      *            espace ni ponctuation.
      */
     public MotClé(final String valeur) {
+	super(valeur);
 	this.valeur = valeur;
     }
 

@@ -7,14 +7,19 @@ package fr.elimerl.registre.modèle.recherche.signes;
 public final class Parenthèse extends Signe {
 
     /** Une parenthèse ouvrante. */
-    public static final Parenthèse OUVRANTE = new Parenthèse();
+    public static final Parenthèse OUVRANTE = new Parenthèse("(");
 
     /** Une parenthèse fermante. */
-    public static final Parenthèse FERMANTE = new Parenthèse();
+    public static final Parenthèse FERMANTE = new Parenthèse(")");
 
-    /** Constructeur privé, seules deux instances étant autorisée. */
-    private Parenthèse() {
-	super();
+    /**
+     * Constructeur privée, seules deux instances étant autorisées.
+     *
+     * @param représentation
+     *            chaîne de charactère représentant la parenthèse.
+     */
+    private Parenthèse(final String représentation) {
+	super(représentation);
     }
 
 }
