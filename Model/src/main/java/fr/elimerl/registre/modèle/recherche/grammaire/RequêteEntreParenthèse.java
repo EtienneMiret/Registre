@@ -7,7 +7,7 @@ package fr.elimerl.registre.modèle.recherche.grammaire;
 public final class RequêteEntreParenthèse extends Expression {
 
     /** La requête contenue dans cette expression. */
-    private Requête requête;
+    private final Requête requête;
 
     /**
      * Construit une requête entre parenthèse à partir d’une requête.
@@ -17,6 +17,29 @@ public final class RequêteEntreParenthèse extends Expression {
      */
     public RequêteEntreParenthèse(final Requête requête) {
 	this.requête = requête;
+    }
+
+    @Override
+    public boolean equals(final Object objet) {
+	final boolean résultat;
+	if (objet == this) {
+	    résultat = true;
+	} else if (objet instanceof RequêteEntreParenthèse) {
+	    final RequêteEntreParenthèse autre = (RequêteEntreParenthèse) objet;
+	    if (requête == null) {
+		résultat = (autre.requête == null);
+	    } else {
+		résultat = requête.equals(autre.requête);
+	    }
+	} else {
+	    résultat = false;
+	}
+	return résultat;
+    }
+
+    @Override
+    public int hashCode() {
+	return (requête == null ? 0 : requête.hashCode());
     }
 
     @Override
