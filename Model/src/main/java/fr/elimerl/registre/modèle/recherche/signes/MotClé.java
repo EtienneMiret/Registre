@@ -1,10 +1,15 @@
 package fr.elimerl.registre.modèle.recherche.signes;
 
+import java.util.regex.Pattern;
+
 /**
  * Dans une requête, un mot-clé est un mot que l’utilisateur souhaite retrouver
  * dans ses résultats.
  */
 public final class MotClé extends Signe {
+
+    /** Motif représentant l’ensemble des mot-clés. */
+    public static final Pattern MOTIF = Pattern.compile("\\G\\s*(\\p{L}+)");
 
     /** Le mot représenté par ce mot-clé, en tant que chaîne de caractères. */
     private final String valeur;

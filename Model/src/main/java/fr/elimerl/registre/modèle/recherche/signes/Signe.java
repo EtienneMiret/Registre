@@ -24,7 +24,7 @@ public abstract class Signe {
      */
     public Signe(final String représentation) {
 	this.représentation = représentation;
-	this.motif = Pattern.compile("^\\s*" + Pattern.quote(représentation),
+	this.motif = Pattern.compile("\\G\\s*" + Pattern.quote(représentation),
 		Pattern.CASE_INSENSITIVE);
     }
 
