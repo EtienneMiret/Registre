@@ -18,7 +18,7 @@ import fr.elimerl.registre.modèle.recherche.signes.Signe;
  * le langage de recherche, une requête est soit une conjonction soit une
  * disjonction d’{@link Expression}s.
  */
-public class Requête {
+public final class Requête {
 
     /** Journal SLF4J de cette classe. */
     private static final Logger journal =
