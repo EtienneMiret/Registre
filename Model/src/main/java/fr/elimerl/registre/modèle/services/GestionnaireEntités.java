@@ -1,4 +1,4 @@
-package fr.elimerl.registre.modèle.entités;
+package fr.elimerl.registre.modèle.services;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -7,6 +7,19 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import fr.elimerl.registre.modèle.entités.Acteur;
+import fr.elimerl.registre.modèle.entités.Auteur;
+import fr.elimerl.registre.modèle.entités.Compositeur;
+import fr.elimerl.registre.modèle.entités.Dessinateur;
+import fr.elimerl.registre.modèle.entités.Emplacement;
+import fr.elimerl.registre.modèle.entités.Fiche;
+import fr.elimerl.registre.modèle.entités.Mot;
+import fr.elimerl.registre.modèle.entités.Nommé;
+import fr.elimerl.registre.modèle.entités.Propriétaire;
+import fr.elimerl.registre.modèle.entités.Réalisateur;
+import fr.elimerl.registre.modèle.entités.Scénariste;
+import fr.elimerl.registre.modèle.entités.Série;
 
 /**
  * Cette classe encapsule un {@link EntityManager} pour fournir des
