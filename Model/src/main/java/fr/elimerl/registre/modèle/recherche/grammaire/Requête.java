@@ -38,6 +38,34 @@ public final class Requête {
     }
 
     @Override
+    public boolean equals(final Object objet) {
+	final boolean résultat;
+	if (this == objet) {
+	    résultat = true;
+	} else if (objet == null) {
+	    résultat = false;
+	} else if (objet instanceof Requête) {
+	    final Requête requête = (Requête) objet;
+	    if (expressions == null) {
+		résultat = (requête.expressions == null);
+	    } else if (expressions.size() < 2) {
+		résultat = expressions.equals(requête.expressions);
+	    } else {
+		résultat = (conjonction == requête.conjonction
+			&& expressions.equals(requête.expressions));
+	    }
+	} else {
+	    résultat = false;
+	}
+	return résultat;
+    }
+
+    @Override
+    public int hashCode() {
+	return (expressions == null ? 0 : expressions.hashCode());
+    }
+
+    @Override
     public String toString() {
 	final StringBuilder buffer = new StringBuilder();
 	final Iterator<Expression> itérateur = expressions.iterator();
