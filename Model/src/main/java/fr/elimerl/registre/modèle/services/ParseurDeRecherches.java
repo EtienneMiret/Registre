@@ -133,7 +133,7 @@ public class ParseurDeRecherches {
 	    expressions.add(analyserExpression(signes));
 	    conjonction = signes.peek() != Opérateur.OU;
 	} catch (final ParseException e) {
-	    journal.info("Grammaire de la requête incorrecte :", e);
+	    journal.warn("Grammaire de la requête incorrecte :", e);
 	    conjonction = true; // Peu importe.
 	    signes.clear(); // Force l’arrêt de l’analyse.
 	}
@@ -148,12 +148,12 @@ public class ParseurDeRecherches {
 			&& !signes.isEmpty()
 			&& signes.peek() != Parenthèse.FERMANTE
 			&& signes.peek() != Opérateur.OU) {
-		    journal.info("Grammaire de la requête incorrecte,"
+		    journal.warn("Grammaire de la requête incorrecte,"
 			    + " « ou » attendu, {} trouvé.", signes.peek());
 		    signes.clear(); // Forece l’arrêt de l’analyse.
 		}
 	    } catch (final ParseException e) {
-		journal.info("Grammaire de la requête incorrecte :", e);
+		journal.warn("Grammaire de la requête incorrecte :", e);
 		signes.clear(); // Force l’arrêt de l’analyse.
 	    }
 	}
