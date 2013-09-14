@@ -64,7 +64,8 @@ public final class Champ extends Signe {
     }
 
     /**
-     * Constructeur privé, seul un nombre prédéfini d’instance étant autorisées.
+     * Constructeur privé, seul un nombre prédéfini d’instances étant
+     * autorisées.
      *
      * @param représentation
      *            chaîne de caractères représentant la catégorie.
