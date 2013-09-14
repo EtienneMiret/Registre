@@ -2,6 +2,7 @@ package fr.elimerl.registre.modèle.recherche.grammaire;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 
@@ -77,6 +78,23 @@ public class Requête {
 		signes.clear(); // Force l’arrêt de l’analyse.
 	    }
 	}
+    }
+
+    @Override
+    public String toString() {
+	final StringBuilder buffer = new StringBuilder();
+	final Iterator<Expression> itérateur = expressions.iterator();
+	while (itérateur.hasNext()) {
+	    buffer.append(itérateur.next());
+	    if (itérateur.hasNext()) {
+		if (conjonction) {
+		    buffer.append(' ');
+		} else {
+		    buffer.append(" ou ");
+		}
+	    }
+	}
+	return buffer.toString();
     }
 
 }
