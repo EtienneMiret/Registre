@@ -1,5 +1,7 @@
 package fr.elimerl.registre.modèle.recherche.signes;
 
+import java.util.regex.Pattern;
+
 /**
  * Classe racine de la hierachie des signes du langage de requête.
  */
@@ -7,6 +9,11 @@ public abstract class Signe {
 
     /** Ce signe sous forme de chaîne de caractères. */
     private final String représentation;
+
+    /**
+     * Le motif qui permet de détecter ce signe dans une chaîne de caractères.
+     */
+    private final Pattern motif;
 
     /**
      * Construit un nouveau signe à partir de la chaîne de caractères le
@@ -17,6 +24,19 @@ public abstract class Signe {
      */
     public Signe(final String représentation) {
 	this.représentation = représentation;
+	this.motif = Pattern.compile("^\\s*" + représentation + "\\s*",
+		Pattern.CASE_INSENSITIVE);
+    }
+
+    /**
+     * Renvoie le motif qui permet de détecter ce signe dans une chaîne de
+     * caractères.
+     *
+     * @return le motif qui permet de détecter ce signe dans une chaîne de
+     *         caractères.
+     */
+    public Pattern getMotif() {
+	return motif;
     }
 
     @Override
