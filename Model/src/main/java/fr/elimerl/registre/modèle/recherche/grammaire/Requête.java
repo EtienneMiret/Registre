@@ -1,17 +1,8 @@
 package fr.elimerl.registre.modèle.recherche.grammaire;
 
-import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Queue;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import fr.elimerl.registre.modèle.recherche.signes.Opérateur;
-import fr.elimerl.registre.modèle.recherche.signes.Parenthèse;
-import fr.elimerl.registre.modèle.recherche.signes.Signe;
 
 /**
  * Représente une requête de recherche dans son ensemble. Telle que définie dans
@@ -19,10 +10,6 @@ import fr.elimerl.registre.modèle.recherche.signes.Signe;
  * disjonction d’{@link Expression}s.
  */
 public final class Requête {
-
-    /** Journal SLF4J de cette classe. */
-    private static final Logger journal =
-	    LoggerFactory.getLogger(Requête.class);
 
     /**
      * Indique si cette requête est une conjonction. Sinon, c’est une
@@ -36,48 +23,18 @@ public final class Requête {
     private final List<Expression> expressions;
 
     /**
-     * Construit une requête à partir des signes résultants de l’analyse
-     * lexicale. Consomme les signes de la file qui ont un sens, et s’arrête dès
-     * qu’il n’est plus possible de construire la requête.
+     * Construit une nouvelle requête à partir des expressions données en
+     * argument.
      *
-     * @param signes
-     *            la file de signes obtenue par l’analyse lexicale du texte
-     *            entré par l’utilisateur.
+     * @param conjonction
+     *            {@code true} si cette requête est une conjonction,
+     *            {@code false} si c’est une disjonction.
+     * @param expressions
+     *            liste des expressions composants la requête.
      */
-    public Requête(final Queue<Signe> signes) {
-	expressions = new ArrayList<Expression>();
-	boolean estConjonction; // Variable temporaire pour « conjonction ».
-	try {
-	    final Expression premièreExpression = new Expression(signes);
-	    expressions.add(premièreExpression);
-	    estConjonction = signes.peek() != Opérateur.OU;
-	} catch (final ParseException e) {
-	    journal.info("Grammaire de la requête incorrecte :", e);
-	    estConjonction = true; // Peu importe.
-	    signes.clear(); // Force l’arrêt de l’analyse.
-	}
-	conjonction = estConjonction;
-	while (!signes.isEmpty() && signes.peek() != Parenthèse.FERMANTE) {
-	    try {
-		final Expression expressionSuivante = new Expression(signes);
-		expressions.add(expressionSuivante);
-		/*
-		 * Si on est une disjonction et qu’on est pas à la fin, on doit
-		 * trouver un opérateur « ou ».
-		 */
-		if (!conjonction
-			&& !signes.isEmpty()
-			&& signes.peek() != Parenthèse.FERMANTE
-			&& signes.peek() != Opérateur.OU) {
-		    journal.info("Grammaire de la requête incorrecte,"
-			    + " « ou » attendu, {} trouvé.", signes.peek());
-		    signes.clear(); // Forece l’arrêt de l’analyse.
-		}
-	    } catch (final ParseException e) {
-		journal.info("Grammaire de la requête incorrecte :", e);
-		signes.clear(); // Force l’arrêt de l’analyse.
-	    }
-	}
+    public Requête(final boolean conjonction, final Expression... expressions) {
+	this.conjonction = conjonction;
+	this.expressions = Arrays.asList(expressions);
     }
 
     @Override
