@@ -21,6 +21,31 @@ public final class MotCléSimple extends Expression {
     }
 
     @Override
+    public boolean equals(final Object objet) {
+	final boolean résultat;
+	if (objet == this) {
+	    résultat = true;
+	} else if (objet == null) {
+	    résultat = false;
+	} else if (objet instanceof MotCléSimple) {
+	    final MotCléSimple motClé = (MotCléSimple) objet;
+	    if (this.motClé == null) {
+		résultat = (motClé.motClé == null);
+	    } else {
+		résultat = this.motClé.equals(motClé.motClé);
+	    }
+	} else {
+	    résultat = false;
+	}
+	return résultat;
+    }
+
+    @Override
+    public int hashCode() {
+	return (motClé == null ? 0 : motClé.hashCode());
+    }
+
+    @Override
     public String toString() {
 	return motClé.toString();
     }
