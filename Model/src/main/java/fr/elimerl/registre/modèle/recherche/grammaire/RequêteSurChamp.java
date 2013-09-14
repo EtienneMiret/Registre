@@ -13,6 +13,9 @@ import fr.elimerl.registre.modèle.recherche.signes.MotClé;
  */
 public final class RequêteSurChamp extends Expression {
 
+    /** Un nombre premier. Utiliser pour calculer le hash. */
+    private static final int PREMIER = 31;
+
     /** Champ sur lequel cette requête est faite. */
     private final Champ champ;
 
@@ -31,6 +34,37 @@ public final class RequêteSurChamp extends Expression {
     public RequêteSurChamp(final Champ champ, final MotClé... motsClés) {
 	this.champ = champ;
 	this.motsClés = Arrays.asList(motsClés);
+    }
+
+    @Override
+    public boolean equals(final Object objet) {
+	final boolean résultat;
+	if (objet == this) {
+	    résultat = true;
+	} else if (objet instanceof RequêteSurChamp) {
+	    final RequêteSurChamp requête = (RequêteSurChamp) objet;
+	    if (champ == null && motsClés == null) {
+		résultat = (requête.champ == null && requête.motsClés == null);
+	    } else if (champ == null) {
+		résultat = (requête.champ == null
+			&& motsClés.equals(requête.motsClés));
+	    } else if (motsClés == null) {
+		résultat = (champ.equals(requête.champ)
+			&& requête.motsClés == null);
+	    } else {
+		résultat = (champ.equals(requête.champ)
+			&& motsClés.equals(requête.motsClés));
+	    }
+	} else {
+	    résultat = false;
+	}
+	return résultat;
+    }
+
+    @Override
+    public int hashCode() {
+	return (motsClés == null ? 0 : motsClés.hashCode())
+		+ PREMIER * (champ == null ? 0 : champ.hashCode());
     }
 
     @Override
