@@ -12,7 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.elimerl.registre.modèle.recherche.grammaire.Expression;
+import fr.elimerl.registre.modèle.recherche.grammaire.MotCléSimple;
 import fr.elimerl.registre.modèle.recherche.grammaire.Requête;
+import fr.elimerl.registre.modèle.recherche.grammaire.RequêteEntreParenthèse;
+import fr.elimerl.registre.modèle.recherche.grammaire.RequêteSurChamp;
 import fr.elimerl.registre.modèle.recherche.signes.Champ;
 import fr.elimerl.registre.modèle.recherche.signes.MotClé;
 import fr.elimerl.registre.modèle.recherche.signes.Opérateur;
@@ -27,6 +30,26 @@ public class ParseurDeRecherches {
     /** Journal SLF4J de cette classe. */
     private static final Logger journal =
 	    LoggerFactory.getLogger(ParseurDeRecherches.class);
+
+    /** Un tableau d’{@code Expression}s de taille zéro. */
+    private static final Expression[] EXPRESSIONS = new Expression[0];
+
+    /** Un tableau de {@code MotClé}s de taille zéro. */
+    private static final MotClé[] MOTS_CLÉS = new MotClé[0];
+
+    /**
+     * Réalise l’analyse lexicale puis l’analyse grammaticale de la requête
+     * utilisateur passée en paramètre. Renvoie quelque chose quel que soit le
+     * contenu de la requête utilisateur.
+     *
+     * @param requête
+     *            requête fournie par l’utilisateur. Peut contenir n’importe
+     *            quoi.
+     * @return la requête obtenue suite à l’analyse du texte passé en paramètre.
+     */
+    public Requête analyser(final String requête) {
+	return analyserGrammaticalement(analyserLexicalement(requête));
+    }
 
     /**
      * Réalise l’analyse lexicale de la requête utilisateur passée en paramètre.
@@ -134,13 +157,80 @@ public class ParseurDeRecherches {
 		signes.clear(); // Force l’arrêt de l’analyse.
 	    }
 	}
-	return new Requête(conjonction, expressions.toArray(new Expression[0]));
+	return new Requête(conjonction, expressions.toArray(EXPRESSIONS));
     }
 
+    /**
+     * Lit la suite de signes donnée et tente de faire une expression à partir
+     * des premier signes de la suite. Les signes utilisés sont consommés.
+     *
+     * @param signes
+     *            suite de signes à analyser.
+     * @return l’expression représentée par le début de la suite de signes.
+     * @throws ParseException
+     *             si le début de la suite de signes fournie ne peut pas
+     *             représenter une expression.
+     */
     private Expression analyserExpression(final Queue<Signe> signes)
 	    throws ParseException {
-	// TODO Auto-generated method stub
-	return null;
+	final Expression résultat;
+	final Signe premierSigne = signes.poll();
+	if (premierSigne == Parenthèse.OUVRANTE) {
+	    final Requête sousRequête = analyserGrammaticalement(signes);
+	    résultat = new RequêteEntreParenthèse(sousRequête);
+	    final Signe signeSuivant = signes.poll();
+	    if (signeSuivant != Parenthèse.FERMANTE) {
+		throw new ParseException("« ) » attendu, « " + signeSuivant
+			+ " » trouvé.", -1);
+	    }
+	} else if (premierSigne instanceof MotClé) {
+	    résultat = new MotCléSimple((MotClé) premierSigne);
+	} else if (premierSigne instanceof Champ) {
+	    résultat = analyserChamp((Champ) premierSigne, signes);
+	} else {
+	    throw new ParseException("Début d’expression attendu, « "
+		    + premierSigne + " » trouvé.", -1);
+	}
+	return résultat;
+    }
+
+    /**
+     * Lit la suite de signes donnée et tente d’y lire une requête sur un champ.
+     * En cas de réussite, les signes utilisés sont consommés.
+     *
+     * @param champ
+     *            le champ sur lequel on fait potentiellement une requête.
+     * @param signes
+     *            la suite de signes à analyser. Doit commencer par un mot-clé
+     *            ou par une suite de mots-clés entre parenthèse.
+     * @return une requête sur le champs donné, avec comme mots-clés ceux
+     *         trouvés au début de la suite de signes.
+     * @throws ParseException
+     *             si la suite de signes ne commence ni par un mot-clé, ni par
+     *             une suite de mots-clés entre parenthèse.
+     */
+    private static RequêteSurChamp analyserChamp(final Champ champ,
+	    final Queue<Signe> signes) throws ParseException {
+	final RequêteSurChamp résultat;
+	final Signe premierSigne = signes.poll();
+	if (premierSigne == Parenthèse.OUVRANTE) {
+	    final List<MotClé> motsClés = new ArrayList<MotClé>();
+	    while (signes.peek() instanceof MotClé) {
+		motsClés.add((MotClé) signes.poll());
+	    }
+	    final Signe signeSuivant = signes.poll();
+	    if (signeSuivant != Parenthèse.FERMANTE) {
+		throw new ParseException("« ) » attendue, « "
+			+ signeSuivant + " » trouvé.", -1);
+	    }
+	    résultat = new RequêteSurChamp(champ, motsClés.toArray(MOTS_CLÉS));
+	} else if (premierSigne instanceof MotClé) {
+	    résultat = new RequêteSurChamp(champ, (MotClé) premierSigne);
+	} else {
+	    throw new ParseException("Mot-clé ou « ( » attendu, « "
+		    + premierSigne + " » trouvé.", -1);
+	}
+	return résultat;
     }
 
 }
