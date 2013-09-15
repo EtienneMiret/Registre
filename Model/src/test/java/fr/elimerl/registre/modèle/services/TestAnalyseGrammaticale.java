@@ -7,6 +7,8 @@ import java.util.Queue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.elimerl.registre.modèle.recherche.grammaire.MotCléSimple;
 import fr.elimerl.registre.modèle.recherche.grammaire.Requête;
@@ -23,6 +25,10 @@ import fr.elimerl.registre.modèle.recherche.signes.Signe;
  * {@link ParseurDeRecherches#analyserGrammaticalement(Queue)}.
  */
 public class TestAnalyseGrammaticale {
+
+    /** Journal SLF4J de cette classe. */
+    private static final Logger journal =
+	    LoggerFactory.getLogger(TestAnalyseGrammaticale.class);
 
     /** Le parseur qu’on teste. */
     private ParseurDeRecherches parseur;
@@ -44,6 +50,8 @@ public class TestAnalyseGrammaticale {
      */
     @Test
     public void requêteVide() {
+	journal.info("Analyse grammaticale d’une requête vide.");
+
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
 	final Requête attendue = new Requête(true);
@@ -58,6 +66,7 @@ public class TestAnalyseGrammaticale {
     public void unSeulMotClé() {
 	final MotClé motClé = new MotClé("coucou");
 	signes.add(motClé);
+	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
@@ -76,6 +85,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(toto);
 	signes.add(tata);
 	signes.add(titi);
+	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
@@ -100,6 +110,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(tata);
 	signes.add(Opérateur.OU);
 	signes.add(titi);
+	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
@@ -135,6 +146,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(tata);
 	signes.add(titi);
 	signes.add(Parenthèse.FERMANTE);
+	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
@@ -187,6 +199,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(Opérateur.OU);
 	signes.add(i);
 	signes.add(Parenthèse.FERMANTE);
+	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
