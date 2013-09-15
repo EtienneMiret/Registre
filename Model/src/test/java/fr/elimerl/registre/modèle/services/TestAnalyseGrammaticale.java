@@ -59,7 +59,7 @@ public class TestAnalyseGrammaticale {
     }
 
     /**
-     * Analyse une requête composée d’un seul mot clé. Attention : le teste doit
+     * Analyse une requête composée d’un seul mot clé. Attention : le test doit
      * passer que la requête obtenue soit une conjonction ou une disjonction.
      */
     @Test
