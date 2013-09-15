@@ -129,13 +129,20 @@ public class ParseurDeRecherches {
     public Requête analyserGrammaticalement(final Queue<Signe> signes) {
 	final List<Expression> expressions = new ArrayList<Expression>();
 	boolean conjonction;
-	try {
-	    expressions.add(analyserExpression(signes));
-	    conjonction = signes.peek() != Opérateur.OU;
-	} catch (final ParseException e) {
-	    journal.warn("Grammaire de la requête incorrecte :", e);
-	    conjonction = true; // Peu importe.
-	    signes.clear(); // Force l’arrêt de l’analyse.
+	if (!signes.isEmpty() && signes.peek() != Parenthèse.FERMANTE) {
+	    try {
+		expressions.add(analyserExpression(signes));
+		conjonction = signes.peek() != Opérateur.OU;
+		if (!conjonction) {
+		    signes.poll(); // Il faut consommer l’opérateur.
+		}
+	    } catch (final ParseException e) {
+		journal.warn("Grammaire de la requête incorrecte :", e);
+		conjonction = true; // Peu importe.
+		signes.clear(); // Force l’arrêt de l’analyse.
+	    }
+	} else {
+	    conjonction = true;
 	}
 	while (!signes.isEmpty() && signes.peek() != Parenthèse.FERMANTE) {
 	    try {
@@ -146,11 +153,13 @@ public class ParseurDeRecherches {
 		 */
 		if (!conjonction
 			&& !signes.isEmpty()
-			&& signes.peek() != Parenthèse.FERMANTE
-			&& signes.peek() != Opérateur.OU) {
-		    journal.warn("Grammaire de la requête incorrecte,"
-			    + " « ou » attendu, {} trouvé.", signes.peek());
-		    signes.clear(); // Forece l’arrêt de l’analyse.
+			&& signes.peek() != Parenthèse.FERMANTE) {
+		    final Signe signeSuivant = signes.poll();
+		    if (signeSuivant != Opérateur.OU) {
+			journal.warn("Grammaire de la requête incorrecte,"
+				+ " « ou » attendu, {} trouvé.", signeSuivant);
+			signes.clear(); // Force l’arrêt de l’analyse.
+		    }
 		}
 	    } catch (final ParseException e) {
 		journal.warn("Grammaire de la requête incorrecte :", e);

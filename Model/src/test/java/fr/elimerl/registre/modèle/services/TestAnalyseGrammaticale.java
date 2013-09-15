@@ -128,6 +128,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(Parenthèse.OUVRANTE);
 	signes.add(etienne);
 	signes.add(grégoire);
+	signes.add(Parenthèse.FERMANTE);
 	signes.add(Opérateur.OU);
 	signes.add(Parenthèse.OUVRANTE);
 	signes.add(toto);
