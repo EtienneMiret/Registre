@@ -4,6 +4,13 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
+
+import fr.elimerl.registre.modèle.entités.Fiche;
 import fr.elimerl.registre.modèle.recherche.signes.Champ;
 import fr.elimerl.registre.modèle.recherche.signes.MotClé;
 
@@ -11,13 +18,13 @@ import fr.elimerl.registre.modèle.recherche.signes.MotClé;
  * Type d’expression du langage de recherche qui représente une requête sur un
  * champ.
  */
-public final class RequêteSurChamp extends Expression {
+public final class RequêteSurChamp<T> extends Expression {
 
     /** Un nombre premier. Utiliser pour calculer le hash. */
     private static final int PREMIER = 31;
 
     /** Champ sur lequel cette requête est faite. */
-    private final Champ champ;
+    private final Champ<T> champ;
 
     /** Liste de mots-clés à trouver pour cette requête. */
     private final List<MotClé> motsClés;
@@ -31,9 +38,63 @@ public final class RequêteSurChamp extends Expression {
      * @param motsClés
      *            liste de mots-clés à trouver dans le champ.
      */
-    public RequêteSurChamp(final Champ champ, final MotClé... motsClés) {
+    public RequêteSurChamp(final Champ<T> champ, final MotClé... motsClés) {
 	this.champ = champ;
 	this.motsClés = Arrays.asList(motsClés);
+    }
+
+    @Override
+    public Predicate créerPrédicat(final CriteriaBuilder constructeur,
+	    final Root<Fiche> fiche, final CriteriaQuery<Fiche> requête) {
+	final Predicate résultat;
+	if (champ == Champ.TITRE) {
+	    
+	} else if (champ == Champ.COMMENTAIRE) {
+	    
+	} else if (champ == Champ.SÉRIE) {
+	    résultat = prédicatPourFiche(constructeur, requête, fiche);
+	} else if (champ == Champ.PROPRIÉTAIRE) {
+	    résultat = prédicatPourFiche(constructeur, requête, fiche);
+	} else if (champ == Champ.EMPLACEMENT) {
+	    résultat = prédicatPourFiche(constructeur, requête, fiche);
+	} else if (champ == Champ.RÉALISATEUR) {
+	    
+	} else if (champ == Champ.ACTEUR) {
+	    
+	} else {
+	    throw new RuntimeException("Champ inconnu : " + champ);
+	}
+	return résultat;
+    }
+
+    /**
+     * Crée un prédicat pour un champ de {@link Fiche}.
+     *
+     * @param constructeur
+     *            constructeur de requêtes.
+     * @param requête
+     *            la requête principale dont on construit la clause where.
+     * @param fiche
+     *            la racine de la requête.
+     * @return un prédicat, lié à la requête passée en paramètre, qui teste si
+     *         une fiche contient les mot clés {@link #motsClés} dans son champ
+     *         {@link #champ}.
+     */
+    private Predicate prédicatPourFiche(final CriteriaBuilder constructeur,
+	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	final Predicate[] prédicats = new Predicate[motsClés.size()];
+	for (int i = 0; i < motsClés.size(); i++) {
+	    final String mot = motsClés.get(i).getValeur();
+	    final Subquery<T> sousRequête =
+		    requête.subquery(champ.getClasse());
+	    final Root<T> type = sousRequête.from(champ.getClasse());
+	    final Predicate comme = constructeur.like(
+		    type.<String> get("nom"), mot);
+	    sousRequête.where(comme);
+	    prédicats[i] = constructeur.in(fiche.get(champ.getNom())).value(
+		    sousRequête);
+	}
+	return constructeur.and(prédicats);
     }
 
     @Override
@@ -42,7 +103,7 @@ public final class RequêteSurChamp extends Expression {
 	if (objet == this) {
 	    résultat = true;
 	} else if (objet instanceof RequêteSurChamp) {
-	    final RequêteSurChamp requête = (RequêteSurChamp) objet;
+	    final RequêteSurChamp<?> requête = (RequêteSurChamp<?>) objet;
 	    if (champ == null && motsClés == null) {
 		résultat = (requête.champ == null && requête.motsClés == null);
 	    } else if (champ == null) {
