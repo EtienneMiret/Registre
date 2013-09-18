@@ -1,5 +1,13 @@
 package fr.elimerl.registre.modèle.recherche.grammaire;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
+
+import fr.elimerl.registre.modèle.entités.Fiche;
+import fr.elimerl.registre.modèle.entités.Référence;
 import fr.elimerl.registre.modèle.recherche.signes.MotClé;
 
 /**
@@ -18,6 +26,17 @@ public final class MotCléSimple extends Expression {
      */
     public MotCléSimple(final MotClé motClé) {
 	this.motClé = motClé;
+    }
+
+    @Override
+    public Predicate créerPrédicat(final CriteriaBuilder constructeur,
+	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	final Subquery<Fiche> sousRequête = requête.subquery(Fiche.class);
+	Root<Référence> référence = sousRequête.from(Référence.class);
+	sousRequête.select(référence.<Fiche>get("fiche"));
+	sousRequête.where(constructeur.equal(référence.get("mot").get("valeur"),
+		motClé.getValeur()));
+	return constructeur.in(fiche).value(sousRequête);
     }
 
     @Override
