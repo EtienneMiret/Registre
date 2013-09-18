@@ -1,8 +1,16 @@
 package fr.elimerl.registre.modèle.recherche.grammaire;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import fr.elimerl.registre.modèle.entités.Fiche;
 
 /**
  * Représente une requête de recherche dans son ensemble. Telle que définie dans
@@ -35,6 +43,36 @@ public final class Requête {
     public Requête(final boolean conjonction, final Expression... expressions) {
 	this.conjonction = conjonction;
 	this.expressions = Arrays.asList(expressions);
+    }
+
+    /**
+     * Crée un prédicat qui vérifie qu’une fiche correspond bien aux critères de
+     * cette requête.
+     *
+     * @param constructeur
+     *            constructeur de requête.
+     * @param requête
+     *            la requête principale dont on construit la clause where.
+     * @param fiche
+     *            la racine de la requête principale.
+     * @return un prédicat lié à la requête passée en paramètre qui vérifie
+     *         qu’une fiche correspond bien aux critères de cette requête.
+     */
+    public Predicate créerPrédicat(final CriteriaBuilder constructeur,
+	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	final Predicate résultat;
+	final List<Predicate> sousPrédicats =
+		new ArrayList<Predicate>(expressions.size());
+	final Predicate[] tableau = new Predicate[expressions.size()];
+	for (final Expression e : expressions) {
+	    sousPrédicats.add(e.créerPrédicat(constructeur, requête, fiche));
+	}
+	if (conjonction) {
+	    résultat = constructeur.and(sousPrédicats.toArray(tableau));
+	} else {
+	    résultat = constructeur.or(sousPrédicats.toArray(tableau));
+	}
+	return résultat;
     }
 
     @Override
