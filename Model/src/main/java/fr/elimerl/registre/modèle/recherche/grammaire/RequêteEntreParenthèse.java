@@ -1,5 +1,12 @@
 package fr.elimerl.registre.modèle.recherche.grammaire;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import fr.elimerl.registre.modèle.entités.Fiche;
+
 /**
  * Type d’expression du langage de recherche qui représente une requête entre
  * parenthèse.
@@ -17,6 +24,12 @@ public final class RequêteEntreParenthèse extends Expression {
      */
     public RequêteEntreParenthèse(final Requête requête) {
 	this.requête = requête;
+    }
+
+    @Override
+    public Predicate créerPrédicat(final CriteriaBuilder constructeur,
+	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	return this.requête.créerPrédicat(constructeur, requête, fiche);
     }
 
     @Override
