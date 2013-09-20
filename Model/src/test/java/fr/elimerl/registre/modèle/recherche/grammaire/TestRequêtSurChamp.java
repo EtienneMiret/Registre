@@ -6,6 +6,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
+import fr.elimerl.registre.modèle.entités.Auteur;
 import fr.elimerl.registre.modèle.recherche.signes.Champ;
 import fr.elimerl.registre.modèle.recherche.signes.MotClé;
 
@@ -21,10 +22,10 @@ public class TestRequêtSurChamp {
     @Test
     public void égales() {
 	final MotClé motClé = new MotClé("toto");
-	final RequêteSurChamp requête1 =
-		new RequêteSurChamp(Champ.TITRE, motClé);
-	final RequêteSurChamp requête2 =
-		new RequêteSurChamp(Champ.TITRE, motClé);
+	final RequêteSurChamp<String> requête1 =
+		new RequêteSurChamp<String>(Champ.TITRE, motClé);
+	final RequêteSurChamp<String> requête2 =
+		new RequêteSurChamp<String>(Champ.TITRE, motClé);
 	assertTrue(requête1.equals(requête2));
 	assertTrue(requête2.equals(requête1));
     }
@@ -36,10 +37,10 @@ public class TestRequêtSurChamp {
     @Test
     public void champsDifférents() {
 	final MotClé motClé = new MotClé("toto");
-	final RequêteSurChamp requête1 =
-		new RequêteSurChamp(Champ.TITRE, motClé);
-	final RequêteSurChamp requête2 =
-		new RequêteSurChamp(Champ.AUTEUR, motClé);
+	final RequêteSurChamp<String> requête1 =
+		new RequêteSurChamp<String>(Champ.TITRE, motClé);
+	final RequêteSurChamp<Auteur> requête2 =
+		new RequêteSurChamp<Auteur>(Champ.AUTEUR, motClé);
 	assertFalse(requête1.equals(requête2));
 	assertFalse(requête2.equals(requête1));
     }
@@ -52,10 +53,10 @@ public class TestRequêtSurChamp {
     public void motsClésDifférents() {
 	final MotClé motClé1 = new MotClé("toto");
 	final MotClé motClé2 = new MotClé("tata");
-	final RequêteSurChamp requête1 =
-		new RequêteSurChamp(Champ.TITRE, motClé1);
-	final RequêteSurChamp requête2 =
-		new RequêteSurChamp(Champ.TITRE, motClé2);
+	final RequêteSurChamp<String> requête1 =
+		new RequêteSurChamp<String>(Champ.TITRE, motClé1);
+	final RequêteSurChamp<String> requête2 =
+		new RequêteSurChamp<String>(Champ.TITRE, motClé2);
 	assertFalse(requête1.equals(requête2));
 	assertFalse(requête2.equals(requête1));
     }
