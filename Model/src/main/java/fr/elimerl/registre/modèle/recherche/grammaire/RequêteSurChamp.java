@@ -123,6 +123,7 @@ public final class RequêteSurChamp<T> extends Expression {
 	    final Root<T> type = sousRequête.from(champ.getClasse());
 	    final Predicate comme = constructeur.like(
 		    type.<String>get("nom"), mot);
+	    sousRequête.select(type);
 	    sousRequête.where(comme);
 	    prédicats[i] = constructeur.in(fiche.get(champ.getNom())).value(
 		    sousRequête);
