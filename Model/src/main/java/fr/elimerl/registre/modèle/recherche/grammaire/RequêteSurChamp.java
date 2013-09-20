@@ -19,6 +19,9 @@ import fr.elimerl.registre.modèle.recherche.signes.MotClé;
 /**
  * Type d’expression du langage de recherche qui représente une requête sur un
  * champ.
+ *
+ * @param <T>
+ *            le type du champ sur lequel est fait cette requête.
  */
 public final class RequêteSurChamp<T> extends Expression {
 
