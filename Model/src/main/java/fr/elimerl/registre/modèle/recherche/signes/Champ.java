@@ -79,7 +79,7 @@ public final class Champ<T> extends Signe {
 	résultat.add(SÉRIE);
 	résultat.add(PROPRIÉTAIRE);
 	résultat.add(EMPLACEMENT);
-	résultat.add(EMPLACEMENT);
+	résultat.add(RÉALISATEUR);
 	résultat.add(ACTEUR);
 	résultat.add(COMPOSITEUR);
 	résultat.add(DESSINATEUR);
