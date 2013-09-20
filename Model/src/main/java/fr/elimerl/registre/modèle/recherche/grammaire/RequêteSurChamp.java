@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.modèle.entités.Fiche;
+import fr.elimerl.registre.modèle.entités.Référence;
 import fr.elimerl.registre.modèle.recherche.signes.Champ;
 import fr.elimerl.registre.modèle.recherche.signes.MotClé;
 
@@ -45,26 +47,54 @@ public final class RequêteSurChamp<T> extends Expression {
 
     @Override
     public Predicate créerPrédicat(final CriteriaBuilder constructeur,
-	    final Root<Fiche> fiche, final CriteriaQuery<Fiche> requête) {
+	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
 	final Predicate résultat;
 	if (champ == Champ.TITRE) {
-	    
+	    résultat = prédicatPourRéférence(Référence.Champ.TITRE,
+		    constructeur, requête, fiche);
 	} else if (champ == Champ.COMMENTAIRE) {
-	    
+	    résultat = prédicatPourRéférence(Référence.Champ.COMMENTAIRE,
+		    constructeur, requête, fiche);
 	} else if (champ == Champ.SÉRIE) {
 	    résultat = prédicatPourFiche(constructeur, requête, fiche);
 	} else if (champ == Champ.PROPRIÉTAIRE) {
 	    résultat = prédicatPourFiche(constructeur, requête, fiche);
 	} else if (champ == Champ.EMPLACEMENT) {
 	    résultat = prédicatPourFiche(constructeur, requête, fiche);
-	} else if (champ == Champ.RÉALISATEUR) {
-	    
-	} else if (champ == Champ.ACTEUR) {
-	    
 	} else {
 	    throw new RuntimeException("Champ inconnu : " + champ);
 	}
 	return résultat;
+    }
+
+    /**
+     * Crée un prédicat pour un champ référencé.
+     *
+     * @param champ
+     *            le champ référencé correspondant au {@link #champ}.
+     * @param constructeur
+     *            constructeur de requêtes.
+     * @param requête
+     *            la requête principale dont on construit la clause where.
+     * @param fiche
+     *            la racine de la requête.
+     * @return un prédicat, lié à la requête passée en paramètre, qui teste si
+     *           une fiche contient les mot clés {@link #motsClés} dans son
+     *           champ {@link #champ}.
+     */
+    private Predicate prédicatPourRéférence(final Référence.Champ champ,
+	    final CriteriaBuilder constructeur,
+	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	final Predicate[] prédicats = new Predicate[motsClés.size()];
+	final Subquery<Fiche> sousRequête = requête.subquery(Fiche.class);
+	final Root<Référence> référence = sousRequête.from(Référence.class);
+	final Path<String> mot = référence.get("mot").get("valeur");
+	sousRequête.select(référence.<Fiche>get("fiche"));
+	for (int i = 0; i < motsClés.size(); i++) {
+	    prédicats[i] = constructeur.equal(mot, motsClés.get(i).getValeur());
+	}
+	sousRequête.where(constructeur.and(prédicats));
+	return constructeur.in(fiche).value(sousRequête);
     }
 
     /**
