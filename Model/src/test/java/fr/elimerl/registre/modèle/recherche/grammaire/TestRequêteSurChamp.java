@@ -13,7 +13,7 @@ import fr.elimerl.registre.modèle.recherche.signes.MotClé;
 /**
  * Cas de test JUnit pour la classe {@link RequêteSurChamp}.
  */
-public class TestRequêtSurChamp {
+public class TestRequêteSurChamp {
 
     /**
      * Vérifie que deux requêtes portant sur le même champs et le même mot-clé
