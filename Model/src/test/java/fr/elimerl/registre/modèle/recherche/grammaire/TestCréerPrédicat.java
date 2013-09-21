@@ -115,7 +115,7 @@ public class TestCréerPrédicat {
 			new MotClé("dette")
 		),
 		new RequêteSurChamp<Propriétaire>(Champ.PROPRIÉTAIRE,
-			new MotClé("Etienne")
+			new MotClé("etienne")
 		)
 	);
 	requête.where(requêteUtilisateur.créerPrédicat(constructeur, requête,
