@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -37,6 +38,39 @@ public class TestCréerPrédicat {
     @PersistenceContext(unitName = "Registre")
     private EntityManager em;
 
+    /** Constructeur de requêtes lié à {@link #em}. */
+    private CriteriaBuilder constructeur;
+
+    /** Requête principale. On teste la construction de sa clause where. */
+    private CriteriaQuery<Fiche> requête;
+
+    /** La racine de la requête principale. */
+    private Root<Fiche> fiche;
+
+    /**
+     * Prépare l’environnement pour les tests.
+     */
+    @Before
+    public void setUp() {
+	constructeur = em.getCriteriaBuilder();
+	requête = constructeur.createQuery(Fiche.class);
+	fiche = requête.from(Fiche.class);
+	requête.select(fiche);
+    }
+
+    /**
+     * Test de la méthode
+     * {@link MotCléSimple#créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)}.
+     */
+    public void testMotCléSimple() {
+	final MotCléSimple motClé = new MotCléSimple(new MotClé("super"));
+	requête.where(motClé.créerPrédicat(constructeur, requête, fiche));
+	final TypedQuery<Fiche> requêteJpa = em.createQuery(requête);
+	final List<Fiche> résultats = requêteJpa.getResultList();
+	assertEquals(1, résultats.size());
+	assertEquals(1, résultats.get(0).getId().longValue());
+    }
+
     /**
      * Test de la méthode
      * {@link Requête#créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)}.
@@ -53,11 +87,6 @@ public class TestCréerPrédicat {
 			new MotClé("Etienne")
 		)
 	);
-	final CriteriaBuilder constructeur = em.getCriteriaBuilder();
-	final CriteriaQuery<Fiche> requête =
-		constructeur.createQuery(Fiche.class);
-	final Root<Fiche> fiche = requête.from(Fiche.class);
-	requête.select(fiche);
 	requête.where(requêteUtilisateur.créerPrédicat(constructeur, requête,
 		fiche));
 	final TypedQuery<Fiche> requêteJpa = em.createQuery(requête);
