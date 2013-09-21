@@ -80,6 +80,28 @@ public class TestCréerPrédicat {
     }
 
     /**
+     * Test de la méthode {@link RequêteEntreParenthèse#créerPrédicat(
+     * CriteriaBuilder, CriteriaQuery, Root)}.
+     */
+    @Test
+    public void testRequêteEntreParenthèse() {
+	journal.info("Création d’un prédicat à partir d’une requête entre "
+		+ "parenthèses.");
+	final RequêteEntreParenthèse requêteEntreParenthèse =
+		new RequêteEntreParenthèse(
+			new Requête(true,
+				new MotCléSimple(new MotClé("super"))
+			)
+		);
+	requête.where(requêteEntreParenthèse.créerPrédicat(constructeur,
+		requête, fiche));
+	final TypedQuery<Fiche> requêteJpa = em.createQuery(requête);
+	final List<Fiche> résultats = requêteJpa.getResultList();
+	assertEquals(1, résultats.size());
+	assertEquals(1, résultats.get(0).getId().longValue());
+    }
+
+    /**
      * Test de la méthode
      * {@link Requête#créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)}.
      */
