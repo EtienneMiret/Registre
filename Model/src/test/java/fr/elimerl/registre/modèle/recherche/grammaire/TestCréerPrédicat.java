@@ -14,6 +14,8 @@ import javax.persistence.criteria.Root;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +35,10 @@ import fr.elimerl.registre.modèle.recherche.signes.MotClé;
 @ContextConfiguration("/applicationContext.xml")
 @Transactional("gestionnaireTransactions")
 public class TestCréerPrédicat {
+
+    /** Journal SLF4J pour cette classe. */
+    private static final Logger journal =
+	    LoggerFactory.getLogger(TestCréerPrédicat.class);
 
     /** Gestionnaire d’entités fournit par Spring. */
     @PersistenceContext(unitName = "Registre")
@@ -62,7 +68,9 @@ public class TestCréerPrédicat {
      * Test de la méthode
      * {@link MotCléSimple#créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)}.
      */
+    @Test
     public void testMotCléSimple() {
+	journal.info("Création d’un prédicat à partir d’un mot clé simple.");
 	final MotCléSimple motClé = new MotCléSimple(new MotClé("super"));
 	requête.where(motClé.créerPrédicat(constructeur, requête, fiche));
 	final TypedQuery<Fiche> requêteJpa = em.createQuery(requête);
@@ -77,6 +85,7 @@ public class TestCréerPrédicat {
      */
     @Test
     public void testRequête() {
+	journal.info("Création d’un prédicat à partir d’une requête complexe.");
 	final Requête requêteUtilisateur = new Requête(false,
 		new MotCléSimple(new MotClé("coucou")),
 		new RequêteSurChamp<String>(Champ.TITRE,
