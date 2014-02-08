@@ -55,7 +55,7 @@ create table utilisateurs (
 
 create table fiches (
 	id bigint generated always as identity primary key,
-	titre varchar(200) unique not null,
+	titre varchar(200) not null,
 	serie bigint references series (id),
 	commentaire clob,
 	image char(36),

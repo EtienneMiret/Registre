@@ -654,6 +654,24 @@ public class TestPersistence {
     }
 
     /**
+     * Teste l’enregistrement de deux fiches ayant le même titre. C’est autorisé
+     * et la base de données ne doit donc générer aucune erreur.
+     */
+    @Test
+    public void deuxFichesMêmeTitre() {
+	logger.info("Test de l’enregistrement de deux fiches ayant le même"
+		+ " titre.");
+
+	final String titre = "Lettres d’Iwo Jima";
+	final Utilisateur créateur = em.merge(new Utilisateur(NOM, MOT));
+	final Fiche fiche1 = new Film(titre, créateur, BRD);
+	final Fiche fiche2 = new BandeDessinée(titre, créateur);
+
+	em.merge(fiche1);
+	em.merge(fiche2);
+    }
+
+    /**
      * Charge de la base de données tous les objets dont le type est donné en
      * argument.
      *
