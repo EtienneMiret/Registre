@@ -82,6 +82,17 @@
 
   <build>
 
+    <!-- Spécification de la version des plugins à utiliser. -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <!-- Définir la version de Java à utiliser. -->
     <plugins>
       <plugin>
