@@ -12,7 +12,8 @@
     <relativePath>../ParentPom/pom.xml</relativePath>
   </parent>
 
-  <name>Model</name>
+  <name>Modèle Registre</name>
+  <description>Modèle de données et cœur logique de Registre.</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
