@@ -42,6 +42,12 @@ import fr.elimerl.registre.modèle.entités.Référence.Champ;
 @ContextConfiguration("/applicationContext.xml")
 public class TestPersistence {
 
+    /** Nom d’un utilisateur qui n’existe pas dans la base de données. */
+    private static final String UTILISATEUR = "Etienne Miret";
+
+    /** Adresse email n’appartenant à aucun utilisateur enregistré en base. */
+    private static final String EMAIL = "etienne.miret@ens-lyon.org";
+
     /** Nom qui ne doit appartenir à aucun {@link Nommé} en base. */
     private static final String NOM = "Test de persistence JUnit";
 
@@ -205,13 +211,12 @@ public class TestPersistence {
     @Test
     public void enregistrementUtilisateur() {
 	logger.info("Test d’enregistrement d’un utilisateur.");
-	final String email = "une.adresse@email";
-	Utilisateur utilisateur = new Utilisateur(NOM, email);
+	Utilisateur utilisateur = new Utilisateur(UTILISATEUR, EMAIL);
 	assertNull(utilisateur.getId());
 	utilisateur = em.merge(utilisateur);
 	assertNotNull(utilisateur.getId());
-	assertEquals(NOM, utilisateur.getNom());
-	assertEquals(email, utilisateur.getEmail());
+	assertEquals(UTILISATEUR, utilisateur.getNom());
+	assertEquals(EMAIL, utilisateur.getEmail());
     }
 
     /**
@@ -220,7 +225,7 @@ public class TestPersistence {
     @Test
     public void enregistrementSession() {
 	logger.info("Test d’enregistrement d’une session.");
-	Utilisateur utilisateur = new Utilisateur(NOM, "adresse@email");
+	Utilisateur utilisateur = new Utilisateur(UTILISATEUR, EMAIL);
 	utilisateur = em.merge(utilisateur);
 	Session session = new Session(utilisateur, 0L);
 	final String clef = session.getClef();
@@ -466,7 +471,7 @@ public class TestPersistence {
 
 	final String titre = "Titre";
 	final Champ champ = Champ.TITRE;
-	Utilisateur créateur = new Utilisateur(NOM, MOT);
+	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
 	Fiche fiche = new Film(titre, créateur, BRD);
 	fiche = em.merge(fiche);
@@ -597,8 +602,8 @@ public class TestPersistence {
     public void deuxUtilisateursIdentiques() {
 	logger.info("Test de l’enregistrement de deux utilisateurs "
 		+ "identiques.");
-	em.merge(new Utilisateur(NOM, "email1@email"));
-	em.merge(new Utilisateur(NOM, "email2@email"));
+	em.merge(new Utilisateur(UTILISATEUR, "email1@email"));
+	em.merge(new Utilisateur(UTILISATEUR, "email2@email"));
     }
 
     /**
@@ -642,7 +647,7 @@ public class TestPersistence {
 
 	final String titre = "Titre";
 	final Champ champ = Champ.TITRE;
-	Utilisateur créateur = new Utilisateur(NOM, MOT);
+	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
 	Fiche fiche = new Film(titre, créateur, BRD);
 	fiche = em.merge(fiche);
@@ -663,7 +668,8 @@ public class TestPersistence {
 		+ " titre.");
 
 	final String titre = "Lettres d’Iwo Jima";
-	final Utilisateur créateur = em.merge(new Utilisateur(NOM, MOT));
+	final Utilisateur créateur =
+		em.merge(new Utilisateur(UTILISATEUR, EMAIL));
 	final Fiche fiche1 = new Film(titre, créateur, BRD);
 	final Fiche fiche2 = new BandeDessinée(titre, créateur);
 
