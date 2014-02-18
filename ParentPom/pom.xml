@@ -9,4 +9,8 @@
   <name>POM parent Registre</name>
   <description>POM parent de l’application Registre.</description>
 
+  <modules>
+    <module>../Model</module>
+  </modules>
+
 </project>
