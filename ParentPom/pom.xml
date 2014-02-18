@@ -12,6 +12,7 @@
 
   <modules>
     <module>../Model</module>
+    <module>../Registre</module>
   </modules>
 
   <properties>
