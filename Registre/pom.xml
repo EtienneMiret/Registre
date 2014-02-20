@@ -15,4 +15,15 @@
   <name>Registre</name>
   <description>Application web permettant de référencer une médiathèque.</description>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>
