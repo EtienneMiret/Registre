@@ -17,12 +17,21 @@
 
   <dependencies>
     <dependency>
+      <groupId>fr.elimerl.Registre</groupId>
+      <artifactId>Model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
     </dependency>
     <dependency>
       <groupId>org.freemarker</groupId>
