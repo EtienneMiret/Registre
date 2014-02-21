@@ -1,9 +1,14 @@
 package fr.elimerl.registre.controleurs;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,18 +21,28 @@ import fr.elimerl.registre.modèle.entités.Utilisateur;
 public class ListerUtilisateurs {
 
     /**
-     * Liste les utilisateurs dans le modèle.
+     * Gestionnaire d’entités fournit par le conteneur. Permet d’accéder à la
+     * base de données.
+     */
+    @PersistenceContext(unitName = "Registre")
+    private EntityManager em;
+
+    /**
+     * Liste les utilisateurs enregistrés en base.
      *
      * @param modèle
      *            le modèle Spring.
      * @return le nom de la vue à afficher.
      */
     @RequestMapping("/Utilisateurs")
+    @Transactional(readOnly = true)
     public String listerUtilisateurs(final Model modèle) {
-	final List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>(3);
-	utilisateurs.add(new Utilisateur("Etienne", "etienne@email"));
-	utilisateurs.add(new Utilisateur("Grégoire", "gregoire@email"));
-	utilisateurs.add(new Utilisateur("Claire", "claire@email"));
+	final CriteriaBuilder builder = em.getCriteriaBuilder();
+	final CriteriaQuery<Utilisateur> requête =
+		builder.createQuery(Utilisateur.class);
+	requête.from(Utilisateur.class);
+	final List<Utilisateur> utilisateurs =
+		em.createQuery(requête).getResultList();
 	modèle.addAttribute("utilisateurs", utilisateurs);
 	return "listeUtilisateurs";
     }
