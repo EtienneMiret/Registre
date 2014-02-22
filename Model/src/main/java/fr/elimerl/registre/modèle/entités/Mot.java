@@ -27,7 +27,7 @@ public class Mot {
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
-    public Mot() {
+    protected Mot() {
     }
 
     /**

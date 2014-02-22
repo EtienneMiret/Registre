@@ -24,7 +24,7 @@ public class Acteur extends Nommé {
     /**
      * Constructeur sans argument, requis par Hibernate.
      */
-    public Acteur() {
+    protected Acteur() {
 	super();
     }
 

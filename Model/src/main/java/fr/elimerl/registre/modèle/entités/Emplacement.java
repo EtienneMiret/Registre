@@ -25,7 +25,7 @@ public class Emplacement extends Nommé {
     /**
      * Constructeur sans arguments requis par Hibernate.
      */
-    public Emplacement() {
+    protected Emplacement() {
 	super();
     }
 

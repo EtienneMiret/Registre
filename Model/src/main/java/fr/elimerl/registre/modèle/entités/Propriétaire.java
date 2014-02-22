@@ -14,7 +14,7 @@ public class Propriétaire extends Nommé {
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
-    public Propriétaire() {
+    protected Propriétaire() {
 	super();
     }
 

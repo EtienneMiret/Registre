@@ -35,7 +35,7 @@ public abstract class Nommé {
     /**
      * Constructeur sans argument, requis par Hibernate.
      */
-    public Nommé() {
+    protected Nommé() {
     }
 
     /**

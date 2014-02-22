@@ -71,7 +71,7 @@ public class Référence {
     /**
      * Constructeur sans argument, requis par Hibernate.
      */
-    public Référence() {
+    protected Référence() {
     }
 
     /**

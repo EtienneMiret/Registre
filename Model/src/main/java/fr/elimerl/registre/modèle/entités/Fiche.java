@@ -109,7 +109,7 @@ public abstract class Fiche {
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
-    public Fiche() {
+    protected Fiche() {
     }
 
     /**

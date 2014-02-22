@@ -13,7 +13,7 @@ public class Auteur extends Nommé {
     /**
      * Constructeur sans argument, requis par Hibernate.
      */
-    public Auteur() {
+    protected Auteur() {
 	super();
     }
 

@@ -136,7 +136,7 @@ public class Film extends Fiche {
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
-    public Film() {
+    protected Film() {
 	super();
     }
 

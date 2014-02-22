@@ -50,7 +50,7 @@ public class Livre extends Fiche {
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
-    public Livre() {
+    protected Livre() {
 	super();
     }
 

@@ -23,7 +23,7 @@ public class Compositeur extends Nommé {
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
-    public Compositeur() {
+    protected Compositeur() {
 	super();
     }
 

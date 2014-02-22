@@ -89,7 +89,7 @@ public class Session {
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
-    public Session() {
+    protected Session() {
     }
 
     /**

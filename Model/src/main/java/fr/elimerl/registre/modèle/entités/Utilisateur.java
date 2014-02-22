@@ -46,7 +46,7 @@ public class Utilisateur {
     /**
      * Constructure sans arguments, utilisé par Hibernate.
      */
-    public Utilisateur() {
+    protected Utilisateur() {
 	super();
     }
 

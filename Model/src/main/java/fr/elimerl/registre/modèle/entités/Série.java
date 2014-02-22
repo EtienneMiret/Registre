@@ -23,7 +23,7 @@ public class Série extends Nommé {
     /**
      * Constructeur sans arguments, requis par Hibernate.
      */
-    public Série() {
+    protected Série() {
 	super();
     }
 
