@@ -52,7 +52,7 @@ public class Référence {
 
     }
 
-    /** Identifiant de cet référence en base. */
+    /** Identifiant de cette référence en base. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
