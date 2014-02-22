@@ -19,10 +19,7 @@
 
   <jee:jndi-lookup id="sourceDonnées" jndi-name="jdbc/Registre"/>
 
-  <bean id="gestionnaireTransactions"
-      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <property name="dataSource" ref="sourceDonnées"/>
-  </bean>
+  <bean id="gestionnaireTransactions" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
   <tx:annotation-driven transaction-manager="gestionnaireTransactions"/>
 

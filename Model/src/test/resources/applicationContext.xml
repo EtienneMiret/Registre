@@ -16,10 +16,7 @@
   <bean id="gestionnaireEntités"
     class="fr.elimerl.registre.modèle.services.GestionnaireEntités"/>
 
-  <bean id="gestionnaireTransactions"
-    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <property name="dataSource" ref="embeddedDataSource"/>
-  </bean>
+  <bean id="gestionnaireTransactions" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
   <jdbc:embedded-database id="embeddedDataSource">
     <jdbc:script location="file:${basedir}/src/main/sql/schema.sql" encoding="UTF-8"/>
