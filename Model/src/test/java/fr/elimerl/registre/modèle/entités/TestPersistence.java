@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -1077,6 +1078,27 @@ public class TestPersistence {
 	}
 
 	assertFalse(références.hasNext());
+    }
+
+    /**
+     * Teste la désindexation d’une fiche via la requête nommée
+     * « désindexerFiche » définie dans la classe {@link Référence}.
+     */
+    @Test
+    public void désindexerFiches() {
+	logger.info("Désindexations des fiches.");
+
+	/* Désindexation de la fiche 0, qui n’a pas de références. */
+	final Fiche fiche0 = em.getReference(Fiche.class, Long.valueOf(ZÉRO));
+	final Query désindexerFiche0 = em.createNamedQuery("désindexerFiche");
+	désindexerFiche0.setParameter("fiche", fiche0);
+	assertEquals(ZÉRO, désindexerFiche0.executeUpdate());
+
+	/* Désindexation de la fiche 1, qui a trois références. */
+	final Fiche fiche1 = em.getReference(Fiche.class, Long.valueOf(UN));
+	final Query désindexerFiche1 = em.createNamedQuery("désindexerFiche");
+	désindexerFiche1.setParameter("fiche", fiche1);
+	assertEquals(TROIS, désindexerFiche1.executeUpdate());
     }
 
 }

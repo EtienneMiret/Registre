@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +20,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "`index`")
+@NamedQuery(
+    name = "désindexerFiche",
+    query = "delete from Référence r where r.fiche = :fiche"
+)
 public class Référence {
 
     /** Un nombre premier. */
