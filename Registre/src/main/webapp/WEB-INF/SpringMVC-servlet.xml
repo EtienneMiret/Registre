@@ -26,14 +26,14 @@
 
   <tx:annotation-driven transaction-manager="gestionnaireTransactions"/>
 
-  <bean id="freemakerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-    <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+  <bean id="configurationVelocity" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+    <property name="resourceLoaderPath" value="/WEB-INF/velocity/"/>
   </bean>
 
-  <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
     <property name="cache" value="true"/>
     <property name="prefix" value=""/>
-    <property name="suffix" value=".ftl"/>
+    <property name="suffix" value=".vm"/>
     <property name="contentType" value="application/xhtml+xml; charset=UTF-8"/>
   </bean>
 

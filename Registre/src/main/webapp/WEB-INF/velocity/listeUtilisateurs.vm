@@ -14,13 +14,13 @@
     </tr>
   </thead>
   <tbody>
-    <#list utilisateurs as utilisateur>
-      <tr>
-      	<td>${utilisateur.id!"-"}</td>
-      	<td>${utilisateur.nom}</td>
-        <td>${utilisateur.email}</td>
-      </tr>
-    </#list>
+#foreach($utilisateur in $utilisateurs)
+    <tr>
+      <td>$utilisateur.id</td>
+      <td>$utilisateur.nom</td>
+      <td>$utilisateur.email</td>
+    </tr>
+#end
   </tbody>
 </table>
 </body>
