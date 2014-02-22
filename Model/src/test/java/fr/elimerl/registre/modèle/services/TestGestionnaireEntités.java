@@ -3,7 +3,6 @@ package fr.elimerl.registre.modèle.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import javax.annotation.Resource;
 
@@ -17,13 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.elimerl.registre.modèle.entités.Acteur;
 import fr.elimerl.registre.modèle.entités.Auteur;
-import fr.elimerl.registre.modèle.entités.BandeDessinée;
 import fr.elimerl.registre.modèle.entités.Compositeur;
 import fr.elimerl.registre.modèle.entités.Dessinateur;
 import fr.elimerl.registre.modèle.entités.Emplacement;
-import fr.elimerl.registre.modèle.entités.Fiche;
-import fr.elimerl.registre.modèle.entités.Film;
-import fr.elimerl.registre.modèle.entités.Livre;
 import fr.elimerl.registre.modèle.entités.Mot;
 import fr.elimerl.registre.modèle.entités.Propriétaire;
 import fr.elimerl.registre.modèle.entités.Réalisateur;
@@ -45,36 +40,6 @@ public class TestGestionnaireEntités {
     /** Le gestionnaire d’entités testé, fournit par Spring. */
     @Resource(name = "gestionnaireEntités")
     private GestionnaireEntités gestionnaire;
-
-    /**
-     * Teste la méthode {@link GestionnaireEntités#chercherFiche(Integer)
-     * chercherFiche(Integer)}.
-     */
-    @Test
-    public void chercherFiche() {
-	logger.info("Recherche de fiches.");
-
-	final Long idGlobeTrotters = Long.valueOf(0);
-	final Fiche globTrotters = gestionnaire.chercherFiche(idGlobeTrotters);
-	assertNotNull(globTrotters);
-	assertEquals(idGlobeTrotters, globTrotters.getId());
-	assertTrue(globTrotters instanceof BandeDessinée);
-
-	final Long idMerlin = Long.valueOf(1);
-	final Fiche merlin = gestionnaire.chercherFiche(idMerlin);
-	assertNotNull(merlin);
-	assertEquals(idMerlin, merlin.getId());
-	assertTrue(merlin instanceof Film);
-
-	final Long idAssassinRoyal = Long.valueOf(2);
-	final Fiche assassinRoyal = gestionnaire.chercherFiche(idAssassinRoyal);
-	assertNotNull(assassinRoyal);
-	assertEquals(idAssassinRoyal, assassinRoyal.getId());
-	assertTrue(assassinRoyal instanceof Livre);
-
-	final Fiche vide = gestionnaire.chercherFiche(Long.valueOf(3));
-	assertNull(vide);
-    }
 
     /**
      * Teste la méthode {@link GestionnaireEntités#fournirMot(String)

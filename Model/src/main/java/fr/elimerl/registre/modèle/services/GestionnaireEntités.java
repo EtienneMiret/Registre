@@ -13,7 +13,6 @@ import fr.elimerl.registre.modèle.entités.Auteur;
 import fr.elimerl.registre.modèle.entités.Compositeur;
 import fr.elimerl.registre.modèle.entités.Dessinateur;
 import fr.elimerl.registre.modèle.entités.Emplacement;
-import fr.elimerl.registre.modèle.entités.Fiche;
 import fr.elimerl.registre.modèle.entités.Mot;
 import fr.elimerl.registre.modèle.entités.Nommé;
 import fr.elimerl.registre.modèle.entités.Propriétaire;
@@ -33,17 +32,6 @@ public class GestionnaireEntités {
      */
     @PersistenceContext(unitName = "Registre")
     private EntityManager em;
-
-    /**
-     * Cherche une fiche dans la base de données en fonction de son numéro.
-     *
-     * @param id
-     *            le numéro de la fiche demandée.
-     * @return la fiche demandée si elle existe, {@code null} sinon.
-     */
-    public Fiche chercherFiche(final Long id) {
-	return chercher(Fiche.class, "id", id);
-    }
 
     /**
      * Cherche un objet dans la base de données en fonction d’un clé.
