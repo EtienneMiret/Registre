@@ -1,6 +1,8 @@
 package fr.elimerl.registre.modèle.entités;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -142,6 +144,33 @@ public abstract class Fiche {
     public void toucher(final Utilisateur utilisateur) {
 	this.dernierÉditeur = utilisateur;
         this.dernièreÉdition = new Date();
+    }
+
+    /**
+     * Renvoie le contenu de tous les champs de cette fiche, à part le titre et
+     * le commentaire. Cette méthode est utilisé par le service d’indexation.
+     *
+     * @return le contenu de tous les champs de cette fiche, à part le titre et
+     *         le commentaire.
+     */
+    public List<String> getAutresChamps() {
+	final List<String> résultat = new ArrayList<String>();
+	if (série != null) {
+	    résultat.add(série.getNom());
+	}
+	if (propriétaire != null) {
+	    résultat.add(propriétaire.getNom());
+	}
+	if (emplacement != null) {
+	    résultat.add(emplacement.getNom());
+	}
+	if (créateur != null) {
+	    résultat.add(créateur.getNom());
+	}
+	if (dernierÉditeur != null) {
+	    résultat.add(dernierÉditeur.getNom());
+	}
+	return résultat;
     }
 
     /**

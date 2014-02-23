@@ -1,6 +1,7 @@
 package fr.elimerl.registre.modèle.entités;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -138,6 +139,53 @@ public class Film extends Fiche {
      */
     protected Film() {
 	super();
+    }
+
+    @Override
+    public List<String> getAutresChamps() {
+	final List<String> résultat = super.getAutresChamps();
+	résultat.add("film");
+	if (support != null) {
+	    résultat.add(support.toString());
+	}
+	if (réalisateur != null) {
+	    résultat.add(réalisateur.getNom());
+	}
+	if (acteurs != null) {
+	    for (final Acteur acteur : acteurs) {
+		résultat.add(acteur.getNom());
+	    }
+	}
+	if (compositeur != null) {
+	    résultat.add(compositeur.getNom());
+	}
+	if (genreAction != null && genreAction.booleanValue()) {
+	    résultat.add("action");
+	}
+	if (genreFantastique != null && genreFantastique.booleanValue()) {
+	    résultat.add("fantastique");
+	}
+	if (genreHistoireVraie != null && genreHistoireVraie.booleanValue()) {
+	    résultat.add("histoire vraie");
+	}
+	if (genreHistorique != null && genreHistorique.booleanValue()) {
+	    résultat.add("historique");
+	}
+	if (genreHumour != null && genreHumour.booleanValue()) {
+	    résultat.add("humour");
+	    résultat.add("drôle");
+	}
+	if (genrePolicier != null && genrePolicier.booleanValue()) {
+	    résultat.add("policier");
+	}
+	if (genreRomantique != null && genreRomantique.booleanValue()) {
+	    résultat.add("romantique");
+	}
+	if (genreSf != null && genreSf.booleanValue()) {
+	    résultat.add("SF");
+	    résultat.add("science-fiction");
+	}
+	return résultat;
     }
 
     /**

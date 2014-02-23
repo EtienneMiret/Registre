@@ -1,5 +1,7 @@
 package fr.elimerl.registre.modèle.entités;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,6 +53,23 @@ public class BandeDessinée extends Fiche {
      */
     protected BandeDessinée() {
 	super();
+    }
+
+    @Override
+    public List<String> getAutresChamps() {
+	final List<String> résultat = super.getAutresChamps();
+	résultat.add("BD");
+	résultat.add("bande-déssinée");
+	if (dessinateur != null) {
+	    résultat.add(dessinateur.getNom());
+	}
+	if (scénariste != null) {
+	    résultat.add(scénariste.getNom());
+	}
+	if (numéro != null) {
+	    résultat.add(numéro.toString());
+	}
+	return résultat;
     }
 
     /**

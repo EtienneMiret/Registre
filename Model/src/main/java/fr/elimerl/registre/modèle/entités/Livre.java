@@ -1,5 +1,7 @@
 package fr.elimerl.registre.modèle.entités;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -64,6 +66,39 @@ public class Livre extends Fiche {
      */
     public Livre(final String titre, final Utilisateur créateur) {
 	super(titre, créateur);
+    }
+
+    @Override
+    public List<String> getAutresChamps() {
+	final List<String> résultat = super.getAutresChamps();
+	résultat.add("livre");
+	if (auteur != null) {
+	    résultat.add(auteur.getNom());
+	}
+	if (genreFantastique != null && genreFantastique.booleanValue()) {
+	    résultat.add("fantastique");
+	}
+	if (genreHistoireVraie != null && genreHistoireVraie.booleanValue()) {
+	    résultat.add("histoire vraie");
+	}
+	if (genreHistorique != null && genreHistorique.booleanValue()) {
+	    résultat.add("historique");
+	}
+	if (genreHumour != null && genreHumour.booleanValue()) {
+	    résultat.add("humour");
+	    résultat.add("drôle");
+	}
+	if (genrePolicier != null && genrePolicier.booleanValue()) {
+	    résultat.add("policier");
+	}
+	if (genreRomantique != null && genreRomantique.booleanValue()) {
+	    résultat.add("romantique");
+	}
+	if (genreSf != null && genreSf.booleanValue()) {
+	    résultat.add("SF");
+	    résultat.add("science-fiction");
+	}
+	return résultat;
     }
 
     /**
