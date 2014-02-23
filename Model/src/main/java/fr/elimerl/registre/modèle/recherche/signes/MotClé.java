@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 public final class MotClé extends Signe {
 
     /** Motif représentant l’ensemble des mot-clés. */
-    public static final Pattern MOTIF = Pattern.compile("\\G\\s*(\\p{L}+)");
+    public static final Pattern MOTIF =
+	    Pattern.compile("\\G\\s*([\\p{L}\\d]+)");
 
     /** Le mot représenté par ce mot-clé, en tant que chaîne de caractères. */
     private final String valeur;

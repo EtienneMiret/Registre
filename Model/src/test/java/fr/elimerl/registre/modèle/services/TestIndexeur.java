@@ -78,9 +78,7 @@ public class TestIndexeur {
 	référencesAttendues.add(créerRéférence("etienne", AUTRE, bouleEtBill));
 	référencesAttendues.add(créerRéférence("grégoire", AUTRE, bouleEtBill));
 	référencesAttendues.add(créerRéférence("jigounov", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("jean", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("van", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("hamme", AUTRE, bouleEtBill));
+	référencesAttendues.add(créerRéférence("renard", AUTRE, bouleEtBill));
 	référencesAttendues.add(créerRéférence("12", AUTRE, bouleEtBill));
 
 	indexeur.réindexer(bouleEtBill);
@@ -104,11 +102,12 @@ public class TestIndexeur {
 	référencesAttendues.add(créerRéférence("merlin", AUTRE, merlin));
 	référencesAttendues.add(créerRéférence("une", COMMENTAIRE, merlin));
 	référencesAttendues.add(créerRéférence("super", COMMENTAIRE, merlin));
-	référencesAttendues.add(créerRéférence("série", TITRE, merlin));
+	référencesAttendues.add(créerRéférence("série", COMMENTAIRE, merlin));
 	référencesAttendues.add(créerRéférence("etienne", AUTRE, merlin));
 	référencesAttendues.add(créerRéférence("verneuil", AUTRE, merlin));
 	référencesAttendues.add(créerRéférence("claire", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("blu-ray", AUTRE, merlin));
+	référencesAttendues.add(créerRéférence("blu", AUTRE, merlin));
+	référencesAttendues.add(créerRéférence("ray", AUTRE, merlin));
 	référencesAttendues.add(créerRéférence("howard", AUTRE, merlin));
 	référencesAttendues.add(créerRéférence("shore", AUTRE, merlin));
 	référencesAttendues.add(créerRéférence("will", AUTRE, merlin));

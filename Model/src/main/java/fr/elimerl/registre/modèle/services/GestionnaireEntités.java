@@ -74,7 +74,7 @@ public class GestionnaireEntités {
      */
     public Mot fournirMot(final String valeur) {
 	final Mot enBase = chercher(Mot.class, "valeur", valeur);
-	return (enBase == null ? new Mot(valeur) : enBase);
+	return (enBase == null ? em.merge(new Mot(valeur)) : enBase);
     }
 
     /**
@@ -103,7 +103,7 @@ public class GestionnaireEntités {
      */
     public Acteur fournirActeur(final String nom) {
 	final Acteur enBase = chercherNommé(Acteur.class, nom);
-	return (enBase == null ? new Acteur(nom) : enBase);
+	return (enBase == null ? em.merge(new Acteur(nom)) : enBase);
     }
 
     /**
@@ -116,7 +116,7 @@ public class GestionnaireEntités {
      */
     public Auteur fournirAuteur(final String nom) {
 	final Auteur enBase = chercherNommé(Auteur.class, nom);
-	return (enBase == null ? new Auteur(nom) : enBase);
+	return (enBase == null ? em.merge(new Auteur(nom)) : enBase);
     }
 
     /**
@@ -129,7 +129,7 @@ public class GestionnaireEntités {
      */
     public Compositeur fournirCompositeur(final String nom) {
 	final Compositeur enBase = chercherNommé(Compositeur.class, nom);
-	return (enBase == null ? new Compositeur(nom) : enBase);
+	return (enBase == null ? em.merge(new Compositeur(nom)) : enBase);
     }
 
     /**
@@ -142,7 +142,7 @@ public class GestionnaireEntités {
      */
     public Dessinateur fournirDessinateur(final String nom) {
 	final Dessinateur enBase = chercherNommé(Dessinateur.class, nom);
-	return (enBase == null ? new Dessinateur(nom) : enBase);
+	return (enBase == null ? em.merge(new Dessinateur(nom)) : enBase);
     }
 
     /**
@@ -155,7 +155,7 @@ public class GestionnaireEntités {
      */
     public Emplacement fournirEmplacement(final String nom) {
 	final Emplacement enBase = chercherNommé(Emplacement.class, nom);
-	return (enBase == null ? new Emplacement(nom) : enBase);
+	return (enBase == null ? em.merge(new Emplacement(nom)) : enBase);
     }
 
     /**
@@ -168,7 +168,7 @@ public class GestionnaireEntités {
      */
     public Propriétaire fournirPropriétaire(final String nom) {
 	final Propriétaire enBase = chercherNommé(Propriétaire.class, nom);
-	return (enBase == null ? new Propriétaire(nom) : enBase);
+	return (enBase == null ? em.merge(new Propriétaire(nom)) : enBase);
     }
 
     /**
@@ -181,7 +181,7 @@ public class GestionnaireEntités {
      */
     public Réalisateur fournirRéalisateur(final String nom) {
 	final Réalisateur enBase = chercherNommé(Réalisateur.class, nom);
-	return (enBase == null ? new Réalisateur(nom) : enBase);
+	return (enBase == null ? em.merge(new Réalisateur(nom)) : enBase);
     }
 
     /**
@@ -194,7 +194,7 @@ public class GestionnaireEntités {
      */
     public Scénariste fournirScénariste(final String nom) {
 	final Scénariste enBase = chercherNommé(Scénariste.class, nom);
-	return (enBase == null ? new Scénariste(nom) : enBase);
+	return (enBase == null ? em.merge(new Scénariste(nom)) : enBase);
     }
 
     /**
@@ -207,7 +207,7 @@ public class GestionnaireEntités {
      */
     public Série fournirSérie(final String nom) {
 	final Série enBase = chercherNommé(Série.class, nom);
-	return (enBase == null ? new Série(nom) : enBase);
+	return (enBase == null ? em.merge(new Série(nom)) : enBase);
     }
 
     /**
