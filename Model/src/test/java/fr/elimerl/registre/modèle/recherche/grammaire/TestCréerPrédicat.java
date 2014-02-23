@@ -20,10 +20,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.modèle.entités.Fiche;
-import fr.elimerl.registre.modèle.entités.Propriétaire;
-import fr.elimerl.registre.modèle.recherche.signes.Champ;
-import fr.elimerl.registre.modèle.recherche.signes.MotClé;
+import fr.elimerl.registre.entités.Fiche;
+import fr.elimerl.registre.entités.Propriétaire;
+import fr.elimerl.registre.recherche.grammaire.Expression;
+import fr.elimerl.registre.recherche.grammaire.MotCléSimple;
+import fr.elimerl.registre.recherche.grammaire.Requête;
+import fr.elimerl.registre.recherche.grammaire.RequêteEntreParenthèse;
+import fr.elimerl.registre.recherche.grammaire.RequêteSurChamp;
+import fr.elimerl.registre.recherche.signes.Champ;
+import fr.elimerl.registre.recherche.signes.MotClé;
 
 /**
  * Ce test JUnit teste les implémentations de la méthode

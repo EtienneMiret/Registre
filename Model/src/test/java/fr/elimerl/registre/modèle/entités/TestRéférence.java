@@ -1,14 +1,18 @@
 package fr.elimerl.registre.modèle.entités;
 
 import static org.junit.Assert.assertEquals;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.modèle.entités.Film.Support;
-import fr.elimerl.registre.modèle.entités.Référence.Champ;
+import fr.elimerl.registre.entités.Fiche;
+import fr.elimerl.registre.entités.Film;
+import fr.elimerl.registre.entités.Mot;
+import fr.elimerl.registre.entités.Référence;
+import fr.elimerl.registre.entités.Utilisateur;
+import fr.elimerl.registre.entités.Film.Support;
+import fr.elimerl.registre.entités.Référence.Champ;
 
 /**
  * Test JUnit pour la classe {@link Référence}.

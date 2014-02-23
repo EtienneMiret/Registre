@@ -2,11 +2,12 @@ package fr.elimerl.registre.modèle.entités;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
+
+import fr.elimerl.registre.entités.Mot;
 
 /**
  * Test JUnit pour la classe {@link Mot}.

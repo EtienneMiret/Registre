@@ -6,6 +6,17 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.elimerl.registre.entités.Acteur;
+import fr.elimerl.registre.entités.Auteur;
+import fr.elimerl.registre.entités.Compositeur;
+import fr.elimerl.registre.entités.Dessinateur;
+import fr.elimerl.registre.entités.Emplacement;
+import fr.elimerl.registre.entités.Nommé;
+import fr.elimerl.registre.entités.Propriétaire;
+import fr.elimerl.registre.entités.Réalisateur;
+import fr.elimerl.registre.entités.Scénariste;
+import fr.elimerl.registre.entités.Série;
+
 /**
  * Teste les méthodes de {@link Nommé} sur ses différentes implémentations.
  */

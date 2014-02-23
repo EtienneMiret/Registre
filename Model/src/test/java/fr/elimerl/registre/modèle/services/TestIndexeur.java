@@ -1,8 +1,8 @@
 package fr.elimerl.registre.modèle.services;
 
-import static fr.elimerl.registre.modèle.entités.Référence.Champ.AUTRE;
-import static fr.elimerl.registre.modèle.entités.Référence.Champ.COMMENTAIRE;
-import static fr.elimerl.registre.modèle.entités.Référence.Champ.TITRE;
+import static fr.elimerl.registre.entités.Référence.Champ.AUTRE;
+import static fr.elimerl.registre.entités.Référence.Champ.COMMENTAIRE;
+import static fr.elimerl.registre.entités.Référence.Champ.TITRE;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
@@ -21,10 +21,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.modèle.entités.Fiche;
-import fr.elimerl.registre.modèle.entités.Mot;
-import fr.elimerl.registre.modèle.entités.Référence;
-import fr.elimerl.registre.modèle.entités.Référence.Champ;
+import fr.elimerl.registre.entités.Fiche;
+import fr.elimerl.registre.entités.Mot;
+import fr.elimerl.registre.entités.Référence;
+import fr.elimerl.registre.entités.Référence.Champ;
+import fr.elimerl.registre.services.GestionnaireEntités;
+import fr.elimerl.registre.services.Indexeur;
 
 /**
  * Classe de test pour l’{@link Indexeur}.

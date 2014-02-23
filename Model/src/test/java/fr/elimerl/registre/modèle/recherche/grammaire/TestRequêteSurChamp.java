@@ -6,9 +6,10 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.modèle.entités.Auteur;
-import fr.elimerl.registre.modèle.recherche.signes.Champ;
-import fr.elimerl.registre.modèle.recherche.signes.MotClé;
+import fr.elimerl.registre.entités.Auteur;
+import fr.elimerl.registre.recherche.grammaire.RequêteSurChamp;
+import fr.elimerl.registre.recherche.signes.Champ;
+import fr.elimerl.registre.recherche.signes.MotClé;
 
 /**
  * Cas de test JUnit pour la classe {@link RequêteSurChamp}.

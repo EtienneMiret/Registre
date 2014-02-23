@@ -7,11 +7,12 @@ import java.util.Queue;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.elimerl.registre.modèle.recherche.signes.Champ;
-import fr.elimerl.registre.modèle.recherche.signes.MotClé;
-import fr.elimerl.registre.modèle.recherche.signes.Opérateur;
-import fr.elimerl.registre.modèle.recherche.signes.Parenthèse;
-import fr.elimerl.registre.modèle.recherche.signes.Signe;
+import fr.elimerl.registre.recherche.signes.Champ;
+import fr.elimerl.registre.recherche.signes.MotClé;
+import fr.elimerl.registre.recherche.signes.Opérateur;
+import fr.elimerl.registre.recherche.signes.Parenthèse;
+import fr.elimerl.registre.recherche.signes.Signe;
+import fr.elimerl.registre.services.ParseurDeRecherches;
 
 /**
  * Cas de test JUnit pour la méthode

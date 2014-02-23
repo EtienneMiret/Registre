@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.elimerl.registre.entités.Utilisateur;
+
 /**
  * Test de la classe {@link Utilisateur}.
  */

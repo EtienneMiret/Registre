@@ -12,7 +12,15 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.modèle.entités.Film.Support;
+import fr.elimerl.registre.entités.Compositeur;
+import fr.elimerl.registre.entités.Emplacement;
+import fr.elimerl.registre.entités.Fiche;
+import fr.elimerl.registre.entités.Film;
+import fr.elimerl.registre.entités.Propriétaire;
+import fr.elimerl.registre.entités.Réalisateur;
+import fr.elimerl.registre.entités.Série;
+import fr.elimerl.registre.entités.Utilisateur;
+import fr.elimerl.registre.entités.Film.Support;
 
 /**
  * Classe de test de la classe {@link Film}.

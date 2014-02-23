@@ -1,6 +1,6 @@
 package fr.elimerl.registre.modèle.entités;
 
-import static fr.elimerl.registre.modèle.entités.Film.Support.BRD;
+import static fr.elimerl.registre.entités.Film.Support.BRD;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -32,8 +32,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import fr.elimerl.registre.modèle.entités.Film.Support;
-import fr.elimerl.registre.modèle.entités.Référence.Champ;
+import fr.elimerl.registre.entités.Acteur;
+import fr.elimerl.registre.entités.Auteur;
+import fr.elimerl.registre.entités.BandeDessinée;
+import fr.elimerl.registre.entités.Compositeur;
+import fr.elimerl.registre.entités.Dessinateur;
+import fr.elimerl.registre.entités.Emplacement;
+import fr.elimerl.registre.entités.Fiche;
+import fr.elimerl.registre.entités.Film;
+import fr.elimerl.registre.entités.Livre;
+import fr.elimerl.registre.entités.Mot;
+import fr.elimerl.registre.entités.Nommé;
+import fr.elimerl.registre.entités.Propriétaire;
+import fr.elimerl.registre.entités.Réalisateur;
+import fr.elimerl.registre.entités.Référence;
+import fr.elimerl.registre.entités.Scénariste;
+import fr.elimerl.registre.entités.Session;
+import fr.elimerl.registre.entités.Série;
+import fr.elimerl.registre.entités.Utilisateur;
+import fr.elimerl.registre.entités.Film.Support;
+import fr.elimerl.registre.entités.Référence.Champ;
 
 /**
  * Dans ce test JUnit, on vérifie le mapping Hibernate, le schéma de la base

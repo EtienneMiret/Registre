@@ -3,11 +3,13 @@ package fr.elimerl.registre.modèle.entités;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
+
+import fr.elimerl.registre.entités.Session;
+import fr.elimerl.registre.entités.Utilisateur;
 
 /**
  * Test de la classe {@link Session}.

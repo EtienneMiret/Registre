@@ -14,16 +14,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.modèle.entités.Acteur;
-import fr.elimerl.registre.modèle.entités.Auteur;
-import fr.elimerl.registre.modèle.entités.Compositeur;
-import fr.elimerl.registre.modèle.entités.Dessinateur;
-import fr.elimerl.registre.modèle.entités.Emplacement;
-import fr.elimerl.registre.modèle.entités.Mot;
-import fr.elimerl.registre.modèle.entités.Propriétaire;
-import fr.elimerl.registre.modèle.entités.Réalisateur;
-import fr.elimerl.registre.modèle.entités.Scénariste;
-import fr.elimerl.registre.modèle.entités.Série;
+import fr.elimerl.registre.entités.Acteur;
+import fr.elimerl.registre.entités.Auteur;
+import fr.elimerl.registre.entités.Compositeur;
+import fr.elimerl.registre.entités.Dessinateur;
+import fr.elimerl.registre.entités.Emplacement;
+import fr.elimerl.registre.entités.Mot;
+import fr.elimerl.registre.entités.Propriétaire;
+import fr.elimerl.registre.entités.Réalisateur;
+import fr.elimerl.registre.entités.Scénariste;
+import fr.elimerl.registre.entités.Série;
+import fr.elimerl.registre.services.GestionnaireEntités;
 
 /**
  * Classe de teste pour le {@link GestionnaireEntités}.

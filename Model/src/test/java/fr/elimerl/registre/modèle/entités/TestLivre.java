@@ -7,6 +7,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.elimerl.registre.entités.Auteur;
+import fr.elimerl.registre.entités.Livre;
+
 /**
  * Classe de test de la classe {@link Livre}.
  */

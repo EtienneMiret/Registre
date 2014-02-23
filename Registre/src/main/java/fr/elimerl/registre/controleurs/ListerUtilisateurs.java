@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.elimerl.registre.modèle.entités.Utilisateur;
+import fr.elimerl.registre.entités.Utilisateur;
 
 /**
  * Contrôleur de la page qui liste les utilisateurs existants.

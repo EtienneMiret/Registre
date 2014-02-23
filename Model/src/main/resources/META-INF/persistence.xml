@@ -5,24 +5,24 @@
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
     <!-- Classes à persister. -->
-    <class>fr.elimerl.registre.modèle.entités.Acteur</class>
-    <class>fr.elimerl.registre.modèle.entités.Auteur</class>
-    <class>fr.elimerl.registre.modèle.entités.BandeDessinée</class>
-    <class>fr.elimerl.registre.modèle.entités.Compositeur</class>
-    <class>fr.elimerl.registre.modèle.entités.Dessinateur</class>
-    <class>fr.elimerl.registre.modèle.entités.Emplacement</class>
-    <class>fr.elimerl.registre.modèle.entités.Fiche</class>
-    <class>fr.elimerl.registre.modèle.entités.Film</class>
-    <class>fr.elimerl.registre.modèle.entités.Livre</class>
-    <class>fr.elimerl.registre.modèle.entités.Mot</class>
-    <class>fr.elimerl.registre.modèle.entités.Nommé</class>
-    <class>fr.elimerl.registre.modèle.entités.Propriétaire</class>
-    <class>fr.elimerl.registre.modèle.entités.Réalisateur</class>
-    <class>fr.elimerl.registre.modèle.entités.Référence</class>
-    <class>fr.elimerl.registre.modèle.entités.Scénariste</class>
-    <class>fr.elimerl.registre.modèle.entités.Série</class>
-    <class>fr.elimerl.registre.modèle.entités.Session</class>
-    <class>fr.elimerl.registre.modèle.entités.Utilisateur</class>
+    <class>fr.elimerl.registre.entités.Acteur</class>
+    <class>fr.elimerl.registre.entités.Auteur</class>
+    <class>fr.elimerl.registre.entités.BandeDessinée</class>
+    <class>fr.elimerl.registre.entités.Compositeur</class>
+    <class>fr.elimerl.registre.entités.Dessinateur</class>
+    <class>fr.elimerl.registre.entités.Emplacement</class>
+    <class>fr.elimerl.registre.entités.Fiche</class>
+    <class>fr.elimerl.registre.entités.Film</class>
+    <class>fr.elimerl.registre.entités.Livre</class>
+    <class>fr.elimerl.registre.entités.Mot</class>
+    <class>fr.elimerl.registre.entités.Nommé</class>
+    <class>fr.elimerl.registre.entités.Propriétaire</class>
+    <class>fr.elimerl.registre.entités.Réalisateur</class>
+    <class>fr.elimerl.registre.entités.Référence</class>
+    <class>fr.elimerl.registre.entités.Scénariste</class>
+    <class>fr.elimerl.registre.entités.Série</class>
+    <class>fr.elimerl.registre.entités.Session</class>
+    <class>fr.elimerl.registre.entités.Utilisateur</class>
     <exclude-unlisted-classes/>
 
   </persistence-unit>

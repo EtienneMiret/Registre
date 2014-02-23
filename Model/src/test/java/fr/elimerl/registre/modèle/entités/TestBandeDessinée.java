@@ -7,6 +7,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.elimerl.registre.entités.BandeDessinée;
+import fr.elimerl.registre.entités.Dessinateur;
+import fr.elimerl.registre.entités.Scénariste;
+import fr.elimerl.registre.entités.Utilisateur;
+
 /**
  * Classe de test de la classe {@link BandeDessinée}.
  */
