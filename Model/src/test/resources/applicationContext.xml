@@ -16,6 +16,8 @@
   <bean id="gestionnaireEntités"
     class="fr.elimerl.registre.modèle.services.GestionnaireEntités"/>
 
+  <bean id="indexeur" class="fr.elimerl.registre.modèle.services.Indexeur"/>
+
   <bean id="gestionnaireTransactions" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
   <jdbc:embedded-database id="embeddedDataSource">
