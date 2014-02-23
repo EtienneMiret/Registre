@@ -210,4 +210,15 @@ public class GestionnaireEntités {
 	return (enBase == null ? new Série(nom) : enBase);
     }
 
+    /**
+     * Renvoie le gestionnaire d’entité natif encapsulé par ce gestionnaire
+     * d’entités Registre.
+     *
+     * @return le gestionnaire d’entité natif encapsulé par ce gestionnaire
+     *         d’entités Registre.
+     */
+    public EntityManager getGestionnaireNatif() {
+	return em;
+    }
+
 }
