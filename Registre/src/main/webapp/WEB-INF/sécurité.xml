@@ -19,6 +19,7 @@
         <openid-attribute name="email" type="http://axschema.org/contact/email" required="true"/>
       </attribute-exchange>
     </openid-login>
+    <headers/>
   </http>
 
   <authentication-manager>
