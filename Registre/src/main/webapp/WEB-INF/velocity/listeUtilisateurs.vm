@@ -5,7 +5,7 @@
 <body>
 <h1>Les Utilisateurs</h1>
 <p>
-  Bonjour $utilisateur.nom ! Voici les utilisateurs de registre :
+  Bonjour $utilisateur.nom&#xA0;! Voici les utilisateurs de registre&#xA0;:
 </p>
 <table>
   <thead>
