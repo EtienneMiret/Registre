@@ -7,12 +7,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.elimerl.registre.entités.Utilisateur;
+import fr.elimerl.registre.sécurité.UtilisateurSpring;
 
 /**
  * Contrôleur de la page qui liste les utilisateurs existants.
@@ -37,6 +39,10 @@ public class ListerUtilisateurs {
     @RequestMapping("/Utilisateurs")
     @Transactional(readOnly = true)
     public String listerUtilisateurs(final Model modèle) {
+	final UtilisateurSpring utilisateurSpring = (UtilisateurSpring)
+		SecurityContextHolder.getContext().getAuthentication()
+		.getPrincipal();
+	modèle.addAttribute("utilisateur", utilisateurSpring.getUtilisateur());
 	final CriteriaBuilder builder = em.getCriteriaBuilder();
 	final CriteriaQuery<Utilisateur> requête =
 		builder.createQuery(Utilisateur.class);

@@ -4,6 +4,9 @@
 </head>
 <body>
 <h1>Les Utilisateurs</h1>
+<p>
+  Bonjour $utilisateur.nom ! Voici les utilisateurs de registre :
+</p>
 <table>
   <thead>
     <tr>
