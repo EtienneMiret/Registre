@@ -6,8 +6,6 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-  <beans:import resource="persistence-context.xml"/>
-
   <beans:bean id="authentifieur" class="fr.elimerl.registre.sécurité.Authentifieur"/>
 
   <context:annotation-config/>

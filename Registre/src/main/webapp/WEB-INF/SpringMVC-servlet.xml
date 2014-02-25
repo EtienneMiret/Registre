@@ -15,8 +15,6 @@
 
   <context:component-scan base-package="fr.elimerl.registre"/>
 
-  <import resource="persistence-context.xml"/>
-
   <bean id="configurationVelocity" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
     <property name="resourceLoaderPath" value="/WEB-INF/velocity/"/>
     <property name="velocityProperties">
