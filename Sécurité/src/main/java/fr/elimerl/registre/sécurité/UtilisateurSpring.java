@@ -75,7 +75,8 @@ public class UtilisateurSpring extends User {
 	if (utilisateur == null) {
 	    final EntityManagerFactory emf = ContextLoader
 		    .getCurrentWebApplicationContext()
-		    .getBean(EntityManagerFactory.class);
+		    .getBean("usineGestionnairesEntités",
+			    EntityManagerFactory.class);
 	    utilisateur = emf.createEntityManager().find(Utilisateur.class, id);
 	    journal.debug("{} a été rechargé de la base de données.",
 		    utilisateur);
