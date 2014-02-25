@@ -13,7 +13,7 @@
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-  <context:component-scan base-package="fr.elimerl.registre"/>
+  <context:component-scan base-package="fr.elimerl.registre.controleurs"/>
 
   <bean id="configurationVelocity" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
     <property name="resourceLoaderPath" value="/WEB-INF/velocity/"/>
