@@ -11,6 +11,10 @@ import fr.elimerl.registre.entités.Nommé;
 import fr.elimerl.registre.entités.Utilisateur;
 import fr.elimerl.registre.services.GestionnaireEntités;
 
+/**
+ * Implémentation du processeur. Cet objet est chargé de traiter les fiches
+ * par blocs.
+ */
 @Resource(name = "processeur")
 public class ImplProcesseur implements Processeur {
 
@@ -37,7 +41,7 @@ public class ImplProcesseur implements Processeur {
 
     @Override
     @Transactional
-    public int traiterFiches(int première, int nombre) {
+    public int traiterFiches(final int première, final int nombre) {
 	// TODO Auto-generated method stub
 	return 0;
     }

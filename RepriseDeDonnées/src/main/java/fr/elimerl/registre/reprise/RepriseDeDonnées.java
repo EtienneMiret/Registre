@@ -7,6 +7,12 @@ import javax.annotation.Resource;
  */
 public class RepriseDeDonnées {
 
+    /**
+     * Méthode statique chargée de lancer l’application.
+     *
+     * @param args
+     *            inutilisé.
+     */
     public static void main(final String[] args) {
 	System.out.println("Pas encore implémenté.");
     }

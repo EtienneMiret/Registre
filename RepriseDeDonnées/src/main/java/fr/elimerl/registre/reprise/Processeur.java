@@ -16,6 +16,6 @@ public interface Processeur {
      *            nombre de fiches à traiter.
      * @return le nombre de fiches effectivement traitées.
      */
-    public int traiterFiches(int première, int nombre);
+    int traiterFiches(int première, int nombre);
 
 }
