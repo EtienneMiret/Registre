@@ -1,11 +1,20 @@
 package fr.elimerl.registre.reprise;
 
+import java.sql.SQLException;
+
 import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Classe principale du programme de reprise de données.
  */
 public class RepriseDeDonnées {
+
+    /** Journal SLF4J de cette classe. */
+    private static final Logger journal =
+	    LoggerFactory.getLogger(RepriseDeDonnées.class);
 
     /**
      * Méthode statique chargée de lancer l’application.
@@ -33,10 +42,18 @@ public class RepriseDeDonnées {
     public void traiterToutesLesFiches() {
 	int nombre = tailleBloc;
 	int i = 0;
+	journal.info("Début du traitement.");
 	while (nombre > 0) {
-	    nombre = processeur.traiterFiches(i, tailleBloc);
-	    i += nombre;
+	    try {
+		nombre = processeur.traiterFiches(i, tailleBloc);
+		i += nombre;
+		journal.info("{} fiches traitées.", new Integer(i));
+	    } catch (final SQLException e) {
+		nombre = 0;
+		journal.error("Une erreur SQL nous empèche de continuer.", e);
+	    }
 	}
+	journal.info("Fin du traitement.");
     }
 
     /**
