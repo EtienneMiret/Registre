@@ -12,6 +12,18 @@
     <relativePath>../PomParent/pom.xml</relativePath>
   </parent>
 
+  <dependencies>
+    <dependency>
+      <groupId>fr.elimerl.Registre</groupId>
+      <artifactId>Model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
