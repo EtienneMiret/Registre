@@ -5,7 +5,7 @@ package fr.elimerl.registre.reprise;
  */
 public class RepriseDeDonnées {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 	System.out.println("Pas encore implémenté.");
     }
 
