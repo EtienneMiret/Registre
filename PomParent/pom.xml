@@ -20,6 +20,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>1.7.6</slf4j.version>
+    <spring.framework.version>4.0.2.RELEASE</spring.framework.version>
   </properties>
 
   <dependencyManagement>
@@ -52,6 +53,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
+        <version>${spring.framework.version}</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -69,7 +71,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>4.0.2.RELEASE</version>
+        <version>${spring.framework.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
