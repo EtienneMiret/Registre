@@ -17,7 +17,7 @@ public class RepriseDeDonnées {
     /**
      * Service chargé de traiter les fiches par blocs.
      */
-    @Resource
+    @Resource(name = "processeur")
     private Processeur processeur;
 
     /**
