@@ -84,9 +84,15 @@ public class ImplProcesseur implements Processeur {
      * @param résultat
      *            résultat de {@link #requête}.
      * @return une fiche nouvellement crée (sans id).
+     * @throws SQLException
+     *             en cas d’erreur SQL.
      */
-    private Fiche créerLivre(final ResultSet résultat) {
-	
+    private Fiche créerLivre(final ResultSet résultat) throws SQLException {
+	final Utilisateur créateur =
+		fournirUtilisateur(résultat.getString("createur"));
+	final String titre = résultat.getString("titre");
+	final Livre livre = new Livre(titre, créateur);
+	return livre;
     }
 
     private Fiche créerBd(ResultSet résultat) {
@@ -113,16 +119,17 @@ public class ImplProcesseur implements Processeur {
      * @return l’utilisateur appelé {@code nomm}.
      */
     private Utilisateur fournirUtilisateur(final String nom) {
+	final String nom2 = (nom == null ? "Système" : nom);
 	final CriteriaBuilder constructeur = em.getCriteriaBuilder();
 	final CriteriaQuery<Utilisateur> requête =
 		constructeur.createQuery(Utilisateur.class);
 	final Root<Utilisateur> racine = requête.from(Utilisateur.class);
-	requête.where(racine.get("nom").in(nom));
+	requête.where(racine.get("nom").in(nom2));
 	Utilisateur résultat;
 	try {
 	    résultat = em.createQuery(requête).getSingleResult();
 	} catch (final NoResultException e) {
-	    résultat = em.merge(new Utilisateur(nom, nom));
+	    résultat = em.merge(new Utilisateur(nom2, nom2));
 	}
 	return résultat;
     }
