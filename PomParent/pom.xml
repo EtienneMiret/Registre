@@ -14,6 +14,7 @@
     <module>../Model</module>
     <module>../Registre</module>
     <module>../Sécurité</module>
+    <module>../RepriseDeDonnées</module>
   </modules>
 
   <properties>
