@@ -1,11 +1,14 @@
 package fr.elimerl.registre.reprise;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanInitializationException;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Classe principale du programme de reprise de données.
@@ -23,7 +26,23 @@ public class RepriseDeDonnées {
      *            inutilisé.
      */
     public static void main(final String[] args) {
-	System.out.println("Pas encore implémenté.");
+	ClassPathXmlApplicationContext ctx = null;
+	try {
+	    ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+	    final RepriseDeDonnées main =
+		    ctx.getBean("main", RepriseDeDonnées.class);
+	    main.traiterToutesLesFiches();
+	} catch (final BeanInitializationException e) {
+	    journal.error("Impossible d’instancier le contexte.", e);
+	    if (e.getCause() instanceof FileNotFoundException) {
+		System.err.println("Un fichier config.properties doit se"
+			+ " trouver dans le chemin d’accès aux classes.");
+	    }
+	} finally {
+	    if (ctx != null) {
+		ctx.close();
+	    }
+	}
     }
 
     /** Nombre de fiches à traiter en une transaction. */
