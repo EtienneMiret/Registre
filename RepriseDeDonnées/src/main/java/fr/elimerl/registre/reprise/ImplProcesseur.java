@@ -91,7 +91,28 @@ public class ImplProcesseur implements Processeur {
 	final Utilisateur créateur =
 		fournirUtilisateur(résultat.getString("createur"));
 	final String titre = résultat.getString("titre");
+	final String auteur = résultat.getString("auteur");
+	final String genres = résultat.getString("genres");
 	final Livre livre = new Livre(titre, créateur);
+	if (auteur != null) {
+	    livre.setAuteur(gestionnaire.fournirAuteur(auteur));
+	}
+	if (genres != null && !genres.isEmpty()) {
+	    livre.setGenreFantastique(Boolean.valueOf(genres
+		    .contains("fantastique")));
+	    livre.setGenreHistoireVraie(Boolean.valueOf(genres
+		    .contains("histoire vraie")));
+	    livre.setGenreHistorique(Boolean.valueOf(genres
+		    .concat("historique")));
+	    livre.setGenreHumour(Boolean.valueOf(genres
+		    .contains("humour")));
+	    livre.setGenrePolicier(Boolean.valueOf(genres
+		    .contains("policier")));
+	    livre.setGenreRomantique(Boolean.valueOf(genres
+		    .contains("romantique")));
+	    livre.setGenreSf(Boolean.valueOf(genres
+		    .contains("science-fiction")));
+	}
 	return livre;
     }
 
