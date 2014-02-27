@@ -140,17 +140,17 @@ public class ImplProcesseur implements Processeur {
      * @return l’utilisateur appelé {@code nomm}.
      */
     private Utilisateur fournirUtilisateur(final String nom) {
-	final String nom2 = (nom == null ? "Système" : nom);
+	final String nouveauNom = (nom == null ? "Système" : nom);
 	final CriteriaBuilder constructeur = em.getCriteriaBuilder();
 	final CriteriaQuery<Utilisateur> requête =
 		constructeur.createQuery(Utilisateur.class);
 	final Root<Utilisateur> racine = requête.from(Utilisateur.class);
-	requête.where(racine.get("nom").in(nom2));
+	requête.where(racine.get("nom").in(nouveauNom));
 	Utilisateur résultat;
 	try {
 	    résultat = em.createQuery(requête).getSingleResult();
 	} catch (final NoResultException e) {
-	    résultat = em.merge(new Utilisateur(nom2, nom2));
+	    résultat = em.merge(new Utilisateur(nouveauNom, nouveauNom));
 	}
 	return résultat;
     }
