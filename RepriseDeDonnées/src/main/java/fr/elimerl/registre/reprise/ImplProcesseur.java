@@ -115,6 +115,7 @@ public class ImplProcesseur implements Processeur {
 	    em.persist(fiche);
 	    traitées++;
 	}
+	résultat.close();
 	return traitées;
     }
 
