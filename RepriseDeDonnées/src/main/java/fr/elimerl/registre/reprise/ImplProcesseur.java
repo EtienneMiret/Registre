@@ -1,9 +1,12 @@
 package fr.elimerl.registre.reprise;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -30,8 +33,7 @@ import fr.elimerl.registre.services.GestionnaireEntités;
 public class ImplProcesseur implements Processeur {
 
     /**
-     * Connexion à l’ancienne base de donnée. Nécessite seulement un accès en
-     * lecture.
+     * L’ancienne base de données de Registre.
      */
     @Resource(name = "ancienneBase")
     private DataSource ancienneBase;
@@ -54,6 +56,42 @@ public class ImplProcesseur implements Processeur {
      * Requête préparée sur l’ancienne base.
      */
     private PreparedStatement requête;
+
+    /**
+     * Connexion à l’ancienne base de donnée. Nécessite seulement un accès en
+     * lecture.
+     */
+    private Connection connexionAncienneBase;
+
+    /**
+     * Ouvre une connexion vers l’ancienne base de données.
+     *
+     * @throws SQLException
+     *             en cas d’impossibilité de se connecter à la base.
+     */
+    @PostConstruct
+    public void seConnecter() throws SQLException {
+	connexionAncienneBase = ancienneBase.getConnection();
+	requête = connexionAncienneBase.prepareStatement("select * from tout"
+		+ " left join films on tout.id = films.id"
+		+ " left join bd on tout.id = bd.id"
+		+ " left join livres on tout.id = livres.id"
+		+ " order by tout.id"
+		+ " limit ?, ?",
+		ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+    }
+
+    /**
+     * Ferme la connexion vers l’ancienne base de données.
+     *
+     * @throws SQLException
+     *             en cas d’erreur SQL
+     */
+    @PreDestroy
+    public void seDeconnecter() throws SQLException {
+	requête.close();
+	connexionAncienneBase.close();
+    }
 
     @Override
     @Transactional(rollbackOn = SQLException.class)
