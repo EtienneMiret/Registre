@@ -9,10 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
 /**
  * Classe principale du programme de reprise de données.
  */
+@Service("main")
 public class RepriseDeDonnées {
 
     /** Journal SLF4J de cette classe. */

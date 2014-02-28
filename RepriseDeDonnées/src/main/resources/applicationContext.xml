@@ -34,14 +34,14 @@
   </bean>
 
   <bean id="ancienneBase" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-    <property name="driverClassName" value="${ancienneBase.pilote}"/>
+    <property name="driverClass" value="${ancienneBase.pilote}"/>
     <property name="url" value="${ancienneBase.url}"/>
     <property name="username" value="${ancienneBase.utilisateur}"/>
-    <property name="password" value="${ancienneBase.password}"/>
+    <property name="password" value="${ancienneBase.mdp}"/>
   </bean>
 
   <bean id="nouvelleBase" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-    <property name="driverClassName" value="${nouvelleBase.pilote"/>
+    <property name="driverClass" value="${nouvelleBase.pilote}"/>
     <property name="url" value="${nouvelleBase.url}"/>
     <property name="username" value="${nouvelleBase.utilisateur}"/>
     <property name="password" value="${nouvelleBase.mdp}"/>

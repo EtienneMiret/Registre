@@ -1,6 +1,5 @@
 package fr.elimerl.registre.reprise;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +11,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.sql.DataSource;
 import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
 
 import fr.elimerl.registre.entités.Fiche;
 import fr.elimerl.registre.entités.Livre;
@@ -24,15 +26,15 @@ import fr.elimerl.registre.services.GestionnaireEntités;
  * Implémentation du processeur. Cet objet est chargé de traiter les fiches
  * par blocs.
  */
-@Resource(name = "processeur")
+@Service("processeur")
 public class ImplProcesseur implements Processeur {
 
     /**
      * Connexion à l’ancienne base de donnée. Nécessite seulement un accès en
      * lecture.
      */
-    @Resource(name = "connexionAncienneBase")
-    private Connection ancienneBase;
+    @Resource(name = "ancienneBase")
+    private DataSource ancienneBase;
 
     /**
      * Gestionnaire d’entités registre. Sera utilisé pour créer tous les
