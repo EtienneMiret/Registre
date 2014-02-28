@@ -33,14 +33,14 @@
     <property name="persistenceUnitName" value="Registre" />
   </bean>
 
-  <bean id="ancienneBase" class="org.apache.commons.dbcp.BasicDataSource">
+  <bean id="ancienneBase" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
     <property name="driverClassName" value="${ancienneBase.pilote}"/>
     <property name="url" value="${ancienneBase.url}"/>
     <property name="username" value="${ancienneBase.utilisateur}"/>
     <property name="password" value="${ancienneBase.password}"/>
   </bean>
 
-  <bean id="nouvelleBase" class="org.apache.commons.dbcp.BasicDataSource">
+  <bean id="nouvelleBase" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
     <property name="driverClassName" value="${nouvelleBase.pilote"/>
     <property name="url" value="${nouvelleBase.url}"/>
     <property name="username" value="${nouvelleBase.utilisateur}"/>
