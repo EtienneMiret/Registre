@@ -318,9 +318,9 @@ public class ImplProcesseur implements Processeur {
 	final String propriétaire = résultat.getString("proprietaire");
 	final String emplacement = résultat.getString("emplacement");
 	final String commentaire = résultat.getString("commentaire");
-	final Date création = résultat.getDate("creation");
+	final Date création = résultat.getTimestamp("creation");
 	final String dernierÉditeur = résultat.getString("dernier_editeur");
-	final Date dernièreÉdition = résultat.getDate("derniere_edition");
+	final Date dernièreÉdition = résultat.getTimestamp("derniere_edition");
 	if (série != null && !série.isEmpty()) {
 	    fiche.setSérie(gestionnaire.fournirSérie(série));
 	}
@@ -337,7 +337,11 @@ public class ImplProcesseur implements Processeur {
 	}
 	définirChamp(fiche, "id", new Long(id));
 	définirChamp(fiche, "création", création);
-	définirChamp(fiche, "dernièreÉdition", dernièreÉdition);
+	if (dernièreÉdition == null) {
+	    définirChamp(fiche, "dernièreÉdition", création);
+	} else {
+	    définirChamp(fiche, "dernièreÉdition", dernièreÉdition);
+	}
     }
 
     /**
