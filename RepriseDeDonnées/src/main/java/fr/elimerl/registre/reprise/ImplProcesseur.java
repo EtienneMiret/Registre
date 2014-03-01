@@ -1,5 +1,7 @@
 package fr.elimerl.registre.reprise;
 
+import static fr.elimerl.registre.entités.Film.Support.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +23,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import fr.elimerl.registre.entités.BandeDessinée;
 import fr.elimerl.registre.entités.Fiche;
+import fr.elimerl.registre.entités.Film;
+import fr.elimerl.registre.entités.Film.Support;
 import fr.elimerl.registre.entités.Livre;
 import fr.elimerl.registre.entités.Nommé;
 import fr.elimerl.registre.entités.Utilisateur;
@@ -142,7 +147,7 @@ public class ImplProcesseur implements Processeur {
 	final String auteur = résultat.getString("auteur");
 	final String genres = résultat.getString("genres");
 	final Livre livre = new Livre(titre, créateur);
-	if (auteur != null) {
+	if (auteur != null && !auteur.isEmpty()) {
 	    livre.setAuteur(gestionnaire.fournirAuteur(auteur));
 	}
 	if (genres != null && !genres.isEmpty()) {
@@ -164,14 +169,70 @@ public class ImplProcesseur implements Processeur {
 	return livre;
     }
 
-    private Fiche créerBd(ResultSet résultat) {
-	// TODO Auto-generated method stub
-	return null;
+    /**
+     * Crée une bande dessinée à partir du résultat de la requête SQL
+     * {@link #requête}.
+     *
+     * @param résultat
+     *            résultat de {@link #requête}.
+     * @return une fiche nouvellement crée (sans id).
+     * @throws SQLException
+     *             en cas d’erreur SQL.
+     */
+    private Fiche créerBd(final ResultSet résultat) throws SQLException {
+	final Utilisateur créateur =
+		fournirUtilisateur(résultat.getString("createur"));
+	final String titre = résultat.getString("titre");
+	final String dessinateur = résultat.getString("dessinateur");
+	final String scénariste = résultat.getString("scenariste");
+	final Integer numéro = (Integer) résultat.getObject("numero");
+	final BandeDessinée bd = new BandeDessinée(titre, créateur);
+	if (dessinateur != null && !dessinateur.isEmpty()) {
+	    bd.setDessinateur(gestionnaire.fournirDessinateur(dessinateur));
+	}
+	if (scénariste != null && !scénariste.isEmpty()) {
+	    bd.setScénariste(gestionnaire.fournirScénariste(scénariste));
+	}
+	bd.setNuméro(numéro);
+	return bd;
     }
 
-    private Fiche créerFilm(ResultSet résultat) {
-	// TODO Auto-generated method stub
-	return null;
+    /**
+     * Crée un film à partir du résultat de la requête SQL {@link #requête}.
+     *
+     * @param résultat
+     *            résultat de {@link #requête}.
+     * @return une fiche nouvellement crée (sans id).
+     * @throws SQLException
+     *             en cas d’erreur SQL.
+     */
+    private Fiche créerFilm(final ResultSet résultat) throws SQLException {
+	final Utilisateur créateur =
+		fournirUtilisateur(résultat.getString("createur"));
+	final String titre = résultat.getString("titre");
+	final String réalisateur = résultat.getString("realisateur");
+	final String compositeur = résultat.getString("compositeur");
+	final int id = résultat.getInt("films.id");
+	final Support support;
+	final String nomSupport = résultat.getString("type");
+	if (nomSupport.equals("DVD")) {
+	    support = DVD;
+	} else if (nomSupport.equals("cassette")) {
+	    support = K7;
+	} else if (nomSupport.equals("disque Blu-ray")) {
+	    support = BRD;
+	} else {
+	    journal.error("Support inconnu : « {} ».", nomSupport);
+	    throw new RuntimeException("Support inconnu : " + nomSupport);
+	}
+	final Film film = new Film(titre, créateur, support);
+	if (réalisateur != null && !réalisateur.isEmpty()) {
+	    film.setRéalisateur(gestionnaire.fournirRéalisateur(réalisateur));
+	}
+	if (compositeur != null && !compositeur.isEmpty()) {
+	    film.setCompositeur(gestionnaire.fournirCompositeur(compositeur));
+	}
+	return film;
     }
 
     private void remplirChampsCommuns(Fiche fiche, ResultSet résultat) {
