@@ -3,6 +3,15 @@ package fr.elimerl.registre.reprise;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtField;
+import javassist.NotFoundException;
+import javassist.bytecode.AnnotationsAttribute;
+import javassist.bytecode.FieldInfo;
+import javassist.bytecode.annotation.Annotation;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -28,6 +37,7 @@ public class RepriseDeDonnées {
      *            inutilisé.
      */
     public static void main(final String[] args) {
+	supprimerAtGenerated();
 	ClassPathXmlApplicationContext ctx = null;
 	try {
 	    ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -44,6 +54,46 @@ public class RepriseDeDonnées {
 	    if (ctx != null) {
 		ctx.close();
 	    }
+	}
+    }
+
+    /**
+     * Supprime l’annotation {@code @Generated} de l’identifiant de la classe
+     * {@code Fiche}. Cela permet de définir nous même les id des fiches
+     * migrées.
+     */
+    private static void supprimerAtGenerated() {
+	try {
+	    final ClassPool pool = ClassPool.getDefault();
+	    final CtClass fiche = pool.get("fr.elimerl.registre.entités.Fiche");
+	    final CtField id = fiche.getDeclaredField("id");
+	    final FieldInfo info = id.getFieldInfo();
+	    final AnnotationsAttribute attributs = (AnnotationsAttribute)
+		    info.getAttribute(AnnotationsAttribute.visibleTag);
+	    final Annotation[] anciennesAnnotations =
+		    attributs.getAnnotations();
+	    final Annotation[] nouvellesAnnotations =
+		    new Annotation[anciennesAnnotations.length - 1];
+	    int i = 0;
+	    for (final Annotation annotation : anciennesAnnotations) {
+		if (!annotation.getTypeName().equals(
+			"javax.persistence.GeneratedValue")) {
+		    nouvellesAnnotations[i] = annotation;
+		    i++;
+		}
+	    }
+	    attributs.setAnnotations(nouvellesAnnotations);
+	    fiche.toClass();
+	} catch (final NotFoundException e) {
+	    final String message =
+		    "Impossible de trouver la classe Fiche ou son champ id.";
+	    journal.error(message);
+	    throw new RuntimeException(message, e);
+	} catch (final CannotCompileException e) {
+	    final String message =
+		    "Impossible de recompiler la nouvelle classe Fiche.";
+	    journal.error(message);
+	    throw new RuntimeException(message, e);
 	}
     }
 
