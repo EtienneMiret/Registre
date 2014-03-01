@@ -1,11 +1,15 @@
 package fr.elimerl.registre.reprise;
 
-import static fr.elimerl.registre.entités.Film.Support.*;
+import static fr.elimerl.registre.entités.Film.Support.BRD;
+import static fr.elimerl.registre.entités.Film.Support.DVD;
+import static fr.elimerl.registre.entités.Film.Support.K7;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -44,6 +48,37 @@ public class ImplProcesseur implements Processeur {
 	    LoggerFactory.getLogger(ImplProcesseur.class);
 
     /**
+     * Modifie un champ de la fiche données pour lui affecter la valeur donnée.
+     * Ce champ peut être privé et final, par contre il doit appartenir à la
+     * classe {@link Fiche} (et pas une sous-classe).
+     *
+     * @param fiche
+     *            la fiche dont on veut modifier un champ.
+     * @param nom
+     *            le nom du champ à modifier.
+     * @param valeur
+     *            la valeur à affecter à ce champ.
+     */
+    private static void définirChamp(final Fiche fiche, final String nom,
+	    final Object valeur) {
+	try {
+	    final Field champ = Fiche.class.getDeclaredField(nom);
+	    champ.setAccessible(true);
+	    champ.set(fiche, valeur);
+	} catch (final SecurityException e) {
+	    journal.error("Un paramètre de sécurité empèche de modifier"
+	    	+ " le champ {}.", nom, e);
+	} catch (final NoSuchFieldException e) {
+	    journal.error("Le champ {} n’existe pass.", nom, e);
+	} catch (final IllegalArgumentException e) {
+	    journal.error("{} n’a pas le type requis pour le champ {}.",
+		    valeur, nom);
+	} catch (final IllegalAccessException e) {
+	    journal.error("Le champ {} n’est pas modifiable.", nom);
+	}
+    }
+
+    /**
      * L’ancienne base de données de Registre.
      */
     @Resource(name = "ancienneBase")
@@ -64,15 +99,21 @@ public class ImplProcesseur implements Processeur {
     private EntityManager em;
 
     /**
-     * Requête préparée sur l’ancienne base.
-     */
-    private PreparedStatement requête;
-
-    /**
      * Connexion à l’ancienne base de donnée. Nécessite seulement un accès en
      * lecture.
      */
     private Connection connexionAncienneBase;
+
+    /**
+     * Requête préparée sur l’ancienne base, pour récupérer des fiches.
+     */
+    private PreparedStatement requêteFiches;
+
+    /**
+     * Requête préparée sur l’ancienne base, pour récupérer les acteurs d’un
+     * film.
+     */
+    private PreparedStatement requêteActeurs;
 
     /**
      * Ouvre une connexion vers l’ancienne base de données.
@@ -83,12 +124,17 @@ public class ImplProcesseur implements Processeur {
     @PostConstruct
     public void seConnecter() throws SQLException {
 	connexionAncienneBase = ancienneBase.getConnection();
-	requête = connexionAncienneBase.prepareStatement("select * from tout"
+	requêteFiches = connexionAncienneBase.prepareStatement("select *"
+		+ " from tout"
 		+ " left join films on tout.id = films.id"
 		+ " left join bd on tout.id = bd.id"
 		+ " left join livres on tout.id = livres.id"
 		+ " order by tout.id"
 		+ " limit ?, ?",
+		ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+	requêteActeurs = connexionAncienneBase.prepareStatement("select acteur"
+		+ " from acteurs"
+		+ " where id = ?",
 		ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
     }
 
@@ -100,7 +146,8 @@ public class ImplProcesseur implements Processeur {
      */
     @PreDestroy
     public void seDeconnecter() throws SQLException {
-	requête.close();
+	requêteFiches.close();
+	requêteActeurs.close();
 	connexionAncienneBase.close();
     }
 
@@ -109,9 +156,9 @@ public class ImplProcesseur implements Processeur {
     public int traiterFiches(final int première, final int nombre)
 	    throws SQLException {
 	int traitées = 0;
-	requête.setInt(1, première);
-	requête.setInt(2, nombre);
-	final ResultSet résultat = requête.executeQuery();
+	requêteFiches.setInt(1, première);
+	requêteFiches.setInt(2, nombre);
+	final ResultSet résultat = requêteFiches.executeQuery();
 	while (résultat.next()) {
 	    final String type = résultat.getString("type");
 	    final Fiche fiche;
@@ -123,7 +170,7 @@ public class ImplProcesseur implements Processeur {
 		fiche = créerFilm(résultat);
 	    }
 	    remplirChampsCommuns(fiche, résultat);
-	    em.persist(fiche);
+	    em.merge(fiche);
 	    journal.debug("{} traitée.", fiche);
 	    traitées++;
 	}
@@ -132,10 +179,11 @@ public class ImplProcesseur implements Processeur {
     }
 
     /**
-     * Crée un livre à partir du résultat de la requête SQL {@link #requête}.
+     * Crée un livre à partir du résultat de la requête SQL
+     * {@link #requêteFiches}.
      *
      * @param résultat
-     *            résultat de {@link #requête}.
+     *            résultat de {@link #requêteFiches}.
      * @return une fiche nouvellement crée (sans id).
      * @throws SQLException
      *             en cas d’erreur SQL.
@@ -171,10 +219,10 @@ public class ImplProcesseur implements Processeur {
 
     /**
      * Crée une bande dessinée à partir du résultat de la requête SQL
-     * {@link #requête}.
+     * {@link #requêteFiches}.
      *
      * @param résultat
-     *            résultat de {@link #requête}.
+     *            résultat de {@link #requêteFiches}.
      * @return une fiche nouvellement crée (sans id).
      * @throws SQLException
      *             en cas d’erreur SQL.
@@ -185,7 +233,7 @@ public class ImplProcesseur implements Processeur {
 	final String titre = résultat.getString("titre");
 	final String dessinateur = résultat.getString("dessinateur");
 	final String scénariste = résultat.getString("scenariste");
-	final Integer numéro = (Integer) résultat.getObject("numero");
+	final Long numéro = (Long) résultat.getObject("numero");
 	final BandeDessinée bd = new BandeDessinée(titre, créateur);
 	if (dessinateur != null && !dessinateur.isEmpty()) {
 	    bd.setDessinateur(gestionnaire.fournirDessinateur(dessinateur));
@@ -193,15 +241,18 @@ public class ImplProcesseur implements Processeur {
 	if (scénariste != null && !scénariste.isEmpty()) {
 	    bd.setScénariste(gestionnaire.fournirScénariste(scénariste));
 	}
-	bd.setNuméro(numéro);
+	if (numéro != null) {
+	    bd.setNuméro(Integer.valueOf(numéro.intValue()));
+	}
 	return bd;
     }
 
     /**
-     * Crée un film à partir du résultat de la requête SQL {@link #requête}.
+     * Crée un film à partir du résultat de la requête SQL
+     * {@link #requêteFiches}.
      *
      * @param résultat
-     *            résultat de {@link #requête}.
+     *            résultat de {@link #requêteFiches}.
      * @return une fiche nouvellement crée (sans id).
      * @throws SQLException
      *             en cas d’erreur SQL.
@@ -232,12 +283,53 @@ public class ImplProcesseur implements Processeur {
 	if (compositeur != null && !compositeur.isEmpty()) {
 	    film.setCompositeur(gestionnaire.fournirCompositeur(compositeur));
 	}
+	requêteActeurs.setInt(1, id);
+	final ResultSet acteurs = requêteActeurs.executeQuery();
+	while (acteurs.next()) {
+	    final String nom = acteurs.getString("acteur");
+	    film.getActeurs().add(gestionnaire.fournirActeur(nom));
+	}
+	acteurs.close();
 	return film;
     }
 
-    private void remplirChampsCommuns(Fiche fiche, ResultSet résultat) {
-        // TODO Auto-generated method stub
-        
+    /**
+     * Remplit les champs communs à tous les types de fiches.
+     *
+     * @param fiche
+     *            fiche qu’on veut remplir.
+     * @param résultat
+     *            résultat de {@link #requêteFiches} avec les données.
+     * @throws SQLException
+     *             en cas d’erreur SQL.
+     */
+    private void remplirChampsCommuns(final Fiche fiche,
+	    final ResultSet résultat) throws SQLException {
+	final int id = résultat.getInt("tout.id");
+	final String série = résultat.getString("serie");
+	final String propriétaire = résultat.getString("proprietaire");
+	final String emplacement = résultat.getString("emplacement");
+	final String commentaire = résultat.getString("commentaire");
+	final Date création = résultat.getDate("creation");
+	final String dernierÉditeur = résultat.getString("dernier_editeur");
+	final Date dernièreÉdition = résultat.getDate("derniere_edition");
+	if (série != null && !série.isEmpty()) {
+	    fiche.setSérie(gestionnaire.fournirSérie(série));
+	}
+	if (propriétaire != null && !propriétaire.isEmpty()) {
+	    fiche.setPropriétaire(gestionnaire
+		    .fournirPropriétaire(propriétaire));
+	}
+	if (emplacement != null && !emplacement.isEmpty()) {
+	    fiche.setEmplacement(gestionnaire.fournirEmplacement(emplacement));
+	}
+	fiche.setCommentaire(commentaire);
+	if (dernierÉditeur != null && !dernierÉditeur.isEmpty()) {
+	    fiche.toucher(fournirUtilisateur(dernierÉditeur));
+	}
+	définirChamp(fiche, "id", new Long(id));
+	définirChamp(fiche, "création", création);
+	définirChamp(fiche, "dernièreÉdition", dernièreÉdition);
     }
 
     /**
