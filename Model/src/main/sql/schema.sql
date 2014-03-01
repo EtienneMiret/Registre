@@ -71,10 +71,10 @@ create table fiches (
 	genre_policier boolean,
 	genre_romantique boolean,
 	genre_sf boolean,
-	createur bigint references utilisateurs (id),
-	creation datetime,
-	dernier_editeur bigint references utilisateurs (id),
-	derniere_edition datetime
+	createur bigint references utilisateurs (id) not null,
+	creation datetime not null,
+	dernier_editeur bigint references utilisateurs (id) not null,
+	derniere_edition datetime not null
 );
 
 create table films (
