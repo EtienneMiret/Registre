@@ -61,6 +61,16 @@ create table fiches (
 	image char(36),
 	proprietaire bigint references proprietaires (id),
 	emplacement bigint references emplacements (id),
+	genre_action boolean,
+	genre_documentaire boolean,
+	genre_fantastique boolean,
+	genre_guerre boolean,
+	genre_histoire_vraie boolean,
+	genre_historique boolean,
+	genre_humour boolean,
+	genre_policier boolean,
+	genre_romantique boolean,
+	genre_sf boolean,
 	createur bigint references utilisateurs (id),
 	creation datetime,
 	dernier_editeur bigint references utilisateurs (id),
@@ -71,17 +81,7 @@ create table films (
 	id bigint primary key references fiches (id),
 	support varchar(3),
 	realisateur bigint references realisateurs (id),
-	compositeur bigint references compositeurs (id),
-	genre_action boolean,
-	genre_documentaire boolean,
-	genre_fantastique boolean,
-	genre_guerre boolean,
-	genre_histoire_vraie boolean,
-	genre_historique boolean,
-	genre_humour boolean,
-	genre_policier boolean,
-	genre_romantique boolean,
-	genre_sf boolean
+	compositeur bigint references compositeurs (id)
 );
 
 create table bandes_dessinees (
@@ -93,14 +93,7 @@ create table bandes_dessinees (
 
 create table livres (
 	id bigint primary key references fiches(id),
-	auteur bigint references auteurs(id),
-	genre_fantastique boolean,
-	genre_histoire_vraie boolean,
-	genre_historique boolean,
-	genre_humour boolean,
-	genre_policier boolean,
-	genre_romantique boolean,
-	genre_sf boolean
+	auteur bigint references auteurs(id)
 );
 
 create table joue_dans (

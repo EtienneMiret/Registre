@@ -82,6 +82,49 @@ public abstract class Fiche {
     @JoinColumn(name = "emplacement")
     private Emplacement emplacement;
 
+    /** Est-ce que cette fiche référence une histoire d’action ? */
+    @Column(name = "genre_action")
+    private Boolean genreAction;
+
+    /** Est-ce que cette fiche référence un documentaire ? */
+    @Column(name = "genre_documentaire")
+    private Boolean genreDocumentaire;
+
+    /** Est-ce que cette fiche référence une histoire fantastique ? */
+    @Column(name = "genre_fantastique")
+    private Boolean genreFantastique;
+
+    /** Est-ce que cette fiche référence une histoire de guerre ? */
+    @Column(name = "genre_guerre")
+    private Boolean genreGuerre;
+
+    /** Est-ce que cette fiche référence une histoire vraie ? */
+    @Column(name = "genre_histoire_vraie")
+    private Boolean genreHistoireVraie;
+
+    /**
+     * Est-ce que l’histoire de cette fiche a pour cadre une période de
+     * l’Histoire ?
+     */
+    @Column(name = "genre_historique")
+    private Boolean genreHistorique;
+
+    /** Est-ce que cette fiche référence une histoire drôle ? */
+    @Column(name = "genre_humour")
+    private Boolean genreHumour;
+
+    /** Est-ce que cette fiche référence une histoire d’enquête de police ? */
+    @Column(name = "genre_policier")
+    private Boolean genrePolicier;
+
+    /** Est-ce que l’histoire de cette fiche est romantique ? */
+    @Column(name = "genre_romantique")
+    private Boolean genreRomantique;
+
+    /** Est-ce que cette fiche référence une histoire de science-fiction ? */
+    @Column(name = "genre_sf")
+    private Boolean genreSf;
+
     /**
      * Utilisateur qui a créé cette référence.
      */
@@ -169,6 +212,32 @@ public abstract class Fiche {
 	}
 	if (dernierÉditeur != null) {
 	    résultat.add(dernierÉditeur.getNom());
+	}
+	if (genreAction != null && genreAction.booleanValue()) {
+	    résultat.add("action");
+	}
+	if (genreFantastique != null && genreFantastique.booleanValue()) {
+	    résultat.add("fantastique");
+	}
+	if (genreHistoireVraie != null && genreHistoireVraie.booleanValue()) {
+	    résultat.add("histoire vraie");
+	}
+	if (genreHistorique != null && genreHistorique.booleanValue()) {
+	    résultat.add("historique");
+	}
+	if (genreHumour != null && genreHumour.booleanValue()) {
+	    résultat.add("humour");
+	    résultat.add("drôle");
+	}
+	if (genrePolicier != null && genrePolicier.booleanValue()) {
+	    résultat.add("policier");
+	}
+	if (genreRomantique != null && genreRomantique.booleanValue()) {
+	    résultat.add("romantique");
+	}
+	if (genreSf != null && genreSf.booleanValue()) {
+	    résultat.add("SF");
+	    résultat.add("science-fiction");
 	}
 	return résultat;
     }
@@ -306,6 +375,218 @@ public abstract class Fiche {
      */
     public void setEmplacement(final Emplacement emplacement) {
         this.emplacement = emplacement;
+    }
+
+    /**
+     * Est-ce que cette fiche référence une histoire d’action ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreAction() {
+        return genreAction;
+    }
+
+    /**
+     * Définit si cette fiche référence une histoire d’action.
+     *
+     * @param genreAction
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreAction(final Boolean genreAction) {
+        this.genreAction = genreAction;
+    }
+
+    /**
+     * Est-ce que cette fiche référence un documentaire ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreDocumentaire() {
+        return genreDocumentaire;
+    }
+
+    /**
+     * Définit si cette fiche référence un documentaire.
+     *
+     * @param genreDocumentaire
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreDocumentaire(final Boolean genreDocumentaire) {
+        this.genreDocumentaire = genreDocumentaire;
+    }
+
+    /**
+     * Est-ce que cette fiche référence une histoire fantastique ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreFantastique() {
+        return genreFantastique;
+    }
+
+    /**
+     * Définit si cette fiche référence une histoire fantastique.
+     *
+     * @param genreFantastique
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreFantastique(final Boolean genreFantastique) {
+        this.genreFantastique = genreFantastique;
+    }
+
+    /**
+     * Est-ce que cette fiche référence une histoire de guerre ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreGuerre() {
+        return genreGuerre;
+    }
+
+    /**
+     * Définit si cette fiche référence une histoire de guerre.
+     *
+     * @param genreGuerre
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreGuerre(final Boolean genreGuerre) {
+        this.genreGuerre = genreGuerre;
+    }
+
+    /**
+     * Est-ce que cette fiche référence une histoire vraie ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreHistoireVraie() {
+        return genreHistoireVraie;
+    }
+
+    /**
+     * Définit si ce film raconte une histoire vraie.
+     *
+     * @param genreHistoireVraie
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreHistoireVraie(final Boolean genreHistoireVraie) {
+        this.genreHistoireVraie = genreHistoireVraie;
+    }
+
+    /**
+     * Est-ce que l’histoire de cette fiche a pour cadre une période de
+     * l’Histoire ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreHistorique() {
+        return genreHistorique;
+    }
+
+    /**
+     * Définit si l’histoire de cette fiche a pour cadre une période de
+     * l’Histoire.
+     *
+     * @param genreHistorique
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreHistorique(final Boolean genreHistorique) {
+        this.genreHistorique = genreHistorique;
+    }
+
+    /**
+     * Est-ce que cette fiche référence une histoire drôle ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreHumour() {
+        return genreHumour;
+    }
+
+    /**
+     * Définit si cette fiche référence une histoire drôle.
+     *
+     * @param genreHumour
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreHumour(final Boolean genreHumour) {
+        this.genreHumour = genreHumour;
+    }
+
+    /**
+     * Est-ce que cette fiche référence une histoire d’enquête de police ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenrePolicier() {
+        return genrePolicier;
+    }
+
+    /**
+     * Définit si cette fiche référence une histoire d’enquête de police.
+     *
+     * @param genrePolicier
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenrePolicier(final Boolean genrePolicier) {
+        this.genrePolicier = genrePolicier;
+    }
+
+    /**
+     * Est-ce que l’histoire de cette fiche est romantique ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreRomantique() {
+        return genreRomantique;
+    }
+
+    /**
+     * Définit si l’histoire de cette fiche est romantique.
+     *
+     * @param genreRomantique
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreRomantique(final Boolean genreRomantique) {
+        this.genreRomantique = genreRomantique;
+    }
+
+    /**
+     * Est-ce que cette fiche référence une histoire de science-fiction ?
+     *
+     * @return {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *         {@code null} si on ne sait pas.
+     */
+    public Boolean getGenreSf() {
+	return genreSf;
+    }
+
+    /**
+     * Définit si cette fiche référence une histoire de science-fiction.
+     *
+     * @param genreSf
+     *            {@link Boolean#TRUE} si oui, {@link Boolean#FALSE} si non, et
+     *            {@code null} si on ne sait pas.
+     */
+    public void setGenreSf(final Boolean genreSf) {
+	this.genreSf = genreSf;
     }
 
     /**
