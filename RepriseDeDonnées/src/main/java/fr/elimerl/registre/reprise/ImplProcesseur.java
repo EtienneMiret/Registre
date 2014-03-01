@@ -17,6 +17,8 @@ import javax.persistence.criteria.Root;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import fr.elimerl.registre.entités.Fiche;
@@ -31,6 +33,10 @@ import fr.elimerl.registre.services.GestionnaireEntités;
  */
 @Service("processeur")
 public class ImplProcesseur implements Processeur {
+
+    /** Journal SLF4J de cette fiche. */
+    private static final Logger journal =
+	    LoggerFactory.getLogger(ImplProcesseur.class);
 
     /**
      * L’ancienne base de données de Registre.
@@ -113,6 +119,7 @@ public class ImplProcesseur implements Processeur {
 	    }
 	    remplirChampsCommuns(fiche, résultat);
 	    em.persist(fiche);
+	    journal.debug("{} traitée.", fiche);
 	    traitées++;
 	}
 	résultat.close();
