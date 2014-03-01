@@ -85,7 +85,7 @@ public class ImplProcesseur implements Processeur {
     private DataSource ancienneBase;
 
     /**
-     * Gestionnaire d’entités registre. Sera utilisé pour créer tous les
+     * Gestionnaire d’entités Registre. Sera utilisé pour créer tous les
      * {@link Nommé}s.
      */
     @Resource(name = "gestionnaireEntités")
