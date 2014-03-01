@@ -35,6 +35,7 @@ import fr.elimerl.registre.entités.Livre;
 import fr.elimerl.registre.entités.Nommé;
 import fr.elimerl.registre.entités.Utilisateur;
 import fr.elimerl.registre.services.GestionnaireEntités;
+import fr.elimerl.registre.services.Indexeur;
 
 /**
  * Implémentation du processeur. Cet objet est chargé de traiter les fiches
@@ -90,6 +91,12 @@ public class ImplProcesseur implements Processeur {
      */
     @Resource(name = "gestionnaireEntités")
     private GestionnaireEntités gestionnaire;
+
+    /**
+     * Service utilisé pour indéxer les fiches.
+     */
+    @Resource(name = "indexeur")
+    private Indexeur indexeur;
 
     /**
      * Gestionnaire d’entités JPA. Sera utilisé pour créer les
@@ -170,8 +177,9 @@ public class ImplProcesseur implements Processeur {
 		fiche = créerFilm(résultat);
 	    }
 	    remplirChampsCommuns(fiche, résultat);
-	    em.merge(fiche);
-	    journal.debug("{} traitée.", fiche);
+	    final Fiche ficheEnregistrée = em.merge(fiche);
+	    indexeur.réindexer(ficheEnregistrée);
+	    journal.debug("{} traitée.", ficheEnregistrée);
 	    traitées++;
 	}
 	résultat.close();
