@@ -10,6 +10,11 @@
       class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
     <property name="dataSource" ref="sourceDonnées"/>
     <property name="persistenceUnitName" value="Registre" />
+    <property name="jpaProperties">
+      <props>
+        <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+      </props>
+    </property>
   </bean>
 
   <jee:jndi-lookup id="sourceDonnées" jndi-name="jdbc/Registre"/>
