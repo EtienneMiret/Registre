@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+#set( $titrePage = $fiche.titre )
+#parse( 'enTête.vm' )
+<body>
+#parse( 'hautDePage.vm' )
+<h1>$fiche.titre</h1>
+<dl>
+#if( !$fiche.acteurs.empty )
+  <dt>Acteurs</dt>
+  <dd>
+#foreach( $acteur in $fiche.acteurs )
+    $acteur.nom#if( $foreach.last ).#else,#end
+#end
+  </dd>
+#end
+#if( $fiche.commentaire )
+  <dt>Commentaire</dt>
+  <dd>$fiche.commentaire</dd>
+#end
+</dl>
+</body>
+</html>
