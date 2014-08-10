@@ -62,10 +62,12 @@
     <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity-engine-slf4j</artifactId>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity-engine-commons-logging</artifactId>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
