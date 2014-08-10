@@ -20,7 +20,7 @@
 #foreach( $fiche in $fiches )
     <tr>
       <td><a href="/Registre/Fiche/$fiche.id">$fiche.titre</a></td>
-      <td>#if( $fiche.série )$fiches.série#end</td>
+      <td>#if( $fiche.série )$fiche.série#end</td>
       <td>$fiche.class.simpleName</td>
     </tr>
 #end
