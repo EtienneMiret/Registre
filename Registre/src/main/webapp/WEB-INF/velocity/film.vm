@@ -5,17 +5,45 @@
 #parse( 'hautDePage.vm' )
 <h1>$fiche.titre</h1>
 <dl>
+#if( $fiche.série )
+  <dt>Série</dt>
+  <dd>$fiche.série</dd>
+#end
 #if( !$fiche.acteurs.empty )
   <dt>Acteurs</dt>
   <dd>
 #foreach( $acteur in $fiche.acteurs )
-    $acteur.nom#if( $foreach.last ).#else,#end
+    $acteur.nom#if( $foreach.last ).#elseif( $foreach.index == ($fiche.acteurs.size() - 2) ) et#else,#end
 #end
   </dd>
 #end
+#if( $fiche.réalisateur )
+  <dt>Réalisateur</dt>
+  <dd>$fiche.réalisateur</dd>
+#end
+#if( $fiche.compositeur )
+  <dt>Compositeur</dt>
+  <dd>$fiche.compositeur</dd>
+#end
+  <dt>Support</dt>
+  <dd>$fiche.support</dd>
 #if( $fiche.commentaire )
   <dt>Commentaire</dt>
   <dd>$fiche.commentaire</dd>
+#end
+#if ( $fiche.propriétaire )
+  <dt>Propriétaire</dt>
+  <dd>$fiche.propriétaire</dd>
+#end
+#if ( $fiche.emplacement )
+  <dt>Emplacement</dt>
+  <dd>$fiche.emplacement</dd>
+#end
+  <dt>Référencement</dt>
+  <dd>Le $fiche.création par ${fiche.créateur}.</dd>
+#if ( $fiche.dernièreÉdition != $fiche.création )
+  <dt>Mise à jour</dt>
+  <dd>Le $fiche.dernièreÉdition par ${fiche.dernierÉditeur}.</dd>
 #end
 </dl>
 </body>
