@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+#set( $titrePage = $fiche.titre )
+#parse( 'enTête.vm' )
+<body>
+#parse( 'hautDePage.vm' )
+<h1>$fiche.titre</h1>
+<dl>
+#if( $fiche.série )
+  <dt>Série</dt>
+  <dd>$fiche.série</dd>
+#end
+#if ( $fiche.dessinateur )
+  <dt>Dessinateur</dt>
+  <dd>$fiche.dessinateur</dd>
+#end
+#if ( $fiche.scénariste )
+  <dt>Scénariste</dt>
+  <dd>$fiche.scénariste</dd>
+#end
+#if( $fiche.commentaire )
+  <dt>Commentaire</dt>
+  <dd>$fiche.commentaire</dd>
+#end
+#if ( $fiche.propriétaire )
+  <dt>Propriétaire</dt>
+  <dd>$fiche.propriétaire</dd>
+#end
+#if ( $fiche.emplacement )
+  <dt>Emplacement</dt>
+  <dd>$fiche.emplacement</dd>
+#end
+  <dt>Référencement</dt>
+  <dd>Le $fiche.création par ${fiche.créateur}.</dd>
+#if ( $fiche.dernièreÉdition != $fiche.création )
+  <dt>Mise à jour</dt>
+  <dd>Le $fiche.dernièreÉdition par ${fiche.dernierÉditeur}.</dd>
+#end
+</dl>
+</body>
+</html>
