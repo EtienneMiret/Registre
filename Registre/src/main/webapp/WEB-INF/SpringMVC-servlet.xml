@@ -20,6 +20,7 @@
     <property name="velocityProperties">
       <props>
         <prop key="input.encoding">UTF-8</prop>
+        <prop key="runtime.log.logsystem.class">org.apache.velocity.slf4j.Slf4jLogChute</prop>
       </props>
     </property>
   </bean>

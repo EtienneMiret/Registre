@@ -61,7 +61,11 @@
     </dependency>
     <dependency>
       <groupId>org.apache.velocity</groupId>
-      <artifactId>velocity</artifactId>
+      <artifactId>velocity-engine-slf4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity-engine-commons-logging</artifactId>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>

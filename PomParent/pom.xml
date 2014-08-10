@@ -21,6 +21,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>1.7.6</slf4j.version>
     <spring.framework.version>4.0.2.RELEASE</spring.framework.version>
+    <velocity.version>2.0.0-SNAPSHOT</velocity.version>
   </properties>
 
   <dependencyManagement>
@@ -93,10 +94,18 @@
         <artifactId>hsqldb</artifactId>
         <version>2.3.2</version>
       </dependency>
+      <!-- Utilisation d’une version de velocity patchée par Etienne Miret
+           qui permet d’utiliser des caractères non-ASCII dans les noms de
+           variables. -->
       <dependency>
         <groupId>org.apache.velocity</groupId>
-        <artifactId>velocity</artifactId>
-        <version>1.7</version>
+        <artifactId>velocity-engine-slf4j</artifactId>
+        <version>${velocity.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity-engine-commons-logging</artifactId>
+        <version>${velocity.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
