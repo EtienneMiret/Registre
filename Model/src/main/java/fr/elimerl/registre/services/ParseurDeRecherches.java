@@ -90,7 +90,7 @@ public class ParseurDeRecherches {
 		    i = comparateur.end();
 		}
 	    }
-	    final Iterator<Champ<?>> champs = Champ.tous().iterator();
+	    final Iterator<Champ<?>> champs = Champ.tous.iterator();
 	    while (signe == null && champs.hasNext()) {
 		final Champ<?> champ = champs.next();
 		final Matcher comparateur = champ.getMotif().matcher(requête);

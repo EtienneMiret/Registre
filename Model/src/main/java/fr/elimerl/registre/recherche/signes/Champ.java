@@ -23,68 +23,70 @@ import fr.elimerl.registre.entités.Série;
  */
 public final class Champ<T> extends Signe {
 
+    /**
+     * Liste de tous les champs existants. <em>En lecture seule.</em>
+     */
+    /*
+     * Pour l’instant, on fait confiance aux utilisateurs de cette bibliothèque
+     * pour ne pas modifier ce champ. À terme, il faudra peut-être l’encapsuler
+     * pour le protéger des modifications.
+     */
+    public static final List<Champ<?>> tous = new ArrayList<Champ<?>>();
+
     /** Le titre d’une fiche. */
     public static final Champ<String> TITRE =
-	    new Champ<String>("titre", String.class);
+	    valeurDe("titre", String.class);
 
     /** Le commentaire associé à une fiche. */
     public static final Champ<String> COMMENTAIRE =
-	    new Champ<String>("commentaire", String.class);
+	    valeurDe("commentaire", String.class);
 
     /** La série dont fait partie une fiche. */
     public static final Champ<Série> SÉRIE =
-	    new Champ<Série>("série", Série.class);
+	    valeurDe("série", Série.class);
 
     /** Le propriétaire d’une fiche. */
     public static final Champ<Propriétaire> PROPRIÉTAIRE =
-	    new Champ<Propriétaire>("propriétaire", Propriétaire.class);
+	    valeurDe("propriétaire", Propriétaire.class);
 
     /** L’emplacement où est rangé une fiche. */
     public static final Champ<Emplacement> EMPLACEMENT =
-	    new Champ<Emplacement>("emplacement", Emplacement.class);
+	    valeurDe("emplacement", Emplacement.class);
 
     /** Le réalisateur d’un film. */
     public static final Champ<Réalisateur> RÉALISATEUR =
-	    new Champ<Réalisateur>("réalisateur", Réalisateur.class);
+	    valeurDe("réalisateur", Réalisateur.class);
 
     /** Un acteur qui joue dans un film. */
     public static final Champ<Acteur> ACTEUR =
-	    new Champ<Acteur>("acteur", Acteur.class);
+	    valeurDe("acteur", Acteur.class);
 
     /** Le compositeur de la musique d’un film. */
     public static final Champ<Compositeur> COMPOSITEUR =
-	    new Champ<Compositeur>("compositeur", Compositeur.class);
+	    valeurDe("compositeur", Compositeur.class);
 
     /** Le dessinateur d’une bande-dessinée. */
     public static final Champ<Dessinateur> DESSINATEUR =
-	    new Champ<Dessinateur>("dessinateur", Dessinateur.class);
+	    valeurDe("dessinateur", Dessinateur.class);
 
     /** Le scénariste d’une bande-dessinée. */
     public static final Champ<Scénariste> SCÉNARISTE =
-	    new Champ<Scénariste>("scénariste", Scénariste.class);
+	    valeurDe("scénariste", Scénariste.class);
 
     /** L’auteur d’un livre. */
     public static final Champ<Auteur> AUTEUR =
-	    new Champ<Auteur>("auteur", Auteur.class);
+	    valeurDe("auteur", Auteur.class);
 
     /**
-     * Renvoie la liste de tous les champs existant.
-     *
-     * @return la liste de tous les champs existant.
+     * Crée un nouveau type de champ, et l’enregistre dans {@link #tous}.
+     * @param nom nom du champ à créer.
+     * @param classe classe des objets mis dans le champ à créer.
+     * @return le nouveau champ.
      */
-    public static List<Champ<?>> tous() {
-	final List<Champ<?>> résultat = new ArrayList<Champ<?>>(11);
-	résultat.add(TITRE);
-	résultat.add(COMMENTAIRE);
-	résultat.add(SÉRIE);
-	résultat.add(PROPRIÉTAIRE);
-	résultat.add(EMPLACEMENT);
-	résultat.add(RÉALISATEUR);
-	résultat.add(ACTEUR);
-	résultat.add(COMPOSITEUR);
-	résultat.add(DESSINATEUR);
-	résultat.add(SCÉNARISTE);
-	résultat.add(AUTEUR);
+    private static <T> Champ<T> valeurDe(final String nom,
+	    final Class<T> classe) {
+	final Champ<T> résultat = new Champ<T>(nom, classe);
+	tous.add(résultat);
 	return résultat;
     }
 
