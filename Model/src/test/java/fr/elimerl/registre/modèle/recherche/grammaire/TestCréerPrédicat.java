@@ -67,6 +67,7 @@ public class TestCréerPrédicat {
 	requête = constructeur.createQuery(Fiche.class);
 	fiche = requête.from(Fiche.class);
 	requête.select(fiche);
+	requête.orderBy(constructeur.asc(fiche.get("id")));
     }
 
     /**
@@ -127,9 +128,11 @@ public class TestCréerPrédicat {
 		fiche));
 	final TypedQuery<Fiche> requêteJpa = em.createQuery(requête);
 	final List<Fiche> résultats = requêteJpa.getResultList();
-	assertEquals(2, résultats.size());
+	assertEquals(4, résultats.size());
 	assertEquals(1, résultats.get(0).getId().longValue());
 	assertEquals(2, résultats.get(1).getId().longValue());
+	assertEquals(4, résultats.get(2).getId().longValue());
+	assertEquals(5, résultats.get(3).getId().longValue());
     }
 
 }
