@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -29,6 +30,7 @@ import fr.elimerl.registre.recherche.grammaire.RequêteEntreParenthèse;
 import fr.elimerl.registre.recherche.grammaire.RequêteSurChamp;
 import fr.elimerl.registre.recherche.signes.Champ;
 import fr.elimerl.registre.recherche.signes.MotClé;
+import fr.elimerl.registre.services.Indexeur;
 
 /**
  * Ce test JUnit teste les implémentations de la méthode
@@ -49,6 +51,10 @@ public class TestCréerPrédicat {
     @PersistenceContext(unitName = "Registre")
     private EntityManager em;
 
+    /** Le service d’indexation, fournit par Spring. */
+    @Resource(name = "indexeur")
+    private Indexeur indexeur;
+
     /** Constructeur de requêtes lié à {@link #em}. */
     private CriteriaBuilder constructeur;
 
@@ -68,6 +74,12 @@ public class TestCréerPrédicat {
 	fiche = requête.from(Fiche.class);
 	requête.select(fiche);
 	requête.orderBy(constructeur.asc(fiche.get("id")));
+
+	/* Indexation de toutes les fiches. */
+	final TypedQuery<Fiche> requêteJpa = em.createQuery(requête);
+	for (final Fiche fiche : requêteJpa.getResultList()) {
+	    indexeur.réindexer(fiche);
+	}
     }
 
     /**
