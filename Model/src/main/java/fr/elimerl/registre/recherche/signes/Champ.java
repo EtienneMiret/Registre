@@ -23,13 +23,13 @@ import fr.elimerl.registre.entités.Série;
  */
 public final class Champ<T> extends Signe {
 
-    /**
-     * Liste de tous les champs existants. <em>En lecture seule.</em>
-     */
     /*
      * Pour l’instant, on fait confiance aux utilisateurs de cette bibliothèque
      * pour ne pas modifier ce champ. À terme, il faudra peut-être l’encapsuler
      * pour le protéger des modifications.
+     */
+    /**
+     * Liste de tous les champs existants. <em>En lecture seule.</em>
      */
     public static final List<Champ<?>> tous = new ArrayList<Champ<?>>();
 
@@ -81,6 +81,7 @@ public final class Champ<T> extends Signe {
      * Crée un nouveau type de champ, et l’enregistre dans {@link #tous}.
      * @param nom nom du champ à créer.
      * @param classe classe des objets mis dans le champ à créer.
+     * @param <T> types des objets dans le champ à créer.
      * @return le nouveau champ.
      */
     private static <T> Champ<T> valeurDe(final String nom,
