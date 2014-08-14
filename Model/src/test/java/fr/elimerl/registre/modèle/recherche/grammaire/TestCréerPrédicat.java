@@ -312,6 +312,46 @@ public class TestCréerPrédicat {
     }
 
     /**
+     * Teste la recherche de « luky » dans tous les champs.
+     */
+    @Test
+    public void testLukyPartout() {
+	journal.info("Création d’un prédicat pour la recherche de « luky »"
+		+ " dans tous les champs.");
+	final MotCléSimple motClé = new MotCléSimple(new MotClé("luky"));
+	final List<Fiche> résultats = exécuter(motClé);
+	vérifier(résultats, 6, 7, 8, 9);
+    }
+
+    /**
+     * Teste la recherche de « luky » dans les titres.
+     */
+    @Test
+    public void testLukyTitre() {
+	journal.info("Création d’un prédicat pour la recherche de « luky »"
+		+ " dans les titres.");
+	final RequêteSurChamp<String> requêteSurChamp =
+		new RequêteSurChamp<String>(Champ.TITRE,
+			new MotClé("luky"));
+	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	vérifier(résultats, 7, 8, 9);
+    }
+
+    /**
+     * Teste la recherche de « luky » dans les séries.
+     */
+    @Test
+    public void testLukySérie() {
+	journal.info("Création d’un prédicat pour la recherche de « luky »"
+		+ " dans les séries");
+	final RequêteSurChamp<Série> requêteSurChamp =
+		new RequêteSurChamp<Série>(Champ.SÉRIE,
+			new MotClé("luky"));
+	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	vérifier(résultats, 6, 7, 8);
+    }
+
+    /**
      * Éxécute une recherche basée sur l’expression donnée.
      *
      * @param expression
