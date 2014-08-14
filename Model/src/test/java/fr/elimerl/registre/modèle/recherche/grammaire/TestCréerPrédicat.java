@@ -99,8 +99,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’un mot clé simple.");
 	final MotCléSimple motClé = new MotCléSimple(new MotClé("super"));
 	final List<Fiche> résultats = exécuter(motClé);
-	assertEquals(1, résultats.size());
-	assertEquals(1, résultats.get(0).getId().longValue());
+	vérifier(résultats, 1);
     }
 
     /**
@@ -114,10 +113,7 @@ public class TestCréerPrédicat {
 	final RequêteSurChamp<String> requêteSurChamp =
 		new RequêteSurChamp<String>(Champ.TITRE, new MotClé("la"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(3, résultats.size());
-	assertEquals(4, résultats.get(0).getId().longValue());
-	assertEquals(5, résultats.get(1).getId().longValue());
-	assertEquals(7, résultats.get(2).getId().longValue());
+	vérifier(résultats, 4, 5, 7);
     }
 
     /**
@@ -132,8 +128,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<String>(Champ.COMMENTAIRE,
 			new MotClé("super"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(1, résultats.size());
-	assertEquals(1, résultats.get(0).getId().longValue());
+	vérifier(résultats, 1);
     }
 
     /**
@@ -148,9 +143,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<Série>(Champ.SÉRIE,
 			new MotClé("warhammer"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(2, résultats.size());
-	assertEquals(4, résultats.get(0).getId().longValue());
-	assertEquals(5, résultats.get(1).getId().longValue());
+	vérifier(résultats, 4, 5);
     }
 
     /**
@@ -166,11 +159,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<Propriétaire>(Champ.PROPRIÉTAIRE,
 			new MotClé("etienne"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(4, résultats.size());
-	assertEquals(1, résultats.get(0).getId().longValue());
-	assertEquals(2, résultats.get(1).getId().longValue());
-	assertEquals(4, résultats.get(2).getId().longValue());
-	assertEquals(5, résultats.get(3).getId().longValue());
+	vérifier(résultats, 1, 2, 4, 5);
     }
 
     /**
@@ -186,10 +175,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<Emplacement>(Champ.EMPLACEMENT,
 			new MotClé("verneuil"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(3, résultats.size());
-	assertEquals(0, résultats.get(0).getId().longValue());
-	assertEquals(1, résultats.get(1).getId().longValue());
-	assertEquals(2, résultats.get(2).getId().longValue());
+	vérifier(résultats, 0, 1, 2);
     }
 
     /**
@@ -205,8 +191,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<Réalisateur>(Champ.RÉALISATEUR,
 			new MotClé("besson"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(1, résultats.size());
-	assertEquals(3, résultats.get(0).getId().longValue());
+	vérifier(résultats, 3);
     }
 
     /**
@@ -221,8 +206,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<Acteur>(Champ.ACTEUR,
 			new MotClé("scarlett"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(1, résultats.size());
-	assertEquals(3, résultats.get(0).getId().longValue());
+	vérifier(résultats, 3);
     }
 
     /**
@@ -237,8 +221,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<Compositeur>(Champ.COMPOSITEUR,
 			new MotClé("howard"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(1, résultats.size());
-	assertEquals(1, résultats.get(0).getId().longValue());
+	vérifier(résultats, 1);
     }
 
     /**
@@ -253,10 +236,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<Dessinateur>(Champ.DESSINATEUR,
 			new MotClé("morris"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(3, résultats.size());
-	assertEquals(6, résultats.get(0).getId().longValue());
-	assertEquals(7, résultats.get(1).getId().longValue());
-	assertEquals(8, résultats.get(2).getId().longValue());
+	vérifier(résultats, 6, 7, 8);
     }
 
     /**
@@ -271,8 +251,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<Scénariste>(Champ.SCÉNARISTE,
 			new MotClé("renard"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(1, résultats.size());
-	assertEquals(0, résultats.get(0).getId().longValue());
+	vérifier(résultats, 0);
     }
 
     /**
@@ -287,8 +266,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<Auteur>(Champ.AUTEUR,
 			new MotClé("thorpe"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	assertEquals(1, résultats.size());
-	assertEquals(5, résultats.get(0).getId().longValue());
+	vérifier(résultats, 5);
     }
 
     /**
@@ -306,8 +284,7 @@ public class TestCréerPrédicat {
 			)
 		);
 	final List<Fiche> résultats = exécuter(requêteEntreParenthèse);
-	assertEquals(1, résultats.size());
-	assertEquals(1, résultats.get(0).getId().longValue());
+	vérifier(résultats, 1);
     }
 
     /**
@@ -331,11 +308,7 @@ public class TestCréerPrédicat {
 		fiche));
 	final TypedQuery<Fiche> requêteJpa = em.createQuery(requête);
 	final List<Fiche> résultats = requêteJpa.getResultList();
-	assertEquals(4, résultats.size());
-	assertEquals(1, résultats.get(0).getId().longValue());
-	assertEquals(2, résultats.get(1).getId().longValue());
-	assertEquals(4, résultats.get(2).getId().longValue());
-	assertEquals(5, résultats.get(3).getId().longValue());
+	vérifier(résultats, 1, 2, 4, 5);
     }
 
     /**
@@ -350,6 +323,22 @@ public class TestCréerPrédicat {
     private List<Fiche> exécuter(final Expression expression) {
 	requête.where(expression.créerPrédicat(constructeur, requête, fiche));
 	return em.createQuery(requête).getResultList();
+    }
+
+    /**
+     * Vérifie que la liste de résultats trouvés correspond bien à ce qui est
+     * attendu.
+     * @param résultats liste de résultats trouvés.
+     * @param attendus liste des id attendues, dans l’ordre.
+     * @throws AssertionError si les résultats ne sont pas ceux attendus.
+     */
+    private static void vérifier(final List<Fiche> résultats,
+	    final long... attendus) {
+	journal.debug("Trouvé : {}.", résultats);
+	assertEquals(attendus.length, résultats.size());
+	for (int i = 0; i < attendus.length; i++) {
+	    assertEquals(attendus[i], résultats.get(i).getId().longValue());
+	}
     }
 
 }
