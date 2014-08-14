@@ -334,7 +334,7 @@ public class TestCréerPrédicat {
 		new RequêteSurChamp<String>(Champ.TITRE,
 			new MotClé("luky"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	vérifier(résultats, 7, 8, 9);
+	vérifier(résultats, 7, 9);
     }
 
     /**
