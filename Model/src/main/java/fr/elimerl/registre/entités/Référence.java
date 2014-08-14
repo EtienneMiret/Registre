@@ -46,7 +46,7 @@ public class Référence {
 	COMMENTAIRE,
 
 	/**
-	 * Correspond aux autres champ d’une {@code Fiche}.
+	 * Correspond aux autres champs d’une {@code Fiche}.
 	 */
 	AUTRE
 
