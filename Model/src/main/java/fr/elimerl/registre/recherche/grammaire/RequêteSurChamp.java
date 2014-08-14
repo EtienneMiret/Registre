@@ -96,7 +96,8 @@ public final class RequêteSurChamp<T> extends Expression {
 	for (int i = 0; i < motsClés.size(); i++) {
 	    prédicats[i] = constructeur.equal(mot, motsClés.get(i).getValeur());
 	}
-	sousRequête.where(constructeur.and(prédicats));
+	sousRequête.where(constructeur.and(constructeur.and(prédicats),
+		constructeur.equal(référence.get("champ"), champ)));
 	return constructeur.in(fiche).value(sousRequête);
     }
 
@@ -121,8 +122,8 @@ public final class RequêteSurChamp<T> extends Expression {
 	    final Subquery<T> sousRequête =
 		    requête.subquery(champ.getClasse());
 	    final Root<T> type = sousRequête.from(champ.getClasse());
-	    final Predicate comme = constructeur.like(
-		    constructeur.lower(type.<String>get("nom")), mot);
+	    final Predicate comme = constructeur.like(constructeur.lower(
+		    type.<String>get("nom")), "%" + mot + "%");
 	    sousRequête.select(type);
 	    sousRequête.where(comme);
 	    prédicats[i] = constructeur.in(fiche.get(champ.getNom())).value(
