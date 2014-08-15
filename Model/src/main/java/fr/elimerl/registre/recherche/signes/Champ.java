@@ -5,10 +5,13 @@ import java.util.List;
 
 import fr.elimerl.registre.entités.Acteur;
 import fr.elimerl.registre.entités.Auteur;
+import fr.elimerl.registre.entités.BandeDessinée;
 import fr.elimerl.registre.entités.Compositeur;
 import fr.elimerl.registre.entités.Dessinateur;
 import fr.elimerl.registre.entités.Emplacement;
 import fr.elimerl.registre.entités.Fiche;
+import fr.elimerl.registre.entités.Film;
+import fr.elimerl.registre.entités.Livre;
 import fr.elimerl.registre.entités.Propriétaire;
 import fr.elimerl.registre.entités.Réalisateur;
 import fr.elimerl.registre.entités.Scénariste;
@@ -32,57 +35,62 @@ public final class Champ extends Signe {
 
     /** Le titre d’une fiche. */
     public static final Champ TITRE =
-	    valeurDe("titre", String.class);
+	    valeurDe("titre", String.class, Fiche.class);
 
     /** Le commentaire associé à une fiche. */
     public static final Champ COMMENTAIRE =
-	    valeurDe("commentaire", String.class);
+	    valeurDe("commentaire", String.class, Fiche.class);
 
     /** La série dont fait partie une fiche. */
     public static final Champ SÉRIE =
-	    valeurDe("série", Série.class);
+	    valeurDe("série", Série.class, Fiche.class);
 
     /** Le propriétaire d’une fiche. */
     public static final Champ PROPRIÉTAIRE =
-	    valeurDe("propriétaire", Propriétaire.class);
+	    valeurDe("propriétaire", Propriétaire.class, Fiche.class);
 
     /** L’emplacement où est rangé une fiche. */
     public static final Champ EMPLACEMENT =
-	    valeurDe("emplacement", Emplacement.class);
+	    valeurDe("emplacement", Emplacement.class, Fiche.class);
 
     /** Le réalisateur d’un film. */
     public static final Champ RÉALISATEUR =
-	    valeurDe("réalisateur", Réalisateur.class);
+	    valeurDe("réalisateur", Réalisateur.class, Film.class);
 
     /** Un acteur qui joue dans un film. */
     public static final Champ ACTEUR =
-	    valeurDe("acteur", Acteur.class);
+	    valeurDe("acteur", Acteur.class, Film.class);
 
     /** Le compositeur de la musique d’un film. */
     public static final Champ COMPOSITEUR =
-	    valeurDe("compositeur", Compositeur.class);
+	    valeurDe("compositeur", Compositeur.class, Film.class);
 
     /** Le dessinateur d’une bande-dessinée. */
     public static final Champ DESSINATEUR =
-	    valeurDe("dessinateur", Dessinateur.class);
+	    valeurDe("dessinateur", Dessinateur.class, BandeDessinée.class);
 
     /** Le scénariste d’une bande-dessinée. */
     public static final Champ SCÉNARISTE =
-	    valeurDe("scénariste", Scénariste.class);
+	    valeurDe("scénariste", Scénariste.class, BandeDessinée.class);
 
     /** L’auteur d’un livre. */
     public static final Champ AUTEUR =
-	    valeurDe("auteur", Auteur.class);
+	    valeurDe("auteur", Auteur.class, Livre.class);
 
     /**
      * Crée un nouveau type de champ, et l’enregistre dans {@link #tous}.
-     * @param nom nom du champ à créer.
-     * @param classe classe des objets mis dans le champ à créer.
+     *
+     * @param nom
+     *            nom du champ à créer.
+     * @param classe
+     *            classe des objets mis dans le champ à créer.
+     * @param classeDéclarante
+     *            classe à laquelle appartient ce champ.
      * @return le nouveau champ.
      */
-    private static Champ valeurDe(final String nom,
-	    final Class<?> classe) {
-	final Champ résultat = new Champ(nom, classe);
+    private static Champ valeurDe(final String nom, final Class<?> classe,
+	    final Class<? extends Fiche> classeDéclarante) {
+	final Champ résultat = new Champ(nom, classe, classeDéclarante);
 	tous.add(résultat);
 	return résultat;
     }
@@ -91,6 +99,12 @@ public final class Champ extends Signe {
      * La classe des objets mis dans ce champ.
      */
     private final Class<?> classe;
+
+    /**
+     * La classe à laquelle appartient ce champ. Par exemple {@link Film} pour
+     * le champ réalisateur et {@link BandeDessinée} pour le champ dessinateur.
+     */
+    private final Class<? extends Fiche> classeDéclarante;
 
     /**
      * Le nom de ce champ. Il s’agit à la fois du nom de l’attribut
@@ -110,10 +124,14 @@ public final class Champ extends Signe {
      *            recherche sur ce champ.
      * @param classe
      *            classe des objets mis dans ce champ.
+     * @param classeDéclarante
+     *            classe à laquelle appartient ce champ.
      */
-    private Champ(final String nom, final Class<?> classe) {
+    private Champ(final String nom, final Class<?> classe,
+	    final Class<? extends Fiche> classeDéclarante) {
 	super(nom + ':');
 	this.classe = classe;
+	this.classeDéclarante = classeDéclarante;
 	this.nom = nom;
     }
 
@@ -124,6 +142,15 @@ public final class Champ extends Signe {
      */
     public Class<?> getClasse() {
 	return classe;
+    }
+
+    /**
+     * Renvoie la classe à laquelle appartient ce champ.
+     *
+     * @return la classe à laquelle appartient ce champ.
+     */
+    public Class<? extends Fiche> getClasseDéclarante() {
+	return classeDéclarante;
     }
 
     /**
