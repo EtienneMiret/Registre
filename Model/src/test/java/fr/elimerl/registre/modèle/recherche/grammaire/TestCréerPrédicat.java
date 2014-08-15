@@ -247,7 +247,7 @@ public class TestCréerPrédicat {
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.AUTEUR, new MotClé("thorpe"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
-	vérifier(résultats, 5);
+	vérifier(résultats, 4);
     }
 
     /**

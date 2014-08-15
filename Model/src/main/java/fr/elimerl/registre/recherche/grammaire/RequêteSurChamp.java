@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.entités.Fiche;
-import fr.elimerl.registre.entités.Film;
+import fr.elimerl.registre.entités.Nommé;
 import fr.elimerl.registre.entités.Référence;
 import fr.elimerl.registre.recherche.signes.Champ;
 import fr.elimerl.registre.recherche.signes.MotClé;
@@ -56,16 +56,10 @@ public final class RequêteSurChamp extends Expression {
 	} else if (champ == Champ.COMMENTAIRE) {
 	    résultat = prédicatPourRéférence(Référence.Champ.COMMENTAIRE,
 		    constructeur, requête, fiche);
-	} else if (champ == Champ.SÉRIE) {
-	    résultat = prédicatPourFiche(constructeur, requête, fiche);
-	} else if (champ == Champ.PROPRIÉTAIRE) {
-	    résultat = prédicatPourFiche(constructeur, requête, fiche);
-	} else if (champ == Champ.EMPLACEMENT) {
-	    résultat = prédicatPourFiche(constructeur, requête, fiche);
-	} else if (champ == Champ.RÉALISATEUR) {
-	    résultat = prédicatPourFilm(constructeur, requête, fiche);
+	} else if (champ == Champ.ACTEUR) {
+	    throw new RuntimeException("Pas encore implémenté.");
 	} else {
-	    throw new RuntimeException("Champ inconnu : " + champ);
+	    résultat = prédicatPourNommé(constructeur, requête, fiche);
 	}
 	return résultat;
     }
@@ -102,7 +96,7 @@ public final class RequêteSurChamp extends Expression {
     }
 
     /**
-     * Crée un prédicat pour un champ de {@link Fiche}.
+     * Crée un prédicat pour un champ qui contient un {@link Nommé}.
      *
      * @param constructeur
      *            constructeur de requêtes.
@@ -110,31 +104,18 @@ public final class RequêteSurChamp extends Expression {
      *            la requête principale dont on construit la clause where.
      * @param fiche
      *            la racine de la requête.
-     * @param <T> type privé utilisé à l’intérieur de la méthode.
      * @return un prédicat, lié à la requête passée en paramètre, qui teste si
      *         une fiche contient les mot clés {@link #motsClés} dans son champ
      *         {@link #champ}.
      */
-    private <T> Predicate prédicatPourFiche(final CriteriaBuilder constructeur,
+    private Predicate prédicatPourNommé(final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	for (int i = 0; i < motsClés.size(); i++) {
 	    final String mot = motsClés.get(i).getValeur();
 	    prédicats[i] = constructeur.like(
-		    constructeur.lower(constructeur.treat(fiche, Fiche.class)
-			    .get(champ.getNom()).<String> get("nom")),
-			    "%" + mot + "%");
-	}
-	return constructeur.and(prédicats);
-    }
-
-    private Predicate prédicatPourFilm(final CriteriaBuilder constructeur,
-	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
-	final Predicate[] prédicats = new Predicate[motsClés.size()];
-	for (int i = 0; i < motsClés.size(); i++) {
-	    final String mot = motsClés.get(i).getValeur();
-	    prédicats[i] = constructeur.like(
-		    constructeur.lower(constructeur.treat(fiche, Film.class)
+		    constructeur.lower(constructeur
+			    .treat(fiche, champ.getClasseDéclarante())
 			    .get(champ.getNom()).<String> get("nom")),
 			    "%" + mot + "%");
 	}
