@@ -90,9 +90,9 @@ public class ParseurDeRecherches {
 		    i = comparateur.end();
 		}
 	    }
-	    final Iterator<Champ<?>> champs = Champ.tous.iterator();
+	    final Iterator<Champ> champs = Champ.tous.iterator();
 	    while (signe == null && champs.hasNext()) {
-		final Champ<?> champ = champs.next();
+		final Champ champ = champs.next();
 		final Matcher comparateur = champ.getMotif().matcher(requête);
 		if (comparateur.find(i)) {
 		    signe = champ;
@@ -195,7 +195,7 @@ public class ParseurDeRecherches {
 	} else if (premierSigne instanceof MotClé) {
 	    résultat = new MotCléSimple((MotClé) premierSigne);
 	} else if (premierSigne instanceof Champ) {
-	    résultat = analyserChamp((Champ<?>) premierSigne, signes);
+	    résultat = analyserChamp((Champ) premierSigne, signes);
 	} else {
 	    throw new ParseException("Début d’expression attendu, « "
 		    + premierSigne + " » trouvé.", -1);
@@ -212,18 +212,15 @@ public class ParseurDeRecherches {
      * @param signes
      *            la suite de signes à analyser. Doit commencer par un mot-clé
      *            ou par une suite de mots-clés entre parenthèse.
-     * @param <T>
-     *            le type du champ sur lequel on fait potentiellement une
-     *            requête.
      * @return une requête sur le champs donné, avec comme mots-clés ceux
      *         trouvés au début de la suite de signes.
      * @throws ParseException
      *             si la suite de signes ne commence ni par un mot-clé, ni par
      *             une suite de mots-clés entre parenthèse.
      */
-    private static <T> RequêteSurChamp<T> analyserChamp(final Champ<T> champ,
+    private static RequêteSurChamp analyserChamp(final Champ champ,
 	    final Queue<Signe> signes) throws ParseException {
-	final RequêteSurChamp<T> résultat;
+	final RequêteSurChamp résultat;
 	final Signe premierSigne = signes.poll();
 	if (premierSigne == Parenthèse.OUVRANTE) {
 	    final List<MotClé> motsClés = new ArrayList<MotClé>();
@@ -235,10 +232,10 @@ public class ParseurDeRecherches {
 		throw new ParseException("« ) » attendue, « "
 			+ signeSuivant + " » trouvé.", -1);
 	    }
-	    résultat = new RequêteSurChamp<T>(champ,
+	    résultat = new RequêteSurChamp(champ,
 		    motsClés.toArray(MOTS_CLÉS));
 	} else if (premierSigne instanceof MotClé) {
-	    résultat = new RequêteSurChamp<T>(champ, (MotClé) premierSigne);
+	    résultat = new RequêteSurChamp(champ, (MotClé) premierSigne);
 	} else {
 	    throw new ParseException("Mot-clé ou « ( » attendu, « "
 		    + premierSigne + " » trouvé.", -1);

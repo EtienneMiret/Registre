@@ -17,11 +17,8 @@ import fr.elimerl.registre.entités.Série;
 /**
  * Ce signe représente un champ dans lequel chercher un mot clé. Par exemple le
  * titre, le commentaire ou l’auteur.
- *
- * @param <T>
- *            le type d’objet mis dans ce champ.
  */
-public final class Champ<T> extends Signe {
+public final class Champ extends Signe {
 
     /*
      * Pour l’instant, on fait confiance aux utilisateurs de cette bibliothèque
@@ -31,62 +28,61 @@ public final class Champ<T> extends Signe {
     /**
      * Liste de tous les champs existants. <em>En lecture seule.</em>
      */
-    public static final List<Champ<?>> tous = new ArrayList<Champ<?>>();
+    public static final List<Champ> tous = new ArrayList<Champ>();
 
     /** Le titre d’une fiche. */
-    public static final Champ<String> TITRE =
+    public static final Champ TITRE =
 	    valeurDe("titre", String.class);
 
     /** Le commentaire associé à une fiche. */
-    public static final Champ<String> COMMENTAIRE =
+    public static final Champ COMMENTAIRE =
 	    valeurDe("commentaire", String.class);
 
     /** La série dont fait partie une fiche. */
-    public static final Champ<Série> SÉRIE =
+    public static final Champ SÉRIE =
 	    valeurDe("série", Série.class);
 
     /** Le propriétaire d’une fiche. */
-    public static final Champ<Propriétaire> PROPRIÉTAIRE =
+    public static final Champ PROPRIÉTAIRE =
 	    valeurDe("propriétaire", Propriétaire.class);
 
     /** L’emplacement où est rangé une fiche. */
-    public static final Champ<Emplacement> EMPLACEMENT =
+    public static final Champ EMPLACEMENT =
 	    valeurDe("emplacement", Emplacement.class);
 
     /** Le réalisateur d’un film. */
-    public static final Champ<Réalisateur> RÉALISATEUR =
+    public static final Champ RÉALISATEUR =
 	    valeurDe("réalisateur", Réalisateur.class);
 
     /** Un acteur qui joue dans un film. */
-    public static final Champ<Acteur> ACTEUR =
+    public static final Champ ACTEUR =
 	    valeurDe("acteur", Acteur.class);
 
     /** Le compositeur de la musique d’un film. */
-    public static final Champ<Compositeur> COMPOSITEUR =
+    public static final Champ COMPOSITEUR =
 	    valeurDe("compositeur", Compositeur.class);
 
     /** Le dessinateur d’une bande-dessinée. */
-    public static final Champ<Dessinateur> DESSINATEUR =
+    public static final Champ DESSINATEUR =
 	    valeurDe("dessinateur", Dessinateur.class);
 
     /** Le scénariste d’une bande-dessinée. */
-    public static final Champ<Scénariste> SCÉNARISTE =
+    public static final Champ SCÉNARISTE =
 	    valeurDe("scénariste", Scénariste.class);
 
     /** L’auteur d’un livre. */
-    public static final Champ<Auteur> AUTEUR =
+    public static final Champ AUTEUR =
 	    valeurDe("auteur", Auteur.class);
 
     /**
      * Crée un nouveau type de champ, et l’enregistre dans {@link #tous}.
      * @param nom nom du champ à créer.
      * @param classe classe des objets mis dans le champ à créer.
-     * @param <T> types des objets dans le champ à créer.
      * @return le nouveau champ.
      */
-    private static <T> Champ<T> valeurDe(final String nom,
-	    final Class<T> classe) {
-	final Champ<T> résultat = new Champ<T>(nom, classe);
+    private static Champ valeurDe(final String nom,
+	    final Class<?> classe) {
+	final Champ résultat = new Champ(nom, classe);
 	tous.add(résultat);
 	return résultat;
     }
@@ -94,7 +90,7 @@ public final class Champ<T> extends Signe {
     /**
      * La classe des objets mis dans ce champ.
      */
-    private final Class<T> classe;
+    private final Class<?> classe;
 
     /**
      * Le nom de ce champ. Il s’agit à la fois du nom de l’attribut
@@ -115,7 +111,7 @@ public final class Champ<T> extends Signe {
      * @param classe
      *            classe des objets mis dans ce champ.
      */
-    private Champ(final String nom, final Class<T> classe) {
+    private Champ(final String nom, final Class<?> classe) {
 	super(nom + ':');
 	this.classe = classe;
 	this.nom = nom;
@@ -126,7 +122,7 @@ public final class Champ<T> extends Signe {
      *
      * @return la classe à laquelle appartiennent les objets mis dans ce champ.
      */
-    public Class<T> getClasse() {
+    public Class<?> getClasse() {
 	return classe;
     }
 

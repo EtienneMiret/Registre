@@ -21,16 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.entités.Acteur;
-import fr.elimerl.registre.entités.Auteur;
-import fr.elimerl.registre.entités.Compositeur;
-import fr.elimerl.registre.entités.Dessinateur;
-import fr.elimerl.registre.entités.Emplacement;
 import fr.elimerl.registre.entités.Fiche;
-import fr.elimerl.registre.entités.Propriétaire;
-import fr.elimerl.registre.entités.Réalisateur;
-import fr.elimerl.registre.entités.Scénariste;
-import fr.elimerl.registre.entités.Série;
 import fr.elimerl.registre.recherche.grammaire.Expression;
 import fr.elimerl.registre.recherche.grammaire.MotCléSimple;
 import fr.elimerl.registre.recherche.grammaire.Requête;
@@ -110,8 +101,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampTitre() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " titre.");
-	final RequêteSurChamp<String> requêteSurChamp =
-		new RequêteSurChamp<String>(Champ.TITRE, new MotClé("la"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.TITRE, new MotClé("la"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4, 5, 7);
     }
@@ -124,9 +115,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampCommentaire() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " commentaire.");
-	final RequêteSurChamp<String> requêteSurChamp =
-		new RequêteSurChamp<String>(Champ.COMMENTAIRE,
-			new MotClé("super"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.COMMENTAIRE, new MotClé("super"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1);
     }
@@ -139,9 +129,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampSérie() {
 	journal.info("Création d’un prédicat à partir d’une requête sur la"
 		+ " série.");
-	final RequêteSurChamp<Série> requêteSurChamp =
-		new RequêteSurChamp<Série>(Champ.SÉRIE,
-			new MotClé("warhammer"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.SÉRIE, new MotClé("warhammer"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4, 5);
     }
@@ -155,9 +144,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampPropriétaire() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " propriétaire.");
-	final RequêteSurChamp<Propriétaire> requêteSurChamp =
-		new RequêteSurChamp<Propriétaire>(Champ.PROPRIÉTAIRE,
-			new MotClé("etienne"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.PROPRIÉTAIRE, new MotClé("etienne"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1, 2, 4, 5);
     }
@@ -171,9 +159,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampEmplacement() {
 	journal.info("Création d’un prédicat à partir d’une requête sur"
 		+ " l’emplacement.");
-	final RequêteSurChamp<Emplacement> requêteSurChamp =
-		new RequêteSurChamp<Emplacement>(Champ.EMPLACEMENT,
-			new MotClé("verneuil"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.EMPLACEMENT, new MotClé("verneuil"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 0, 1, 2);
     }
@@ -187,9 +174,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampRéalisateur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " réalisateur.");
-	final RequêteSurChamp<Réalisateur> requêteSurChamp =
-		new RequêteSurChamp<Réalisateur>(Champ.RÉALISATEUR,
-			new MotClé("besson"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.RÉALISATEUR, new MotClé("besson"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 3);
     }
@@ -202,9 +188,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampActeur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur les"
 		+ " acteurs");
-	final RequêteSurChamp<Acteur> requêteSurChamp =
-		new RequêteSurChamp<Acteur>(Champ.ACTEUR,
-			new MotClé("scarlett"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.ACTEUR, new MotClé("scarlett"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 3);
     }
@@ -217,9 +202,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampCompositeur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " compositeur.");
-	final RequêteSurChamp<Compositeur> requêteSurChamp =
-		new RequêteSurChamp<Compositeur>(Champ.COMPOSITEUR,
-			new MotClé("howard"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.COMPOSITEUR, new MotClé("howard"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1);
     }
@@ -232,9 +216,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampDessinateur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " dessinateur.");
-	final RequêteSurChamp<Dessinateur> requêteSurChamp =
-		new RequêteSurChamp<Dessinateur>(Champ.DESSINATEUR,
-			new MotClé("morris"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.DESSINATEUR, new MotClé("morris"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 6, 7, 8);
     }
@@ -247,9 +230,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampScénariste() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " scénariste");
-	final RequêteSurChamp<Scénariste> requêteSurChamp =
-		new RequêteSurChamp<Scénariste>(Champ.SCÉNARISTE,
-			new MotClé("renard"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.SCÉNARISTE, new MotClé("renard"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 0);
     }
@@ -262,9 +244,8 @@ public class TestCréerPrédicat {
     public void testRequêteSurChampAuteur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur"
 		+ " l’auteur");
-	final RequêteSurChamp<Auteur> requêteSurChamp =
-		new RequêteSurChamp<Auteur>(Champ.AUTEUR,
-			new MotClé("thorpe"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.AUTEUR, new MotClé("thorpe"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 5);
     }
@@ -296,11 +277,11 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête complexe.");
 	final Requête requêteUtilisateur = new Requête(false,
 		new MotCléSimple(new MotClé("coucou")),
-		new RequêteSurChamp<String>(Champ.TITRE,
+		new RequêteSurChamp(Champ.TITRE,
 			new MotClé("honneur"),
 			new MotClé("dette")
 		),
-		new RequêteSurChamp<Propriétaire>(Champ.PROPRIÉTAIRE,
+		new RequêteSurChamp(Champ.PROPRIÉTAIRE,
 			new MotClé("etienne")
 		)
 	);
@@ -330,9 +311,8 @@ public class TestCréerPrédicat {
     public void testLukyTitre() {
 	journal.info("Création d’un prédicat pour la recherche de « luky »"
 		+ " dans les titres.");
-	final RequêteSurChamp<String> requêteSurChamp =
-		new RequêteSurChamp<String>(Champ.TITRE,
-			new MotClé("luky"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.TITRE, new MotClé("luky"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 7, 9);
     }
@@ -344,9 +324,8 @@ public class TestCréerPrédicat {
     public void testLukySérie() {
 	journal.info("Création d’un prédicat pour la recherche de « luky »"
 		+ " dans les séries");
-	final RequêteSurChamp<Série> requêteSurChamp =
-		new RequêteSurChamp<Série>(Champ.SÉRIE,
-			new MotClé("luky"));
+	final RequêteSurChamp requêteSurChamp =
+		new RequêteSurChamp(Champ.SÉRIE, new MotClé("luky"));
 	final List<Fiche> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 6, 7, 8);
     }

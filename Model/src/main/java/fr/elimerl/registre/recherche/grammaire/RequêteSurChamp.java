@@ -20,17 +20,14 @@ import fr.elimerl.registre.recherche.signes.MotClé;
 /**
  * Type d’expression du langage de recherche qui représente une requête sur un
  * champ.
- *
- * @param <T>
- *            le type du champ sur lequel est fait cette requête.
  */
-public final class RequêteSurChamp<T> extends Expression {
+public final class RequêteSurChamp extends Expression {
 
     /** Un nombre premier. Utiliser pour calculer le hash. */
     private static final int PREMIER = 31;
 
     /** Champ sur lequel cette requête est faite. */
-    private final Champ<T> champ;
+    private final Champ champ;
 
     /** Liste de mots-clés à trouver pour cette requête. */
     private final List<MotClé> motsClés;
@@ -44,7 +41,7 @@ public final class RequêteSurChamp<T> extends Expression {
      * @param motsClés
      *            liste de mots-clés à trouver dans le champ.
      */
-    public RequêteSurChamp(final Champ<T> champ, final MotClé... motsClés) {
+    public RequêteSurChamp(final Champ champ, final MotClé... motsClés) {
 	this.champ = champ;
 	this.motsClés = Arrays.asList(motsClés);
     }
@@ -113,11 +110,12 @@ public final class RequêteSurChamp<T> extends Expression {
      *            la requête principale dont on construit la clause where.
      * @param fiche
      *            la racine de la requête.
+     * @param <T> type privé utilisé à l’intérieur de la méthode.
      * @return un prédicat, lié à la requête passée en paramètre, qui teste si
      *         une fiche contient les mot clés {@link #motsClés} dans son champ
      *         {@link #champ}.
      */
-    private Predicate prédicatPourFiche(final CriteriaBuilder constructeur,
+    private <T> Predicate prédicatPourFiche(final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	for (int i = 0; i < motsClés.size(); i++) {
@@ -149,7 +147,7 @@ public final class RequêteSurChamp<T> extends Expression {
 	if (objet == this) {
 	    résultat = true;
 	} else if (objet instanceof RequêteSurChamp) {
-	    final RequêteSurChamp<?> requête = (RequêteSurChamp<?>) objet;
+	    final RequêteSurChamp requête = (RequêteSurChamp) objet;
 	    if (champ == null && motsClés == null) {
 		résultat = (requête.champ == null && requête.motsClés == null);
 	    } else if (champ == null) {
