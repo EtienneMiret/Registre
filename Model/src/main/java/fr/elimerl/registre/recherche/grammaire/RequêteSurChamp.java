@@ -116,7 +116,7 @@ public final class RequêteSurChamp extends Expression {
 	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	@SuppressWarnings("unchecked")
-	final Class<T> classe = (Class<T>) champ.getClass();
+	final Class<T> classe = (Class<T>) champ.getClasse();
 	for (int i = 0; i < motsClés.size(); i++) {
 	    final String mot = motsClés.get(i).getValeur();
 	    final Subquery<T> sousRequête = requête.subquery(classe);

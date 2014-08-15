@@ -152,8 +152,8 @@ public class TestAnalyseGrammaticale {
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
 	final Requête attendue = new Requête(false,
-		new RequêteSurChamp<String>(Champ.TITRE, maman),
-		new RequêteSurChamp<String>(Champ.COMMENTAIRE,
+		new RequêteSurChamp(Champ.TITRE, maman),
+		new RequêteSurChamp(Champ.COMMENTAIRE,
 			etienne, grégoire),
 		new RequêteEntreParenthèse(
 			new Requête(true,
