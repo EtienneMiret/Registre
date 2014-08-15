@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.entités.Fiche;
+import fr.elimerl.registre.entités.Film;
 import fr.elimerl.registre.entités.Référence;
 import fr.elimerl.registre.recherche.signes.Champ;
 import fr.elimerl.registre.recherche.signes.MotClé;
@@ -64,6 +65,8 @@ public final class RequêteSurChamp<T> extends Expression {
 	    résultat = prédicatPourFiche(constructeur, requête, fiche);
 	} else if (champ == Champ.EMPLACEMENT) {
 	    résultat = prédicatPourFiche(constructeur, requête, fiche);
+	} else if (champ == Champ.RÉALISATEUR) {
+	    résultat = prédicatPourFilm(constructeur, requête, fiche);
 	} else {
 	    throw new RuntimeException("Champ inconnu : " + champ);
 	}
@@ -119,15 +122,23 @@ public final class RequêteSurChamp<T> extends Expression {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	for (int i = 0; i < motsClés.size(); i++) {
 	    final String mot = motsClés.get(i).getValeur();
-	    final Subquery<T> sousRequête =
-		    requête.subquery(champ.getClasse());
-	    final Root<T> type = sousRequête.from(champ.getClasse());
-	    final Predicate comme = constructeur.like(constructeur.lower(
-		    type.<String>get("nom")), "%" + mot + "%");
-	    sousRequête.select(type);
-	    sousRequête.where(comme);
-	    prédicats[i] = constructeur.in(fiche.get(champ.getNom())).value(
-		    sousRequête);
+	    prédicats[i] = constructeur.like(
+		    constructeur.lower(constructeur.treat(fiche, Fiche.class)
+			    .get(champ.getNom()).<String> get("nom")),
+			    "%" + mot + "%");
+	}
+	return constructeur.and(prédicats);
+    }
+
+    private Predicate prédicatPourFilm(final CriteriaBuilder constructeur,
+	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	final Predicate[] prédicats = new Predicate[motsClés.size()];
+	for (int i = 0; i < motsClés.size(); i++) {
+	    final String mot = motsClés.get(i).getValeur();
+	    prédicats[i] = constructeur.like(
+		    constructeur.lower(constructeur.treat(fiche, Film.class)
+			    .get(champ.getNom()).<String> get("nom")),
+			    "%" + mot + "%");
 	}
 	return constructeur.and(prédicats);
     }
