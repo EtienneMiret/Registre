@@ -116,7 +116,7 @@ public final class RequêteSurChamp extends Expression {
 	    prédicats[i] = constructeur.like(
 		    constructeur.lower(constructeur
 			    .treat(fiche, champ.getClasseDéclarante())
-			    .get(champ.getNom()).<String> get("nom")),
+			    .get(champ.getNom()).<String>get("nom")),
 			    "%" + mot + "%");
 	}
 	return constructeur.and(prédicats);
