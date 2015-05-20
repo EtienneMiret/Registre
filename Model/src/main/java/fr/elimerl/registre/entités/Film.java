@@ -31,6 +31,8 @@ public class Film extends Fiche {
 	K7("Cassette"),
 	/** Un DVD. */
 	DVD("DVD"),
+	/** Dématérialisé. */
+	DEM("Dématérialisé"),
 	/** Un disque Blu-Ray. */
 	BRD("Blu-Ray");
 
