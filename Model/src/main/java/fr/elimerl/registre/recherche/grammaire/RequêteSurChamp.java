@@ -3,6 +3,7 @@ package fr.elimerl.registre.recherche.grammaire;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -11,7 +12,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
+import fr.elimerl.registre.entités.Acteur;
 import fr.elimerl.registre.entités.Fiche;
+import fr.elimerl.registre.entités.Film;
 import fr.elimerl.registre.entités.Nommé;
 import fr.elimerl.registre.entités.Référence;
 import fr.elimerl.registre.recherche.signes.Champ;
@@ -57,7 +60,7 @@ public final class RequêteSurChamp extends Expression {
 	    résultat = prédicatPourRéférence(Référence.Champ.COMMENTAIRE,
 		    constructeur, requête, fiche);
 	} else if (champ == Champ.ACTEUR) {
-	    throw new RuntimeException("Pas encore implémenté.");
+	    résultat = prédicatPourActeur(constructeur, requête, fiche);
 	} else {
 	    résultat = prédicatPourNommé(constructeur, requête, fiche);
 	}
@@ -93,6 +96,36 @@ public final class RequêteSurChamp extends Expression {
 	sousRequête.where(constructeur.and(constructeur.and(prédicats),
 		constructeur.equal(référence.get("champ"), champ)));
 	return constructeur.in(fiche).value(sousRequête);
+    }
+
+    /**
+     * Crée un prédicat pour le champ « acteur ».
+     *
+     * @param constructeur
+     *            constructeur de requêtes.
+     * @param requête
+     *            la requête principale dont on construit la clause where.
+     * @param fiche
+     *            la racine de la requête.
+     * @return un prédicat, lié à la requête passée en paramètre, qui teste si
+     *           une fiche de film contient les mot clés {@link #motsClés} dans
+     *           un de ses acteurs.
+     */
+    private Predicate prédicatPourActeur(final CriteriaBuilder constructeur,
+	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	final Predicate[] prédicats = new Predicate[motsClés.size()];
+	final Subquery<Acteur> sousRequête = requête.subquery(Acteur.class);
+	final Root<Acteur> acteur = sousRequête.from(Acteur.class);
+	final Path<String> nom = acteur.get("nom");
+	sousRequête.select(acteur);
+	for (int i = 0; i < motsClés.size(); i++) {
+	    prédicats[i] = constructeur.like(nom,
+		    "%" + motsClés.get(i).getValeur() + "%");
+	}
+	sousRequête.where(constructeur.and(prédicats));
+	final Path<Set<Acteur>> acteurs =
+		constructeur.treat(fiche, Film.class).get("acteurs");
+	return constructeur.isMember(acteur, acteurs);
     }
 
     /**
