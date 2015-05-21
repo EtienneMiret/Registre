@@ -19,7 +19,7 @@ import javax.persistence.Table;
  * {@link Champ} de la fiche il se trouve.
  */
 @Entity
-@Table(name = "`index`")
+@Table(name = "index_")
 @NamedQuery(
     name = "désindexerFiche",
     query = "delete from Référence r where r.fiche = :fiche"

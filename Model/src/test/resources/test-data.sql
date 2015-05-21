@@ -70,28 +70,28 @@ insert into series (id, nom) values (
 	(default, 'Luky Luke')
 );
 
-insert into fiches (id, titre, serie, commentaire, image, proprietaire,
+insert into fiches (id, titre, dtype, serie, commentaire, image, proprietaire,
 		emplacement, createur, creation, dernier_editeur,
 		derniere_edition) values (
-	(default, 'Globe-trotters', 0, null, null, 2,
+	(default, 'Globe-trotters', 'BandeDessinée', 0, null, null, 2,
 		0, 0, '2012-12-25 22:18:30', 1, '2013-02-16 22:19:58'),
-	(default, 'Merlin, Saison 1', 1, 'Une super série !', null, 0,
+	(default, 'Merlin, Saison 1', 'Film', 1, 'Une super série !', null, 0,
 		0, 0, '2012-12-25 22:21:29', 2, '2013-02-26 22:22:06'),
-	(default, 'Rainbow Six', null, null, null, 0,
+	(default, 'Rainbow Six', 'Livre', null, null, null, 0,
 		0, 0, '2013-07-04 21:48:00', 0, '2013-07-04 21:48:00'),
-	(default, 'Lucy', null, null, null, null,
+	(default, 'Lucy', 'Film', null, null, null, null,
 		4, 0, '2014-08-11 21:28:30', 0, '2014-08-11 21:28:30'),
-	(default, 'La Purge de Kadillus', 2, null, null, 0,
+	(default, 'La Purge de Kadillus', 'Livre', 2, null, null, 0,
 		4, 0, '2014-08-11 21:33:45', 0, '2014-08-11 21:33:45'),
-	(default, 'La Chute de Damnos', 2, null, null, 0,
+	(default, 'La Chute de Damnos', 'Livre', 2, null, null, 0,
 		4, 0, '2014-08-11 21:35:00', 0, '2014-08-11 21:35:00'),
-	(default, 'Alerte aux Pieds-Bleus', 4, null, null, 1,
+	(default, 'Alerte aux Pieds-Bleus', 'BandeDessinée', 4, null, null, 1,
 		3, 2, '2014-08-11 21:37:00', 2, '2014-08-11 21:37:00'),
-	(default, 'La Fiancée de Luky Luke', 4, null, null, 1,
+	(default, 'La Fiancée de Luky Luke', 'BandeDessinée', 4, null, null, 1,
 		3, 2, '2014-08-11 21:38:30', 2, '2014-08-11 21:38:30'),
-	(default, 'Le Pony Express', 4, null, null, 1,
+	(default, 'Le Pony Express', 'BandeDessinée', 4, null, null, 1,
 		3, 2, '2014-08-11 21:40:00', 2, '2014-08-11 21:40:00'),
-	(default, 'Luky Marines', null, 'Rien à voir avec Luky Luke.', null, 2,
+	(default, 'Luky Marines', 'Film', null, 'Rien à voir avec Luky Luke.', null, 2,
 		1, 0, '2014-08-11 21:42:00', 0, '2014-08-11 21:42:00')
 );
 
@@ -126,7 +126,7 @@ insert into dictionaire (id, mot) values (
 	(default, 'série')
 );
 
-insert into "index" (id, mot, champ, fiche) values (
+insert into index_ (id, mot, champ, fiche) values (
 	(default, 0, 'COMMENTAIRE', 1),
 	(default, 1, 'COMMENTAIRE', 1),
 	(default, 2, 'COMMENTAIRE', 1)

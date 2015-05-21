@@ -56,6 +56,7 @@ create table utilisateurs (
 create table fiches (
 	id bigint generated always as identity primary key,
 	titre varchar(200) not null,
+	dtype varchar(20) not null,
 	serie bigint references series (id),
 	commentaire clob,
 	image char(36),
@@ -113,7 +114,7 @@ create table dictionaire (
 	mot varchar(50) unique not null
 );
 
-create table "index" (
+create table index_ (
 	id bigint generated always as identity primary key,
 	mot bigint not null references dictionaire (id),
 	champ varchar(20) not null,
