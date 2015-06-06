@@ -146,9 +146,11 @@ public final class RequêteSurChamp extends Expression {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	for (int i = 0; i < motsClés.size(); i++) {
 	    final String mot = motsClés.get(i).getValeur();
+	    final Root<?> racine = champ.getClasseDéclarante() == Fiche.class
+		    ? fiche
+		    : constructeur.treat(fiche, champ.getClasseDéclarante());
 	    prédicats[i] = constructeur.like(
-		    constructeur.lower(constructeur
-			    .treat(fiche, champ.getClasseDéclarante())
+		    constructeur.lower(racine
 			    .get(champ.getNom()).<String>get("nom")),
 			    "%" + mot + "%");
 	}
