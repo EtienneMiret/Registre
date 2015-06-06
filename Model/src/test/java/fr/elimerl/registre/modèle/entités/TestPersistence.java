@@ -157,6 +157,7 @@ public class TestPersistence {
 	final String nom = nommé.getNom();
 	assertNull(nommé.getId());
 	final Nommé nomméEnregistré = em.merge(nommé);
+	em.flush();
 	assertNotNull(nomméEnregistré.getId());
 	assertEquals(nom, nomméEnregistré.getNom());
     }
@@ -251,6 +252,7 @@ public class TestPersistence {
 	Utilisateur utilisateur = new Utilisateur(UTILISATEUR, EMAIL);
 	assertNull(utilisateur.getId());
 	utilisateur = em.merge(utilisateur);
+	em.flush();
 	assertNotNull(utilisateur.getId());
 	assertEquals(UTILISATEUR, utilisateur.getNom());
 	assertEquals(EMAIL, utilisateur.getEmail());
@@ -292,6 +294,7 @@ public class TestPersistence {
 	assertNull(bandeDessinée.getId());
 
 	bandeDessinée = em.merge(bandeDessinée);
+	em.flush();
 
 	assertNotNull(bandeDessinée.getId());
 	assertEquals(titre, bandeDessinée.getTitre());
@@ -495,6 +498,7 @@ public class TestPersistence {
 	Mot mot = new Mot(MOT);
 	assertNull(mot.getId());
 	mot = em.merge(mot);
+	em.flush();
 	assertNotNull(mot.getId());
 	assertEquals(MOT, mot.getValeur());
     }
@@ -518,6 +522,7 @@ public class TestPersistence {
 	assertNull(référence.getId());
 
 	référence = em.merge(référence);
+	em.flush();
 
 	assertNotNull(référence.getId());
 	assertEquals(mot, référence.getMot());
@@ -534,6 +539,7 @@ public class TestPersistence {
 	logger.info("Test de l’enregistrement de deux acteurs identiques.");
 	em.merge(new Acteur(NOM));
 	em.merge(new Acteur(NOM));
+	em.flush();
     }
 
     /**
@@ -545,6 +551,7 @@ public class TestPersistence {
 	logger.info("Test de l’enregistrement de deux auteurs identiques.");
 	em.merge(new Auteur(NOM));
 	em.merge(new Auteur(NOM));
+	em.flush();
     }
 
     /**
@@ -557,6 +564,7 @@ public class TestPersistence {
 		+ "identiques.");
 	em.merge(new Compositeur(NOM));
 	em.merge(new Compositeur(NOM));
+	em.flush();
     }
 
     /**
@@ -569,6 +577,7 @@ public class TestPersistence {
 		+ "identiques");
 	em.merge(new Dessinateur(NOM));
 	em.merge(new Dessinateur(NOM));
+	em.flush();
     }
 
     /**
@@ -581,6 +590,7 @@ public class TestPersistence {
 		+ "identiques");
 	em.merge(new Emplacement(NOM));
 	em.merge(new Emplacement(NOM));
+	em.flush();
     }
 
     /**
@@ -594,6 +604,7 @@ public class TestPersistence {
 		+ "identiques.");
 	em.merge(new Propriétaire(NOM));
 	em.merge(new Propriétaire(NOM));
+	em.flush();
     }
 
     /**
@@ -606,6 +617,7 @@ public class TestPersistence {
 		+ "identiques.");
 	em.merge(new Réalisateur(NOM));
 	em.merge(new Réalisateur(NOM));
+	em.flush();
     }
 
     /**
@@ -618,6 +630,7 @@ public class TestPersistence {
 		+ "identiques.");
 	em.merge(new Scénariste(NOM));
 	em.merge(new Scénariste(NOM));
+	em.flush();
     }
 
     /**
@@ -629,6 +642,7 @@ public class TestPersistence {
 	logger.info("Test de l’enregistrement de deux séries identiques.");
 	em.merge(new Série(NOM));
 	em.merge(new Série(NOM));
+	em.flush();
     }
 
     /**
@@ -641,6 +655,7 @@ public class TestPersistence {
 		+ "identiques.");
 	em.merge(new Utilisateur(UTILISATEUR, "email1@email"));
 	em.merge(new Utilisateur(UTILISATEUR, "email2@email"));
+	em.flush();
     }
 
     /**
@@ -661,6 +676,7 @@ public class TestPersistence {
 	em.merge(new Réalisateur(NOM));
 	em.merge(new Scénariste(NOM));
 	em.merge(new Série(NOM));
+	em.flush();
     }
 
     /**
@@ -672,6 +688,7 @@ public class TestPersistence {
 	logger.info("Test de l’enregistrement de deux mots identiques.");
 	em.merge(new Mot(MOT));
 	em.merge(new Mot(MOT));
+	em.flush();
     }
 
     /**
@@ -693,6 +710,7 @@ public class TestPersistence {
 
 	em.merge(new Référence(mot, champ, fiche));
 	em.merge(new Référence(mot, champ, fiche));
+	em.flush();
     }
 
     /**
@@ -712,6 +730,7 @@ public class TestPersistence {
 
 	em.merge(fiche1);
 	em.merge(fiche2);
+	em.flush();
     }
 
     /**

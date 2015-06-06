@@ -71,7 +71,6 @@ public class TestGestionnaireEntités {
 	final String chaîneBonjour = "bonjour";
 	final Mot bonjour = gestionnaire.fournirMot(chaîneBonjour);
 	assertNotNull(bonjour);
-	assertNotNull(bonjour.getId());
 	assertEquals(chaîneBonjour, bonjour.getValeur());
 
 	assertSame(une, gestionnaire.fournirMot(chaîneUne));
@@ -103,7 +102,6 @@ public class TestGestionnaireEntités {
 	final String nomFunès = "Louis de Funès";
 	final Acteur funès = gestionnaire.fournirActeur(nomFunès);
 	assertNotNull(funès);
-	assertNotNull(funès.getId());
 	assertEquals(nomFunès, funès.getNom());
 
 	assertSame(evaMendes, gestionnaire.fournirActeur(nomEvaMendes));
@@ -122,7 +120,6 @@ public class TestGestionnaireEntités {
 	final String nomHerbert = "Frank Hebert";
 	final Auteur herbert = gestionnaire.fournirAuteur(nomHerbert);
 	assertNotNull(herbert);
-	assertNotNull(herbert.getId());
 	assertEquals(nomHerbert, herbert.getNom());
 
 	final String nomAsimov = "Isaac Asimov";
@@ -134,7 +131,6 @@ public class TestGestionnaireEntités {
 	final String nomTolkien = "J.R.R. Tolkien";
 	final Auteur tolkien = gestionnaire.fournirAuteur(nomTolkien);
 	assertNotNull(tolkien);
-	assertNotNull(tolkien.getId());
 	assertEquals(nomTolkien, tolkien.getNom());
 
 	assertSame(herbert, gestionnaire.fournirAuteur(nomHerbert));
@@ -168,7 +164,6 @@ public class TestGestionnaireEntités {
 	final Compositeur johnWilliams =
 		gestionnaire.fournirCompositeur(nomJohnWilliams);
 	assertNotNull(johnWilliams);
-	assertNotNull(johnWilliams.getId());
 	assertEquals(nomJohnWilliams, johnWilliams.getNom());
 
 	assertSame(howardShore,
@@ -190,7 +185,6 @@ public class TestGestionnaireEntités {
 	final Dessinateur philippeBuchet =
 		gestionnaire.fournirDessinateur(nomPhilippeBuchet);
 	assertNotNull(philippeBuchet);
-	assertNotNull(philippeBuchet.getId());
 	assertEquals(nomPhilippeBuchet, philippeBuchet.getNom());
 
 	final String nomJigounov = "Jigounov";
@@ -224,7 +218,6 @@ public class TestGestionnaireEntités {
 	final Emplacement marcigny =
 		gestionnaire.fournirEmplacement(nomMarcigny);
 	assertNotNull(marcigny);
-	assertNotNull(marcigny.getId());
 	assertEquals(nomMarcigny, marcigny.getNom());
 
 	final String nomLyon = "Lyon";
@@ -249,7 +242,6 @@ public class TestGestionnaireEntités {
 	final String nomEloi = "Eloi";
 	final Propriétaire eloi = gestionnaire.fournirPropriétaire(nomEloi);
 	assertNotNull(eloi);
-	assertNotNull(eloi.getId());
 	assertEquals(nomEloi, eloi.getNom());
 
 	final String nomGrégoire = "Grégoire";
@@ -263,7 +255,6 @@ public class TestGestionnaireEntités {
 	final Propriétaire quentin =
 		gestionnaire.fournirPropriétaire(nomQuentin);
 	assertNotNull(quentin);
-	assertNotNull(quentin.getId());
 	assertEquals(nomQuentin, quentin.getNom());
 
 	assertSame(eloi, gestionnaire.fournirPropriétaire(nomEloi));
@@ -290,7 +281,6 @@ public class TestGestionnaireEntités {
 	final Réalisateur peterJackson =
 		gestionnaire.fournirRéalisateur(nomPeterJackson);
 	assertNotNull(peterJackson);
-	assertNotNull(peterJackson.getId());
 	assertEquals(nomPeterJackson, peterJackson.getNom());
 
 	assertSame(spielberg, gestionnaire.fournirRéalisateur(nomSpielberg));
@@ -309,7 +299,6 @@ public class TestGestionnaireEntités {
 	final String nomMorvan = "Jean-David Morvan";
 	final Scénariste morvan = gestionnaire.fournirScénariste(nomMorvan);
 	assertNotNull(morvan);
-	assertNotNull(morvan.getId());
 	assertEquals(nomMorvan, morvan.getNom());
 
 	final String nomRenard = "Renard";
@@ -339,7 +328,6 @@ public class TestGestionnaireEntités {
 	final String nomNcis = "NCIS";
 	final Série ncis = gestionnaire.fournirSérie(nomNcis);
 	assertNotNull(ncis);
-	assertNotNull(ncis.getId());
 	assertEquals(nomNcis, ncis.getNom());
 
 	assertSame(merlin, gestionnaire.fournirSérie(nomMerlin));
