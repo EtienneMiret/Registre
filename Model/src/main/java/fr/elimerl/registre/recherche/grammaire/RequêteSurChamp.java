@@ -86,16 +86,16 @@ public final class RequêteSurChamp extends Expression {
 	    final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
-	final Subquery<Fiche> sousRequête = requête.subquery(Fiche.class);
+	final Subquery<Long> sousRequête = requête.subquery(Long.class);
 	final Root<Référence> référence = sousRequête.from(Référence.class);
 	final Path<String> mot = référence.get("mot").get("valeur");
-	sousRequête.select(référence.<Fiche>get("fiche"));
+	sousRequête.select(référence.<Fiche>get("fiche").get("id"));
 	for (int i = 0; i < motsClés.size(); i++) {
 	    prédicats[i] = constructeur.equal(mot, motsClés.get(i).getValeur());
 	}
 	sousRequête.where(constructeur.and(constructeur.and(prédicats),
 		constructeur.equal(référence.get("champ"), champ)));
-	return constructeur.in(fiche).value(sousRequête);
+	return constructeur.in(fiche.get("id")).value(sousRequête);
     }
 
     /**
