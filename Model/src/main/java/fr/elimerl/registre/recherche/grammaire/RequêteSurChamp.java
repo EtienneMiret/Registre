@@ -119,13 +119,13 @@ public final class RequêteSurChamp extends Expression {
 	final Path<String> nom = acteur.get("nom");
 	sousRequête.select(acteur);
 	for (int i = 0; i < motsClés.size(); i++) {
-	    prédicats[i] = constructeur.like(nom,
+	    prédicats[i] = constructeur.like(constructeur.lower(nom),
 		    "%" + motsClés.get(i).getValeur() + "%");
 	}
 	sousRequête.where(constructeur.and(prédicats));
 	final Path<Set<Acteur>> acteurs =
 		constructeur.treat(fiche, Film.class).get("acteurs");
-	return constructeur.isMember(acteur, acteurs);
+	return constructeur.isMember(sousRequête, acteurs);
     }
 
     /**
