@@ -32,7 +32,7 @@ public final class MotCléSimple extends Expression {
     public Predicate créerPrédicat(final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
 	final Subquery<Fiche> sousRequête = requête.subquery(Fiche.class);
-	Root<Référence> référence = sousRequête.from(Référence.class);
+	final Root<Référence> référence = sousRequête.from(Référence.class);
 	sousRequête.select(référence.<Fiche>get("fiche"));
 	sousRequête.where(constructeur.equal(référence.get("mot").get("valeur"),
 		motClé.getValeur()));
