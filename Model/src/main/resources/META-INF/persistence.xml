@@ -28,7 +28,14 @@
     <properties>
       <property name="eclipselink.weaving" value="false"/>
       <property name="eclipselink.id-validation" value="NULL"/>
-      <property name="eclipselink.logging.logger" value="JavaLogger"/>
+      <property name="eclipselink.logging.logger" value="fr.elimerl.registre.journalisation.Slf4jSessionLogger"/>
+      <property name="eclipselink.logging.level" value="FINEST"/>
+      <property name="eclipselink.logging.sql" value="FINEST"/>
+      <property name="eclipselink.logging.level.sql" value="FINEST"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.logging.timestamp" value="false"/>
+      <property name="eclipselink.logging.thread" value="false"/>
+      <property name="eclipselink.logging.session" value="false"/>
     </properties>
 
   </persistence-unit>
