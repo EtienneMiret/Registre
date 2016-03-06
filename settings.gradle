@@ -1,0 +1,10 @@
+rootProject.name = 'PomParent'
+include ':Model'
+include ':Registre'
+include ':Security'
+include ':RepriseDeDonnees'
+
+project(':Model').projectDir = "$rootDir/Model" as File
+project(':Registre').projectDir = "$rootDir/Registre" as File
+project(':Security').projectDir = "$rootDir/Sécurité" as File
+project(':RepriseDeDonnees').projectDir = "$rootDir/RepriseDeDonnées" as File

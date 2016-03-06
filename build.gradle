@@ -1,0 +1,25 @@
+allprojects  {
+  apply plugin: 'maven'
+
+  group = 'fr.elimerl.Registre'
+  version = '3.0-SNAPSHOT'
+}
+
+subprojects {
+  apply plugin: 'java'
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  repositories {
+    mavenLocal()
+    
+    maven { url "https://repository.jboss.org/nexus/content/groups/public-jboss/" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+  }
+
+  
+  dependencies {
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version:'1.7.6'
+  }
+
+}

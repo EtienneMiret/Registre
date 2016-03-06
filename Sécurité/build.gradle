@@ -1,0 +1,9 @@
+
+description = 'Registre Sécurité'
+dependencies {
+  compile project(':Model')
+  compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.6'
+  compile group: 'org.springframework.security', name: 'spring-security-openid', version:'3.2.1.RELEASE'
+  testCompile group: 'junit', name: 'junit', version:'4.11'
+  testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.6'
+}
