@@ -1,7 +1,7 @@
 
 apply plugin: 'war'
 
-description = 'Registre'
+description = 'Serveur Registre'
 dependencies {
   compile project(':Model')
   compile project(':Security')

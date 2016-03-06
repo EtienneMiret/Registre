@@ -1,10 +1,10 @@
-rootProject.name = 'PomParent'
+rootProject.name = 'Registre'
 include ':Model'
-include ':Registre'
+include ':Server'
 include ':Security'
-include ':RepriseDeDonnees'
+include ':DataTransfert'
 
-project(':Model').projectDir = "$rootDir/Model" as File
-project(':Registre').projectDir = "$rootDir/Registre" as File
+project(':Model').projectDir = "$rootDir/Modèle" as File
+project(':Server').projectDir = "$rootDir/Serveur" as File
 project(':Security').projectDir = "$rootDir/Sécurité" as File
-project(':RepriseDeDonnees').projectDir = "$rootDir/RepriseDeDonnées" as File
+project(':DataTransfert').projectDir = "$rootDir/RepriseDeDonnées" as File
