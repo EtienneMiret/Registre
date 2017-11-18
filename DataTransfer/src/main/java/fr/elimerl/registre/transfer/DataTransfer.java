@@ -102,7 +102,7 @@ public class DataTransfer {
     /**
      * Service responsible for migrating each batch of records.
      */
-    @Resource(name = "processeur")
+    @Resource(name = "migrator")
     private Migrator migrator;
 
     /**

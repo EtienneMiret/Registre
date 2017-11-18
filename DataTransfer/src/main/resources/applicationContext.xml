@@ -51,6 +51,6 @@
     <property name="batchSize" value="${batchSize}"/>
   </bean>
 
-  <bean id="processeur" class="fr.elimerl.registre.transfer.ImplProcesseur"/>
+  <bean id="migrator" class="fr.elimerl.registre.transfer.MigratorImpl"/>
 
 </beans>
