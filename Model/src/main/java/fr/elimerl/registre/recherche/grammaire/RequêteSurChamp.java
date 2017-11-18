@@ -121,7 +121,7 @@ public final class RequêteSurChamp extends Expression {
 	}
 	sousRequête.where(constructeur.and(prédicats));
 	final Path<Set<Actor>> acteurs =
-		constructeur.treat(fiche, Film.class).get("acteurs");
+		constructeur.treat(fiche, Movie.class).get("actors");
 	return constructeur.isMember(sousRequête, acteurs);
     }
 

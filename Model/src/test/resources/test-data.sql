@@ -75,11 +75,11 @@ insert into fiches (id, titre, dtype, serie, commentaire, image, proprietaire,
 		derniere_edition) values (
 	(default, 'Globe-trotters', 'Comic', 0, null, null, 2,
 		0, 0, '2012-12-25 22:18:30', 1, '2013-02-16 22:19:58'),
-	(default, 'Merlin, Saison 1', 'Film', 1, 'Une super série !', null, 0,
+	(default, 'Merlin, Saison 1', 'Movie', 1, 'Une super série !', null, 0,
 		0, 0, '2012-12-25 22:21:29', 2, '2013-02-26 22:22:06'),
 	(default, 'Rainbow Six', 'Livre', null, null, null, 0,
 		0, 0, '2013-07-04 21:48:00', 0, '2013-07-04 21:48:00'),
-	(default, 'Lucy', 'Film', null, null, null, null,
+	(default, 'Lucy', 'Movie', null, null, null, null,
 		4, 0, '2014-08-11 21:28:30', 0, '2014-08-11 21:28:30'),
 	(default, 'La Purge de Kadillus', 'Livre', 2, null, null, 0,
 		4, 0, '2014-08-11 21:33:45', 0, '2014-08-11 21:33:45'),
@@ -91,7 +91,7 @@ insert into fiches (id, titre, dtype, serie, commentaire, image, proprietaire,
 		3, 2, '2014-08-11 21:38:30', 2, '2014-08-11 21:38:30'),
 	(default, 'Le Pony Express', 'Comic', 4, null, null, 1,
 		3, 2, '2014-08-11 21:40:00', 2, '2014-08-11 21:40:00'),
-	(default, 'Luky Marines', 'Film', null, 'Rien à voir avec Luky Luke.', null, 2,
+	(default, 'Luky Marines', 'Movie', null, 'Rien à voir avec Luky Luke.', null, 2,
 		1, 0, '2014-08-11 21:42:00', 0, '2014-08-11 21:42:00')
 );
 

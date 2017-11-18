@@ -12,7 +12,7 @@
     <class>fr.elimerl.registre.entities.Cartoonist</class>
     <class>fr.elimerl.registre.entities.Location</class>
     <class>fr.elimerl.registre.entities.Record</class>
-    <class>fr.elimerl.registre.entities.Film</class>
+    <class>fr.elimerl.registre.entities.Movie</class>
     <class>fr.elimerl.registre.entities.Livre</class>
     <class>fr.elimerl.registre.entities.Mot</class>
     <class>fr.elimerl.registre.entities.Nommé</class>

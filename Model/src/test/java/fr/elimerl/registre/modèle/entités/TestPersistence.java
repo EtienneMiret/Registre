@@ -1,6 +1,6 @@
 package fr.elimerl.registre.modèle.entités;
 
-import static fr.elimerl.registre.entities.Film.Support.BRD;
+import static fr.elimerl.registre.entities.Movie.Support.BRD;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -34,7 +34,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.elimerl.registre.entities.Actor;
-import fr.elimerl.registre.entities.Film.Support;
+import fr.elimerl.registre.entities.Movie.Support;
 import fr.elimerl.registre.entities.Référence.Champ;
 
 /**
@@ -353,15 +353,15 @@ public class TestPersistence {
 	Utilisateur éditeur = new Utilisateur("Éditeur", "editeur@email");
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
-	Film film = new Film(titre, créateur, BRD);
+	Movie film = new Movie(titre, créateur, BRD);
 
 	film = em.merge(film);
 
 	assertEquals(BRD, film.getSupport());
-	assertNull(film.getRéalisateur());
-	assertNotNull(film.getActeurs());
-	assertTrue(film.getActeurs().isEmpty());
-	assertNull(film.getCompositeur());
+	assertNull(film.getDirector());
+	assertNotNull(film.getActors());
+	assertTrue(film.getActors().isEmpty());
+	assertNull(film.getComposer());
 	assertNull(film.getActionStyle());
 	assertNull(film.getDocumentaryStyle());
 	assertNull(film.getFantasyStyle());
@@ -384,11 +384,11 @@ public class TestPersistence {
 	Composer compositeur = new Composer(NOM);
 	compositeur = em.merge(compositeur);
 
-	film.setRéalisateur(réalisateur);
-	film.getActeurs().add(acteur1);
-	film.getActeurs().add(acteur2);
-	film.getActeurs().add(acteur3);
-	film.setCompositeur(compositeur);
+	film.setDirector(réalisateur);
+	film.getActors().add(acteur1);
+	film.getActors().add(acteur2);
+	film.getActors().add(acteur3);
+	film.setComposer(compositeur);
 	film.setActionStyle(Boolean.TRUE);
 	film.setDocumentaryStyle(Boolean.FALSE);
 	film.setFantasyStyle(Boolean.TRUE);
@@ -403,13 +403,13 @@ public class TestPersistence {
 
 	film = em.merge(film);
 
-	assertEquals(réalisateur, film.getRéalisateur());
-	assertNotNull(film.getActeurs());
-	assertEquals(TROIS, film.getActeurs().size());
-	assertTrue(film.getActeurs().contains(acteur1));
-	assertTrue(film.getActeurs().contains(acteur2));
-	assertTrue(film.getActeurs().contains(acteur3));
-	assertEquals(compositeur, film.getCompositeur());
+	assertEquals(réalisateur, film.getDirector());
+	assertNotNull(film.getActors());
+	assertEquals(TROIS, film.getActors().size());
+	assertTrue(film.getActors().contains(acteur1));
+	assertTrue(film.getActors().contains(acteur2));
+	assertTrue(film.getActors().contains(acteur3));
+	assertEquals(compositeur, film.getComposer());
 	assertEquals(Boolean.TRUE, film.getActionStyle());
 	assertEquals(Boolean.FALSE, film.getDocumentaryStyle());
 	assertEquals(Boolean.TRUE, film.getFantasyStyle());
@@ -498,7 +498,7 @@ public class TestPersistence {
 	final Champ champ = Champ.TITRE;
 	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
-	Record fiche = new Film(titre, créateur, BRD);
+	Record fiche = new Movie(titre, créateur, BRD);
 	fiche = em.merge(fiche);
 	Mot mot = new Mot(MOT);
 	mot = em.merge(mot);
@@ -687,7 +687,7 @@ public class TestPersistence {
 	final Champ champ = Champ.TITRE;
 	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
-	Record fiche = new Film(titre, créateur, BRD);
+	Record fiche = new Movie(titre, créateur, BRD);
 	fiche = em.merge(fiche);
 	Mot mot = new Mot(MOT);
 	mot = em.merge(mot);
@@ -709,7 +709,7 @@ public class TestPersistence {
 	final String titre = "Lettres d’Iwo Jima";
 	final Utilisateur créateur =
 		em.merge(new Utilisateur(UTILISATEUR, EMAIL));
-	final Record fiche1 = new Film(titre, créateur, BRD);
+	final Record fiche1 = new Movie(titre, créateur, BRD);
 	final Record fiche2 = new Comic(titre, créateur);
 
 	em.merge(fiche1);
@@ -1105,15 +1105,15 @@ public class TestPersistence {
 	assertEquals(HUIT, lePonyExpress.getId().intValue());
 	assertEquals("Le Pony Express", lePonyExpress.getTitle());
 
-	final Film lucy = (Film) fiches.next();
+	final Movie lucy = (Movie) fiches.next();
 	assertEquals(TROIS, lucy.getId().intValue());
 	assertEquals("Lucy", lucy.getTitle());
 
-	final Film lukyMarines = (Film) fiches.next();
+	final Movie lukyMarines = (Movie) fiches.next();
 	assertEquals(NEUF, lukyMarines.getId().intValue());
 	assertEquals("Luky Marines", lukyMarines.getTitle());
 
-	final Film merlin = (Film) fiches.next();
+	final Movie merlin = (Movie) fiches.next();
 	assertEquals(UN, merlin.getId().intValue());
 	assertEquals("Merlin, Saison 1", merlin.getTitle());
 	assertEquals("Merlin", merlin.getSeries().getNom());
@@ -1127,9 +1127,9 @@ public class TestPersistence {
 	assertEquals(df.parse("2013-02-26 22:22:06"),
 		merlin.getLastModification());
 	assertEquals(Support.BRD, merlin.getSupport());
-	assertNull(merlin.getRéalisateur());
-	assertEquals("Howard Shore", merlin.getCompositeur().getNom());
-	assertEquals(DEUX, merlin.getActeurs().size());
+	assertNull(merlin.getDirector());
+	assertEquals("Howard Shore", merlin.getComposer().getNom());
+	assertEquals(DEUX, merlin.getActors().size());
 
 	final Livre rainbowSix = (Livre) fiches.next();
 	assertEquals(DEUX, rainbowSix.getId().intValue());

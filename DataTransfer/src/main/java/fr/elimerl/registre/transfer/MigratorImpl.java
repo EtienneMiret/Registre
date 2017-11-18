@@ -1,8 +1,8 @@
 package fr.elimerl.registre.transfer;
 
-import static fr.elimerl.registre.entities.Film.Support.BRD;
-import static fr.elimerl.registre.entities.Film.Support.DVD;
-import static fr.elimerl.registre.entities.Film.Support.K7;
+import static fr.elimerl.registre.entities.Movie.Support.BRD;
+import static fr.elimerl.registre.entities.Movie.Support.DVD;
+import static fr.elimerl.registre.entities.Movie.Support.K7;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import fr.elimerl.registre.entities.Record;
-import fr.elimerl.registre.entities.Film.Support;
+import fr.elimerl.registre.entities.Movie.Support;
 import fr.elimerl.registre.services.GestionnaireEntités;
 import fr.elimerl.registre.services.Indexeur;
 
@@ -275,14 +275,14 @@ public class MigratorImpl implements Migrator {
 	    logger.error("Unknown support: “{}”.", supportName);
 	    throw new RuntimeException("Unknown support " + supportName);
 	}
-	final Film movie = new Film(title, creator, support);
+	final Movie movie = new Movie(title, creator, support);
 	if (director != null && !director.isEmpty()) {
-	    movie.setRéalisateur(
+	    movie.setDirector(
 	    	registreEntityManager.fournirRéalisateur(director)
 	    );
 	}
 	if (composer != null && !composer.isEmpty()) {
-	    movie.setCompositeur(
+	    movie.setComposer(
 	    	registreEntityManager.fournirCompositeur(composer)
 	    );
 	}
@@ -290,7 +290,7 @@ public class MigratorImpl implements Migrator {
 	final ResultSet acteurs = actorsQuery.executeQuery();
 	while (acteurs.next()) {
 	    final String nom = acteurs.getString("acteur");
-	    movie.getActeurs().add(registreEntityManager.fournirActeur(nom));
+	    movie.getActors().add(registreEntityManager.fournirActeur(nom));
 	}
 	acteurs.close();
 	return movie;

@@ -17,13 +17,13 @@
 #end
   </dd>
 #end
-#if( $fiche.réalisateur )
+#if( $fiche.director )
   <dt>Réalisateur</dt>
-  <dd>$fiche.réalisateur</dd>
+  <dd>$fiche.director</dd>
 #end
-#if( $fiche.compositeur )
+#if( $fiche.composer )
   <dt>Compositeur</dt>
-  <dd>$fiche.compositeur</dd>
+  <dd>$fiche.composer</dd>
 #end
   <dt>Support</dt>
   <dd>$fiche.support</dd>

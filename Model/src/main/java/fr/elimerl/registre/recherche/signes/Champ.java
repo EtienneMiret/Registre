@@ -44,15 +44,15 @@ public final class Champ extends Signe {
 
     /** Le réalisateur d’un film. */
     public static final Champ RÉALISATEUR =
-	    valeurDe("réalisateur", Réalisateur.class, Film.class);
+	    valeurDe("director", Réalisateur.class, Movie.class);
 
     /** Un acteur qui joue dans un film. */
     public static final Champ ACTEUR =
-	    valeurDe("acteur", Actor.class, Film.class);
+	    valeurDe("actor", Actor.class, Movie.class);
 
     /** Le compositeur de la musique d’un film. */
     public static final Champ COMPOSITEUR =
-	    valeurDe("compositeur", Composer.class, Film.class);
+	    valeurDe("composer", Composer.class, Movie.class);
 
     /** Le dessinateur d’une bande-dessinée. */
     public static final Champ DESSINATEUR =
@@ -90,7 +90,7 @@ public final class Champ extends Signe {
     private final Class<?> classe;
 
     /**
-     * La classe à laquelle appartient ce champ. Par exemple {@link Film} pour
+     * La classe à laquelle appartient ce champ. Par exemple {@link Movie} pour
      * le champ réalisateur et {@link Comic} pour le champ dessinateur.
      */
     private final Class<? extends Record> classeDéclarante;

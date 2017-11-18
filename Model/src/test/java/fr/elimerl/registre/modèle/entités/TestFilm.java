@@ -14,10 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.elimerl.registre.entities.Composer;
-import fr.elimerl.registre.entities.Film.Support;
+import fr.elimerl.registre.entities.Movie.Support;
 
 /**
- * Classe de test de la classe {@link Film}.
+ * Classe de test de la classe {@link Movie}.
  */
 public class TestFilm {
 
@@ -43,7 +43,7 @@ public class TestFilm {
 	    LoggerFactory.getLogger(TestFilm.class);
 
     /** Film qui va être tester. */
-    private Film film;
+    private Movie film;
 
     /**
      * Vérifie qu’une date est bien dans un intervalle de test.
@@ -69,12 +69,12 @@ public class TestFilm {
      */
     @Before
     public void setUp() {
-	film = new Film(TITRE, CRÉATEUR, Support.BRD);
+	film = new Movie(TITRE, CRÉATEUR, Support.BRD);
     }
 
     /**
      * Teste la création d’un DVD, puis sa méthode
-     * {@link Film#toucher(Utilisateur) toucher(Utilisateur)}.
+     * {@link Movie#toucher(Utilisateur) toucher(Utilisateur)}.
      *
      * @throws Exception
      *             normalement non, mais on ne sait jamais.
@@ -84,7 +84,7 @@ public class TestFilm {
 	/*  Création du DVD. */
 	logger.info("Création du DVD.");
 	Date avant = new Date();
-	final Film dvd = new Film(TITRE, CRÉATEUR, Support.DVD);
+	final Movie dvd = new Movie(TITRE, CRÉATEUR, Support.DVD);
 	Date après = new Date();
 
 	/* Vérification de la création. */
@@ -251,8 +251,8 @@ public class TestFilm {
     }
 
     /**
-     * Teste les méthodes {@link Film#getSupport() getSupport()} et
-     * {@link Film#setSupport(Support)}.
+     * Teste les méthodes {@link Movie#getSupport() getSupport()} et
+     * {@link Movie#setSupport(Support)}.
      */
     @Test
     public void testSupport() {
@@ -270,8 +270,8 @@ public class TestFilm {
     }
 
     /**
-     * Teste les méthodes {@link Film#getRéalisateur() getRéalisateur()} et
-     * {@link Film#setRéalisateur(Réalisateur) setRéalisateur(Réalisateur)}.
+     * Teste les méthodes {@link Movie#getDirector() getDirector()} et
+     * {@link Movie#setDirector(Réalisateur) setDirector(Réalisateur)}.
      */
     @Test
     public void testRéalisateur() {
@@ -279,22 +279,22 @@ public class TestFilm {
 	final Réalisateur réalisateur2 = new Réalisateur("Marie Devautour");
 	logger.info("Test du réalisateur.");
 
-	film.setRéalisateur(réalisateur1);
+	film.setDirector(réalisateur1);
 	assertEquals("Le réalisateur n’a pas été correctement défini.",
-		réalisateur1, film.getRéalisateur());
+		réalisateur1, film.getDirector());
 
-	film.setRéalisateur(réalisateur2);
+	film.setDirector(réalisateur2);
 	assertEquals("Le réalisateur n’a pas été correctement modifié.",
-		réalisateur2, film.getRéalisateur());
+		réalisateur2, film.getDirector());
 
-	film.setRéalisateur(null);
+	film.setDirector(null);
 	assertNull("Le réalisateur n’a pas été correctement effacé.",
-		film.getRéalisateur());
+		film.getDirector());
     }
 
     /**
-     * Teste les méthodes {@link Film#getCompositeur() getCompositeur()} et
-     * {@link Film#setCompositeur(Composer) setCompositeur(Composer)}.
+     * Teste les méthodes {@link Movie#getComposer() getComposer()} et
+     * {@link Movie#setComposer(Composer) setComposer(Composer)}.
      */
     @Test
     public void testCompositeur() {
@@ -302,17 +302,17 @@ public class TestFilm {
 	final Composer compositeur2 = new Composer("Bethoven");
 	logger.info("Test du compositeur.");
 
-	film.setCompositeur(compositeur1);
+	film.setComposer(compositeur1);
 	assertEquals("Le compositeur n’a pas été correctement défini.",
-		compositeur1, film.getCompositeur());
+		compositeur1, film.getComposer());
 
-	film.setCompositeur(compositeur2);
+	film.setComposer(compositeur2);
 	assertEquals("Le compositeur n’a pas été correctement modifié.",
-		compositeur2, film.getCompositeur());
+		compositeur2, film.getComposer());
 
-	film.setCompositeur(null);
+	film.setComposer(null);
 	assertNull("Le compositeur n’a pas été correctement effacé.",
-		film.getCompositeur());
+		film.getComposer());
     }
 
 }
