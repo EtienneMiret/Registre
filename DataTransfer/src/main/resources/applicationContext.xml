@@ -47,8 +47,8 @@
     <property name="password" value="${nouvelleBase.mdp}"/>
   </bean>
 
-  <bean id="main" class="fr.elimerl.registre.transfer.RepriseDeDonnées">
-    <property name="tailleBloc" value="${tailleBloc}"/>
+  <bean id="main" class="fr.elimerl.registre.transfer.DataTransfer">
+    <property name="batchSize" value="${batchSize}"/>
   </bean>
 
   <bean id="processeur" class="fr.elimerl.registre.transfer.ImplProcesseur"/>
