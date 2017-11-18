@@ -21,7 +21,7 @@ public class Comic extends Fiche {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dessinateur")
-    private Dessinateur cartoonist;
+    private Cartoonist cartoonist;
 
     /**
      * Script writer of this comic.
@@ -76,7 +76,7 @@ public class Comic extends Fiche {
      * @return the cartoonist of this comic, or {@code null} if unknown.
      * @see #cartoonist
      */
-    public Dessinateur getCartoonist() {
+    public Cartoonist getCartoonist() {
         return cartoonist;
     }
 
@@ -87,7 +87,7 @@ public class Comic extends Fiche {
      * 		cartoonist of this comic, or {@code null} if unknown.
      * @see #cartoonist
      */
-    public void setCartoonist(final Dessinateur cartoonist) {
+    public void setCartoonist(final Cartoonist cartoonist) {
         this.cartoonist = cartoonist;
     }
 

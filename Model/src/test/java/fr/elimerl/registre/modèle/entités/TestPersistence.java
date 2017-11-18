@@ -179,7 +179,7 @@ public class TestPersistence {
     @Test
     public void enregistrementDessinateur() {
 	logger.info("Test d’enregistrement d’un dessinateur.");
-	enregistrementNommé(new Dessinateur(NOM));
+	enregistrementNommé(new Cartoonist(NOM));
     }
 
     /**
@@ -304,7 +304,7 @@ public class TestPersistence {
 	propriétaire = em.merge(propriétaire);
 	Emplacement emplacement = new Emplacement(NOM);
 	emplacement = em.merge(emplacement);
-	Dessinateur dessinateur = new Dessinateur(NOM);
+	Cartoonist dessinateur = new Cartoonist(NOM);
 	dessinateur = em.merge(dessinateur);
 	Scénariste scénariste = new Scénariste(NOM);
 	scénariste = em.merge(scénariste);
@@ -559,8 +559,8 @@ public class TestPersistence {
     public void deuxDessinateursIdentiques() {
 	logger.info("Test de l’enregistrement de deux dessinateurs "
 		+ "identiques");
-	em.merge(new Dessinateur(NOM));
-	em.merge(new Dessinateur(NOM));
+	em.merge(new Cartoonist(NOM));
+	em.merge(new Cartoonist(NOM));
 	em.flush();
     }
 
@@ -654,7 +654,7 @@ public class TestPersistence {
 	em.merge(new Actor(NOM));
 	em.merge(new Author(NOM));
 	em.merge(new Composer(NOM));
-	em.merge(new Dessinateur(NOM));
+	em.merge(new Cartoonist(NOM));
 	em.merge(new Emplacement(NOM));
 	em.merge(new Propriétaire(NOM));
 	em.merge(new Réalisateur(NOM));
@@ -864,18 +864,18 @@ public class TestPersistence {
     @Test
     public void chargerDessinateurs() {
 	logger.info("Chargement des dessinateurs de test-data.sql.");
-	final Iterator<Dessinateur> dessinateurs =
-		chargerNommés(Dessinateur.class);
+	final Iterator<Cartoonist> dessinateurs =
+		chargerNommés(Cartoonist.class);
 
-	final Dessinateur alainHenriet = dessinateurs.next();
+	final Cartoonist alainHenriet = dessinateurs.next();
 	assertEquals(UN, alainHenriet.getId().intValue());
 	assertEquals("Alain Henriet", alainHenriet.getNom());
 
-	final Dessinateur jigounov = dessinateurs.next();
+	final Cartoonist jigounov = dessinateurs.next();
 	assertEquals(ZÉRO, jigounov.getId().intValue());
 	assertEquals("Jigounov", jigounov.getNom());
 
-	final Dessinateur morris = dessinateurs.next();
+	final Cartoonist morris = dessinateurs.next();
 	assertEquals(DEUX, morris.getId().intValue());
 	assertEquals("Morris", morris.getNom());
 

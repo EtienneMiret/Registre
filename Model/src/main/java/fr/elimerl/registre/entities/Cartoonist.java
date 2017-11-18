@@ -1,0 +1,31 @@
+package fr.elimerl.registre.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+/**
+ * A comic’s cartoonist.
+ */
+@Entity
+@Table(name = "dessinateurs")
+public class Cartoonist extends Nommé {
+
+    /**
+     * Register a new cartoonist with the given name. There must be no such
+     * cartoonist in the database.
+     *
+     * @param name
+     * 		name of this cartoonist.
+     */
+    public Cartoonist(final String name) {
+	super(name);
+    }
+
+    /**
+     * No-args constructor. Required by Hibernate.
+     */
+    protected Cartoonist() {
+	super();
+    }
+
+}

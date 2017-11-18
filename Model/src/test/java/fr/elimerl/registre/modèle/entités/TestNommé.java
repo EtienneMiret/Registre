@@ -80,11 +80,11 @@ public class TestNommé {
     }
 
     /**
-     * Tests sur la classe {@link Dessinateur}.
+     * Tests sur la classe {@link Cartoonist}.
      */
     @Test
     public void dessinateur() {
-	final Dessinateur dessinateur = new Dessinateur(NOM_CRÉATION);
+	final Cartoonist dessinateur = new Cartoonist(NOM_CRÉATION);
 	testerTout(dessinateur);
     }
 

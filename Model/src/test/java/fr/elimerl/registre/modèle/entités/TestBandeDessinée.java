@@ -2,13 +2,13 @@ package fr.elimerl.registre.modèle.entités;
 
 import static org.junit.Assert.assertEquals;
 
+import fr.elimerl.registre.entities.Cartoonist;
 import fr.elimerl.registre.entities.Comic;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.entities.Dessinateur;
 import fr.elimerl.registre.entities.Scénariste;
 import fr.elimerl.registre.entities.Utilisateur;
 
@@ -40,16 +40,16 @@ public class TestBandeDessinée {
     }
 
     /**
-     * Teste les méthodes {@link Comic#setCartoonist(Dessinateur)
-     * setCartoonist(Dessinateur)} et {@link Comic#getCartoonist()
+     * Teste les méthodes {@link Comic#setCartoonist(Cartoonist)
+     * setCartoonist(Cartoonist)} et {@link Comic#getCartoonist()
      * getCartoonist()}.
      */
     @Test
     public void dessinateur() {
 	logger.info("Test du dessinateur.");
 
-	final Dessinateur dessinateur1 = new Dessinateur("Jigounov");
-	final Dessinateur dessinateur2 = new Dessinateur("Alain Henriet");
+	final Cartoonist dessinateur1 = new Cartoonist("Jigounov");
+	final Cartoonist dessinateur2 = new Cartoonist("Alain Henriet");
 
 	bandeDessinée.setCartoonist(dessinateur1);
 	assertEquals("Le dessinateur n’a pas été défini correctement.",

@@ -174,13 +174,13 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche de dessinateurs.");
 
 	final String nomPhilippeBuchet = "Philippe Buchet";
-	final Dessinateur philippeBuchet =
+	final Cartoonist philippeBuchet =
 		gestionnaire.fournirDessinateur(nomPhilippeBuchet);
 	assertNotNull(philippeBuchet);
 	assertEquals(nomPhilippeBuchet, philippeBuchet.getNom());
 
 	final String nomJigounov = "Jigounov";
-	final Dessinateur jigounov =
+	final Cartoonist jigounov =
 		gestionnaire.fournirDessinateur(nomJigounov);
 	assertNotNull(jigounov);
 	assertNotNull(jigounov.getId());

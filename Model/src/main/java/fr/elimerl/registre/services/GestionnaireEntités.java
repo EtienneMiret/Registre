@@ -131,9 +131,9 @@ public class GestionnaireEntités {
      *            nom du dessinateur voulu.
      * @return le dessinateur ayant le nom donné en argument.
      */
-    public Dessinateur fournirDessinateur(final String nom) {
-	final Dessinateur enBase = chercherNommé(Dessinateur.class, nom);
-	return (enBase == null ? em.merge(new Dessinateur(nom)) : enBase);
+    public Cartoonist fournirDessinateur(final String nom) {
+	final Cartoonist enBase = chercherNommé(Cartoonist.class, nom);
+	return (enBase == null ? em.merge(new Cartoonist(nom)) : enBase);
     }
 
     /**

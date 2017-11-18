@@ -56,7 +56,7 @@ public final class Champ extends Signe {
 
     /** Le dessinateur d’une bande-dessinée. */
     public static final Champ DESSINATEUR =
-	    valeurDe("cartoonist", Dessinateur.class, Comic.class);
+	    valeurDe("cartoonist", Cartoonist.class, Comic.class);
 
     /** Le scénariste d’une bande-dessinée. */
     public static final Champ SCÉNARISTE =
