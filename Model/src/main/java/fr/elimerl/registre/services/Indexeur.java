@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import fr.elimerl.registre.entities.Fiche;
+import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Référence;
 import fr.elimerl.registre.recherche.signes.MotClé;
 
@@ -41,23 +41,23 @@ public class Indexeur {
      * @param fiche
      *            la fiche à indexer.
      */
-    public void réindexer(final Fiche fiche) {
+    public void réindexer(final Record fiche) {
 	final Query désindexer = em.createNamedQuery("désindexerFiche");
 	désindexer.setParameter("fiche", fiche);
 	désindexer.executeUpdate();
-	if (fiche.getTitre() != null) {
-	    for (final String mot : découperEnMots(fiche.getTitre())) {
+	if (fiche.getTitle() != null) {
+	    for (final String mot : découperEnMots(fiche.getTitle())) {
 		em.persist(new Référence(ge.fournirMot(mot), TITRE, fiche));
 	    }
 	}
-	if (fiche.getCommentaire() != null) {
-	    for (final String mot : découperEnMots(fiche.getCommentaire())) {
+	if (fiche.getComment() != null) {
+	    for (final String mot : découperEnMots(fiche.getComment())) {
 		em.persist(new Référence(ge.fournirMot(mot),
 			COMMENTAIRE, fiche));
 	    }
 	}
 	final Set<String> mots = new HashSet<String>();
-	for (final String chaîne : fiche.getAutresChamps()) {
+	for (final String chaîne : fiche.getOtherFields()) {
 	    mots.addAll(découperEnMots(chaîne));
 	}
 	for (final String mot : mots) {

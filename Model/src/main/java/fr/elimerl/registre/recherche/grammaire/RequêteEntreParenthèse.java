@@ -5,7 +5,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import fr.elimerl.registre.entities.Fiche;
+import fr.elimerl.registre.entities.Record;
 
 /**
  * Type d’expression du langage de recherche qui représente une requête entre
@@ -28,7 +28,7 @@ public final class RequêteEntreParenthèse extends Expression {
 
     @Override
     public Predicate créerPrédicat(final CriteriaBuilder constructeur,
-	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	return this.requête.créerPrédicat(constructeur, requête, fiche);
     }
 

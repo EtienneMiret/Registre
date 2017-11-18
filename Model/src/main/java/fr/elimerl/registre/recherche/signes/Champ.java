@@ -24,23 +24,23 @@ public final class Champ extends Signe {
 
     /** Le titre d’une fiche. */
     public static final Champ TITRE =
-	    valeurDe("titre", String.class, Fiche.class);
+	    valeurDe("title", String.class, Record.class);
 
     /** Le commentaire associé à une fiche. */
     public static final Champ COMMENTAIRE =
-	    valeurDe("commentaire", String.class, Fiche.class);
+	    valeurDe("comment", String.class, Record.class);
 
     /** La série dont fait partie une fiche. */
     public static final Champ SÉRIE =
-	    valeurDe("série", Série.class, Fiche.class);
+	    valeurDe("series", Série.class, Record.class);
 
     /** Le propriétaire d’une fiche. */
     public static final Champ PROPRIÉTAIRE =
-	    valeurDe("propriétaire", Propriétaire.class, Fiche.class);
+	    valeurDe("owner", Propriétaire.class, Record.class);
 
     /** L’emplacement où est rangé une fiche. */
     public static final Champ EMPLACEMENT =
-	    valeurDe("emplacement", Location.class, Fiche.class);
+	    valeurDe("location", Location.class, Record.class);
 
     /** Le réalisateur d’un film. */
     public static final Champ RÉALISATEUR =
@@ -78,7 +78,7 @@ public final class Champ extends Signe {
      * @return le nouveau champ.
      */
     private static Champ valeurDe(final String nom, final Class<?> classe,
-	    final Class<? extends Fiche> classeDéclarante) {
+	    final Class<? extends Record> classeDéclarante) {
 	final Champ résultat = new Champ(nom, classe, classeDéclarante);
 	tous.add(résultat);
 	return résultat;
@@ -93,11 +93,11 @@ public final class Champ extends Signe {
      * La classe à laquelle appartient ce champ. Par exemple {@link Film} pour
      * le champ réalisateur et {@link Comic} pour le champ dessinateur.
      */
-    private final Class<? extends Fiche> classeDéclarante;
+    private final Class<? extends Record> classeDéclarante;
 
     /**
      * Le nom de ce champ. Il s’agit à la fois du nom de l’attribut
-     * correspondant à ce champ dans {@link Fiche} ou une de ses sous-classes et
+     * correspondant à ce champ dans {@link Record} ou une de ses sous-classes et
      * du terme à mettre avec les ‘:’ pour faire une recherche sur ce champ.
      */
     private final String nom;
@@ -108,7 +108,7 @@ public final class Champ extends Signe {
      *
      * @param nom
      *            nom de ce champ.Il s’agit à la fois du nom de l’attribut
-     *            correspondant à ce champ dans {@link Fiche} ou une de ses
+     *            correspondant à ce champ dans {@link Record} ou une de ses
      *            sous-classes et du terme à mettre avec les ‘:’ pour faire une
      *            recherche sur ce champ.
      * @param classe
@@ -117,7 +117,7 @@ public final class Champ extends Signe {
      *            classe à laquelle appartient ce champ.
      */
     private Champ(final String nom, final Class<?> classe,
-	    final Class<? extends Fiche> classeDéclarante) {
+	    final Class<? extends Record> classeDéclarante) {
 	super(nom + ':');
 	this.classe = classe;
 	this.classeDéclarante = classeDéclarante;
@@ -138,13 +138,13 @@ public final class Champ extends Signe {
      *
      * @return la classe à laquelle appartient ce champ.
      */
-    public Class<? extends Fiche> getClasseDéclarante() {
+    public Class<? extends Record> getClasseDéclarante() {
 	return classeDéclarante;
     }
 
     /**
      * Renvoie le nom de ce champ. Il s’agit à la fois du nom de l’attribut
-     * correspondant à ce champ dans {@link Fiche} ou une de ses sous-classes et
+     * correspondant à ce champ dans {@link Record} ou une de ses sous-classes et
      * du terme à mettre avec les ‘:’ pour faire une recherche sur ce champ.
      *
      * @return le nom de ce champ.

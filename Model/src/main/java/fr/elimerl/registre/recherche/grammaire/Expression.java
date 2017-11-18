@@ -5,7 +5,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import fr.elimerl.registre.entities.Fiche;
+import fr.elimerl.registre.entities.Record;
 
 /**
  * Une expression du langage de requête, sert à construire une {@link Requête}
@@ -27,6 +27,6 @@ public abstract class Expression {
      *         qu’une fiche correspond bien aux critères de cette expression.
      */
     public abstract Predicate créerPrédicat(CriteriaBuilder constructeur,
-	    CriteriaQuery<Fiche> requête, Root<Fiche> fiche);
+	    CriteriaQuery<Record> requête, Root<Record> fiche);
 
 }

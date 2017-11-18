@@ -58,13 +58,13 @@ public class DataTransfer {
     }
 
     /**
-     * Removes the {@code @Generated} annotation from the {@code Fiche} class
+     * Removes the {@code @Generated} annotation from the {@code Record} class
      * id. This allows us to keep the id of migrated records.
      */
     private static void removeAtGenerated() {
 	try {
 	    final ClassPool pool = ClassPool.getDefault();
-	    final CtClass record = pool.get("fr.elimerl.registre.entities.Fiche");
+	    final CtClass record = pool.get("fr.elimerl.registre.entities.Record");
 	    final CtField id = record.getDeclaredField("id");
 	    final FieldInfo info = id.getFieldInfo();
 	    final AnnotationsAttribute attribute = (AnnotationsAttribute)
@@ -85,12 +85,12 @@ public class DataTransfer {
 	    record.toClass();
 	} catch (final NotFoundException e) {
 	    final String message =
-		    "Could not find the Fiche class or is id field.";
+		    "Could not find the Record class or is id field.";
 	    logger.error(message);
 	    throw new RuntimeException(message, e);
 	} catch (final CannotCompileException e) {
 	    final String message =
-		    "Could not compile the new Fiche class.";
+		    "Could not compile the new Record class.";
 	    logger.error(message);
 	    throw new RuntimeException(message, e);
 	}

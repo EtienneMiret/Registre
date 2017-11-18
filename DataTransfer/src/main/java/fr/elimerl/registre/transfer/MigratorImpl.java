@@ -23,17 +23,13 @@ import javax.persistence.criteria.Root;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
+import fr.elimerl.registre.entities.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import fr.elimerl.registre.entities.Comic;
-import fr.elimerl.registre.entities.Fiche;
-import fr.elimerl.registre.entities.Film;
+import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Film.Support;
-import fr.elimerl.registre.entities.Livre;
-import fr.elimerl.registre.entities.Nommé;
-import fr.elimerl.registre.entities.Utilisateur;
 import fr.elimerl.registre.services.GestionnaireEntités;
 import fr.elimerl.registre.services.Indexeur;
 
@@ -51,7 +47,7 @@ public class MigratorImpl implements Migrator {
     /**
      * Assign the specified value to the specified field of the given record.
      * The specified field can be private or final, but it must belong to the
-     * {@link Fiche} class (and not a sub-class).
+     * {@link Record} class (and not a sub-class).
      *
      * @param record
      * 		record whose field is to be modified.
@@ -60,10 +56,10 @@ public class MigratorImpl implements Migrator {
      * @param value
      * 		value to set in the specified field.
      */
-    private static void defineField(final Fiche record, final String name,
+    private static void defineField(final Record record, final String name,
 	    final Object value) {
 	try {
-	    final Field champ = Fiche.class.getDeclaredField(name);
+	    final Field champ = Record.class.getDeclaredField(name);
 	    champ.setAccessible(true);
 	    champ.set(record, value);
 	} catch (final SecurityException e) {
@@ -163,7 +159,7 @@ public class MigratorImpl implements Migrator {
 	final ResultSet result = recordsQuery.executeQuery();
 	while (result.next()) {
 	    final String type = result.getString("type");
-	    final Fiche record;
+	    final Record record;
 	    if (type.equals("livre")) {
 		record = createBook(result);
 	    } else if (type.equals("BD")) {
@@ -172,7 +168,7 @@ public class MigratorImpl implements Migrator {
 		record = createMovie(result);
 	    }
 	    fillInCommonFields(record, result);
-	    final Fiche savedRecord = jpaEntityManager.merge(record);
+	    final Record savedRecord = jpaEntityManager.merge(record);
 	    index.réindexer(savedRecord);
 	    logger.debug("{} migrated.", savedRecord);
 	    migrated++;
@@ -190,7 +186,7 @@ public class MigratorImpl implements Migrator {
      * @throws SQLException
      * 		in case of SQL error.
      */
-    private Fiche createBook(final ResultSet result) throws SQLException {
+    private Record createBook(final ResultSet result) throws SQLException {
 	final Utilisateur creator =
 		provideUser(result.getString("createur"));
 	final String title = result.getString("titre");
@@ -201,19 +197,19 @@ public class MigratorImpl implements Migrator {
 	    book.setAuteur(registreEntityManager.fournirAuteur(author));
 	}
 	if (styles != null && !styles.isEmpty()) {
-	    book.setGenreFantastique(Boolean.valueOf(styles
+	    book.setFantasyStyle(Boolean.valueOf(styles
 		    .contains("fantastique")));
-	    book.setGenreHistoireVraie(Boolean.valueOf(styles
+	    book.setTrueStoryStyle(Boolean.valueOf(styles
 		    .contains("histoire vraie")));
-	    book.setGenreHistorique(Boolean.valueOf(styles
+	    book.setHistoricalStyle(Boolean.valueOf(styles
 		    .concat("historique")));
-	    book.setGenreHumour(Boolean.valueOf(styles
+	    book.setHumorStyle(Boolean.valueOf(styles
 		    .contains("humour")));
-	    book.setGenrePolicier(Boolean.valueOf(styles
+	    book.setDetectiveStyle(Boolean.valueOf(styles
 		    .contains("policier")));
-	    book.setGenreRomantique(Boolean.valueOf(styles
+	    book.setRomanticStyle(Boolean.valueOf(styles
 		    .contains("romantique")));
-	    book.setGenreSf(Boolean.valueOf(styles
+	    book.setSfStyle(Boolean.valueOf(styles
 		    .contains("science-fiction")));
 	}
 	return book;
@@ -228,7 +224,7 @@ public class MigratorImpl implements Migrator {
      * @throws SQLException
      * 		in case of SQL error.
      */
-    private Fiche createComic(final ResultSet result) throws SQLException {
+    private Record createComic(final ResultSet result) throws SQLException {
 	final Utilisateur creator =
 		provideUser(result.getString("createur"));
 	final String title = result.getString("titre");
@@ -260,7 +256,7 @@ public class MigratorImpl implements Migrator {
      * @throws SQLException
      * 		in case of SQL error.
      */
-    private Fiche createMovie(final ResultSet result) throws SQLException {
+    private Record createMovie(final ResultSet result) throws SQLException {
 	final Utilisateur creator =
 		provideUser(result.getString("createur"));
 	final String title = result.getString("titre");
@@ -309,7 +305,7 @@ public class MigratorImpl implements Migrator {
      * @throws SQLException
      * 		in case of SQL error.
      */
-    private void fillInCommonFields(final Fiche record, final ResultSet result)
+    private void fillInCommonFields(final Record record, final ResultSet result)
 	    throws SQLException {
 	final int id = result.getInt("tout.id");
 	final String series = result.getString("serie");
@@ -322,18 +318,18 @@ public class MigratorImpl implements Migrator {
 	final Date lastModification =
 		result.getTimestamp("derniere_edition");
 	if (series != null && !series.isEmpty()) {
-	    record.setSérie(registreEntityManager.fournirSérie(series));
+	    record.setSeries(registreEntityManager.fournirSérie(series));
 	}
 	if (owner != null && !owner.isEmpty()) {
-	    record.setPropriétaire(registreEntityManager
+	    record.setOwner(registreEntityManager
 		    .fournirPropriétaire(owner));
 	}
 	if (location != null && !location.isEmpty()) {
-	    record.setEmplacement(
+	    record.setLocation(
 	    	registreEntityManager.fournirEmplacement(location)
 	    );
 	}
-	record.setCommentaire(comment);
+	record.setComment(comment);
 	if (lastModifier != null && !lastModifier.isEmpty()) {
 	    record.toucher(provideUser(lastModifier));
 	}

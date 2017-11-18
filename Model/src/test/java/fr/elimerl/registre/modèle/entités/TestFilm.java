@@ -88,20 +88,20 @@ public class TestFilm {
 	Date après = new Date();
 
 	/* Vérification de la création. */
-	final Date création = dvd.getCréation();
+	final Date création = dvd.getCreation();
 	assertEquals("Le titre du DVD n’est pas le bon.",
-		TITRE, dvd.getTitre());
+		TITRE, dvd.getTitle());
 	assertEquals("Le DVD n’est pas un DVD.",
 		Support.DVD, dvd.getSupport());
 	assertBetween("La date de création du DVD est fausse.",
 		avant, après, création);
 	assertEquals("À la création, la date de dernière modification doit "
 		+ "être la date de création.",
-		dvd.getCréation(), dvd.getDernièreÉdition());
+		dvd.getCreation(), dvd.getLastModification());
 	assertEquals("Le créateur du DVD est faux.",
-		CRÉATEUR, dvd.getCréateur());
+		CRÉATEUR, dvd.getCreator());
 	assertEquals("À la création, le dernier éditeur doit être le créateur.",
-		dvd.getCréateur(), dvd.getDernierÉditeur());
+		dvd.getCreator(), dvd.getLastModifier());
 
 	/* Un peu d’attente. */
 	logger.info("Un peu d’attente.");
@@ -115,18 +115,18 @@ public class TestFilm {
 
 	/* Vérification du touchage. */
 	assertBetween("La date de dernière modification du DVD est fausse.",
-		avant, après, dvd.getDernièreÉdition());
+		avant, après, dvd.getLastModification());
 	assertEquals("La date de création a été modifiée.",
-		création, dvd.getCréation());
+		création, dvd.getCreation());
 	assertEquals("Le créateur a été modifié.",
-		CRÉATEUR, dvd.getCréateur());
+		CRÉATEUR, dvd.getCreator());
 	assertEquals("Le dernier éditeur est faux.",
-		MODIFIEUR, dvd.getDernierÉditeur());
+		MODIFIEUR, dvd.getLastModifier());
     }
 
     /**
-     * Teste les méthodes {@link Fiche#getTitre() getTitre()} et
-     * {@link Fiche#setTitre(String) setTitre(String)}.
+     * Teste les méthodes {@link Record#getTitle() getTitle()} et
+     * {@link Record#setTitle(String) setTitle(String)}.
      */
     @Test
     public void testTitre() {
@@ -134,16 +134,16 @@ public class TestFilm {
 	final String titre2 = "Au revoir Monsieur !";
 	logger.info("Test du titre.");
 
-	film.setTitre(titre1);
-	assertEquals("Le titre est faux.", titre1, film.getTitre());
+	film.setTitle(titre1);
+	assertEquals("Le titre est faux.", titre1, film.getTitle());
 
-	film.setTitre(titre2);
-	assertEquals("Le titre est faux.", titre2, film.getTitre());
+	film.setTitle(titre2);
+	assertEquals("Le titre est faux.", titre2, film.getTitle());
     }
 
     /**
-     * Teste les méthodes {@link Fiche#getSérie() getSérie()} et
-     * {@link Fiche#setSérie(Série) setSérie(Série)}.
+     * Teste les méthodes {@link Record#getSeries() getSeries()} et
+     * {@link Record#setSeries(Série) setSeries(Série)}.
      */
     @Test
     public void testSérie() {
@@ -151,19 +151,19 @@ public class TestFilm {
 	final Série série2 = new Série("Thierry la fronde");
 	logger.info("Test de la série.");
 
-	film.setSérie(série1);
-	assertEquals("La série est fausse.", série1, film.getSérie());
+	film.setSeries(série1);
+	assertEquals("La série est fausse.", série1, film.getSeries());
 
-	film.setSérie(série2);
-	assertEquals("La série est fausse.", série2, film.getSérie());
+	film.setSeries(série2);
+	assertEquals("La série est fausse.", série2, film.getSeries());
 
-	film.setSérie(null);
-	assertNull("La série n’a pas été effacée.", film.getSérie());
+	film.setSeries(null);
+	assertNull("La série n’a pas été effacée.", film.getSeries());
     }
 
     /**
-     * Teste les méthodes {@link Fiche#getCommentaire() getCommentaire()} et
-     * {@link Fiche#setCommentaire(String) setCommentaire(String)}.
+     * Teste les méthodes {@link Record#getComment() getComment()} et
+     * {@link Record#setComment(String) setComment(String)}.
      */
     @Test
     public void tesCommentaire() {
@@ -171,18 +171,18 @@ public class TestFilm {
 	final String commentaire2 = "Très mauvais film.";
 	logger.info("Test du commentaire.");
 
-	film.setCommentaire(commentaire1);
+	film.setComment(commentaire1);
 	assertEquals("Le commentaire n’a pas été défini correctement.",
-		commentaire1, film.getCommentaire());
+		commentaire1, film.getComment());
 
-	film.setCommentaire(commentaire2);
+	film.setComment(commentaire2);
 	assertEquals("Le commentaire n’a pas été modifié correctement.",
-		commentaire2, film.getCommentaire());
+		commentaire2, film.getComment());
     }
 
     /**
-     * Teste les méthodes {@link Fiche#getImage() getImage()} et
-     * {@link Fiche#setImage(String) setImage(String)}.
+     * Teste les méthodes {@link Record#getPicture() getPicture()} et
+     * {@link Record#setPicture(String) setPicture(String)}.
      */
     @Test
     public void testImage() {
@@ -190,23 +190,23 @@ public class TestFilm {
 	final String uuid2 = UUID.randomUUID().toString();
 	logger.info("Test de l’image.");
 
-	film.setImage(uuid1);
+	film.setPicture(uuid1);
 	assertEquals("L’image n’a pas été définie correctement.",
-		uuid1, film.getImage());
+		uuid1, film.getPicture());
 
-	film.setImage(uuid2);
+	film.setPicture(uuid2);
 	assertEquals("L’image n’a pas été modifiée correctement.",
-		uuid2, film.getImage());
+		uuid2, film.getPicture());
 
-	film.setImage(null);
+	film.setPicture(null);
 	assertNull("L’image n’a pas été effacée correctement.",
-		film.getImage());
+		film.getPicture());
     }
 
     /**
-     * Teste les méthodes {@link Fiche#getPropriétaire() getPropriétaire()} et
-     * {@link Fiche#setPropriétaire(Propriétaire)
-     * setPropriétaire(Propriétaire)}.
+     * Teste les méthodes {@link Record#getOwner() getOwner()} et
+     * {@link Record#setOwner(Propriétaire)
+     * setOwner(Propriétaire)}.
      */
     @Test
     public void testPropriétaire() {
@@ -214,22 +214,22 @@ public class TestFilm {
 	final Propriétaire propriétaire2 = new Propriétaire("Grégoire");
 	logger.info("Test du propriétaire.");
 
-	film.setPropriétaire(propriétaire1);
+	film.setOwner(propriétaire1);
 	assertEquals("Le propriétaire n’a pas été défini correctement.",
-		propriétaire1, film.getPropriétaire());
+		propriétaire1, film.getOwner());
 
-	film.setPropriétaire(propriétaire2);
+	film.setOwner(propriétaire2);
 	assertEquals("Le propriétaire n’a pas été modifié correctement.",
-		propriétaire2, film.getPropriétaire());
+		propriétaire2, film.getOwner());
 
-	film.setPropriétaire(null);
+	film.setOwner(null);
 	assertNull("Le propriétaire n’a pas été effacé correctement.",
-		film.getPropriétaire());
+		film.getOwner());
     }
 
     /**
-     * Teste les méthodes {@link Fiche#getEmplacement() getEmplacement()} et
-     * {@link Fiche#setEmplacement(Location) setEmplacement(Location)}.
+     * Teste les méthodes {@link Record#getLocation() getLocation()} et
+     * {@link Record#setLocation(Location) setLocation(Location)}.
      */
     @Test
     public void testEmplacement() {
@@ -237,17 +237,17 @@ public class TestFilm {
 	final Location emplacement2 = new Location("Singapour");
 	logger.info("Test de l’emplacement.");
 
-	film.setEmplacement(emplacement1);
+	film.setLocation(emplacement1);
 	assertEquals("L’emplacement n’a pas été défini correctement.",
-		emplacement1, film.getEmplacement());
+		emplacement1, film.getLocation());
 
-	film.setEmplacement(emplacement2);
+	film.setLocation(emplacement2);
 	assertEquals("L’emplacement n’a pas été modifié correctement.",
-		emplacement2, film.getEmplacement());
+		emplacement2, film.getLocation());
 
-	film.setEmplacement(null);
+	film.setLocation(null);
 	assertNull("L’emplacement n’a pas été effacé correctement.",
-		film.getEmplacement());
+		film.getLocation());
     }
 
     /**

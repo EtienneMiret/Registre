@@ -262,7 +262,7 @@ public class TestPersistence {
     /**
      * Teste qu’on peut enregistrer une bande-dessinée en base. On vérifie tous
      * les champs d’un objet {@code Comic}, y compris ceux hérités de
-     * {@code Fiche}.
+     * {@code Record}.
      */
     @Test
     public void enregistrementBandeDessinée() {
@@ -274,23 +274,23 @@ public class TestPersistence {
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
 	Comic bandeDessinée = new Comic(titre, créateur);
-	final Date création = bandeDessinée.getCréation();
+	final Date création = bandeDessinée.getCreation();
 	assertNull(bandeDessinée.getId());
 
 	bandeDessinée = em.merge(bandeDessinée);
 	em.flush();
 
 	assertNotNull(bandeDessinée.getId());
-	assertEquals(titre, bandeDessinée.getTitre());
-	assertNull(bandeDessinée.getSérie());
-	assertNull(bandeDessinée.getCommentaire());
-	assertNull(bandeDessinée.getImage());
-	assertNull(bandeDessinée.getPropriétaire());
-	assertNull(bandeDessinée.getEmplacement());
-	assertEquals(créateur, bandeDessinée.getCréateur());
-	assertEquals(création, bandeDessinée.getCréation());
-	assertEquals(créateur, bandeDessinée.getDernierÉditeur());
-	assertEquals(création, bandeDessinée.getDernièreÉdition());
+	assertEquals(titre, bandeDessinée.getTitle());
+	assertNull(bandeDessinée.getSeries());
+	assertNull(bandeDessinée.getComment());
+	assertNull(bandeDessinée.getPicture());
+	assertNull(bandeDessinée.getOwner());
+	assertNull(bandeDessinée.getLocation());
+	assertEquals(créateur, bandeDessinée.getCreator());
+	assertEquals(création, bandeDessinée.getCreation());
+	assertEquals(créateur, bandeDessinée.getLastModifier());
+	assertEquals(création, bandeDessinée.getLastModification());
 	assertNull(bandeDessinée.getCartoonist());
 	assertNull(bandeDessinée.getScriptWriter());
 	assertNull(bandeDessinée.getNumber());
@@ -310,30 +310,30 @@ public class TestPersistence {
 	scénariste = em.merge(scénariste);
 	final Integer numéro = Integer.valueOf(12);
 
-	bandeDessinée.setSérie(série);
-	bandeDessinée.setCommentaire(commentaire);
-	bandeDessinée.setImage(image);
-	bandeDessinée.setPropriétaire(propriétaire);
-	bandeDessinée.setEmplacement(emplacement);
+	bandeDessinée.setSeries(série);
+	bandeDessinée.setComment(commentaire);
+	bandeDessinée.setPicture(image);
+	bandeDessinée.setOwner(propriétaire);
+	bandeDessinée.setLocation(emplacement);
 	bandeDessinée.setCartoonist(dessinateur);
 	bandeDessinée.setScriptWriter(scénariste);
 	bandeDessinée.setNumber(numéro);
 	bandeDessinée.toucher(éditeur);
-	final Date édition = bandeDessinée.getDernièreÉdition();
+	final Date édition = bandeDessinée.getLastModification();
 
 	bandeDessinée = em.merge(bandeDessinée);
 
 	assertEquals(id, bandeDessinée.getId());
-	assertEquals(titre, bandeDessinée.getTitre());
-	assertEquals(série, bandeDessinée.getSérie());
-	assertEquals(commentaire, bandeDessinée.getCommentaire());
-	assertEquals(image, bandeDessinée.getImage());
-	assertEquals(propriétaire, bandeDessinée.getPropriétaire());
-	assertEquals(emplacement, bandeDessinée.getEmplacement());
-	assertEquals(créateur, bandeDessinée.getCréateur());
-	assertEquals(création, bandeDessinée.getCréation());
-	assertEquals(éditeur, bandeDessinée.getDernierÉditeur());
-	assertEquals(édition, bandeDessinée.getDernièreÉdition());
+	assertEquals(titre, bandeDessinée.getTitle());
+	assertEquals(série, bandeDessinée.getSeries());
+	assertEquals(commentaire, bandeDessinée.getComment());
+	assertEquals(image, bandeDessinée.getPicture());
+	assertEquals(propriétaire, bandeDessinée.getOwner());
+	assertEquals(emplacement, bandeDessinée.getLocation());
+	assertEquals(créateur, bandeDessinée.getCreator());
+	assertEquals(création, bandeDessinée.getCreation());
+	assertEquals(éditeur, bandeDessinée.getLastModifier());
+	assertEquals(édition, bandeDessinée.getLastModification());
 	assertEquals(dessinateur, bandeDessinée.getCartoonist());
 	assertEquals(scénariste, bandeDessinée.getScriptWriter());
 	assertEquals(numéro, bandeDessinée.getNumber());
@@ -341,7 +341,7 @@ public class TestPersistence {
 
     /**
      * Teste qu’on peut enregistrer un film en base. On ne vérifie pas les
-     * champs hérités de {@code Fiche}, car l’enregistrement de ceux-ci est
+     * champs hérités de {@code Record}, car l’enregistrement de ceux-ci est
      * vérifié dans {@link #enregistrementBandeDessinée()}.
      */
     @Test
@@ -362,16 +362,16 @@ public class TestPersistence {
 	assertNotNull(film.getActeurs());
 	assertTrue(film.getActeurs().isEmpty());
 	assertNull(film.getCompositeur());
-	assertNull(film.getGenreAction());
-	assertNull(film.getGenreDocumentaire());
-	assertNull(film.getGenreFantastique());
-	assertNull(film.getGenreGuerre());
-	assertNull(film.getGenreHistoireVraie());
-	assertNull(film.getGenreHistorique());
-	assertNull(film.getGenreHumour());
-	assertNull(film.getGenrePolicier());
-	assertNull(film.getGenreRomantique());
-	assertNull(film.getGenreSf());
+	assertNull(film.getActionStyle());
+	assertNull(film.getDocumentaryStyle());
+	assertNull(film.getFantasyStyle());
+	assertNull(film.getWarStyle());
+	assertNull(film.getTrueStoryStyle());
+	assertNull(film.getHistoricalStyle());
+	assertNull(film.getHumorStyle());
+	assertNull(film.getDetectiveStyle());
+	assertNull(film.getRomanticStyle());
+	assertNull(film.getSfStyle());
 
 	Réalisateur réalisateur = new Réalisateur(NOM);
 	réalisateur = em.merge(réalisateur);
@@ -389,16 +389,16 @@ public class TestPersistence {
 	film.getActeurs().add(acteur2);
 	film.getActeurs().add(acteur3);
 	film.setCompositeur(compositeur);
-	film.setGenreAction(Boolean.TRUE);
-	film.setGenreDocumentaire(Boolean.FALSE);
-	film.setGenreFantastique(Boolean.TRUE);
-	film.setGenreGuerre(Boolean.FALSE);
-	film.setGenreHistoireVraie(Boolean.TRUE);
-	film.setGenreHistorique(Boolean.FALSE);
-	film.setGenreHumour(Boolean.TRUE);
-	film.setGenrePolicier(Boolean.FALSE);
-	film.setGenreRomantique(Boolean.TRUE);
-	film.setGenreSf(Boolean.FALSE);
+	film.setActionStyle(Boolean.TRUE);
+	film.setDocumentaryStyle(Boolean.FALSE);
+	film.setFantasyStyle(Boolean.TRUE);
+	film.setWarStyle(Boolean.FALSE);
+	film.setTrueStoryStyle(Boolean.TRUE);
+	film.setHistoricalStyle(Boolean.FALSE);
+	film.setHumorStyle(Boolean.TRUE);
+	film.setDetectiveStyle(Boolean.FALSE);
+	film.setRomanticStyle(Boolean.TRUE);
+	film.setSfStyle(Boolean.FALSE);
 	film.toucher(éditeur);
 
 	film = em.merge(film);
@@ -410,21 +410,21 @@ public class TestPersistence {
 	assertTrue(film.getActeurs().contains(acteur2));
 	assertTrue(film.getActeurs().contains(acteur3));
 	assertEquals(compositeur, film.getCompositeur());
-	assertEquals(Boolean.TRUE, film.getGenreAction());
-	assertEquals(Boolean.FALSE, film.getGenreDocumentaire());
-	assertEquals(Boolean.TRUE, film.getGenreFantastique());
-	assertEquals(Boolean.FALSE, film.getGenreGuerre());
-	assertEquals(Boolean.TRUE, film.getGenreHistoireVraie());
-	assertEquals(Boolean.FALSE, film.getGenreHistorique());
-	assertEquals(Boolean.TRUE, film.getGenreHumour());
-	assertEquals(Boolean.FALSE, film.getGenrePolicier());
-	assertEquals(Boolean.TRUE, film.getGenreRomantique());
-	assertEquals(Boolean.FALSE, film.getGenreSf());
+	assertEquals(Boolean.TRUE, film.getActionStyle());
+	assertEquals(Boolean.FALSE, film.getDocumentaryStyle());
+	assertEquals(Boolean.TRUE, film.getFantasyStyle());
+	assertEquals(Boolean.FALSE, film.getWarStyle());
+	assertEquals(Boolean.TRUE, film.getTrueStoryStyle());
+	assertEquals(Boolean.FALSE, film.getHistoricalStyle());
+	assertEquals(Boolean.TRUE, film.getHumorStyle());
+	assertEquals(Boolean.FALSE, film.getDetectiveStyle());
+	assertEquals(Boolean.TRUE, film.getRomanticStyle());
+	assertEquals(Boolean.FALSE, film.getSfStyle());
     }
 
     /**
      * Teste qu’on peut enregistrer un livre en base. On ne vérifie pas les
-     * champs hérités de {@code Fiche} car l’enregistrement de ceux-ci est
+     * champs hérités de {@code Record} car l’enregistrement de ceux-ci est
      * vérifié dans {@link #enregistrementBandeDessinée()}.
      */
     @Test
@@ -441,36 +441,36 @@ public class TestPersistence {
 	livre = em.merge(livre);
 
 	assertNull(livre.getAuteur());
-	assertNull(livre.getGenreFantastique());
-	assertNull(livre.getGenreHistoireVraie());
-	assertNull(livre.getGenreHistorique());
-	assertNull(livre.getGenreHumour());
-	assertNull(livre.getGenrePolicier());
-	assertNull(livre.getGenreRomantique());
-	assertNull(livre.getGenreSf());
+	assertNull(livre.getFantasyStyle());
+	assertNull(livre.getTrueStoryStyle());
+	assertNull(livre.getHistoricalStyle());
+	assertNull(livre.getHumorStyle());
+	assertNull(livre.getDetectiveStyle());
+	assertNull(livre.getRomanticStyle());
+	assertNull(livre.getSfStyle());
 
 	Author auteur = new Author("Robin Hobb");
 	auteur = em.merge(auteur);
 
 	livre.setAuteur(auteur);
-	livre.setGenreFantastique(Boolean.TRUE);
-	livre.setGenreHistoireVraie(Boolean.FALSE);
-	livre.setGenreHistorique(Boolean.TRUE);
-	livre.setGenreHumour(Boolean.FALSE);
-	livre.setGenrePolicier(Boolean.TRUE);
-	livre.setGenreRomantique(Boolean.FALSE);
-	livre.setGenreSf(Boolean.TRUE);
+	livre.setFantasyStyle(Boolean.TRUE);
+	livre.setTrueStoryStyle(Boolean.FALSE);
+	livre.setHistoricalStyle(Boolean.TRUE);
+	livre.setHumorStyle(Boolean.FALSE);
+	livre.setDetectiveStyle(Boolean.TRUE);
+	livre.setRomanticStyle(Boolean.FALSE);
+	livre.setSfStyle(Boolean.TRUE);
 
 	livre = em.merge(livre);
 
 	assertEquals(auteur, livre.getAuteur());
-	assertEquals(Boolean.TRUE, livre.getGenreFantastique());
-	assertEquals(Boolean.FALSE, livre.getGenreHistoireVraie());
-	assertEquals(Boolean.TRUE, livre.getGenreHistorique());
-	assertEquals(Boolean.FALSE, livre.getGenreHumour());
-	assertEquals(Boolean.TRUE, livre.getGenrePolicier());
-	assertEquals(Boolean.FALSE, livre.getGenreRomantique());
-	assertEquals(Boolean.TRUE, livre.getGenreSf());
+	assertEquals(Boolean.TRUE, livre.getFantasyStyle());
+	assertEquals(Boolean.FALSE, livre.getTrueStoryStyle());
+	assertEquals(Boolean.TRUE, livre.getHistoricalStyle());
+	assertEquals(Boolean.FALSE, livre.getHumorStyle());
+	assertEquals(Boolean.TRUE, livre.getDetectiveStyle());
+	assertEquals(Boolean.FALSE, livre.getRomanticStyle());
+	assertEquals(Boolean.TRUE, livre.getSfStyle());
     }
 
     /**
@@ -498,7 +498,7 @@ public class TestPersistence {
 	final Champ champ = Champ.TITRE;
 	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
-	Fiche fiche = new Film(titre, créateur, BRD);
+	Record fiche = new Film(titre, créateur, BRD);
 	fiche = em.merge(fiche);
 	Mot mot = new Mot(MOT);
 	mot = em.merge(mot);
@@ -687,7 +687,7 @@ public class TestPersistence {
 	final Champ champ = Champ.TITRE;
 	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
-	Fiche fiche = new Film(titre, créateur, BRD);
+	Record fiche = new Film(titre, créateur, BRD);
 	fiche = em.merge(fiche);
 	Mot mot = new Mot(MOT);
 	mot = em.merge(mot);
@@ -709,8 +709,8 @@ public class TestPersistence {
 	final String titre = "Lettres d’Iwo Jima";
 	final Utilisateur créateur =
 		em.merge(new Utilisateur(UTILISATEUR, EMAIL));
-	final Fiche fiche1 = new Film(titre, créateur, BRD);
-	final Fiche fiche2 = new Comic(titre, créateur);
+	final Record fiche1 = new Film(titre, créateur, BRD);
+	final Record fiche2 = new Comic(titre, créateur);
 
 	em.merge(fiche1);
 	em.merge(fiche2);
@@ -1053,7 +1053,7 @@ public class TestPersistence {
     /**
      * Teste le chargement des fiches insérées dans la base de données par le
      * fichier src/test/resources/test-data.sql. On teste tous les champs pour
-     * une BD, un film et un livre (chaque implémentation de {@link Fiche}).
+     * une BD, un film et un livre (chaque implémentation de {@link Record}).
      * Pour les autres on se contente de l’id et du titre.
      *
      * @throws ParseException
@@ -1062,70 +1062,70 @@ public class TestPersistence {
     @Test
     public void chargerFiches() throws ParseException {
 	logger.info("Chargement des fiches de test-data.sql.");
-	final Iterator<Fiche> fiches = charger(Fiche.class, "titre");
+	final Iterator<Record> fiches = charger(Record.class, "title");
 	logger.debug("Fiches chargées.");
 
 	final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	final Comic alerteAuxPiedsBleus = (Comic) fiches.next();
 	assertEquals(SIX, alerteAuxPiedsBleus.getId().intValue());
-	assertEquals("Alerte aux Pieds-Bleus", alerteAuxPiedsBleus.getTitre());
+	assertEquals("Alerte aux Pieds-Bleus", alerteAuxPiedsBleus.getTitle());
 
 	final Comic bouleEtBill = (Comic) fiches.next();
 	assertEquals(ZÉRO, bouleEtBill.getId().intValue());
-	assertEquals("Globe-trotters", bouleEtBill.getTitre());
-	assertEquals("Boule et Bill", bouleEtBill.getSérie().getNom());
-	assertNull(bouleEtBill.getCommentaire());
-	assertNull(bouleEtBill.getImage());
-	assertEquals("Claire", bouleEtBill.getPropriétaire().getNom());
-	assertEquals("Verneuil", bouleEtBill.getEmplacement().getNom());
-	assertEquals("Etienne", bouleEtBill.getCréateur().getNom());
+	assertEquals("Globe-trotters", bouleEtBill.getTitle());
+	assertEquals("Boule et Bill", bouleEtBill.getSeries().getNom());
+	assertNull(bouleEtBill.getComment());
+	assertNull(bouleEtBill.getPicture());
+	assertEquals("Claire", bouleEtBill.getOwner().getNom());
+	assertEquals("Verneuil", bouleEtBill.getLocation().getNom());
+	assertEquals("Etienne", bouleEtBill.getCreator().getNom());
 	assertEquals(df.parse("2012-12-25 22:18:30"),
-		bouleEtBill.getCréation());
-	assertEquals("Grégoire", bouleEtBill.getDernierÉditeur().getNom());
+		bouleEtBill.getCreation());
+	assertEquals("Grégoire", bouleEtBill.getLastModifier().getNom());
 	assertEquals(df.parse("2013-02-16 22:19:58"),
-		bouleEtBill.getDernièreÉdition());
+		bouleEtBill.getLastModification());
 	assertEquals("Jigounov", bouleEtBill.getCartoonist().getNom());
 	assertEquals("Renard", bouleEtBill.getScriptWriter().getNom());
 	assertEquals(DOUZE, bouleEtBill.getNumber().intValue());
 
 	final Livre laChuteDeDamnos = (Livre) fiches.next();
 	assertEquals(CINQ, laChuteDeDamnos.getId().intValue());
-	assertEquals("La Chute de Damnos", laChuteDeDamnos.getTitre());
+	assertEquals("La Chute de Damnos", laChuteDeDamnos.getTitle());
 
 	final Comic laFiancéeDeLukyLuke = (Comic) fiches.next();
 	assertEquals(SEPT, laFiancéeDeLukyLuke.getId().intValue());
-	assertEquals("La Fiancée de Luky Luke", laFiancéeDeLukyLuke.getTitre());
+	assertEquals("La Fiancée de Luky Luke", laFiancéeDeLukyLuke.getTitle());
 
 	final Livre laPurgeDeKadillus = (Livre) fiches.next();
 	assertEquals(QUATRE, laPurgeDeKadillus.getId().intValue());
-	assertEquals("La Purge de Kadillus", laPurgeDeKadillus.getTitre());
+	assertEquals("La Purge de Kadillus", laPurgeDeKadillus.getTitle());
 
 	final Comic lePonyExpress = (Comic) fiches.next();
 	assertEquals(HUIT, lePonyExpress.getId().intValue());
-	assertEquals("Le Pony Express", lePonyExpress.getTitre());
+	assertEquals("Le Pony Express", lePonyExpress.getTitle());
 
 	final Film lucy = (Film) fiches.next();
 	assertEquals(TROIS, lucy.getId().intValue());
-	assertEquals("Lucy", lucy.getTitre());
+	assertEquals("Lucy", lucy.getTitle());
 
 	final Film lukyMarines = (Film) fiches.next();
 	assertEquals(NEUF, lukyMarines.getId().intValue());
-	assertEquals("Luky Marines", lukyMarines.getTitre());
+	assertEquals("Luky Marines", lukyMarines.getTitle());
 
 	final Film merlin = (Film) fiches.next();
 	assertEquals(UN, merlin.getId().intValue());
-	assertEquals("Merlin, Saison 1", merlin.getTitre());
-	assertEquals("Merlin", merlin.getSérie().getNom());
-	assertEquals("Une super série !", merlin.getCommentaire());
-	assertNull(merlin.getImage());
-	assertEquals("Etienne", merlin.getPropriétaire().getNom());
-	assertEquals("Verneuil", merlin.getEmplacement().getNom());
-	assertEquals("Etienne", merlin.getCréateur().getNom());
-	assertEquals(df.parse("2012-12-25 22:21:29"), merlin.getCréation());
-	assertEquals("Claire", merlin.getDernierÉditeur().getNom());
+	assertEquals("Merlin, Saison 1", merlin.getTitle());
+	assertEquals("Merlin", merlin.getSeries().getNom());
+	assertEquals("Une super série !", merlin.getComment());
+	assertNull(merlin.getPicture());
+	assertEquals("Etienne", merlin.getOwner().getNom());
+	assertEquals("Verneuil", merlin.getLocation().getNom());
+	assertEquals("Etienne", merlin.getCreator().getNom());
+	assertEquals(df.parse("2012-12-25 22:21:29"), merlin.getCreation());
+	assertEquals("Claire", merlin.getLastModifier().getNom());
 	assertEquals(df.parse("2013-02-26 22:22:06"),
-		merlin.getDernièreÉdition());
+		merlin.getLastModification());
 	assertEquals(Support.BRD, merlin.getSupport());
 	assertNull(merlin.getRéalisateur());
 	assertEquals("Howard Shore", merlin.getCompositeur().getNom());
@@ -1133,13 +1133,13 @@ public class TestPersistence {
 
 	final Livre rainbowSix = (Livre) fiches.next();
 	assertEquals(DEUX, rainbowSix.getId().intValue());
-	assertEquals("Rainbow Six", rainbowSix.getTitre());
-	assertNull(rainbowSix.getSérie());
-	assertNull(rainbowSix.getCommentaire());
-	assertNull(rainbowSix.getImage());
-	assertEquals("Etienne", rainbowSix.getPropriétaire().getNom());
-	assertEquals("Verneuil", rainbowSix.getEmplacement().getNom());
-	assertEquals("Etienne", rainbowSix.getCréateur().getNom());
+	assertEquals("Rainbow Six", rainbowSix.getTitle());
+	assertNull(rainbowSix.getSeries());
+	assertNull(rainbowSix.getComment());
+	assertNull(rainbowSix.getPicture());
+	assertEquals("Etienne", rainbowSix.getOwner().getNom());
+	assertEquals("Verneuil", rainbowSix.getLocation().getNom());
+	assertEquals("Etienne", rainbowSix.getCreator().getNom());
 
 	assertFalse(fiches.hasNext());
     }
@@ -1214,13 +1214,13 @@ public class TestPersistence {
 	logger.info("Désindexations des fiches.");
 
 	/* Désindexation de la fiche 0, qui n’a pas de références. */
-	final Fiche fiche0 = em.getReference(Fiche.class, Long.valueOf(ZÉRO));
+	final Record fiche0 = em.getReference(Record.class, Long.valueOf(ZÉRO));
 	final Query désindexerFiche0 = em.createNamedQuery("désindexerFiche");
 	désindexerFiche0.setParameter("fiche", fiche0);
 	assertEquals(ZÉRO, désindexerFiche0.executeUpdate());
 
 	/* Désindexation de la fiche 1, qui a trois références. */
-	final Fiche fiche1 = em.getReference(Fiche.class, Long.valueOf(UN));
+	final Record fiche1 = em.getReference(Record.class, Long.valueOf(UN));
 	final Query désindexerFiche1 = em.createNamedQuery("désindexerFiche");
 	désindexerFiche1.setParameter("fiche", fiche1);
 	assertEquals(TROIS, désindexerFiche1.executeUpdate());

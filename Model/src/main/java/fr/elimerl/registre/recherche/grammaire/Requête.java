@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import fr.elimerl.registre.entities.Fiche;
+import fr.elimerl.registre.entities.Record;
 
 /**
  * Représente une requête de recherche dans son ensemble. Telle que définie dans
@@ -59,7 +59,7 @@ public final class Requête {
      *         qu’une fiche correspond bien aux critères de cette requête.
      */
     public Predicate créerPrédicat(final CriteriaBuilder constructeur,
-	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Predicate résultat;
 	final List<Predicate> sousPrédicats =
 		new ArrayList<Predicate>(expressions.size());

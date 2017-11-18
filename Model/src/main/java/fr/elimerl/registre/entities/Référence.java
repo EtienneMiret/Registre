@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 /**
  * Une {@code Référence} est une entrée dans l’index de l’application. Elle
- * associe un {@link Mot} à une {@link Fiche}, en précisant dans quel
+ * associe un {@link Mot} à une {@link Record}, en précisant dans quel
  * {@link Champ} de la fiche il se trouve.
  */
 @Entity
@@ -30,23 +30,23 @@ public class Référence {
     private static final int PREMIER = 31;
 
     /**
-     * Un {@code Champ} est un champ d’une {@link Fiche}.
+     * Un {@code Champ} est un champ d’une {@link Record}.
      */
     public enum Champ {
 
 	/**
-	 * Correspond au {@link Fiche#getTitre() titre} d’une {@code Fiche}.
+	 * Correspond au {@link Record#getTitle() titre} d’une {@code Record}.
 	 */
 	TITRE,
 
 	/**
-	 * Correspond au {@link Fiche#getCommentaire() commentaire} d’une
-	 * {@code Fiche}.
+	 * Correspond au {@link Record#getComment() commentaire} d’une
+	 * {@code Record}.
 	 */
 	COMMENTAIRE,
 
 	/**
-	 * Correspond aux autres champs d’une {@code Fiche}.
+	 * Correspond aux autres champs d’une {@code Record}.
 	 */
 	AUTRE
 
@@ -68,10 +68,10 @@ public class Référence {
     @Column(name = "champ")
     private Champ champ;
 
-    /** La {@code Fiche} dans laquelle se trouve cette référence. */
+    /** La {@code Record} dans laquelle se trouve cette référence. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fiche")
-    private Fiche fiche;
+    private Record fiche;
 
     /**
      * Constructeur sans argument, requis par Hibernate.
@@ -89,7 +89,7 @@ public class Référence {
      * @param fiche
      *            la fiche dans laquelle se trouve le mot référencé.
      */
-    public Référence(final Mot mot, final Champ champ, final Fiche fiche) {
+    public Référence(final Mot mot, final Champ champ, final Record fiche) {
 	this.mot = mot;
 	this.champ = champ;
 	this.fiche = fiche;
@@ -127,7 +127,7 @@ public class Référence {
      *
      * @return la fiche dans laquelle se trouve le mot référencé.
      */
-    public Fiche getFiche() {
+    public Record getFiche() {
 	return fiche;
     }
 

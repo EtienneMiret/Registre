@@ -15,13 +15,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import fr.elimerl.registre.entities.Record;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.entities.Fiche;
 import fr.elimerl.registre.entities.Mot;
 import fr.elimerl.registre.entities.Référence;
 import fr.elimerl.registre.entities.Référence.Champ;
@@ -58,13 +58,13 @@ public class TestIndexeur {
     private Indexeur indexeur;
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#réindexer(Fiche)
-     * réindexer(Fiche)} sur la fiche 0 (une bande-dessinée de Boule et Bill).
+     * Teste la méthode {@link GestionnaireEntités#réindexer(Record)
+     * réindexer(Record)} sur la fiche 0 (une bande-dessinée de Boule et Bill).
      */
     @Test
     public void réindexerBouleEtBill() {
 	final EntityManager em = gestionnaire.getGestionnaireNatif();
-	final Fiche bouleEtBill = em.find(Fiche.class, ZÉRO);
+	final Record bouleEtBill = em.find(Record.class, ZÉRO);
 
 	final Set<Référence> référencesAttendues = new HashSet<Référence>();
 	référencesAttendues.add(créerRéférence("bd", AUTRE, bouleEtBill));
@@ -88,13 +88,13 @@ public class TestIndexeur {
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#réindexer(Fiche)
-     * réindexer(Fiche)} sur la fiche 1 (la saison 1 de la série Merlin).
+     * Teste la méthode {@link GestionnaireEntités#réindexer(Record)
+     * réindexer(Record)} sur la fiche 1 (la saison 1 de la série Merlin).
      */
     @Test
     public void réindexerMerlin() {
 	final EntityManager em = gestionnaire.getGestionnaireNatif();
-	final Fiche merlin = em.find(Fiche.class, UN);
+	final Record merlin = em.find(Record.class, UN);
 
 	final Set<Référence> référencesAttendues = new HashSet<Référence>();
 	référencesAttendues.add(créerRéférence("film", AUTRE, merlin));
@@ -122,13 +122,13 @@ public class TestIndexeur {
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#réindexer(Fiche)
-     * réindexer(Fiche)} sur la fiche 2 (un livre de Tom Clancy).
+     * Teste la méthode {@link GestionnaireEntités#réindexer(Record)
+     * réindexer(Record)} sur la fiche 2 (un livre de Tom Clancy).
      */
     @Test
     public void réindexerRainbowSix() {
 	final EntityManager em = gestionnaire.getGestionnaireNatif();
-	final Fiche rainbowSix = em.find(Fiche.class, DEUX);
+	final Record rainbowSix = em.find(Record.class, DEUX);
 
 	final Set<Référence> référencesAttendues = new HashSet<Référence>();
 	référencesAttendues.add(créerRéférence("livre", AUTRE, rainbowSix));
@@ -150,7 +150,7 @@ public class TestIndexeur {
      *            la fiche dont on veut les références.
      * @return l’ensemble des référence de la fiche donnée.
      */
-    private Set<Référence> chargerRéférences(final Fiche fiche) {
+    private Set<Référence> chargerRéférences(final Record fiche) {
 	final EntityManager em = gestionnaire.getGestionnaireNatif();
 	final CriteriaBuilder constructeur = em.getCriteriaBuilder();
 	final CriteriaQuery<Référence> requête =
@@ -175,7 +175,7 @@ public class TestIndexeur {
      *         champ donné de la fiche donnée.
      */
     private Référence créerRéférence(final String mot, final Champ champ,
-	    final Fiche fiche) {
+	    final Record fiche) {
 	return new Référence(gestionnaire.fournirMot(mot), champ, fiche);
     }
 

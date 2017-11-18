@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "films")
-public class Film extends Fiche {
+public class Film extends Record {
 
     /**
      * Support physique sur lequel est enregistré un film.
@@ -104,8 +104,8 @@ public class Film extends Fiche {
     }
 
     @Override
-    public List<String> getAutresChamps() {
-	final List<String> résultat = super.getAutresChamps();
+    public List<String> getOtherFields() {
+	final List<String> résultat = super.getOtherFields();
 	résultat.add("film");
 	if (support != null) {
 	    résultat.add(support.toString());

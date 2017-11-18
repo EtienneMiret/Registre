@@ -6,7 +6,7 @@ import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.entities.Fiche;
+import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Film;
 import fr.elimerl.registre.entities.Mot;
 import fr.elimerl.registre.entities.Référence;
@@ -25,7 +25,7 @@ public class TestRéférence {
     public void test() {
 	final Mot mot = new Mot("Demain");
 	final Champ champ = Champ.TITRE;
-	final Fiche fiche = new Film("Demain ne meurt jamais",
+	final Record fiche = new Film("Demain ne meurt jamais",
 		new Utilisateur("Etienne", "etienne@email"), Support.DVD);
 	final Référence référence = new Référence(mot, champ, fiche);
 	assertEquals(mot, référence.getMot());

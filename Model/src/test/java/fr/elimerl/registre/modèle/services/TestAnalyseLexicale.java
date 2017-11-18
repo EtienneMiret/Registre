@@ -107,7 +107,7 @@ public class TestAnalyseLexicale {
     @Test
     public void analyserVraieRequête() {
 	final Queue<Signe> résultat = parseur.analyserLexicalement(
-		"titre:(Bonjour Madame) OU coucou");
+		"title:(Bonjour Madame) OU coucou");
 	assertEquals(SEPT, résultat.size());
 	assertEquals(Champ.TITRE, résultat.poll());
 	assertEquals(Parenthèse.OUVRANTE, résultat.poll());

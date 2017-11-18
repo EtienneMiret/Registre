@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.elimerl.registre.entities.Comic;
-import fr.elimerl.registre.entities.Fiche;
+import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Film;
 import fr.elimerl.registre.entities.Livre;
 
@@ -47,7 +47,7 @@ public class GestionFiches {
     @Transactional(readOnly = true)
     public String afficher(@PathVariable final Long id, final Model modèle,
 	    final HttpServletResponse réponse) {
-	final Fiche fiche = em.find(Fiche.class, id);
+	final Record fiche = em.find(Record.class, id);
 	modèle.addAttribute("fiche", fiche);
 	final String vue;
 	if (fiche == null) {

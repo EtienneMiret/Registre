@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import fr.elimerl.registre.entities.Record;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.entities.Fiche;
 import fr.elimerl.registre.recherche.grammaire.Expression;
 import fr.elimerl.registre.recherche.grammaire.MotCléSimple;
 import fr.elimerl.registre.recherche.grammaire.Requête;
@@ -58,10 +58,10 @@ public class TestCréerPrédicat {
     private CriteriaBuilder constructeur;
 
     /** Requête principale. On teste la construction de sa clause where. */
-    private CriteriaQuery<Fiche> requête;
+    private CriteriaQuery<Record> requête;
 
     /** La racine de la requête principale. */
-    private Root<Fiche> fiche;
+    private Root<Record> fiche;
 
     /**
      * Prépare l’environnement pour les tests.
@@ -69,14 +69,14 @@ public class TestCréerPrédicat {
     @Before
     public void setUp() {
 	constructeur = em.getCriteriaBuilder();
-	requête = constructeur.createQuery(Fiche.class);
-	fiche = requête.from(Fiche.class);
+	requête = constructeur.createQuery(Record.class);
+	fiche = requête.from(Record.class);
 	requête.select(fiche);
 	requête.orderBy(constructeur.asc(fiche.get("id")));
 
 	/* Indexation de toutes les fiches. */
-	final TypedQuery<Fiche> requêteJpa = em.createQuery(requête);
-	for (final Fiche fiche : requêteJpa.getResultList()) {
+	final TypedQuery<Record> requêteJpa = em.createQuery(requête);
+	for (final Record fiche : requêteJpa.getResultList()) {
 	    indexeur.réindexer(fiche);
 	}
     }
@@ -89,7 +89,7 @@ public class TestCréerPrédicat {
     public void testMotCléSimple() {
 	journal.info("Création d’un prédicat à partir d’un mot clé simple.");
 	final MotCléSimple motClé = new MotCléSimple(new MotClé("super"));
-	final List<Fiche> résultats = exécuter(motClé);
+	final List<Record> résultats = exécuter(motClé);
 	vérifier(résultats, 1);
     }
 
@@ -103,7 +103,7 @@ public class TestCréerPrédicat {
 		+ " titre.");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.TITRE, new MotClé("la"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4, 5, 7);
     }
 
@@ -117,7 +117,7 @@ public class TestCréerPrédicat {
 		+ " commentaire.");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.COMMENTAIRE, new MotClé("super"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1);
     }
 
@@ -131,7 +131,7 @@ public class TestCréerPrédicat {
 		+ " série.");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.SÉRIE, new MotClé("warhammer"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4, 5);
     }
 
@@ -146,7 +146,7 @@ public class TestCréerPrédicat {
 		+ " propriétaire.");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.PROPRIÉTAIRE, new MotClé("etienne"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1, 2, 4, 5);
     }
 
@@ -161,7 +161,7 @@ public class TestCréerPrédicat {
 		+ " l’emplacement.");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.EMPLACEMENT, new MotClé("verneuil"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 0, 1, 2);
     }
 
@@ -176,7 +176,7 @@ public class TestCréerPrédicat {
 		+ " réalisateur.");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.RÉALISATEUR, new MotClé("besson"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 3);
     }
 
@@ -190,7 +190,7 @@ public class TestCréerPrédicat {
 		+ " acteurs");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.ACTEUR, new MotClé("scarlett"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 3);
     }
 
@@ -204,7 +204,7 @@ public class TestCréerPrédicat {
 		+ " compositeur.");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.COMPOSITEUR, new MotClé("howard"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1);
     }
 
@@ -218,7 +218,7 @@ public class TestCréerPrédicat {
 		+ " dessinateur.");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.DESSINATEUR, new MotClé("morris"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 6, 7, 8);
     }
 
@@ -232,7 +232,7 @@ public class TestCréerPrédicat {
 		+ " scénariste");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.SCÉNARISTE, new MotClé("renard"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 0);
     }
 
@@ -246,7 +246,7 @@ public class TestCréerPrédicat {
 		+ " l’auteur");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.AUTEUR, new MotClé("thorpe"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4);
     }
 
@@ -264,7 +264,7 @@ public class TestCréerPrédicat {
 				new MotCléSimple(new MotClé("super"))
 			)
 		);
-	final List<Fiche> résultats = exécuter(requêteEntreParenthèse);
+	final List<Record> résultats = exécuter(requêteEntreParenthèse);
 	vérifier(résultats, 1);
     }
 
@@ -287,8 +287,8 @@ public class TestCréerPrédicat {
 	);
 	requête.where(requêteUtilisateur.créerPrédicat(constructeur, requête,
 		fiche));
-	final TypedQuery<Fiche> requêteJpa = em.createQuery(requête);
-	final List<Fiche> résultats = requêteJpa.getResultList();
+	final TypedQuery<Record> requêteJpa = em.createQuery(requête);
+	final List<Record> résultats = requêteJpa.getResultList();
 	vérifier(résultats, 1, 2, 4, 5);
     }
 
@@ -300,7 +300,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat pour la recherche de « luky »"
 		+ " dans tous les champs.");
 	final MotCléSimple motClé = new MotCléSimple(new MotClé("luky"));
-	final List<Fiche> résultats = exécuter(motClé);
+	final List<Record> résultats = exécuter(motClé);
 	vérifier(résultats, 6, 7, 8, 9);
     }
 
@@ -313,7 +313,7 @@ public class TestCréerPrédicat {
 		+ " dans les titres.");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.TITRE, new MotClé("luky"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 7, 9);
     }
 
@@ -326,7 +326,7 @@ public class TestCréerPrédicat {
 		+ " dans les séries");
 	final RequêteSurChamp requêteSurChamp =
 		new RequêteSurChamp(Champ.SÉRIE, new MotClé("luky"));
-	final List<Fiche> résultats = exécuter(requêteSurChamp);
+	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 6, 7, 8);
     }
 
@@ -339,7 +339,7 @@ public class TestCréerPrédicat {
      * @return la liste des fiches pour lesquelles l’expression données est
      *         vraie.
      */
-    private List<Fiche> exécuter(final Expression expression) {
+    private List<Record> exécuter(final Expression expression) {
 	requête.where(expression.créerPrédicat(constructeur, requête, fiche));
 	return em.createQuery(requête).getResultList();
     }
@@ -351,7 +351,7 @@ public class TestCréerPrédicat {
      * @param attendus liste des id attendues, dans l’ordre.
      * @throws AssertionError si les résultats ne sont pas ceux attendus.
      */
-    private static void vérifier(final List<Fiche> résultats,
+    private static void vérifier(final List<Record> résultats,
 	    final long... attendus) {
 	journal.debug("Trouvé : {}.", résultats);
 	assertEquals(attendus.length, résultats.size());

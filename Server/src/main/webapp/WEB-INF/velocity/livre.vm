@@ -1,29 +1,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
-#set( $titrePage = $fiche.titre )
+#set( $titrePage = $fiche.title )
 #parse( 'enTête.vm' )
 <body>
 #parse( 'hautDePage.vm' )
-<h1>$fiche.titre</h1>
+<h1>$fiche.title</h1>
 <dl>
-#if( $fiche.série )
+#if( $fiche.series )
   <dt>Série</dt>
-  <dd>$fiche.série</dd>
+  <dd>$fiche.series</dd>
 #end
 #if ( $fiche.auteur )
   <dt>Auteur</dt>
   <dd>$fiche.auteur</dd>
 #end
-#if( $fiche.commentaire )
+#if( $fiche.comment )
   <dt>Commentaire</dt>
-  <dd>$fiche.commentaire</dd>
+  <dd>$fiche.comment</dd>
 #end
-#if ( $fiche.propriétaire )
+#if ( $fiche.owner )
   <dt>Propriétaire</dt>
-  <dd>$fiche.propriétaire</dd>
+  <dd>$fiche.owner</dd>
 #end
-#if ( $fiche.emplacement )
+#if ( $fiche.location )
   <dt>Emplacement</dt>
-  <dd>$fiche.emplacement</dd>
+  <dd>$fiche.location</dd>
 #end
   <dt>Référencement</dt>
   <dd>Le $fiche.création par ${fiche.créateur}.</dd>

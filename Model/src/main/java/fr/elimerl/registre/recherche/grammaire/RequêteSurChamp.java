@@ -48,7 +48,7 @@ public final class RequêteSurChamp extends Expression {
 
     @Override
     public Predicate créerPrédicat(final CriteriaBuilder constructeur,
-	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Predicate résultat;
 	if (champ == Champ.TITRE) {
 	    résultat = prédicatPourRéférence(Référence.Champ.TITRE,
@@ -81,12 +81,12 @@ public final class RequêteSurChamp extends Expression {
      */
     private Predicate prédicatPourRéférence(final Référence.Champ champ,
 	    final CriteriaBuilder constructeur,
-	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	final Subquery<Long> sousRequête = requête.subquery(Long.class);
 	final Root<Référence> référence = sousRequête.from(Référence.class);
 	final Path<String> mot = référence.get("mot").get("valeur");
-	sousRequête.select(référence.<Fiche>get("fiche").get("id"));
+	sousRequête.select(référence.<Record>get("fiche").get("id"));
 	for (int i = 0; i < motsClés.size(); i++) {
 	    prédicats[i] = constructeur.equal(mot, motsClés.get(i).getValeur());
 	}
@@ -109,7 +109,7 @@ public final class RequêteSurChamp extends Expression {
      *           un de ses acteurs.
      */
     private Predicate prédicatPourActeur(final CriteriaBuilder constructeur,
-	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	final Subquery<Actor> sousRequête = requête.subquery(Actor.class);
 	final Root<Actor> acteur = sousRequête.from(Actor.class);
@@ -139,11 +139,11 @@ public final class RequêteSurChamp extends Expression {
      *         {@link #champ}.
      */
     private Predicate prédicatPourNommé(final CriteriaBuilder constructeur,
-	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
+	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	for (int i = 0; i < motsClés.size(); i++) {
 	    final String mot = motsClés.get(i).getValeur();
-	    final Root<?> racine = champ.getClasseDéclarante() == Fiche.class
+	    final Root<?> racine = champ.getClasseDéclarante() == Record.class
 		    ? fiche
 		    : constructeur.treat(fiche, champ.getClasseDéclarante());
 	    prédicats[i] = constructeur.like(

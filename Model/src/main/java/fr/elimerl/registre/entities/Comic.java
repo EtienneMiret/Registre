@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "bandes_dessinees")
-public class Comic extends Fiche {
+public class Comic extends Record {
 
     /**
      * Cartoonist of this comic.
@@ -55,8 +55,8 @@ public class Comic extends Fiche {
     }
 
     @Override
-    public List<String> getAutresChamps() {
-	final List<String> result = super.getAutresChamps();
+    public List<String> getOtherFields() {
+	final List<String> result = super.getOtherFields();
 	result.add("BD");
 	result.add("bande-déssinée");
 	if (cartoonist != null) {

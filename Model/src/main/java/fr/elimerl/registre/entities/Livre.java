@@ -13,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "livres")
-public class Livre extends Fiche {
+public class Livre extends Record {
 
     /** L’auteur de ce livre. */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,8 +40,8 @@ public class Livre extends Fiche {
     }
 
     @Override
-    public List<String> getAutresChamps() {
-	final List<String> résultat = super.getAutresChamps();
+    public List<String> getOtherFields() {
+	final List<String> résultat = super.getOtherFields();
 	résultat.add("livre");
 	if (auteur != null) {
 	    résultat.add(auteur.getNom());

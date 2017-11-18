@@ -19,8 +19,8 @@
   <tbody>
 #foreach( $fiche in $fiches )
     <tr>
-      <td><a href="/Registre/Fiche/$fiche.id">$fiche.titre</a></td>
-      <td>#if( $fiche.série )$fiche.série#end</td>
+      <td><a href="/Registre/Fiche/$fiche.id">$fiche.title</a></td>
+      <td>#if( $fiche.series )$fiche.series#end</td>
       <td>$fiche.class.simpleName</td>
     </tr>
 #end
