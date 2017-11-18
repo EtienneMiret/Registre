@@ -71,11 +71,11 @@ public class TestNommé {
     }
 
     /**
-     * Tests sur la classe {@link Compositeur}.
+     * Tests sur la classe {@link Composer}.
      */
     @Test
     public void compositeur() {
-	final Compositeur compositeur = new Compositeur(NOM_CRÉATION);
+	final Composer compositeur = new Composer(NOM_CRÉATION);
 	testerTout(compositeur);
     }
 

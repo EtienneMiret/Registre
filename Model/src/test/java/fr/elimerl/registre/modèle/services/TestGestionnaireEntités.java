@@ -139,21 +139,21 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche de compositeurs.");
 
 	final String nomHowardShore = "Howard Shore";
-	final Compositeur howardShore =
+	final Composer howardShore =
 		gestionnaire.fournirCompositeur(nomHowardShore);
 	assertNotNull(howardShore);
 	assertNotNull(howardShore.getId());
 	assertEquals(nomHowardShore, howardShore.getNom());
 
 	final String nomHansZimmer = "Hans Zimmer";
-	final Compositeur hansZimmer =
+	final Composer hansZimmer =
 		gestionnaire.fournirCompositeur(nomHansZimmer);
 	assertNotNull(hansZimmer);
 	assertNotNull(hansZimmer.getId());
 	assertEquals(nomHansZimmer, hansZimmer.getNom());
 
 	final String nomJohnWilliams = "John Williams";
-	final Compositeur johnWilliams =
+	final Composer johnWilliams =
 		gestionnaire.fournirCompositeur(nomJohnWilliams);
 	assertNotNull(johnWilliams);
 	assertEquals(nomJohnWilliams, johnWilliams.getNom());

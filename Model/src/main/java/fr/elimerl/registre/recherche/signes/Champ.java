@@ -52,7 +52,7 @@ public final class Champ extends Signe {
 
     /** Le compositeur de la musique d’un film. */
     public static final Champ COMPOSITEUR =
-	    valeurDe("compositeur", Compositeur.class, Film.class);
+	    valeurDe("compositeur", Composer.class, Film.class);
 
     /** Le dessinateur d’une bande-dessinée. */
     public static final Champ DESSINATEUR =

@@ -77,7 +77,7 @@ public class Film extends Fiche {
     /** Le compositeur de la musique de ce film. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "compositeur")
-    private Compositeur compositeur;
+    private Composer compositeur;
 
     /**
      * Crée une nouvelle référence de film.
@@ -182,7 +182,7 @@ public class Film extends Fiche {
      * @return le compositeur de la musique de ce film.
      * @see #compositeur
      */
-    public Compositeur getCompositeur() {
+    public Composer getCompositeur() {
 	return compositeur;
     }
 
@@ -193,7 +193,7 @@ public class Film extends Fiche {
      *            compositeur de la musique de ce film.
      * @see #compositeur
      */
-    public void setCompositeur(final Compositeur compositeur) {
+    public void setCompositeur(final Composer compositeur) {
 	this.compositeur = compositeur;
     }
 

@@ -8,7 +8,7 @@
     <class>fr.elimerl.registre.entities.Actor</class>
     <class>fr.elimerl.registre.entities.Author</class>
     <class>fr.elimerl.registre.entities.Comic</class>
-    <class>fr.elimerl.registre.entities.Compositeur</class>
+    <class>fr.elimerl.registre.entities.Composer</class>
     <class>fr.elimerl.registre.entities.Dessinateur</class>
     <class>fr.elimerl.registre.entities.Emplacement</class>
     <class>fr.elimerl.registre.entities.Fiche</class>

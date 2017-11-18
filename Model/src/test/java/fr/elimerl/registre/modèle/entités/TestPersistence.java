@@ -170,7 +170,7 @@ public class TestPersistence {
     @Test
     public void enregistrementCompositeur() {
 	logger.info("Test d’enregistrement d’un compositeur.");
-	enregistrementNommé(new Compositeur(NOM));
+	enregistrementNommé(new Composer(NOM));
     }
 
     /**
@@ -381,7 +381,7 @@ public class TestPersistence {
 	acteur2 = em.merge(acteur2);
 	Actor acteur3 = new Actor("Mauvais acteur");
 	acteur3 = em.merge(acteur3);
-	Compositeur compositeur = new Compositeur(NOM);
+	Composer compositeur = new Composer(NOM);
 	compositeur = em.merge(compositeur);
 
 	film.setRéalisateur(réalisateur);
@@ -546,8 +546,8 @@ public class TestPersistence {
     public void deuxCompositeursIdentiques() {
 	logger.info("Test de l’enregistrement de deux compositeurs "
 		+ "identiques.");
-	em.merge(new Compositeur(NOM));
-	em.merge(new Compositeur(NOM));
+	em.merge(new Composer(NOM));
+	em.merge(new Composer(NOM));
 	em.flush();
     }
 
@@ -653,7 +653,7 @@ public class TestPersistence {
 		+ "le même nom.");
 	em.merge(new Actor(NOM));
 	em.merge(new Author(NOM));
-	em.merge(new Compositeur(NOM));
+	em.merge(new Composer(NOM));
 	em.merge(new Dessinateur(NOM));
 	em.merge(new Emplacement(NOM));
 	em.merge(new Propriétaire(NOM));
@@ -839,18 +839,18 @@ public class TestPersistence {
     @Test
     public void chargerCompositeurs() {
 	logger.info("Chargement des compositeurs de test-data.sql.");
-	final Iterator<Compositeur> compositeurs =
-		chargerNommés(Compositeur.class);
+	final Iterator<Composer> compositeurs =
+		chargerNommés(Composer.class);
 
-	final Compositeur hansZimmer = compositeurs.next();
+	final Composer hansZimmer = compositeurs.next();
 	assertEquals(UN, hansZimmer.getId().intValue());
 	assertEquals("Hans Zimmer", hansZimmer.getNom());
 
-	final Compositeur howardShore = compositeurs.next();
+	final Composer howardShore = compositeurs.next();
 	assertEquals(ZÉRO, howardShore.getId().intValue());
 	assertEquals("Howard Shore", howardShore.getNom());
 
-	final Compositeur lisaGerrard = compositeurs.next();
+	final Composer lisaGerrard = compositeurs.next();
 	assertEquals(DEUX, lisaGerrard.getId().intValue());
 	assertEquals("Lisa Gerrard", lisaGerrard.getNom());
 

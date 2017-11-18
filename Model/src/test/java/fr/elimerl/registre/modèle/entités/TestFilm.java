@@ -7,19 +7,13 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import java.util.UUID;
 
+import fr.elimerl.registre.entities.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.entities.Compositeur;
-import fr.elimerl.registre.entities.Emplacement;
-import fr.elimerl.registre.entities.Fiche;
-import fr.elimerl.registre.entities.Film;
-import fr.elimerl.registre.entities.Propriétaire;
-import fr.elimerl.registre.entities.Réalisateur;
-import fr.elimerl.registre.entities.Série;
-import fr.elimerl.registre.entities.Utilisateur;
+import fr.elimerl.registre.entities.Composer;
 import fr.elimerl.registre.entities.Film.Support;
 
 /**
@@ -300,12 +294,12 @@ public class TestFilm {
 
     /**
      * Teste les méthodes {@link Film#getCompositeur() getCompositeur()} et
-     * {@link Film#setCompositeur(Compositeur) setCompositeur(Compositeur)}.
+     * {@link Film#setCompositeur(Composer) setCompositeur(Composer)}.
      */
     @Test
     public void testCompositeur() {
-	final Compositeur compositeur1 = new Compositeur("Mozart");
-	final Compositeur compositeur2 = new Compositeur("Bethoven");
+	final Composer compositeur1 = new Composer("Mozart");
+	final Composer compositeur2 = new Composer("Bethoven");
 	logger.info("Test du compositeur.");
 
 	film.setCompositeur(compositeur1);

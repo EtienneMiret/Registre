@@ -118,9 +118,9 @@ public class GestionnaireEntités {
      *            nom du compositeur voulu.
      * @return le compositeur ayant le nom donné en argument.
      */
-    public Compositeur fournirCompositeur(final String nom) {
-	final Compositeur enBase = chercherNommé(Compositeur.class, nom);
-	return (enBase == null ? em.merge(new Compositeur(nom)) : enBase);
+    public Composer fournirCompositeur(final String nom) {
+	final Composer enBase = chercherNommé(Composer.class, nom);
+	return (enBase == null ? em.merge(new Composer(nom)) : enBase);
     }
 
     /**
