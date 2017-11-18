@@ -42,7 +42,7 @@ import fr.elimerl.registre.services.Indexeur;
  * par blocs.
  */
 @Service("processeur")
-public class ImplProcesseur implements Processeur {
+public class ImplProcesseur implements Migrator {
 
     /** Journal SLF4J de cette fiche. */
     private static final Logger journal =
@@ -160,7 +160,7 @@ public class ImplProcesseur implements Processeur {
 
     @Override
     @Transactional(rollbackOn = SQLException.class)
-    public int traiterFiches(final int première, final int nombre)
+    public int migrateRecords(final int première, final int nombre)
 	    throws SQLException {
 	int traitées = 0;
 	requêteFiches.setInt(1, première);

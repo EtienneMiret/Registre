@@ -103,7 +103,7 @@ public class DataTransfer {
      * Service responsible for migrating each batch of records.
      */
     @Resource(name = "processeur")
-    private Processeur migrator;
+    private Migrator migrator;
 
     /**
      * Main method of this application, it requests handling of each records.
@@ -114,7 +114,7 @@ public class DataTransfer {
 	logger.info("Starting migration.");
 	while (number > 0) {
 	    try {
-		number = migrator.traiterFiches(i, batchSize);
+		number = migrator.migrateRecords(i, batchSize);
 		i += number;
 		logger.info("{} records migrated.", new Integer(i));
 	    } catch (final SQLException e) {
