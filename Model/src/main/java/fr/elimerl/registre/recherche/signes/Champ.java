@@ -40,7 +40,7 @@ public final class Champ extends Signe {
 
     /** L’emplacement où est rangé une fiche. */
     public static final Champ EMPLACEMENT =
-	    valeurDe("emplacement", Emplacement.class, Fiche.class);
+	    valeurDe("emplacement", Location.class, Fiche.class);
 
     /** Le réalisateur d’un film. */
     public static final Champ RÉALISATEUR =

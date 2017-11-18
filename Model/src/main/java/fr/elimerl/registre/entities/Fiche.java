@@ -79,7 +79,7 @@ public abstract class Fiche {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emplacement")
-    private Emplacement emplacement;
+    private Location emplacement;
 
     /** Est-ce que cette fiche référence une histoire d’action ? */
     @Column(name = "genre_action")
@@ -361,7 +361,7 @@ public abstract class Fiche {
      * @return l’emplacement de cette fiche.
      * @see #emplacement
      */
-    public Emplacement getEmplacement() {
+    public Location getEmplacement() {
         return emplacement;
     }
 
@@ -372,7 +372,7 @@ public abstract class Fiche {
      *            emplacement de cette fiche.
      * @see #emplacement
      */
-    public void setEmplacement(final Emplacement emplacement) {
+    public void setEmplacement(final Location emplacement) {
         this.emplacement = emplacement;
     }
 

@@ -10,7 +10,7 @@
     <class>fr.elimerl.registre.entities.Comic</class>
     <class>fr.elimerl.registre.entities.Composer</class>
     <class>fr.elimerl.registre.entities.Cartoonist</class>
-    <class>fr.elimerl.registre.entities.Emplacement</class>
+    <class>fr.elimerl.registre.entities.Location</class>
     <class>fr.elimerl.registre.entities.Fiche</class>
     <class>fr.elimerl.registre.entities.Film</class>
     <class>fr.elimerl.registre.entities.Livre</class>

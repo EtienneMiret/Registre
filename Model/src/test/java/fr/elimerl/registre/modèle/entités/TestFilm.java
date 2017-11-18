@@ -229,12 +229,12 @@ public class TestFilm {
 
     /**
      * Teste les méthodes {@link Fiche#getEmplacement() getEmplacement()} et
-     * {@link Fiche#setEmplacement(Emplacement) setEmplacement(Emplacement)}.
+     * {@link Fiche#setEmplacement(Location) setEmplacement(Location)}.
      */
     @Test
     public void testEmplacement() {
-	final Emplacement emplacement1 = new Emplacement("Chambre Etienne");
-	final Emplacement emplacement2 = new Emplacement("Singapour");
+	final Location emplacement1 = new Location("Chambre Etienne");
+	final Location emplacement2 = new Location("Singapour");
 	logger.info("Test de l’emplacement.");
 
 	film.setEmplacement(emplacement1);

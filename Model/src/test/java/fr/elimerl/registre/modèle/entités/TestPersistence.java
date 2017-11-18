@@ -188,7 +188,7 @@ public class TestPersistence {
     @Test
     public void enregistrementEmplacement() {
 	logger.info("Test d’enregistrement d’un emplacement.");
-	enregistrementNommé(new Emplacement(NOM));
+	enregistrementNommé(new Location(NOM));
     }
 
     /**
@@ -302,7 +302,7 @@ public class TestPersistence {
 	final String image = UUID.randomUUID().toString();
 	Propriétaire propriétaire = new Propriétaire(NOM);
 	propriétaire = em.merge(propriétaire);
-	Emplacement emplacement = new Emplacement(NOM);
+	Location emplacement = new Location(NOM);
 	emplacement = em.merge(emplacement);
 	Cartoonist dessinateur = new Cartoonist(NOM);
 	dessinateur = em.merge(dessinateur);
@@ -572,8 +572,8 @@ public class TestPersistence {
     public void deuxEmplacementsIdentiques() {
 	logger.info("Test de l’enregistrement de deux emplacements "
 		+ "identiques");
-	em.merge(new Emplacement(NOM));
-	em.merge(new Emplacement(NOM));
+	em.merge(new Location(NOM));
+	em.merge(new Location(NOM));
 	em.flush();
     }
 
@@ -655,7 +655,7 @@ public class TestPersistence {
 	em.merge(new Author(NOM));
 	em.merge(new Composer(NOM));
 	em.merge(new Cartoonist(NOM));
-	em.merge(new Emplacement(NOM));
+	em.merge(new Location(NOM));
 	em.merge(new Propriétaire(NOM));
 	em.merge(new Réalisateur(NOM));
 	em.merge(new Scénariste(NOM));
@@ -889,26 +889,26 @@ public class TestPersistence {
     @Test
     public void chargerEmplacement() {
 	logger.info("Chargement des emplacements de test-data.sql.");
-	final Iterator<Emplacement> emplacements =
-		chargerNommés(Emplacement.class);
+	final Iterator<Location> emplacements =
+		chargerNommés(Location.class);
 
-	final Emplacement laRocheSurYon = emplacements.next();
+	final Location laRocheSurYon = emplacements.next();
 	assertEquals(UN, laRocheSurYon.getId().intValue());
 	assertEquals("La Roche sur Yon", laRocheSurYon.getNom());
 
-	final Emplacement lyon = emplacements.next();
+	final Location lyon = emplacements.next();
 	assertEquals(DEUX, lyon.getId().intValue());
 	assertEquals("Lyon", lyon.getNom());
 
-	final Emplacement poissy = emplacements.next();
+	final Location poissy = emplacements.next();
 	assertEquals(QUATRE, poissy.getId().intValue());
 	assertEquals("Poissy", poissy.getNom());
 
-	final Emplacement singapour = emplacements.next();
+	final Location singapour = emplacements.next();
 	assertEquals(TROIS, singapour.getId().intValue());
 	assertEquals("Singapour", singapour.getNom());
 
-	final Emplacement verneuil = emplacements.next();
+	final Location verneuil = emplacements.next();
 	assertEquals(ZÉRO, verneuil.getId().intValue());
 	assertEquals("Verneuil", verneuil.getNom());
 

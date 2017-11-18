@@ -200,20 +200,20 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche d’emplacements.");
 
 	final String nomVerneuil = "Verneuil";
-	final Emplacement verneuil =
+	final Location verneuil =
 		gestionnaire.fournirEmplacement(nomVerneuil);
 	assertNotNull(verneuil);
 	assertNotNull(verneuil.getId());
 	assertEquals(nomVerneuil, verneuil.getNom());
 
 	final String nomMarcigny = "Marcigny";
-	final Emplacement marcigny =
+	final Location marcigny =
 		gestionnaire.fournirEmplacement(nomMarcigny);
 	assertNotNull(marcigny);
 	assertEquals(nomMarcigny, marcigny.getNom());
 
 	final String nomLyon = "Lyon";
-	final Emplacement lyon = gestionnaire.fournirEmplacement(nomLyon);
+	final Location lyon = gestionnaire.fournirEmplacement(nomLyon);
 	assertNotNull(lyon);
 	assertNotNull(lyon.getId());
 	assertEquals(nomLyon, lyon.getNom());

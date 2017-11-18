@@ -144,9 +144,9 @@ public class GestionnaireEntités {
      *            nom de l’emplacement voulu.
      * @return l’emplacement ayant le nom donné en argument.
      */
-    public Emplacement fournirEmplacement(final String nom) {
-	final Emplacement enBase = chercherNommé(Emplacement.class, nom);
-	return (enBase == null ? em.merge(new Emplacement(nom)) : enBase);
+    public Location fournirEmplacement(final String nom) {
+	final Location enBase = chercherNommé(Location.class, nom);
+	return (enBase == null ? em.merge(new Location(nom)) : enBase);
     }
 
     /**

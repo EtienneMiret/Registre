@@ -44,11 +44,11 @@ public class TestNommé {
     }
 
     /**
-     * Tests sur la classe {@link Emplacement}.
+     * Tests sur la classe {@link Location}.
      */
     @Test
     public void emplacement() {
-	final Emplacement emplacement = new Emplacement(NOM_CRÉATION);
+	final Location emplacement = new Location(NOM_CRÉATION);
 	testerTout(emplacement);
     }
 
