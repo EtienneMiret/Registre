@@ -105,9 +105,9 @@ public class GestionnaireEntités {
      *            nom de l’auteur voulu.
      * @return l’auteur ayant le nom donné en argument.
      */
-    public Auteur fournirAuteur(final String nom) {
-	final Auteur enBase = chercherNommé(Auteur.class, nom);
-	return (enBase == null ? em.merge(new Auteur(nom)) : enBase);
+    public Author fournirAuteur(final String nom) {
+	final Author enBase = chercherNommé(Author.class, nom);
+	return (enBase == null ? em.merge(new Author(nom)) : enBase);
     }
 
     /**

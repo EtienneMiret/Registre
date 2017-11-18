@@ -18,7 +18,7 @@ public class Livre extends Fiche {
     /** L’auteur de ce livre. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "auteur")
-    private Auteur auteur;
+    private Author auteur;
 
     /**
      * Constructeur sans arguments, requis par Hibernate.
@@ -54,7 +54,7 @@ public class Livre extends Fiche {
      *
      * @return l’auteur de ce livre.
      */
-    public Auteur getAuteur() {
+    public Author getAuteur() {
 	return auteur;
     }
 
@@ -64,7 +64,7 @@ public class Livre extends Fiche {
      * @param auteur
      *            l’auteur de ce livre.
      */
-    public void setAuteur(final Auteur auteur) {
+    public void setAuteur(final Author auteur) {
 	this.auteur = auteur;
     }
 

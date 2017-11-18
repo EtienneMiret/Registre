@@ -161,7 +161,7 @@ public class TestPersistence {
     @Test
     public void enregistrementAuteur() {
 	logger.info("Test d’enregistrement d’un auteur.");
-	enregistrementNommé(new Auteur(NOM));
+	enregistrementNommé(new Author(NOM));
     }
 
     /**
@@ -449,7 +449,7 @@ public class TestPersistence {
 	assertNull(livre.getGenreRomantique());
 	assertNull(livre.getGenreSf());
 
-	Auteur auteur = new Auteur("Robin Hobb");
+	Author auteur = new Author("Robin Hobb");
 	auteur = em.merge(auteur);
 
 	livre.setAuteur(auteur);
@@ -533,8 +533,8 @@ public class TestPersistence {
     @Test(expected = PersistenceException.class)
     public void deuxAuteursIdentiques() {
 	logger.info("Test de l’enregistrement de deux auteurs identiques.");
-	em.merge(new Auteur(NOM));
-	em.merge(new Auteur(NOM));
+	em.merge(new Author(NOM));
+	em.merge(new Author(NOM));
 	em.flush();
     }
 
@@ -652,7 +652,7 @@ public class TestPersistence {
 	logger.info("Test de l’enregistrement de nommés différents mais avec "
 		+ "le même nom.");
 	em.merge(new Actor(NOM));
-	em.merge(new Auteur(NOM));
+	em.merge(new Author(NOM));
 	em.merge(new Compositeur(NOM));
 	em.merge(new Dessinateur(NOM));
 	em.merge(new Emplacement(NOM));
@@ -807,25 +807,25 @@ public class TestPersistence {
     @Test
     public void charcherAuteurs() {
 	logger.info("Chargement des auteurs de test-data.sql.");
-	final Iterator<Auteur> auteurs = chargerNommés(Auteur.class);
+	final Iterator<Author> auteurs = chargerNommés(Author.class);
 
-	final Auteur gavThorpe = auteurs.next();
+	final Author gavThorpe = auteurs.next();
 	assertEquals(TROIS, gavThorpe.getId().intValue());
 	assertEquals("Gav Thorpe", gavThorpe.getNom());
 
-	final Auteur asimov = auteurs.next();
+	final Author asimov = auteurs.next();
 	assertEquals(UN, asimov.getId().intValue());
 	assertEquals("Isaac Asimov", asimov.getNom());
 
-	final Auteur grisham = auteurs.next();
+	final Author grisham = auteurs.next();
 	assertEquals(DEUX, grisham.getId().intValue());
 	assertEquals("John Grisham", grisham.getNom());
 
-	final Auteur noickKyme = auteurs.next();
+	final Author noickKyme = auteurs.next();
 	assertEquals(QUATRE, noickKyme.getId().intValue());
 	assertEquals("Noick Kyme", noickKyme.getNom());
 
-	final Auteur clancy = auteurs.next();
+	final Author clancy = auteurs.next();
 	assertEquals(ZÉRO, clancy.getId().intValue());
 	assertEquals("Tom Clancy", clancy.getNom());
 

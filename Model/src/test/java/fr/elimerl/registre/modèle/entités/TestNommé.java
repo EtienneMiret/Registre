@@ -98,11 +98,11 @@ public class TestNommé {
     }
 
     /**
-     * Tests sur la classe {@link Auteur}.
+     * Tests sur la classe {@link Author}.
      */
     @Test
     public void auteurs() {
-	final Auteur auteur = new Auteur(NOM_CRÉATION);
+	final Author auteur = new Author(NOM_CRÉATION);
 	testerTout(auteur);
     }
 

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertSame;
 
 import javax.annotation.Resource;
 
+import fr.elimerl.registre.entities.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,16 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.entities.Actor;
-import fr.elimerl.registre.entities.Auteur;
-import fr.elimerl.registre.entities.Compositeur;
-import fr.elimerl.registre.entities.Dessinateur;
-import fr.elimerl.registre.entities.Emplacement;
-import fr.elimerl.registre.entities.Mot;
-import fr.elimerl.registre.entities.Propriétaire;
-import fr.elimerl.registre.entities.Réalisateur;
-import fr.elimerl.registre.entities.Scénariste;
-import fr.elimerl.registre.entities.Série;
+import fr.elimerl.registre.entities.Author;
 import fr.elimerl.registre.services.GestionnaireEntités;
 
 /**
@@ -118,18 +110,18 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche d’auteurs.");
 
 	final String nomHerbert = "Frank Hebert";
-	final Auteur herbert = gestionnaire.fournirAuteur(nomHerbert);
+	final Author herbert = gestionnaire.fournirAuteur(nomHerbert);
 	assertNotNull(herbert);
 	assertEquals(nomHerbert, herbert.getNom());
 
 	final String nomAsimov = "Isaac Asimov";
-	final Auteur asimov = gestionnaire.fournirAuteur(nomAsimov);
+	final Author asimov = gestionnaire.fournirAuteur(nomAsimov);
 	assertNotNull(asimov);
 	assertNotNull(asimov.getId());
 	assertEquals(nomAsimov, asimov.getNom());
 
 	final String nomTolkien = "J.R.R. Tolkien";
-	final Auteur tolkien = gestionnaire.fournirAuteur(nomTolkien);
+	final Author tolkien = gestionnaire.fournirAuteur(nomTolkien);
 	assertNotNull(tolkien);
 	assertEquals(nomTolkien, tolkien.getNom());
 

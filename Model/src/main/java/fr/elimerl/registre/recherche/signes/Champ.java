@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.elimerl.registre.entities.Actor;
-import fr.elimerl.registre.entities.Auteur;
+import fr.elimerl.registre.entities.Author;
 import fr.elimerl.registre.entities.BandeDessinée;
 import fr.elimerl.registre.entities.Compositeur;
 import fr.elimerl.registre.entities.Dessinateur;
@@ -75,7 +75,7 @@ public final class Champ extends Signe {
 
     /** L’auteur d’un livre. */
     public static final Champ AUTEUR =
-	    valeurDe("auteur", Auteur.class, Livre.class);
+	    valeurDe("auteur", Author.class, Livre.class);
 
     /**
      * Crée un nouveau type de champ, et l’enregistre dans {@link #tous}.
