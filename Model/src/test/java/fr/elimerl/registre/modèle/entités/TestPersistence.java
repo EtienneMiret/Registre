@@ -23,6 +23,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import fr.elimerl.registre.entities.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,24 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import fr.elimerl.registre.entities.Acteur;
-import fr.elimerl.registre.entities.Auteur;
-import fr.elimerl.registre.entities.BandeDessinée;
-import fr.elimerl.registre.entities.Compositeur;
-import fr.elimerl.registre.entities.Dessinateur;
-import fr.elimerl.registre.entities.Emplacement;
-import fr.elimerl.registre.entities.Fiche;
-import fr.elimerl.registre.entities.Film;
-import fr.elimerl.registre.entities.Livre;
-import fr.elimerl.registre.entities.Mot;
-import fr.elimerl.registre.entities.Nommé;
-import fr.elimerl.registre.entities.Propriétaire;
-import fr.elimerl.registre.entities.Réalisateur;
-import fr.elimerl.registre.entities.Référence;
-import fr.elimerl.registre.entities.Scénariste;
-import fr.elimerl.registre.entities.Session;
-import fr.elimerl.registre.entities.Série;
-import fr.elimerl.registre.entities.Utilisateur;
+import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.entities.Film.Support;
 import fr.elimerl.registre.entities.Référence.Champ;
 
@@ -168,7 +152,7 @@ public class TestPersistence {
     @Test
     public void enregistrementActeur() {
 	logger.info("Test d’enregistrement d’un acteur.");
-	enregistrementNommé(new Acteur(NOM));
+	enregistrementNommé(new Actor(NOM));
     }
 
     /**
@@ -391,11 +375,11 @@ public class TestPersistence {
 
 	Réalisateur réalisateur = new Réalisateur(NOM);
 	réalisateur = em.merge(réalisateur);
-	Acteur acteur1 = new Acteur("Très bon acteur");
+	Actor acteur1 = new Actor("Très bon acteur");
 	acteur1 = em.merge(acteur1);
-	Acteur acteur2 = new Acteur("Acteur moyen");
+	Actor acteur2 = new Actor("Acteur moyen");
 	acteur2 = em.merge(acteur2);
-	Acteur acteur3 = new Acteur("Mauvais acteur");
+	Actor acteur3 = new Actor("Mauvais acteur");
 	acteur3 = em.merge(acteur3);
 	Compositeur compositeur = new Compositeur(NOM);
 	compositeur = em.merge(compositeur);
@@ -537,8 +521,8 @@ public class TestPersistence {
     @Test(expected = PersistenceException.class)
     public void deuxActeursIdentiques() {
 	logger.info("Test de l’enregistrement de deux acteurs identiques.");
-	em.merge(new Acteur(NOM));
-	em.merge(new Acteur(NOM));
+	em.merge(new Actor(NOM));
+	em.merge(new Actor(NOM));
 	em.flush();
     }
 
@@ -667,7 +651,7 @@ public class TestPersistence {
     public void nommésDifférentsAvecLeMêmeNom() {
 	logger.info("Test de l’enregistrement de nommés différents mais avec "
 		+ "le même nom.");
-	em.merge(new Acteur(NOM));
+	em.merge(new Actor(NOM));
 	em.merge(new Auteur(NOM));
 	em.merge(new Compositeur(NOM));
 	em.merge(new Dessinateur(NOM));
@@ -775,41 +759,41 @@ public class TestPersistence {
     @Test
     public void chargerActeurs() {
 	logger.info("Chargement des acteurs de test-data.sql.");
-	final Iterator<Acteur> acteurs = chargerNommés(Acteur.class);
+	final Iterator<Actor> acteurs = chargerNommés(Actor.class);
 
-	final Acteur antonyHead = acteurs.next();
+	final Actor antonyHead = acteurs.next();
 	assertEquals(CINQ, antonyHead.getId().intValue());
 	assertEquals("Anthony Head", antonyHead.getNom());
 
-	final Acteur bradleyJames = acteurs.next();
+	final Actor bradleyJames = acteurs.next();
 	assertEquals(SEPT, bradleyJames.getId().intValue());
 	assertEquals("Bradley James", bradleyJames.getNom());
 
-	final Acteur colinMorgan = acteurs.next();
+	final Actor colinMorgan = acteurs.next();
 	assertEquals(HUIT, colinMorgan.getId().intValue());
 	assertEquals("Colin Morgan", colinMorgan.getNom());
 
-	final Acteur emmaWatson = acteurs.next();
+	final Actor emmaWatson = acteurs.next();
 	assertEquals(TROIS, emmaWatson.getId().intValue());
 	assertEquals("Emma Watson", emmaWatson.getNom());
 
-	final Acteur evaMendes = acteurs.next();
+	final Actor evaMendes = acteurs.next();
 	assertEquals(UN, evaMendes.getId().intValue());
 	assertEquals("Eva Mendes", evaMendes.getNom());
 
-	final Acteur georgeClooney = acteurs.next();
+	final Actor georgeClooney = acteurs.next();
 	assertEquals(DEUX, georgeClooney.getId().intValue());
 	assertEquals("George Clooney", georgeClooney.getNom());
 
-	final Acteur marilynMonroe = acteurs.next();
+	final Actor marilynMonroe = acteurs.next();
 	assertEquals(SIX, marilynMonroe.getId().intValue());
 	assertEquals("Marilyn Monroe", marilynMonroe.getNom());
 
-	final Acteur scarlettJohansson = acteurs.next();
+	final Actor scarlettJohansson = acteurs.next();
 	assertEquals(QUATRE, scarlettJohansson.getId().intValue());
 	assertEquals("Scarlett Johansson", scarlettJohansson.getNom());
 
-	final Acteur willSmith = acteurs.next();
+	final Actor willSmith = acteurs.next();
 	assertEquals(ZÉRO, willSmith.getId().intValue());
 	assertEquals("Will Smith", willSmith.getNom());
 

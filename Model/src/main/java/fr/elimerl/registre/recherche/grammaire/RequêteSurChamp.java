@@ -12,11 +12,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
-import fr.elimerl.registre.entities.Acteur;
-import fr.elimerl.registre.entities.Fiche;
-import fr.elimerl.registre.entities.Film;
-import fr.elimerl.registre.entities.Nommé;
-import fr.elimerl.registre.entities.Référence;
+import fr.elimerl.registre.entities.*;
+import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.recherche.signes.Champ;
 import fr.elimerl.registre.recherche.signes.MotClé;
 
@@ -114,8 +111,8 @@ public final class RequêteSurChamp extends Expression {
     private Predicate prédicatPourActeur(final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Fiche> requête, final Root<Fiche> fiche) {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
-	final Subquery<Acteur> sousRequête = requête.subquery(Acteur.class);
-	final Root<Acteur> acteur = sousRequête.from(Acteur.class);
+	final Subquery<Actor> sousRequête = requête.subquery(Actor.class);
+	final Root<Actor> acteur = sousRequête.from(Actor.class);
 	final Path<String> nom = acteur.get("nom");
 	sousRequête.select(acteur);
 	for (int i = 0; i < motsClés.size(); i++) {
@@ -123,7 +120,7 @@ public final class RequêteSurChamp extends Expression {
 		    "%" + motsClés.get(i).getValeur() + "%");
 	}
 	sousRequête.where(constructeur.and(prédicats));
-	final Path<Set<Acteur>> acteurs =
+	final Path<Set<Actor>> acteurs =
 		constructeur.treat(fiche, Film.class).get("acteurs");
 	return constructeur.isMember(sousRequête, acteurs);
     }

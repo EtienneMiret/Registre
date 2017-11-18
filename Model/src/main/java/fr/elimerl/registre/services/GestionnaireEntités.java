@@ -8,17 +8,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import fr.elimerl.registre.entities.Acteur;
-import fr.elimerl.registre.entities.Auteur;
-import fr.elimerl.registre.entities.Compositeur;
-import fr.elimerl.registre.entities.Dessinateur;
-import fr.elimerl.registre.entities.Emplacement;
-import fr.elimerl.registre.entities.Mot;
-import fr.elimerl.registre.entities.Nommé;
-import fr.elimerl.registre.entities.Propriétaire;
-import fr.elimerl.registre.entities.Réalisateur;
-import fr.elimerl.registre.entities.Scénariste;
-import fr.elimerl.registre.entities.Série;
+import fr.elimerl.registre.entities.*;
+import fr.elimerl.registre.entities.Actor;
 
 /**
  * Cette classe encapsule un {@link EntityManager} pour fournir des
@@ -101,9 +92,9 @@ public class GestionnaireEntités {
      *            nom de l’acteur voulu.
      * @return l’acteur ayant le nom donné en argument.
      */
-    public Acteur fournirActeur(final String nom) {
-	final Acteur enBase = chercherNommé(Acteur.class, nom);
-	return (enBase == null ? em.merge(new Acteur(nom)) : enBase);
+    public Actor fournirActeur(final String nom) {
+	final Actor enBase = chercherNommé(Actor.class, nom);
+	return (enBase == null ? em.merge(new Actor(nom)) : enBase);
     }
 
     /**

@@ -3,7 +3,7 @@ package fr.elimerl.registre.recherche.signes;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.elimerl.registre.entities.Acteur;
+import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.entities.Auteur;
 import fr.elimerl.registre.entities.BandeDessinée;
 import fr.elimerl.registre.entities.Compositeur;
@@ -59,7 +59,7 @@ public final class Champ extends Signe {
 
     /** Un acteur qui joue dans un film. */
     public static final Champ ACTEUR =
-	    valeurDe("acteur", Acteur.class, Film.class);
+	    valeurDe("acteur", Actor.class, Film.class);
 
     /** Le compositeur de la musique d’un film. */
     public static final Champ COMPOSITEUR =

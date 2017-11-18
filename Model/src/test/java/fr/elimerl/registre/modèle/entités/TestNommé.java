@@ -2,20 +2,12 @@ package fr.elimerl.registre.modèle.entités;
 
 import static org.junit.Assert.assertEquals;
 
+import fr.elimerl.registre.entities.*;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.entities.Acteur;
-import fr.elimerl.registre.entities.Auteur;
-import fr.elimerl.registre.entities.Compositeur;
-import fr.elimerl.registre.entities.Dessinateur;
-import fr.elimerl.registre.entities.Emplacement;
-import fr.elimerl.registre.entities.Nommé;
-import fr.elimerl.registre.entities.Propriétaire;
-import fr.elimerl.registre.entities.Réalisateur;
-import fr.elimerl.registre.entities.Scénariste;
-import fr.elimerl.registre.entities.Série;
+import fr.elimerl.registre.entities.Actor;
 
 /**
  * Teste les méthodes de {@link Nommé} sur ses différentes implémentations.
@@ -61,11 +53,11 @@ public class TestNommé {
     }
 
     /**
-     * Tests sur la classe {@link Acteur}.
+     * Tests sur la classe {@link Actor}.
      */
     @Test
     public void acteur() {
-	final Acteur acteur = new Acteur(NOM_CRÉATION);
+	final Actor acteur = new Actor(NOM_CRÉATION);
 	testerTout(acteur);
     }
 

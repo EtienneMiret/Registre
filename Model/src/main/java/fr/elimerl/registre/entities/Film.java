@@ -72,7 +72,7 @@ public class Film extends Fiche {
 	joinColumns = @JoinColumn(name = "film"),
 	inverseJoinColumns = @JoinColumn(name = "acteur")
     )
-    private Set<Acteur> acteurs;
+    private Set<Actor> acteurs;
 
     /** Le compositeur de la musique de ce film. */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -93,7 +93,7 @@ public class Film extends Fiche {
 	    final Support support) {
 	super(titre, créateur);
 	this.support = support;
-	this.acteurs = new HashSet<Acteur>();
+	this.acteurs = new HashSet<Actor>();
     }
 
     /**
@@ -114,7 +114,7 @@ public class Film extends Fiche {
 	    résultat.add(réalisateur.getNom());
 	}
 	if (acteurs != null) {
-	    for (final Acteur acteur : acteurs) {
+	    for (final Actor acteur : acteurs) {
 		résultat.add(acteur.getNom());
 	    }
 	}
@@ -172,7 +172,7 @@ public class Film extends Fiche {
      * @return l’ensemble des acteurs qui ont joué dans ce film.
      * @see #acteurs
      */
-    public Set<Acteur> getActeurs() {
+    public Set<Actor> getActeurs() {
 	return acteurs;
     }
 

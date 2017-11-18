@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.entities.Acteur;
+import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.entities.Auteur;
 import fr.elimerl.registre.entities.Compositeur;
 import fr.elimerl.registre.entities.Dessinateur;
@@ -88,19 +88,19 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche d’acteurs.");
 
 	final String nomEvaMendes = "Eva Mendes";
-	final Acteur evaMendes = gestionnaire.fournirActeur(nomEvaMendes);
+	final Actor evaMendes = gestionnaire.fournirActeur(nomEvaMendes);
 	assertNotNull(evaMendes);
 	assertNotNull(evaMendes.getId());
 	assertEquals(nomEvaMendes, evaMendes.getNom());
 
 	final String nomWillSmith = "Will Smith";
-	final Acteur willSmith = gestionnaire.fournirActeur(nomWillSmith);
+	final Actor willSmith = gestionnaire.fournirActeur(nomWillSmith);
 	assertNotNull(willSmith);
 	assertNotNull(willSmith.getId());
 	assertEquals(nomWillSmith, willSmith.getNom());
 
 	final String nomFunès = "Louis de Funès";
-	final Acteur funès = gestionnaire.fournirActeur(nomFunès);
+	final Actor funès = gestionnaire.fournirActeur(nomFunès);
 	assertNotNull(funès);
 	assertEquals(nomFunès, funès.getNom());
 
