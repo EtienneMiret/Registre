@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import fr.elimerl.registre.entities.BandeDessinée;
+import fr.elimerl.registre.entities.Comic;
 import fr.elimerl.registre.entities.Fiche;
 import fr.elimerl.registre.entities.Film;
 import fr.elimerl.registre.entities.Film.Support;
@@ -235,19 +235,19 @@ public class MigratorImpl implements Migrator {
 	final String cartoonist = result.getString("dessinateur");
 	final String scriptWriter = result.getString("scenariste");
 	final Long number = (Long) result.getObject("numero");
-	final BandeDessinée comic = new BandeDessinée(title, creator);
+	final Comic comic = new Comic(title, creator);
 	if (cartoonist != null && !cartoonist.isEmpty()) {
-	    comic.setDessinateur(
+	    comic.setCartoonist(
 	    	registreEntityManager.fournirDessinateur(cartoonist)
 	    );
 	}
 	if (scriptWriter != null && !scriptWriter.isEmpty()) {
-	    comic.setScénariste(
+	    comic.setScriptWriter(
 	    	registreEntityManager.fournirScénariste(scriptWriter)
 	    );
 	}
 	if (number != null) {
-	    comic.setNuméro(Integer.valueOf(number.intValue()));
+	    comic.setNumber(Integer.valueOf(number.intValue()));
 	}
 	return comic;
     }

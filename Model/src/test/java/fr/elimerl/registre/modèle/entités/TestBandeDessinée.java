@@ -2,18 +2,18 @@ package fr.elimerl.registre.modèle.entités;
 
 import static org.junit.Assert.assertEquals;
 
+import fr.elimerl.registre.entities.Comic;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.entities.BandeDessinée;
 import fr.elimerl.registre.entities.Dessinateur;
 import fr.elimerl.registre.entities.Scénariste;
 import fr.elimerl.registre.entities.Utilisateur;
 
 /**
- * Classe de test de la classe {@link BandeDessinée}.
+ * Classe de test de la classe {@link Comic}.
  */
 public class TestBandeDessinée {
 
@@ -28,21 +28,21 @@ public class TestBandeDessinée {
     private static final Logger logger =
 	    LoggerFactory.getLogger(TestBandeDessinée.class);
 
-    /** {@code BandeDessinée} qui va être testée. */
-    private BandeDessinée bandeDessinée;
+    /** {@code Comic} qui va être testée. */
+    private Comic bandeDessinée;
 
     /**
-     * Instancie la {@code BandeDessinée} qui va être testée.
+     * Instancie la {@code Comic} qui va être testée.
      */
     @Before
     public void setUp() {
-	bandeDessinée = new BandeDessinée(TITRE, CRÉATEUR);
+	bandeDessinée = new Comic(TITRE, CRÉATEUR);
     }
 
     /**
-     * Teste les méthodes {@link BandeDessinée#setDessinateur(Dessinateur)
-     * setDessinateur(Dessinateur)} et {@link BandeDessinée#getDessinateur()
-     * getDessinateur()}.
+     * Teste les méthodes {@link Comic#setCartoonist(Dessinateur)
+     * setCartoonist(Dessinateur)} et {@link Comic#getCartoonist()
+     * getCartoonist()}.
      */
     @Test
     public void dessinateur() {
@@ -51,19 +51,19 @@ public class TestBandeDessinée {
 	final Dessinateur dessinateur1 = new Dessinateur("Jigounov");
 	final Dessinateur dessinateur2 = new Dessinateur("Alain Henriet");
 
-	bandeDessinée.setDessinateur(dessinateur1);
+	bandeDessinée.setCartoonist(dessinateur1);
 	assertEquals("Le dessinateur n’a pas été défini correctement.",
-		dessinateur1, bandeDessinée.getDessinateur());
+		dessinateur1, bandeDessinée.getCartoonist());
 
-	bandeDessinée.setDessinateur(dessinateur2);
+	bandeDessinée.setCartoonist(dessinateur2);
 	assertEquals("Le dessinateur n’a pas été modifié correctement.",
-		dessinateur2, bandeDessinée.getDessinateur());
+		dessinateur2, bandeDessinée.getCartoonist());
     }
 
     /**
-     * Teste les méthodes {@link BandeDessinée#setScénariste(Scénariste)
-     * setScénariste(Scénariste)} et {@link BandeDessinée#getScénariste()
-     * getScénariste()}.
+     * Teste les méthodes {@link Comic#setScriptWriter(Scénariste)
+     * setScriptWriter(Scénariste)} et {@link Comic#getScriptWriter()
+     * getScriptWriter()}.
      */
     @Test
     public void scénariste() {
@@ -72,18 +72,18 @@ public class TestBandeDessinée {
 	final Scénariste scénariste1 = new Scénariste("Renard");
 	final Scénariste scénariste2 = new Scénariste("Callède");
 
-	bandeDessinée.setScénariste(scénariste1);
+	bandeDessinée.setScriptWriter(scénariste1);
 	assertEquals("Le scénariste n’a pas été défini correctement.",
-		scénariste1, bandeDessinée.getScénariste());
+		scénariste1, bandeDessinée.getScriptWriter());
 
-	bandeDessinée.setScénariste(scénariste2);
+	bandeDessinée.setScriptWriter(scénariste2);
 	assertEquals("Le scénariste n’a pas été modifié correctement.",
-		scénariste2, bandeDessinée.getScénariste());
+		scénariste2, bandeDessinée.getScriptWriter());
     }
 
     /**
-     * Teste les méthodes {@link BandeDessinée#setNuméro(Integer)
-     * setNuméro(Integer)} et {@link BandeDessinée#getNuméro() getNuméro()}.
+     * Teste les méthodes {@link Comic#setNumber(Integer)
+     * setNumber(Integer)} et {@link Comic#getNumber() getNumber()}.
      */
     @Test
     public void numéro() {
@@ -92,13 +92,13 @@ public class TestBandeDessinée {
 	final Integer numéro1 = Integer.valueOf(12);
 	final Integer numéro2 = Integer.valueOf(4);
 
-	bandeDessinée.setNuméro(numéro1);
+	bandeDessinée.setNumber(numéro1);
 	assertEquals("Le numéro n’a pas été défini correctement.",
-		numéro1, bandeDessinée.getNuméro());
+		numéro1, bandeDessinée.getNumber());
 
-	bandeDessinée.setNuméro(numéro2);
+	bandeDessinée.setNumber(numéro2);
 	assertEquals("Le numéro n’a pas été modifié correctement.",
-		numéro2, bandeDessinée.getNuméro());
+		numéro2, bandeDessinée.getNumber());
     }
 
 }

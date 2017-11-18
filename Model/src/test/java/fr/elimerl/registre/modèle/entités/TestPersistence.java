@@ -261,7 +261,7 @@ public class TestPersistence {
 
     /**
      * Teste qu’on peut enregistrer une bande-dessinée en base. On vérifie tous
-     * les champs d’un objet {@code BandeDessinée}, y compris ceux hérités de
+     * les champs d’un objet {@code Comic}, y compris ceux hérités de
      * {@code Fiche}.
      */
     @Test
@@ -273,7 +273,7 @@ public class TestPersistence {
 	Utilisateur éditeur = new Utilisateur("Éditeur", "editeur@email");
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
-	BandeDessinée bandeDessinée = new BandeDessinée(titre, créateur);
+	Comic bandeDessinée = new Comic(titre, créateur);
 	final Date création = bandeDessinée.getCréation();
 	assertNull(bandeDessinée.getId());
 
@@ -291,9 +291,9 @@ public class TestPersistence {
 	assertEquals(création, bandeDessinée.getCréation());
 	assertEquals(créateur, bandeDessinée.getDernierÉditeur());
 	assertEquals(création, bandeDessinée.getDernièreÉdition());
-	assertNull(bandeDessinée.getDessinateur());
-	assertNull(bandeDessinée.getScénariste());
-	assertNull(bandeDessinée.getNuméro());
+	assertNull(bandeDessinée.getCartoonist());
+	assertNull(bandeDessinée.getScriptWriter());
+	assertNull(bandeDessinée.getNumber());
 
 	final Long id = bandeDessinée.getId();
 	Série série = new Série(NOM);
@@ -315,9 +315,9 @@ public class TestPersistence {
 	bandeDessinée.setImage(image);
 	bandeDessinée.setPropriétaire(propriétaire);
 	bandeDessinée.setEmplacement(emplacement);
-	bandeDessinée.setDessinateur(dessinateur);
-	bandeDessinée.setScénariste(scénariste);
-	bandeDessinée.setNuméro(numéro);
+	bandeDessinée.setCartoonist(dessinateur);
+	bandeDessinée.setScriptWriter(scénariste);
+	bandeDessinée.setNumber(numéro);
 	bandeDessinée.toucher(éditeur);
 	final Date édition = bandeDessinée.getDernièreÉdition();
 
@@ -334,9 +334,9 @@ public class TestPersistence {
 	assertEquals(création, bandeDessinée.getCréation());
 	assertEquals(éditeur, bandeDessinée.getDernierÉditeur());
 	assertEquals(édition, bandeDessinée.getDernièreÉdition());
-	assertEquals(dessinateur, bandeDessinée.getDessinateur());
-	assertEquals(scénariste, bandeDessinée.getScénariste());
-	assertEquals(numéro, bandeDessinée.getNuméro());
+	assertEquals(dessinateur, bandeDessinée.getCartoonist());
+	assertEquals(scénariste, bandeDessinée.getScriptWriter());
+	assertEquals(numéro, bandeDessinée.getNumber());
     }
 
     /**
@@ -710,7 +710,7 @@ public class TestPersistence {
 	final Utilisateur créateur =
 		em.merge(new Utilisateur(UTILISATEUR, EMAIL));
 	final Fiche fiche1 = new Film(titre, créateur, BRD);
-	final Fiche fiche2 = new BandeDessinée(titre, créateur);
+	final Fiche fiche2 = new Comic(titre, créateur);
 
 	em.merge(fiche1);
 	em.merge(fiche2);
@@ -1067,11 +1067,11 @@ public class TestPersistence {
 
 	final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	final BandeDessinée alerteAuxPiedsBleus = (BandeDessinée) fiches.next();
+	final Comic alerteAuxPiedsBleus = (Comic) fiches.next();
 	assertEquals(SIX, alerteAuxPiedsBleus.getId().intValue());
 	assertEquals("Alerte aux Pieds-Bleus", alerteAuxPiedsBleus.getTitre());
 
-	final BandeDessinée bouleEtBill = (BandeDessinée) fiches.next();
+	final Comic bouleEtBill = (Comic) fiches.next();
 	assertEquals(ZÉRO, bouleEtBill.getId().intValue());
 	assertEquals("Globe-trotters", bouleEtBill.getTitre());
 	assertEquals("Boule et Bill", bouleEtBill.getSérie().getNom());
@@ -1085,15 +1085,15 @@ public class TestPersistence {
 	assertEquals("Grégoire", bouleEtBill.getDernierÉditeur().getNom());
 	assertEquals(df.parse("2013-02-16 22:19:58"),
 		bouleEtBill.getDernièreÉdition());
-	assertEquals("Jigounov", bouleEtBill.getDessinateur().getNom());
-	assertEquals("Renard", bouleEtBill.getScénariste().getNom());
-	assertEquals(DOUZE, bouleEtBill.getNuméro().intValue());
+	assertEquals("Jigounov", bouleEtBill.getCartoonist().getNom());
+	assertEquals("Renard", bouleEtBill.getScriptWriter().getNom());
+	assertEquals(DOUZE, bouleEtBill.getNumber().intValue());
 
 	final Livre laChuteDeDamnos = (Livre) fiches.next();
 	assertEquals(CINQ, laChuteDeDamnos.getId().intValue());
 	assertEquals("La Chute de Damnos", laChuteDeDamnos.getTitre());
 
-	final BandeDessinée laFiancéeDeLukyLuke = (BandeDessinée) fiches.next();
+	final Comic laFiancéeDeLukyLuke = (Comic) fiches.next();
 	assertEquals(SEPT, laFiancéeDeLukyLuke.getId().intValue());
 	assertEquals("La Fiancée de Luky Luke", laFiancéeDeLukyLuke.getTitre());
 
@@ -1101,7 +1101,7 @@ public class TestPersistence {
 	assertEquals(QUATRE, laPurgeDeKadillus.getId().intValue());
 	assertEquals("La Purge de Kadillus", laPurgeDeKadillus.getTitre());
 
-	final BandeDessinée lePonyExpress = (BandeDessinée) fiches.next();
+	final Comic lePonyExpress = (Comic) fiches.next();
 	assertEquals(HUIT, lePonyExpress.getId().intValue());
 	assertEquals("Le Pony Express", lePonyExpress.getTitre());
 

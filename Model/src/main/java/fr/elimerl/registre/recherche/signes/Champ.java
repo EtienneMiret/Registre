@@ -3,19 +3,8 @@ package fr.elimerl.registre.recherche.signes;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.elimerl.registre.entities.Actor;
-import fr.elimerl.registre.entities.Author;
-import fr.elimerl.registre.entities.BandeDessinée;
-import fr.elimerl.registre.entities.Compositeur;
-import fr.elimerl.registre.entities.Dessinateur;
-import fr.elimerl.registre.entities.Emplacement;
-import fr.elimerl.registre.entities.Fiche;
-import fr.elimerl.registre.entities.Film;
-import fr.elimerl.registre.entities.Livre;
-import fr.elimerl.registre.entities.Propriétaire;
-import fr.elimerl.registre.entities.Réalisateur;
-import fr.elimerl.registre.entities.Scénariste;
-import fr.elimerl.registre.entities.Série;
+import fr.elimerl.registre.entities.*;
+import fr.elimerl.registre.entities.Comic;
 
 /**
  * Ce signe représente un champ dans lequel chercher un mot clé. Par exemple le
@@ -67,11 +56,11 @@ public final class Champ extends Signe {
 
     /** Le dessinateur d’une bande-dessinée. */
     public static final Champ DESSINATEUR =
-	    valeurDe("dessinateur", Dessinateur.class, BandeDessinée.class);
+	    valeurDe("cartoonist", Dessinateur.class, Comic.class);
 
     /** Le scénariste d’une bande-dessinée. */
     public static final Champ SCÉNARISTE =
-	    valeurDe("scénariste", Scénariste.class, BandeDessinée.class);
+	    valeurDe("scriptWriter", Scénariste.class, Comic.class);
 
     /** L’auteur d’un livre. */
     public static final Champ AUTEUR =
@@ -102,7 +91,7 @@ public final class Champ extends Signe {
 
     /**
      * La classe à laquelle appartient ce champ. Par exemple {@link Film} pour
-     * le champ réalisateur et {@link BandeDessinée} pour le champ dessinateur.
+     * le champ réalisateur et {@link Comic} pour le champ dessinateur.
      */
     private final Class<? extends Fiche> classeDéclarante;
 

@@ -9,13 +9,13 @@
   <dt>Série</dt>
   <dd>$fiche.série</dd>
 #end
-#if ( $fiche.dessinateur )
+#if ( $fiche.cartoonist )
   <dt>Dessinateur</dt>
-  <dd>$fiche.dessinateur</dd>
+  <dd>$fiche.cartoonist</dd>
 #end
-#if ( $fiche.scénariste )
+#if ( $fiche.scriptWriter )
   <dt>Scénariste</dt>
-  <dd>$fiche.scénariste</dd>
+  <dd>$fiche.scriptWriter</dd>
 #end
 #if( $fiche.commentaire )
   <dt>Commentaire</dt>

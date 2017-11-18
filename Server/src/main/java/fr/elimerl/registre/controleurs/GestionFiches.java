@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.elimerl.registre.entities.BandeDessinée;
+import fr.elimerl.registre.entities.Comic;
 import fr.elimerl.registre.entities.Fiche;
 import fr.elimerl.registre.entities.Film;
 import fr.elimerl.registre.entities.Livre;
@@ -57,7 +57,7 @@ public class GestionFiches {
 	    vue = "film";
 	} else if (fiche instanceof Livre) {
 	    vue = "livre";
-	} else if (fiche instanceof BandeDessinée) {
+	} else if (fiche instanceof Comic) {
 	    vue = "bd";
 	} else {
 	    vue = "typeFicheInconnu";
