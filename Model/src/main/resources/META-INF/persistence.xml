@@ -5,24 +5,24 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
     <!-- Classes à persister. -->
-    <class>fr.elimerl.registre.entités.Acteur</class>
-    <class>fr.elimerl.registre.entités.Auteur</class>
-    <class>fr.elimerl.registre.entités.BandeDessinée</class>
-    <class>fr.elimerl.registre.entités.Compositeur</class>
-    <class>fr.elimerl.registre.entités.Dessinateur</class>
-    <class>fr.elimerl.registre.entités.Emplacement</class>
-    <class>fr.elimerl.registre.entités.Fiche</class>
-    <class>fr.elimerl.registre.entités.Film</class>
-    <class>fr.elimerl.registre.entités.Livre</class>
-    <class>fr.elimerl.registre.entités.Mot</class>
-    <class>fr.elimerl.registre.entités.Nommé</class>
-    <class>fr.elimerl.registre.entités.Propriétaire</class>
-    <class>fr.elimerl.registre.entités.Réalisateur</class>
-    <class>fr.elimerl.registre.entités.Référence</class>
-    <class>fr.elimerl.registre.entités.Scénariste</class>
-    <class>fr.elimerl.registre.entités.Série</class>
-    <class>fr.elimerl.registre.entités.Session</class>
-    <class>fr.elimerl.registre.entités.Utilisateur</class>
+    <class>fr.elimerl.registre.entities.Acteur</class>
+    <class>fr.elimerl.registre.entities.Auteur</class>
+    <class>fr.elimerl.registre.entities.BandeDessinée</class>
+    <class>fr.elimerl.registre.entities.Compositeur</class>
+    <class>fr.elimerl.registre.entities.Dessinateur</class>
+    <class>fr.elimerl.registre.entities.Emplacement</class>
+    <class>fr.elimerl.registre.entities.Fiche</class>
+    <class>fr.elimerl.registre.entities.Film</class>
+    <class>fr.elimerl.registre.entities.Livre</class>
+    <class>fr.elimerl.registre.entities.Mot</class>
+    <class>fr.elimerl.registre.entities.Nommé</class>
+    <class>fr.elimerl.registre.entities.Propriétaire</class>
+    <class>fr.elimerl.registre.entities.Réalisateur</class>
+    <class>fr.elimerl.registre.entities.Référence</class>
+    <class>fr.elimerl.registre.entities.Scénariste</class>
+    <class>fr.elimerl.registre.entities.Série</class>
+    <class>fr.elimerl.registre.entities.Session</class>
+    <class>fr.elimerl.registre.entities.Utilisateur</class>
     <exclude-unlisted-classes/>
 
     <properties>

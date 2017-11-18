@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.elimerl.registre.entités.Utilisateur;
+import fr.elimerl.registre.entities.Utilisateur;
 import fr.elimerl.registre.sécurité.UtilisateurSpring;
 
 /**

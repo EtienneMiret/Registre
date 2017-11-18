@@ -1,4 +1,4 @@
-package fr.elimerl.registre.entités;
+package fr.elimerl.registre.entities;
 
 import java.util.ArrayList;
 import java.util.Date;

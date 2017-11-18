@@ -1,8 +1,8 @@
 package fr.elimerl.registre.services;
 
-import static fr.elimerl.registre.entités.Référence.Champ.AUTRE;
-import static fr.elimerl.registre.entités.Référence.Champ.COMMENTAIRE;
-import static fr.elimerl.registre.entités.Référence.Champ.TITRE;
+import static fr.elimerl.registre.entities.Référence.Champ.AUTRE;
+import static fr.elimerl.registre.entities.Référence.Champ.COMMENTAIRE;
+import static fr.elimerl.registre.entities.Référence.Champ.TITRE;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,8 +13,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import fr.elimerl.registre.entités.Fiche;
-import fr.elimerl.registre.entités.Référence;
+import fr.elimerl.registre.entities.Fiche;
+import fr.elimerl.registre.entities.Référence;
 import fr.elimerl.registre.recherche.signes.MotClé;
 
 /**

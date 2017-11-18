@@ -64,7 +64,7 @@ public class DataTransfer {
     private static void removeAtGenerated() {
 	try {
 	    final ClassPool pool = ClassPool.getDefault();
-	    final CtClass record = pool.get("fr.elimerl.registre.entités.Fiche");
+	    final CtClass record = pool.get("fr.elimerl.registre.entities.Fiche");
 	    final CtField id = record.getDeclaredField("id");
 	    final FieldInfo info = id.getFieldInfo();
 	    final AnnotationsAttribute attribute = (AnnotationsAttribute)

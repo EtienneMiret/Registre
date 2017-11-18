@@ -3,19 +3,19 @@ package fr.elimerl.registre.recherche.signes;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.elimerl.registre.entités.Acteur;
-import fr.elimerl.registre.entités.Auteur;
-import fr.elimerl.registre.entités.BandeDessinée;
-import fr.elimerl.registre.entités.Compositeur;
-import fr.elimerl.registre.entités.Dessinateur;
-import fr.elimerl.registre.entités.Emplacement;
-import fr.elimerl.registre.entités.Fiche;
-import fr.elimerl.registre.entités.Film;
-import fr.elimerl.registre.entités.Livre;
-import fr.elimerl.registre.entités.Propriétaire;
-import fr.elimerl.registre.entités.Réalisateur;
-import fr.elimerl.registre.entités.Scénariste;
-import fr.elimerl.registre.entités.Série;
+import fr.elimerl.registre.entities.Acteur;
+import fr.elimerl.registre.entities.Auteur;
+import fr.elimerl.registre.entities.BandeDessinée;
+import fr.elimerl.registre.entities.Compositeur;
+import fr.elimerl.registre.entities.Dessinateur;
+import fr.elimerl.registre.entities.Emplacement;
+import fr.elimerl.registre.entities.Fiche;
+import fr.elimerl.registre.entities.Film;
+import fr.elimerl.registre.entities.Livre;
+import fr.elimerl.registre.entities.Propriétaire;
+import fr.elimerl.registre.entities.Réalisateur;
+import fr.elimerl.registre.entities.Scénariste;
+import fr.elimerl.registre.entities.Série;
 
 /**
  * Ce signe représente un champ dans lequel chercher un mot clé. Par exemple le

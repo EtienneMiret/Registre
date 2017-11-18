@@ -1,8 +1,8 @@
 package fr.elimerl.registre.transfer;
 
-import static fr.elimerl.registre.entités.Film.Support.BRD;
-import static fr.elimerl.registre.entités.Film.Support.DVD;
-import static fr.elimerl.registre.entités.Film.Support.K7;
+import static fr.elimerl.registre.entities.Film.Support.BRD;
+import static fr.elimerl.registre.entities.Film.Support.DVD;
+import static fr.elimerl.registre.entities.Film.Support.K7;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -27,13 +27,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import fr.elimerl.registre.entités.BandeDessinée;
-import fr.elimerl.registre.entités.Fiche;
-import fr.elimerl.registre.entités.Film;
-import fr.elimerl.registre.entités.Film.Support;
-import fr.elimerl.registre.entités.Livre;
-import fr.elimerl.registre.entités.Nommé;
-import fr.elimerl.registre.entités.Utilisateur;
+import fr.elimerl.registre.entities.BandeDessinée;
+import fr.elimerl.registre.entities.Fiche;
+import fr.elimerl.registre.entities.Film;
+import fr.elimerl.registre.entities.Film.Support;
+import fr.elimerl.registre.entities.Livre;
+import fr.elimerl.registre.entities.Nommé;
+import fr.elimerl.registre.entities.Utilisateur;
 import fr.elimerl.registre.services.GestionnaireEntités;
 import fr.elimerl.registre.services.Indexeur;
 
