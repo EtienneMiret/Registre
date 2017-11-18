@@ -1,4 +1,4 @@
-package fr.elimerl.registre.reprise;
+package fr.elimerl.registre.transfer;
 
 import static fr.elimerl.registre.entités.Film.Support.BRD;
 import static fr.elimerl.registre.entités.Film.Support.DVD;

@@ -47,10 +47,10 @@
     <property name="password" value="${nouvelleBase.mdp}"/>
   </bean>
 
-  <bean id="main" class="fr.elimerl.registre.reprise.RepriseDeDonnées">
+  <bean id="main" class="fr.elimerl.registre.transfer.RepriseDeDonnées">
     <property name="tailleBloc" value="${tailleBloc}"/>
   </bean>
 
-  <bean id="processeur" class="fr.elimerl.registre.reprise.ImplProcesseur"/>
+  <bean id="processeur" class="fr.elimerl.registre.transfer.ImplProcesseur"/>
 
 </beans>
