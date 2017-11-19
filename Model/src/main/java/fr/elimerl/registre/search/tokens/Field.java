@@ -10,7 +10,7 @@ import fr.elimerl.registre.entities.Comic;
  * This token represents a field within which to search for a keyword. Eg the
  * title, comment or author.
  */
-public final class Field extends Signe {
+public final class Field extends Token {
 
     /*
      * For now, we trust this library users not to modify this field. We may

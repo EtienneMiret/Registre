@@ -4,7 +4,7 @@ package fr.elimerl.registre.search.tokens;
  * This token models an opening or closing bracket. Hence, there are only two
  * instances of this class.
  */
-public final class Bracket extends Signe {
+public final class Bracket extends Token {
 
     /** An opening bracket. */
     public static final Bracket OPENING = new Bracket("(");

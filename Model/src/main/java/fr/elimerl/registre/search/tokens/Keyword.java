@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
  * A keyword is a word within a query that the user wishes to find in its
  * results.
  */
-public final class Keyword extends Signe {
+public final class Keyword extends Token {
 
     /** Pattern for all keywords. */
     public static final Pattern PATTERN =

@@ -32,7 +32,7 @@ public class TestAnalyseGrammaticale {
     private ParseurDeRecherches parseur;
 
     /** La suite de signes à parser. */
-    private Queue<Signe> signes;
+    private Queue<Token> signes;
 
     /**
      * Prépare l’environnement pour les tests.
@@ -40,7 +40,7 @@ public class TestAnalyseGrammaticale {
     @Before
     public void setUp() {
 	parseur = new ParseurDeRecherches();
-	signes = new LinkedList<Signe>();
+	signes = new LinkedList<Token>();
     }
 
     /**

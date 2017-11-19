@@ -7,7 +7,7 @@ import java.util.List;
  * This token models an operator of the query language. For example the boolean
  * OR.
  */
-public final class Operator extends Signe {
+public final class Operator extends Token {
 
     /** The boolean “OR”. */
     public static final Operator OR = new Operator("or");

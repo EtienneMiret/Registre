@@ -53,14 +53,14 @@ public class ParseurDeRecherches {
      *            quoi.
      * @return la file de symboles contenue dans la requête.
      */
-    public Queue<Signe> analyserLexicalement(final String requête) {
-	final Queue<Signe> résultat = new LinkedList<Signe>();
+    public Queue<Token> analyserLexicalement(final String requête) {
+	final Queue<Token> résultat = new LinkedList<Token>();
 	int i = 0;
 	while (i < requête.length()) {
-	    Signe signe = null;
+	    Token signe = null;
 	    {
 		final Matcher comparateur =
-			Bracket.OPENING.getMotif().matcher(requête);
+			Bracket.OPENING.getPattern().matcher(requête);
 		if (comparateur.find(i)) {
 		    signe = Bracket.OPENING;
 		    i = comparateur.end();
@@ -68,7 +68,7 @@ public class ParseurDeRecherches {
 	    }
 	    if (signe == null) {
 		final Matcher comparateur =
-			Bracket.CLOSING.getMotif().matcher(requête);
+			Bracket.CLOSING.getPattern().matcher(requête);
 		if (comparateur.find(i)) {
 		    signe = Bracket.CLOSING;
 		    i = comparateur.end();
@@ -78,7 +78,7 @@ public class ParseurDeRecherches {
 	    while (signe == null && opérateurs.hasNext()) {
 		final Operator opérateur = opérateurs.next();
 		final Matcher comparateur =
-			opérateur.getMotif().matcher(requête);
+			opérateur.getPattern().matcher(requête);
 		if (comparateur.find(i)) {
 		    signe = opérateur;
 		    i = comparateur.end();
@@ -87,7 +87,7 @@ public class ParseurDeRecherches {
 	    final Iterator<Field> champs = Field.all.iterator();
 	    while (signe == null && champs.hasNext()) {
 		final Field champ = champs.next();
-		final Matcher comparateur = champ.getMotif().matcher(requête);
+		final Matcher comparateur = champ.getPattern().matcher(requête);
 		if (comparateur.find(i)) {
 		    signe = champ;
 		    i = comparateur.end();
@@ -120,7 +120,7 @@ public class ParseurDeRecherches {
      * @return la requête résultant de l’analyse grammaticale des signes
      *         données.
      */
-    public SearchQuery analyserGrammaticalement(final Queue<Signe> signes) {
+    public SearchQuery analyserGrammaticalement(final Queue<Token> signes) {
 	final List<Expression> expressions = new ArrayList<Expression>();
 	boolean conjonction;
 	if (!signes.isEmpty() && signes.peek() != Bracket.CLOSING) {
@@ -148,7 +148,7 @@ public class ParseurDeRecherches {
 		if (!conjonction
 			&& !signes.isEmpty()
 			&& signes.peek() != Bracket.CLOSING) {
-		    final Signe signeSuivant = signes.poll();
+		    final Token signeSuivant = signes.poll();
 		    if (signeSuivant != Operator.OR) {
 			journal.warn("Grammaire de la requête incorrecte,"
 				+ " « ou » attendu, {} trouvé.", signeSuivant);
@@ -174,14 +174,14 @@ public class ParseurDeRecherches {
      *             si le début de la suite de signes fournie ne peut pas
      *             représenter une expression.
      */
-    private Expression analyserExpression(final Queue<Signe> signes)
+    private Expression analyserExpression(final Queue<Token> signes)
 	    throws ParseException {
 	final Expression résultat;
-	final Signe premierSigne = signes.poll();
+	final Token premierSigne = signes.poll();
 	if (premierSigne == Bracket.OPENING) {
 	    final SearchQuery sousRequête = analyserGrammaticalement(signes);
 	    résultat = new BracketedQuery(sousRequête);
-	    final Signe signeSuivant = signes.poll();
+	    final Token signeSuivant = signes.poll();
 	    if (signeSuivant != Bracket.CLOSING) {
 		throw new ParseException("« ) » attendu, « " + signeSuivant
 			+ " » trouvé.", -1);
@@ -213,15 +213,15 @@ public class ParseurDeRecherches {
      *             une suite de mots-clés entre parenthèse.
      */
     private static FieldQuery analyserChamp(final Field champ,
-	    final Queue<Signe> signes) throws ParseException {
+	    final Queue<Token> signes) throws ParseException {
 	final FieldQuery résultat;
-	final Signe premierSigne = signes.poll();
+	final Token premierSigne = signes.poll();
 	if (premierSigne == Bracket.OPENING) {
 	    final List<Keyword> motsClés = new ArrayList<Keyword>();
 	    while (signes.peek() instanceof Keyword) {
 		motsClés.add((Keyword) signes.poll());
 	    }
-	    final Signe signeSuivant = signes.poll();
+	    final Token signeSuivant = signes.poll();
 	    if (signeSuivant != Bracket.CLOSING) {
 		throw new ParseException("« ) » attendue, « "
 			+ signeSuivant + " » trouvé.", -1);

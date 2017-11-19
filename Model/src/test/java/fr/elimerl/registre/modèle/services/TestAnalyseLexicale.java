@@ -39,7 +39,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserSimplesParenthèses() {
-	final Queue<Signe> résultat = parseur.analyserLexicalement("(()()(");
+	final Queue<Token> résultat = parseur.analyserLexicalement("(()()(");
 	assertEquals(SIX, résultat.size());
 	assertEquals(Bracket.OPENING, résultat.poll());
 	assertEquals(Bracket.OPENING, résultat.poll());
@@ -54,7 +54,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserParenthèsesAvecEspaces() {
-	final Queue<Signe> résultat = parseur.analyserLexicalement(
+	final Queue<Token> résultat = parseur.analyserLexicalement(
 		"  )(( )   (  ( ");
 	assertEquals(SIX, résultat.size());
 	assertEquals(Bracket.CLOSING, résultat.poll());
@@ -70,7 +70,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserUnicode() {
-	final Queue<Signe> résultat = parseur.analyserLexicalement(
+	final Queue<Token> résultat = parseur.analyserLexicalement(
 		"ÉœÙ CŒUR Çédille àgrÂvÆ ÑñUbï Ïléà");
 	assertEquals(SIX, résultat.size());
 	assertEquals(new Keyword("éœù"), résultat.poll());
@@ -87,7 +87,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserCaractèresBizarres() {
-	final Queue<Signe> résultat = parseur.analyserLexicalement(
+	final Queue<Token> résultat = parseur.analyserLexicalement(
 		"+ = or: / \t\n ( %ù §§ À \"bonjour\" ++--) **");
 	assertEquals(SIX, résultat.size());
 	assertEquals(Operator.OR, résultat.poll());
@@ -103,7 +103,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserVraieRequête() {
-	final Queue<Signe> résultat = parseur.analyserLexicalement(
+	final Queue<Token> résultat = parseur.analyserLexicalement(
 		"title:(Bonjour Madame) OR coucou");
 	assertEquals(SEPT, résultat.size());
 	assertEquals(Field.TITLE, résultat.poll());
