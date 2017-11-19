@@ -7,13 +7,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import fr.elimerl.registre.entities.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.elimerl.registre.entities.Utilisateur;
 import fr.elimerl.registre.sécurité.UtilisateurSpring;
 
 /**
@@ -44,10 +44,10 @@ public class ListerUtilisateurs {
 		.getPrincipal();
 	modèle.addAttribute("utilisateur", utilisateurSpring.getUtilisateur());
 	final CriteriaBuilder builder = em.getCriteriaBuilder();
-	final CriteriaQuery<Utilisateur> requête =
-		builder.createQuery(Utilisateur.class);
-	requête.from(Utilisateur.class);
-	final List<Utilisateur> utilisateurs =
+	final CriteriaQuery<User> requête =
+		builder.createQuery(User.class);
+	requête.from(User.class);
+	final List<User> utilisateurs =
 		em.createQuery(requête).getResultList();
 	modèle.addAttribute("utilisateurs", utilisateurs);
 	return "listeUtilisateurs";

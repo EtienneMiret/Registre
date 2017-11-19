@@ -124,7 +124,7 @@ public abstract class Record {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createur", updatable = false)
-    private Utilisateur creator;
+    private User creator;
 
     /**
      * Creation date of this record.
@@ -137,7 +137,7 @@ public abstract class Record {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dernier_editeur")
-    private Utilisateur lastModifier;
+    private User lastModifier;
 
     /**
      * Last modification date of this record.
@@ -159,7 +159,7 @@ public abstract class Record {
      * @param creator
      * 		user who is registering this new record.
      */
-    public Record(final String title, final Utilisateur creator) {
+    public Record(final String title, final User creator) {
 	final Date now = new Date();
 	this.title = title;
 	this.creator = creator;
@@ -178,7 +178,7 @@ public abstract class Record {
      * @see #lastModifier
      * @see #lastModification
      */
-    public void toucher(final Utilisateur user) {
+    public void toucher(final User user) {
 	this.lastModifier = user;
         this.lastModification = new Date();
     }
@@ -202,10 +202,10 @@ public abstract class Record {
 	    result.add(location.getName());
 	}
 	if (creator != null) {
-	    result.add(creator.getNom());
+	    result.add(creator.getName());
 	}
 	if (lastModifier != null) {
-	    result.add(lastModifier.getNom());
+	    result.add(lastModifier.getName());
 	}
 	if (actionStyle != null && actionStyle.booleanValue()) {
 	    result.add("action");
@@ -588,7 +588,7 @@ public abstract class Record {
      * @return the user who registered this record.
      * @see #creator
      */
-    public Utilisateur getCreator() {
+    public User getCreator() {
         return creator;
     }
 
@@ -608,7 +608,7 @@ public abstract class Record {
      * @return the user who last modified this record.
      * @see #lastModifier
      */
-    public Utilisateur getLastModifier() {
+    public User getLastModifier() {
         return lastModifier;
     }
 

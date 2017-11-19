@@ -31,12 +31,12 @@ public class TestFilm {
     private static final String TITRE = "À la belle étoile";
 
     /** Un premier exemple utilisateur. */
-    private static final Utilisateur CRÉATEUR =
-	    new Utilisateur("Etienne", "etienne@email");
+    private static final User CRÉATEUR =
+	    new User("Etienne", "etienne@email");
 
     /** Un deuxième exemple d’utilisateur. */
-    private static final Utilisateur MODIFIEUR =
-	    new Utilisateur("Grégoire", "gregoire@email");
+    private static final User MODIFIEUR =
+	    new User("Grégoire", "gregoire@email");
 
     /** Loggeur de cette classe. */
     private static final Logger logger =
@@ -74,7 +74,7 @@ public class TestFilm {
 
     /**
      * Teste la création d’un DVD, puis sa méthode
-     * {@link Movie#toucher(Utilisateur) toucher(Utilisateur)}.
+     * {@link Movie#toucher(User) toucher(User)}.
      *
      * @throws Exception
      *             normalement non, mais on ne sait jamais.

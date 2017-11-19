@@ -42,7 +42,7 @@ public class Book extends Record {
      * @param creator
      * 		user who registered this book.
      */
-    public Book(final String title, final Utilisateur creator) {
+    public Book(final String title, final User creator) {
 	super(title, creator);
     }
 

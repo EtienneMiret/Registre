@@ -233,12 +233,12 @@ public class TestPersistence {
     @Test
     public void enregistrementUtilisateur() {
 	logger.info("Test d’enregistrement d’un utilisateur.");
-	Utilisateur utilisateur = new Utilisateur(UTILISATEUR, EMAIL);
+	User utilisateur = new User(UTILISATEUR, EMAIL);
 	assertNull(utilisateur.getId());
 	utilisateur = em.merge(utilisateur);
 	em.flush();
 	assertNotNull(utilisateur.getId());
-	assertEquals(UTILISATEUR, utilisateur.getNom());
+	assertEquals(UTILISATEUR, utilisateur.getName());
 	assertEquals(EMAIL, utilisateur.getEmail());
     }
 
@@ -248,7 +248,7 @@ public class TestPersistence {
     @Test
     public void enregistrementSession() {
 	logger.info("Test d’enregistrement d’une session.");
-	Utilisateur utilisateur = new Utilisateur(UTILISATEUR, EMAIL);
+	User utilisateur = new User(UTILISATEUR, EMAIL);
 	utilisateur = em.merge(utilisateur);
 	Session session = new Session(utilisateur, 0L);
 	final String clef = session.getKey();
@@ -269,8 +269,8 @@ public class TestPersistence {
 	logger.info("Test d’enregistrement d’une bande dessinée");
 
 	final String titre = "Une super BD";
-	Utilisateur créateur = new Utilisateur("Créateur", "createur@email");
-	Utilisateur éditeur = new Utilisateur("Éditeur", "editeur@email");
+	User créateur = new User("Créateur", "createur@email");
+	User éditeur = new User("Éditeur", "editeur@email");
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
 	Comic bandeDessinée = new Comic(titre, créateur);
@@ -349,8 +349,8 @@ public class TestPersistence {
 	logger.info("Test d’enregistrement d’un film.");
 
 	final String titre = "Un super film";
-	Utilisateur créateur = new Utilisateur("Créateur", "createur@email");
-	Utilisateur éditeur = new Utilisateur("Éditeur", "editeur@email");
+	User créateur = new User("Créateur", "createur@email");
+	User éditeur = new User("Éditeur", "editeur@email");
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
 	Movie film = new Movie(titre, créateur, BRD);
@@ -432,8 +432,8 @@ public class TestPersistence {
 	logger.info("Test d’enregistrement d’un livre.");
 
 	final String titre = "L’Assassin royal";
-	Utilisateur créateur = new Utilisateur("Créateur", "createur@email");
-	Utilisateur éditeur = new Utilisateur("Éditeur", "editeur@email");
+	User créateur = new User("Créateur", "createur@email");
+	User éditeur = new User("Éditeur", "editeur@email");
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
 	Book livre = new Book(titre, créateur);
@@ -496,7 +496,7 @@ public class TestPersistence {
 
 	final String titre = "Titre";
 	final Field champ = Field.TITLE;
-	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
+	User créateur = new User(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
 	Record fiche = new Movie(titre, créateur, BRD);
 	fiche = em.merge(fiche);
@@ -637,8 +637,8 @@ public class TestPersistence {
     public void deuxUtilisateursIdentiques() {
 	logger.info("Test de l’enregistrement de deux utilisateurs "
 		+ "identiques.");
-	em.merge(new Utilisateur(UTILISATEUR, "email1@email"));
-	em.merge(new Utilisateur(UTILISATEUR, "email2@email"));
+	em.merge(new User(UTILISATEUR, "email1@email"));
+	em.merge(new User(UTILISATEUR, "email2@email"));
 	em.flush();
     }
 
@@ -685,7 +685,7 @@ public class TestPersistence {
 
 	final String titre = "Titre";
 	final Field champ = Reference.Field.TITLE;
-	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
+	User créateur = new User(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
 	Record fiche = new Movie(titre, créateur, BRD);
 	fiche = em.merge(fiche);
@@ -707,8 +707,8 @@ public class TestPersistence {
 		+ " titre.");
 
 	final String titre = "Lettres d’Iwo Jima";
-	final Utilisateur créateur =
-		em.merge(new Utilisateur(UTILISATEUR, EMAIL));
+	final User créateur =
+		em.merge(new User(UTILISATEUR, EMAIL));
 	final Record fiche1 = new Movie(titre, créateur, BRD);
 	final Record fiche2 = new Comic(titre, créateur);
 
@@ -1029,22 +1029,22 @@ public class TestPersistence {
     @Test
     public void chargerUtilisateurs() {
 	logger.info("Chargement des utilisateurs de test-data.sql.");
-	final Iterator<Utilisateur> utilisateurs =
-		charger(Utilisateur.class, "id");
+	final Iterator<User> utilisateurs =
+		charger(User.class, "id");
 
-	final Utilisateur etienne = utilisateurs.next();
+	final User etienne = utilisateurs.next();
 	assertEquals(ZÉRO, etienne.getId().intValue());
-	assertEquals("Etienne", etienne.getNom());
+	assertEquals("Etienne", etienne.getName());
 	assertEquals("etienne@email", etienne.getEmail());
 
-	final Utilisateur grégoire = utilisateurs.next();
+	final User grégoire = utilisateurs.next();
 	assertEquals(UN, grégoire.getId().intValue());
-	assertEquals("Grégoire", grégoire.getNom());
+	assertEquals("Grégoire", grégoire.getName());
 	assertEquals("gregoire@email", grégoire.getEmail());
 
-	final Utilisateur claire = utilisateurs.next();
+	final User claire = utilisateurs.next();
 	assertEquals(DEUX, claire.getId().intValue());
-	assertEquals("Claire", claire.getNom());
+	assertEquals("Claire", claire.getName());
 	assertEquals("claire@email", claire.getEmail());
 
 	assertFalse(utilisateurs.hasNext());
@@ -1079,10 +1079,10 @@ public class TestPersistence {
 	assertNull(bouleEtBill.getPicture());
 	assertEquals("Claire", bouleEtBill.getOwner().getName());
 	assertEquals("Verneuil", bouleEtBill.getLocation().getName());
-	assertEquals("Etienne", bouleEtBill.getCreator().getNom());
+	assertEquals("Etienne", bouleEtBill.getCreator().getName());
 	assertEquals(df.parse("2012-12-25 22:18:30"),
 		bouleEtBill.getCreation());
-	assertEquals("Grégoire", bouleEtBill.getLastModifier().getNom());
+	assertEquals("Grégoire", bouleEtBill.getLastModifier().getName());
 	assertEquals(df.parse("2013-02-16 22:19:58"),
 		bouleEtBill.getLastModification());
 	assertEquals("Jigounov", bouleEtBill.getCartoonist().getName());
@@ -1121,9 +1121,9 @@ public class TestPersistence {
 	assertNull(merlin.getPicture());
 	assertEquals("Etienne", merlin.getOwner().getName());
 	assertEquals("Verneuil", merlin.getLocation().getName());
-	assertEquals("Etienne", merlin.getCreator().getNom());
+	assertEquals("Etienne", merlin.getCreator().getName());
 	assertEquals(df.parse("2012-12-25 22:21:29"), merlin.getCreation());
-	assertEquals("Claire", merlin.getLastModifier().getNom());
+	assertEquals("Claire", merlin.getLastModifier().getName());
 	assertEquals(df.parse("2013-02-26 22:22:06"),
 		merlin.getLastModification());
 	assertEquals(Support.BRD, merlin.getSupport());
@@ -1139,7 +1139,7 @@ public class TestPersistence {
 	assertNull(rainbowSix.getPicture());
 	assertEquals("Etienne", rainbowSix.getOwner().getName());
 	assertEquals("Verneuil", rainbowSix.getLocation().getName());
-	assertEquals("Etienne", rainbowSix.getCreator().getNom());
+	assertEquals("Etienne", rainbowSix.getCreator().getName());
 
 	assertFalse(fiches.hasNext());
     }

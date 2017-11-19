@@ -89,7 +89,7 @@ public class Movie extends Record {
      * @param support
      * 		physical support this movie is on.
      */
-    public Movie(final String title, final Utilisateur creator,
+    public Movie(final String title, final User creator,
 	    final Support support) {
 	super(title, creator);
 	this.support = support;

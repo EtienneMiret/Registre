@@ -4,19 +4,17 @@ import java.util.Collection;
 
 import javax.persistence.EntityManagerFactory;
 
+import fr.elimerl.registre.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.context.ContextLoader;
-
-import fr.elimerl.registre.entities.Utilisateur;
 
 /**
  * Représente un utilisateur de Registre dans le framework Spring.
  */
-public class UtilisateurSpring extends User {
+public class UtilisateurSpring extends org.springframework.security.core.userdetails.User {
 
     /** Numéro de version utilisé pour la sérialisation. */
     private static final long serialVersionUID = 8681631417262947043L;
@@ -41,7 +39,7 @@ public class UtilisateurSpring extends User {
     /**
      * L’utilisateur en base de donné auquel correspond cet utilisteur Spring.
      */
-    private transient Utilisateur utilisateur;
+    private transient User utilisateur;
 
     /**
      * Création d’un utilisateur Spring à partir d’un utilisateur en base.
@@ -49,7 +47,7 @@ public class UtilisateurSpring extends User {
      * @param utilisateur
      *            utilisateur en base pour lequel on veut un utilisateur Spring.
      */
-    public UtilisateurSpring(final Utilisateur utilisateur) {
+    public UtilisateurSpring(final User utilisateur) {
 	super(utilisateur.getEmail(), "****", RÔLES);
 	this.id = utilisateur.getId();
 	this.utilisateur = utilisateur;
@@ -60,7 +58,7 @@ public class UtilisateurSpring extends User {
      *
      * @return l’utilisateur en base auquel correspond cet utilisateur Spring.
      */
-    public Utilisateur getUtilisateur() {
+    public User getUtilisateur() {
 	if (utilisateur == null) {
 	    récupérerUtilisateurDeLaBase();
 	}
@@ -77,7 +75,7 @@ public class UtilisateurSpring extends User {
 		    .getCurrentWebApplicationContext()
 		    .getBean("usineGestionnairesEntités",
 			    EntityManagerFactory.class);
-	    utilisateur = emf.createEntityManager().find(Utilisateur.class, id);
+	    utilisateur = emf.createEntityManager().find(User.class, id);
 	    journal.debug("{} a été rechargé de la base de données.",
 		    utilisateur);
 	}

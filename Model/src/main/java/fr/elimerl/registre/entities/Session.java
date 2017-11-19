@@ -45,7 +45,7 @@ public class Session {
     /** User who created this session. */
     @ManyToOne
     @JoinColumn(name = "utilisateur")
-    private Utilisateur user;
+    private User user;
 
     /**
      * Expiration date for this session. At this date, this session is no longer
@@ -65,7 +65,7 @@ public class Session {
      * @param duration
      *          this session validity duration, in milliseconds.
      */
-    public Session(final Utilisateur user, final long duration) {
+    public Session(final User user, final long duration) {
 	/* Key field. */
 	final byte[] octets = new byte[KEY_SIZE];
 	synchronized (random) {
@@ -95,7 +95,7 @@ public class Session {
      *
      * @return this session’s user.
      */
-    public Utilisateur getUser() {
+    public User getUser() {
 	return user;
     }
 

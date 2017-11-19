@@ -3,13 +3,14 @@ package fr.elimerl.registre.modèle.entités;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import fr.elimerl.registre.entities.User;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
 
 import fr.elimerl.registre.entities.Session;
-import fr.elimerl.registre.entities.Utilisateur;
 
 /**
  * Test de la classe {@link Session}.
@@ -23,13 +24,13 @@ public class TestSession {
     private static final String EMAIL_UTILISATEUR = "azerty";
 
     /** Utilisateur de la session testée. */
-    private final Utilisateur utilisateur;
+    private final User utilisateur;
 
     /**
      * Unique constructeur.
      */
     public TestSession() {
-	utilisateur = new Utilisateur(NOM_UTILISATEUR, EMAIL_UTILISATEUR);
+	utilisateur = new User(NOM_UTILISATEUR, EMAIL_UTILISATEUR);
     }
 
     /**

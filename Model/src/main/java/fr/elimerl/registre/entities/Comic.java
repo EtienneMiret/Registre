@@ -43,7 +43,7 @@ public class Comic extends Record {
      * @param creator
      * 		user who registered this comic.
      */
-    public Comic(final String title, final Utilisateur creator) {
+    public Comic(final String title, final User creator) {
 	super(title, creator);
     }
 

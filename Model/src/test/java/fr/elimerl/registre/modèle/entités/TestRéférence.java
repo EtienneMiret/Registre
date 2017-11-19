@@ -24,7 +24,7 @@ public class TestRéférence {
 	final Word mot = new Word("Demain");
 	final Field champ = Field.TITLE;
 	final Record fiche = new Movie("Demain ne meurt jamais",
-		new Utilisateur("Etienne", "etienne@email"), Support.DVD);
+		new User("Etienne", "etienne@email"), Support.DVD);
 	final Reference référence = new Reference(mot, champ, fiche);
 	assertEquals(mot, référence.getWord());
 	assertEquals(champ, référence.getField());

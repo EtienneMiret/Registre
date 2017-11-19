@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import fr.elimerl.registre.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails
@@ -18,8 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.openid.OpenIDAttribute;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
-
-import fr.elimerl.registre.entities.Utilisateur;
 
 /**
  * Service chargé d’authentifier les utilisateurs. Vérifie que leur adresse
@@ -56,7 +55,7 @@ public class Authentifieur implements UserDetailsService,
 	}
 	final Iterator<OpenIDAttribute> attributs =
 		token.getAttributes().iterator();
-	Utilisateur utilisateur = null;
+	User utilisateur = null;
 	while (utilisateur == null && attributs.hasNext()) {
 	    final OpenIDAttribute attribut = attributs.next();
 	    if (attribut.getType().equals(TYPE_EMAIL_OPENID)) {
@@ -99,12 +98,12 @@ public class Authentifieur implements UserDetailsService,
      * @throws NoResultException
      *             si aucun utilisateur en base n’a cette adresse.
      */
-    private Utilisateur chargerUtilisateur(final String email) {
+    private User chargerUtilisateur(final String email) {
 	final CriteriaBuilder constructeur = em.getCriteriaBuilder();
-	final CriteriaQuery<Utilisateur> requête =
-		constructeur.createQuery(Utilisateur.class);
-	final Root<Utilisateur> racine =
-		requête.from(Utilisateur.class);
+	final CriteriaQuery<User> requête =
+		constructeur.createQuery(User.class);
+	final Root<User> racine =
+		requête.from(User.class);
 	requête.where(constructeur.equal(racine.get("email"),
 		email));
 	return em.createQuery(requête).getSingleResult();

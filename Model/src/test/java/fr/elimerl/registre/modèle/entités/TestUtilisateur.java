@@ -1,6 +1,8 @@
 package fr.elimerl.registre.modèle.entités;
 
 import static org.junit.Assert.assertEquals;
+
+import fr.elimerl.registre.entities.User;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
@@ -8,10 +10,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.entities.Utilisateur;
-
 /**
- * Test de la classe {@link Utilisateur}.
+ * Test de la classe {@link User}.
  */
 public class TestUtilisateur {
 
@@ -27,27 +27,27 @@ public class TestUtilisateur {
 
     /**
      * Teste la création d’un utilisateur, ainsi que les méthodes
-     * {@link Utilisateur#getNom() getName()} et
-     * {@link Utilisateur#vérifierMdp(String) vérifierMdp()}.
+     * {@link User#getName() getName()} et
+     * {@link User#vérifierMdp(String) vérifierMdp()}.
      */
     @Test
     public void testCréation() {
 	logger.info("Test création.");
-	final Utilisateur utilisateur = new Utilisateur(NOM, EMAIL);
+	final User utilisateur = new User(NOM, EMAIL);
 	assertEquals("Il y a un problème dans le nom de l’utilisateur.",
-		NOM, utilisateur.getNom());
+		NOM, utilisateur.getName());
 	assertEquals("Il y a un problème dans l’adresse email.",
 		EMAIL, utilisateur.getEmail());
     }
 
     /**
-     * Teste les méthodes {@link Utilisateur#equals(Object) equals()} et
-     * {@link Utilisateur#hashCode() hashCode()}.
+     * Teste les méthodes {@link User#equals(Object) equals()} et
+     * {@link User#hashCode() hashCode()}.
      */
     @Test
     public void equalsEtHashCode() {
-	final EqualsVerifier<Utilisateur> equalsVerifier =
-		EqualsVerifier.forClass(Utilisateur.class);
+	final EqualsVerifier<User> equalsVerifier =
+		EqualsVerifier.forClass(User.class);
 	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
 	equalsVerifier.verify();
     }

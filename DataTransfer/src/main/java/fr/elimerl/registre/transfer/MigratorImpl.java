@@ -93,7 +93,7 @@ public class MigratorImpl implements Migrator {
     private Indexeur index;
 
     /**
-     * JPA entity manager. Will be used to create all {@link Utilisateur}s.
+     * JPA entity manager. Will be used to create all {@link User}s.
      */
     @PersistenceContext(unitName = "Registre")
     private EntityManager jpaEntityManager;
@@ -187,7 +187,7 @@ public class MigratorImpl implements Migrator {
      * 		in case of SQL error.
      */
     private Record createBook(final ResultSet result) throws SQLException {
-	final Utilisateur creator =
+	final User creator =
 		provideUser(result.getString("createur"));
 	final String title = result.getString("titre");
 	final String author = result.getString("auteur");
@@ -225,7 +225,7 @@ public class MigratorImpl implements Migrator {
      * 		in case of SQL error.
      */
     private Record createComic(final ResultSet result) throws SQLException {
-	final Utilisateur creator =
+	final User creator =
 		provideUser(result.getString("createur"));
 	final String title = result.getString("titre");
 	final String cartoonist = result.getString("dessinateur");
@@ -257,7 +257,7 @@ public class MigratorImpl implements Migrator {
      * 		in case of SQL error.
      */
     private Record createMovie(final ResultSet result) throws SQLException {
-	final Utilisateur creator =
+	final User creator =
 		provideUser(result.getString("createur"));
 	final String title = result.getString("titre");
 	final String director = result.getString("realisateur");
@@ -349,18 +349,18 @@ public class MigratorImpl implements Migrator {
      * 		name of the user to create/fetch.
      * @return the user called {@code name}.
      */
-    private Utilisateur provideUser(final String name) {
+    private User provideUser(final String name) {
 	final String newName = (name == null ? "Système" : name);
 	final CriteriaBuilder builder = jpaEntityManager.getCriteriaBuilder();
-	final CriteriaQuery<Utilisateur> query =
-		builder.createQuery(Utilisateur.class);
-	final Root<Utilisateur> root = query.from(Utilisateur.class);
+	final CriteriaQuery<User> query =
+		builder.createQuery(User.class);
+	final Root<User> root = query.from(User.class);
 	query.where(root.get("name").in(newName));
-	Utilisateur result;
+	User result;
 	try {
 	    result = jpaEntityManager.createQuery(query).getSingleResult();
 	} catch (final NoResultException e) {
-	    result = jpaEntityManager.merge(new Utilisateur(newName, newName));
+	    result = jpaEntityManager.merge(new User(newName, newName));
 	}
 	return result;
     }
