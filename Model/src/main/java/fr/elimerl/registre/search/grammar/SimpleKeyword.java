@@ -8,7 +8,7 @@ import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Reference;
-import fr.elimerl.registre.search.tokens.MotClé;
+import fr.elimerl.registre.search.tokens.Keyword;
 
 /**
  * Kind of expression of this application’s query language that only contains
@@ -17,7 +17,7 @@ import fr.elimerl.registre.search.tokens.MotClé;
 public final class SimpleKeyword extends Expression {
 
     /** This expression’s keyword. */
-    private final MotClé keyword;
+    private final Keyword keyword;
 
     /**
      * Create a {@code {@link SimpleKeyword} expression from a keyword.
@@ -25,7 +25,7 @@ public final class SimpleKeyword extends Expression {
      * @param keyword
      *          keyword to put in this expression.
      */
-    public SimpleKeyword(final MotClé keyword) {
+    public SimpleKeyword(final Keyword keyword) {
 	this.keyword = keyword;
     }
 
@@ -36,7 +36,7 @@ public final class SimpleKeyword extends Expression {
 	final Root<Reference> reference = subquery.from(Reference.class);
 	subquery.select(reference.<Record>get("record").get("id"));
 	subquery.where(builder.equal(reference.get("word").get("value"),
-		keyword.getValeur()));
+		keyword.getValue()));
 	return builder.in(root.get("id")).value(subquery);
     }
 

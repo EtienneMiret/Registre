@@ -28,8 +28,8 @@ public class ParseurDeRecherches {
     /** Un tableau d’{@code Expression}s de taille zéro. */
     private static final Expression[] EXPRESSIONS = new Expression[0];
 
-    /** Un tableau de {@code MotClé}s de taille zéro. */
-    private static final MotClé[] MOTS_CLÉS = new MotClé[0];
+    /** Un tableau de {@code Keyword}s de taille zéro. */
+    private static final Keyword[] MOTS_CLÉS = new Keyword[0];
 
     /**
      * Réalise l’analyse lexicale puis l’analyse grammaticale de la requête
@@ -94,9 +94,9 @@ public class ParseurDeRecherches {
 		}
 	    }
 	    if (signe == null) {
-		final Matcher comparateur = MotClé.MOTIF.matcher(requête);
+		final Matcher comparateur = Keyword.PATTERN.matcher(requête);
 		if (comparateur.find(i)) {
-		    signe = new MotClé(comparateur.group(1).toLowerCase());
+		    signe = new Keyword(comparateur.group(1).toLowerCase());
 		    i = comparateur.end();
 		}
 	    }
@@ -186,8 +186,8 @@ public class ParseurDeRecherches {
 		throw new ParseException("« ) » attendu, « " + signeSuivant
 			+ " » trouvé.", -1);
 	    }
-	} else if (premierSigne instanceof MotClé) {
-	    résultat = new SimpleKeyword((MotClé) premierSigne);
+	} else if (premierSigne instanceof Keyword) {
+	    résultat = new SimpleKeyword((Keyword) premierSigne);
 	} else if (premierSigne instanceof Field) {
 	    résultat = analyserChamp((Field) premierSigne, signes);
 	} else {
@@ -217,9 +217,9 @@ public class ParseurDeRecherches {
 	final FieldQuery résultat;
 	final Signe premierSigne = signes.poll();
 	if (premierSigne == Parenthèse.OUVRANTE) {
-	    final List<MotClé> motsClés = new ArrayList<MotClé>();
-	    while (signes.peek() instanceof MotClé) {
-		motsClés.add((MotClé) signes.poll());
+	    final List<Keyword> motsClés = new ArrayList<Keyword>();
+	    while (signes.peek() instanceof Keyword) {
+		motsClés.add((Keyword) signes.poll());
 	    }
 	    final Signe signeSuivant = signes.poll();
 	    if (signeSuivant != Parenthèse.FERMANTE) {
@@ -228,8 +228,8 @@ public class ParseurDeRecherches {
 	    }
 	    résultat = new FieldQuery(champ,
 		    motsClés.toArray(MOTS_CLÉS));
-	} else if (premierSigne instanceof MotClé) {
-	    résultat = new FieldQuery(champ, (MotClé) premierSigne);
+	} else if (premierSigne instanceof Keyword) {
+	    résultat = new FieldQuery(champ, (Keyword) premierSigne);
 	} else {
 	    throw new ParseException("Mot-clé ou « ( » attendu, « "
 		    + premierSigne + " » trouvé.", -1);

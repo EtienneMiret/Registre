@@ -15,7 +15,7 @@ import javax.persistence.criteria.Subquery;
 import fr.elimerl.registre.entities.*;
 import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.search.tokens.Field;
-import fr.elimerl.registre.search.tokens.MotClé;
+import fr.elimerl.registre.search.tokens.Keyword;
 
 /**
  * Kind of {@link Expression} that models a query targeting a specific field.
@@ -29,7 +29,7 @@ public final class FieldQuery extends Expression {
     private final Field field;
 
     /** Keyword list to find in the specified field. */
-    private final List<MotClé> keywords;
+    private final List<Keyword> keywords;
 
     /**
      * Build a field query from a field and a set of keywords.
@@ -38,7 +38,7 @@ public final class FieldQuery extends Expression {
      * @param keywords
      *          keywords to find in the specified field.
      */
-    public FieldQuery(final Field field, final MotClé... keywords) {
+    public FieldQuery(final Field field, final Keyword... keywords) {
 	this.field = field;
 	this.keywords = Arrays.asList(keywords);
     }
@@ -85,7 +85,7 @@ public final class FieldQuery extends Expression {
 	final Path<String> mot = reference.get("word").get("value");
 	subquery.select(reference.<Record>get("record").get("id"));
 	for (int i = 0; i < keywords.size(); i++) {
-	    predicates[i] = builder.equal(mot, keywords.get(i).getValeur());
+	    predicates[i] = builder.equal(mot, keywords.get(i).getValue());
 	}
 	subquery.where(builder.and(builder.and(predicates),
 		builder.equal(reference.get("field"), field)));
@@ -128,7 +128,7 @@ public final class FieldQuery extends Expression {
 	subquery.select(actor);
 	for (int i = 0; i < keywords.size(); i++) {
 	    predicates[i] = builder.like(builder.lower(nom),
-		    "%" + keywords.get(i).getValeur() + "%");
+		    "%" + keywords.get(i).getValue() + "%");
 	}
 	subquery.where(builder.and(predicates));
 	final Path<Set<Actor>> actors =
@@ -165,7 +165,7 @@ public final class FieldQuery extends Expression {
 	    final CriteriaQuery<Record> query, final Root<Record> root) {
 	final Predicate[] predicates = new Predicate[keywords.size()];
 	for (int i = 0; i < keywords.size(); i++) {
-	    final String mot = keywords.get(i).getValeur();
+	    final String mot = keywords.get(i).getValue();
 	    final Root<?> racine = field.getDeclaringClass() == Record.class
 		    ? root
 		    : builder.treat(root, field.getDeclaringClass());
@@ -210,7 +210,7 @@ public final class FieldQuery extends Expression {
 
     @Override
     public String toString() {
-	final Iterator<MotClé> iterator = keywords.iterator();
+	final Iterator<Keyword> iterator = keywords.iterator();
 	final StringBuilder buffer = new StringBuilder();
 	buffer.append(field);
 	buffer.append('(');

@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.search.grammar.*;
 import fr.elimerl.registre.search.tokens.Field;
+import fr.elimerl.registre.search.tokens.Keyword;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +26,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
-import fr.elimerl.registre.search.tokens.MotClé;
 import fr.elimerl.registre.services.Indexeur;
 
 /**
@@ -85,7 +85,7 @@ public class TestCréerPrédicat {
     @Test
     public void testMotCléSimple() {
 	journal.info("Création d’un prédicat à partir d’un mot clé simple.");
-	final SimpleKeyword motClé = new SimpleKeyword(new MotClé("super"));
+	final SimpleKeyword motClé = new SimpleKeyword(new Keyword("super"));
 	final List<Record> résultats = exécuter(motClé);
 	vérifier(résultats, 1);
     }
@@ -99,7 +99,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " titre.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.TITLE, new MotClé("la"));
+		new FieldQuery(Field.TITLE, new Keyword("la"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4, 5, 7);
     }
@@ -113,7 +113,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " commentaire.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.COMMENT, new MotClé("super"));
+		new FieldQuery(Field.COMMENT, new Keyword("super"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1);
     }
@@ -127,7 +127,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur la"
 		+ " série.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.SERIES, new MotClé("warhammer"));
+		new FieldQuery(Field.SERIES, new Keyword("warhammer"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4, 5);
     }
@@ -141,7 +141,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " propriétaire.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.OWNER, new MotClé("etienne"));
+		new FieldQuery(Field.OWNER, new Keyword("etienne"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1, 2, 4, 5);
     }
@@ -155,7 +155,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur"
 		+ " l’emplacement.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.LOCATION, new MotClé("verneuil"));
+		new FieldQuery(Field.LOCATION, new Keyword("verneuil"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 0, 1, 2);
     }
@@ -169,7 +169,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " réalisateur.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.DIRECTOR, new MotClé("besson"));
+		new FieldQuery(Field.DIRECTOR, new Keyword("besson"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 3);
     }
@@ -183,7 +183,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur les"
 		+ " acteurs");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.ACTOR, new MotClé("scarlett"));
+		new FieldQuery(Field.ACTOR, new Keyword("scarlett"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 3);
     }
@@ -197,7 +197,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " compositeur.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.COMPOSER, new MotClé("howard"));
+		new FieldQuery(Field.COMPOSER, new Keyword("howard"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1);
     }
@@ -211,7 +211,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " dessinateur.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.CARTOONIST, new MotClé("morris"));
+		new FieldQuery(Field.CARTOONIST, new Keyword("morris"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 6, 7, 8);
     }
@@ -225,7 +225,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " scénariste");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.SCRIPT_WRITER, new MotClé("renard"));
+		new FieldQuery(Field.SCRIPT_WRITER, new Keyword("renard"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 0);
     }
@@ -239,7 +239,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête sur"
 		+ " l’auteur");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.AUTHOR, new MotClé("thorpe"));
+		new FieldQuery(Field.AUTHOR, new Keyword("thorpe"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4);
     }
@@ -255,7 +255,7 @@ public class TestCréerPrédicat {
 	final BracketedQuery requêteEntreParenthèse =
 		new BracketedQuery(
 			new SearchQuery(true,
-				new SimpleKeyword(new MotClé("super"))
+				new SimpleKeyword(new Keyword("super"))
 			)
 		);
 	final List<Record> résultats = exécuter(requêteEntreParenthèse);
@@ -270,13 +270,13 @@ public class TestCréerPrédicat {
     public void testRequête() {
 	journal.info("Création d’un prédicat à partir d’une requête complexe.");
 	final SearchQuery requêteUtilisateur = new SearchQuery(false,
-		new SimpleKeyword(new MotClé("coucou")),
+		new SimpleKeyword(new Keyword("coucou")),
 		new FieldQuery(Field.TITLE,
-			new MotClé("honneur"),
-			new MotClé("dette")
+			new Keyword("honneur"),
+			new Keyword("dette")
 		),
 		new FieldQuery(Field.OWNER,
-			new MotClé("etienne")
+			new Keyword("etienne")
 		)
 	);
 	requête.where(requêteUtilisateur.createPredicate(constructeur, requête,
@@ -293,7 +293,7 @@ public class TestCréerPrédicat {
     public void testLukyPartout() {
 	journal.info("Création d’un prédicat pour la recherche de « luky »"
 		+ " dans tous les champs.");
-	final SimpleKeyword motClé = new SimpleKeyword(new MotClé("luky"));
+	final SimpleKeyword motClé = new SimpleKeyword(new Keyword("luky"));
 	final List<Record> résultats = exécuter(motClé);
 	vérifier(résultats, 6, 7, 8, 9);
     }
@@ -306,7 +306,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat pour la recherche de « luky »"
 		+ " dans les titres.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.TITLE, new MotClé("luky"));
+		new FieldQuery(Field.TITLE, new Keyword("luky"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 7, 9);
     }
@@ -319,7 +319,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat pour la recherche de « luky »"
 		+ " dans les séries");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Field.SERIES, new MotClé("luky"));
+		new FieldQuery(Field.SERIES, new Keyword("luky"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 6, 7, 8);
     }

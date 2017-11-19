@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Reference;
-import fr.elimerl.registre.search.tokens.MotClé;
+import fr.elimerl.registre.search.tokens.Keyword;
 
 /**
  * Service charger d’indexer les fiches.
@@ -74,7 +74,7 @@ public class Indexeur {
      *         ponctuation.
      */
     public Set<String> découperEnMots(final String chaîne) {
-	final Matcher comparateur = MotClé.MOTIF.matcher(chaîne);
+	final Matcher comparateur = Keyword.PATTERN.matcher(chaîne);
 	final Set<String> résultat = new HashSet<String>();
 	int i = 0;
 	while (i < chaîne.length()) {

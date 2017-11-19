@@ -73,12 +73,12 @@ public class TestAnalyseLexicale {
 	final Queue<Signe> résultat = parseur.analyserLexicalement(
 		"ÉœÙ CŒUR Çédille àgrÂvÆ ÑñUbï Ïléà");
 	assertEquals(SIX, résultat.size());
-	assertEquals(new MotClé("éœù"), résultat.poll());
-	assertEquals(new MotClé("cœur"), résultat.poll());
-	assertEquals(new MotClé("çédille"), résultat.poll());
-	assertEquals(new MotClé("àgrâvæ"), résultat.poll());
-	assertEquals(new MotClé("ññubï"), résultat.poll());
-	assertEquals(new MotClé("ïléà"), résultat.poll());
+	assertEquals(new Keyword("éœù"), résultat.poll());
+	assertEquals(new Keyword("cœur"), résultat.poll());
+	assertEquals(new Keyword("çédille"), résultat.poll());
+	assertEquals(new Keyword("àgrâvæ"), résultat.poll());
+	assertEquals(new Keyword("ññubï"), résultat.poll());
+	assertEquals(new Keyword("ïléà"), résultat.poll());
     }
 
     /**
@@ -92,9 +92,9 @@ public class TestAnalyseLexicale {
 	assertEquals(SIX, résultat.size());
 	assertEquals(Opérateur.OU, résultat.poll());
 	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
-	assertEquals(new MotClé("ù"), résultat.poll());
-	assertEquals(new MotClé("à"), résultat.poll());
-	assertEquals(new MotClé("bonjour"), résultat.poll());
+	assertEquals(new Keyword("ù"), résultat.poll());
+	assertEquals(new Keyword("à"), résultat.poll());
+	assertEquals(new Keyword("bonjour"), résultat.poll());
 	assertEquals(Parenthèse.FERMANTE, résultat.poll());
     }
 
@@ -108,11 +108,11 @@ public class TestAnalyseLexicale {
 	assertEquals(SEPT, résultat.size());
 	assertEquals(Field.TITLE, résultat.poll());
 	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
-	assertEquals(new MotClé("bonjour"), résultat.poll());
-	assertEquals(new MotClé("madame"), résultat.poll());
+	assertEquals(new Keyword("bonjour"), résultat.poll());
+	assertEquals(new Keyword("madame"), résultat.poll());
 	assertEquals(Parenthèse.FERMANTE, résultat.poll());
 	assertEquals(Opérateur.OU, résultat.poll());
-	assertEquals(new MotClé("coucou"), résultat.poll());
+	assertEquals(new Keyword("coucou"), résultat.poll());
     }
 
 }

@@ -62,7 +62,7 @@ public class TestAnalyseGrammaticale {
      */
     @Test
     public void unSeulMotClé() {
-	final MotClé motClé = new MotClé("coucou");
+	final Keyword motClé = new Keyword("coucou");
 	signes.add(motClé);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
@@ -77,9 +77,9 @@ public class TestAnalyseGrammaticale {
      */
     @Test
     public void conjonctionPlusieursMotsClés() {
-	final MotClé toto = new MotClé("toto");
-	final MotClé tata = new MotClé("tata");
-	final MotClé titi = new MotClé("titi");
+	final Keyword toto = new Keyword("toto");
+	final Keyword tata = new Keyword("tata");
+	final Keyword titi = new Keyword("titi");
 	signes.add(toto);
 	signes.add(tata);
 	signes.add(titi);
@@ -100,9 +100,9 @@ public class TestAnalyseGrammaticale {
      */
     @Test
     public void disjonctionPlusieursMotsClés() {
-	final MotClé toto = new MotClé("toto");
-	final MotClé tata = new MotClé("tata");
-	final MotClé titi = new MotClé("titi");
+	final Keyword toto = new Keyword("toto");
+	final Keyword tata = new Keyword("tata");
+	final Keyword titi = new Keyword("titi");
 	signes.add(toto);
 	signes.add(Opérateur.OU);
 	signes.add(tata);
@@ -124,12 +124,12 @@ public class TestAnalyseGrammaticale {
      */
     @Test
     public void requêteComplexe1() {
-	final MotClé maman = new MotClé("maman");
-	final MotClé etienne = new MotClé("etienne");
-	final MotClé grégoire = new MotClé("grégoire");
-	final MotClé toto = new MotClé("toto");
-	final MotClé tata = new MotClé("tata");
-	final MotClé titi = new MotClé("titi");
+	final Keyword maman = new Keyword("maman");
+	final Keyword etienne = new Keyword("etienne");
+	final Keyword grégoire = new Keyword("grégoire");
+	final Keyword toto = new Keyword("toto");
+	final Keyword tata = new Keyword("tata");
+	final Keyword titi = new Keyword("titi");
 	signes.add(Field.TITLE);
 	signes.add(maman);
 	signes.add(Opérateur.OU);
@@ -168,15 +168,15 @@ public class TestAnalyseGrammaticale {
      */
     @Test
     public void requêteComplexe2() {
-	final MotClé a = new MotClé("a");
-	final MotClé b = new MotClé("b");
-	final MotClé c = new MotClé("c");
-	final MotClé d = new MotClé("d");
-	final MotClé e = new MotClé("e");
-	final MotClé f = new MotClé("f");
-	final MotClé g = new MotClé("g");
-	final MotClé h = new MotClé("h");
-	final MotClé i = new MotClé("i");
+	final Keyword a = new Keyword("a");
+	final Keyword b = new Keyword("b");
+	final Keyword c = new Keyword("c");
+	final Keyword d = new Keyword("d");
+	final Keyword e = new Keyword("e");
+	final Keyword f = new Keyword("f");
+	final Keyword g = new Keyword("g");
+	final Keyword h = new Keyword("h");
+	final Keyword i = new Keyword("i");
 	signes.add(Parenthèse.OUVRANTE);
 	signes.add(a);
 	signes.add(Opérateur.OU);

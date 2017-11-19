@@ -4,12 +4,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import fr.elimerl.registre.search.tokens.Field;
+import fr.elimerl.registre.search.tokens.Keyword;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
 import fr.elimerl.registre.search.grammar.FieldQuery;
-import fr.elimerl.registre.search.tokens.MotClé;
 
 /**
  * Cas de test JUnit pour la classe {@link FieldQuery}. Seules les méthodes
@@ -28,7 +28,7 @@ public class TestRequêteSurChamp {
      */
     @Test
     public void égales() {
-	final MotClé motClé = new MotClé("toto");
+	final Keyword motClé = new Keyword("toto");
 	final FieldQuery requête1 =
 		new FieldQuery(Field.TITLE, motClé);
 	final FieldQuery requête2 =
@@ -43,7 +43,7 @@ public class TestRequêteSurChamp {
      */
     @Test
     public void champsDifférents() {
-	final MotClé motClé = new MotClé("toto");
+	final Keyword motClé = new Keyword("toto");
 	final FieldQuery requête1 =
 		new FieldQuery(Field.TITLE, motClé);
 	final FieldQuery requête2 =
@@ -58,8 +58,8 @@ public class TestRequêteSurChamp {
      */
     @Test
     public void motsClésDifférents() {
-	final MotClé motClé1 = new MotClé("toto");
-	final MotClé motClé2 = new MotClé("tata");
+	final Keyword motClé1 = new Keyword("toto");
+	final Keyword motClé2 = new Keyword("tata");
 	final FieldQuery requête1 =
 		new FieldQuery(Field.TITLE, motClé1);
 	final FieldQuery requête2 =
