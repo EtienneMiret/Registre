@@ -41,12 +41,12 @@ public class TestAnalyseLexicale {
     public void analyserSimplesParenthèses() {
 	final Queue<Signe> résultat = parseur.analyserLexicalement("(()()(");
 	assertEquals(SIX, résultat.size());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
-	assertEquals(Parenthèse.FERMANTE, résultat.poll());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
-	assertEquals(Parenthèse.FERMANTE, résultat.poll());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
+	assertEquals(Bracket.CLOSING, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
+	assertEquals(Bracket.CLOSING, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
     }
 
     /**
@@ -57,12 +57,12 @@ public class TestAnalyseLexicale {
 	final Queue<Signe> résultat = parseur.analyserLexicalement(
 		"  )(( )   (  ( ");
 	assertEquals(SIX, résultat.size());
-	assertEquals(Parenthèse.FERMANTE, résultat.poll());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
-	assertEquals(Parenthèse.FERMANTE, résultat.poll());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
+	assertEquals(Bracket.CLOSING, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
+	assertEquals(Bracket.CLOSING, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
     }
 
     /**
@@ -91,11 +91,11 @@ public class TestAnalyseLexicale {
 		"+ = or: / \t\n ( %ù §§ À \"bonjour\" ++--) **");
 	assertEquals(SIX, résultat.size());
 	assertEquals(Operator.OR, résultat.poll());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
 	assertEquals(new Keyword("ù"), résultat.poll());
 	assertEquals(new Keyword("à"), résultat.poll());
 	assertEquals(new Keyword("bonjour"), résultat.poll());
-	assertEquals(Parenthèse.FERMANTE, résultat.poll());
+	assertEquals(Bracket.CLOSING, résultat.poll());
     }
 
     /**
@@ -107,10 +107,10 @@ public class TestAnalyseLexicale {
 		"title:(Bonjour Madame) OR coucou");
 	assertEquals(SEPT, résultat.size());
 	assertEquals(Field.TITLE, résultat.poll());
-	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
+	assertEquals(Bracket.OPENING, résultat.poll());
 	assertEquals(new Keyword("bonjour"), résultat.poll());
 	assertEquals(new Keyword("madame"), résultat.poll());
-	assertEquals(Parenthèse.FERMANTE, résultat.poll());
+	assertEquals(Bracket.CLOSING, résultat.poll());
 	assertEquals(Operator.OR, résultat.poll());
 	assertEquals(new Keyword("coucou"), résultat.poll());
     }

@@ -60,17 +60,17 @@ public class ParseurDeRecherches {
 	    Signe signe = null;
 	    {
 		final Matcher comparateur =
-			Parenthèse.OUVRANTE.getMotif().matcher(requête);
+			Bracket.OPENING.getMotif().matcher(requête);
 		if (comparateur.find(i)) {
-		    signe = Parenthèse.OUVRANTE;
+		    signe = Bracket.OPENING;
 		    i = comparateur.end();
 		}
 	    }
 	    if (signe == null) {
 		final Matcher comparateur =
-			Parenthèse.FERMANTE.getMotif().matcher(requête);
+			Bracket.CLOSING.getMotif().matcher(requête);
 		if (comparateur.find(i)) {
-		    signe = Parenthèse.FERMANTE;
+		    signe = Bracket.CLOSING;
 		    i = comparateur.end();
 		}
 	    }
@@ -123,7 +123,7 @@ public class ParseurDeRecherches {
     public SearchQuery analyserGrammaticalement(final Queue<Signe> signes) {
 	final List<Expression> expressions = new ArrayList<Expression>();
 	boolean conjonction;
-	if (!signes.isEmpty() && signes.peek() != Parenthèse.FERMANTE) {
+	if (!signes.isEmpty() && signes.peek() != Bracket.CLOSING) {
 	    try {
 		expressions.add(analyserExpression(signes));
 		conjonction = signes.peek() != Operator.OR;
@@ -138,7 +138,7 @@ public class ParseurDeRecherches {
 	} else {
 	    conjonction = true;
 	}
-	while (!signes.isEmpty() && signes.peek() != Parenthèse.FERMANTE) {
+	while (!signes.isEmpty() && signes.peek() != Bracket.CLOSING) {
 	    try {
 		expressions.add(analyserExpression(signes));
 		/*
@@ -147,7 +147,7 @@ public class ParseurDeRecherches {
 		 */
 		if (!conjonction
 			&& !signes.isEmpty()
-			&& signes.peek() != Parenthèse.FERMANTE) {
+			&& signes.peek() != Bracket.CLOSING) {
 		    final Signe signeSuivant = signes.poll();
 		    if (signeSuivant != Operator.OR) {
 			journal.warn("Grammaire de la requête incorrecte,"
@@ -178,11 +178,11 @@ public class ParseurDeRecherches {
 	    throws ParseException {
 	final Expression résultat;
 	final Signe premierSigne = signes.poll();
-	if (premierSigne == Parenthèse.OUVRANTE) {
+	if (premierSigne == Bracket.OPENING) {
 	    final SearchQuery sousRequête = analyserGrammaticalement(signes);
 	    résultat = new BracketedQuery(sousRequête);
 	    final Signe signeSuivant = signes.poll();
-	    if (signeSuivant != Parenthèse.FERMANTE) {
+	    if (signeSuivant != Bracket.CLOSING) {
 		throw new ParseException("« ) » attendu, « " + signeSuivant
 			+ " » trouvé.", -1);
 	    }
@@ -216,13 +216,13 @@ public class ParseurDeRecherches {
 	    final Queue<Signe> signes) throws ParseException {
 	final FieldQuery résultat;
 	final Signe premierSigne = signes.poll();
-	if (premierSigne == Parenthèse.OUVRANTE) {
+	if (premierSigne == Bracket.OPENING) {
 	    final List<Keyword> motsClés = new ArrayList<Keyword>();
 	    while (signes.peek() instanceof Keyword) {
 		motsClés.add((Keyword) signes.poll());
 	    }
 	    final Signe signeSuivant = signes.poll();
-	    if (signeSuivant != Parenthèse.FERMANTE) {
+	    if (signeSuivant != Bracket.CLOSING) {
 		throw new ParseException("« ) » attendue, « "
 			+ signeSuivant + " » trouvé.", -1);
 	    }
