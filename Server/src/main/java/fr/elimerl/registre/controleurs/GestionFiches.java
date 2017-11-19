@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.elimerl.registre.entities.Book;
 import fr.elimerl.registre.entities.Movie;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.elimerl.registre.entities.Comic;
 import fr.elimerl.registre.entities.Record;
-import fr.elimerl.registre.entities.Livre;
 
 /**
  * Contrôleur chargé de la gestion des fiches : affichage, édition et création.
@@ -55,7 +55,7 @@ public class GestionFiches {
 	    réponse.setStatus(SC_NOT_FOUND);
 	} else if (fiche instanceof Movie) {
 	    vue = "film";
-	} else if (fiche instanceof Livre) {
+	} else if (fiche instanceof Book) {
 	    vue = "livre";
 	} else if (fiche instanceof Comic) {
 	    vue = "bd";

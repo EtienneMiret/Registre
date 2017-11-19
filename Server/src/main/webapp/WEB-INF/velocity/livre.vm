@@ -9,9 +9,9 @@
   <dt>Série</dt>
   <dd>$fiche.series</dd>
 #end
-#if ( $fiche.auteur )
+#if ( $fiche.author )
   <dt>Auteur</dt>
-  <dd>$fiche.auteur</dd>
+  <dd>$fiche.author</dd>
 #end
 #if( $fiche.comment )
   <dt>Commentaire</dt>

@@ -436,11 +436,11 @@ public class TestPersistence {
 	Utilisateur éditeur = new Utilisateur("Éditeur", "editeur@email");
 	créateur = em.merge(créateur);
 	éditeur = em.merge(éditeur);
-	Livre livre = new Livre(titre, créateur);
+	Book livre = new Book(titre, créateur);
 
 	livre = em.merge(livre);
 
-	assertNull(livre.getAuteur());
+	assertNull(livre.getAuthor());
 	assertNull(livre.getFantasyStyle());
 	assertNull(livre.getTrueStoryStyle());
 	assertNull(livre.getHistoricalStyle());
@@ -452,7 +452,7 @@ public class TestPersistence {
 	Author auteur = new Author("Robin Hobb");
 	auteur = em.merge(auteur);
 
-	livre.setAuteur(auteur);
+	livre.setAuthor(auteur);
 	livre.setFantasyStyle(Boolean.TRUE);
 	livre.setTrueStoryStyle(Boolean.FALSE);
 	livre.setHistoricalStyle(Boolean.TRUE);
@@ -463,7 +463,7 @@ public class TestPersistence {
 
 	livre = em.merge(livre);
 
-	assertEquals(auteur, livre.getAuteur());
+	assertEquals(auteur, livre.getAuthor());
 	assertEquals(Boolean.TRUE, livre.getFantasyStyle());
 	assertEquals(Boolean.FALSE, livre.getTrueStoryStyle());
 	assertEquals(Boolean.TRUE, livre.getHistoricalStyle());
@@ -1089,7 +1089,7 @@ public class TestPersistence {
 	assertEquals("Renard", bouleEtBill.getScriptWriter().getNom());
 	assertEquals(DOUZE, bouleEtBill.getNumber().intValue());
 
-	final Livre laChuteDeDamnos = (Livre) fiches.next();
+	final Book laChuteDeDamnos = (Book) fiches.next();
 	assertEquals(CINQ, laChuteDeDamnos.getId().intValue());
 	assertEquals("La Chute de Damnos", laChuteDeDamnos.getTitle());
 
@@ -1097,7 +1097,7 @@ public class TestPersistence {
 	assertEquals(SEPT, laFiancéeDeLukyLuke.getId().intValue());
 	assertEquals("La Fiancée de Luky Luke", laFiancéeDeLukyLuke.getTitle());
 
-	final Livre laPurgeDeKadillus = (Livre) fiches.next();
+	final Book laPurgeDeKadillus = (Book) fiches.next();
 	assertEquals(QUATRE, laPurgeDeKadillus.getId().intValue());
 	assertEquals("La Purge de Kadillus", laPurgeDeKadillus.getTitle());
 
@@ -1131,7 +1131,7 @@ public class TestPersistence {
 	assertEquals("Howard Shore", merlin.getComposer().getNom());
 	assertEquals(DEUX, merlin.getActors().size());
 
-	final Livre rainbowSix = (Livre) fiches.next();
+	final Book rainbowSix = (Book) fiches.next();
 	assertEquals(DEUX, rainbowSix.getId().intValue());
 	assertEquals("Rainbow Six", rainbowSix.getTitle());
 	assertNull(rainbowSix.getSeries());

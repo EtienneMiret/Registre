@@ -13,7 +13,7 @@
     <class>fr.elimerl.registre.entities.Location</class>
     <class>fr.elimerl.registre.entities.Record</class>
     <class>fr.elimerl.registre.entities.Movie</class>
-    <class>fr.elimerl.registre.entities.Livre</class>
+    <class>fr.elimerl.registre.entities.Book</class>
     <class>fr.elimerl.registre.entities.Mot</class>
     <class>fr.elimerl.registre.entities.Nommé</class>
     <class>fr.elimerl.registre.entities.Propriétaire</class>

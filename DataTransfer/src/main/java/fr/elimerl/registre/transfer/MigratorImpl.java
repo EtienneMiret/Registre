@@ -192,9 +192,9 @@ public class MigratorImpl implements Migrator {
 	final String title = result.getString("titre");
 	final String author = result.getString("auteur");
 	final String styles = result.getString("genres");
-	final Livre book = new Livre(title, creator);
+	final Book book = new Book(title, creator);
 	if (author != null && !author.isEmpty()) {
-	    book.setAuteur(registreEntityManager.fournirAuteur(author));
+	    book.setAuthor(registreEntityManager.fournirAuteur(author));
 	}
 	if (styles != null && !styles.isEmpty()) {
 	    book.setFantasyStyle(Boolean.valueOf(styles

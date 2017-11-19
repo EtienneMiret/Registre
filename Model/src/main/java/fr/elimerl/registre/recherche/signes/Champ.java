@@ -64,7 +64,7 @@ public final class Champ extends Signe {
 
     /** L’auteur d’un livre. */
     public static final Champ AUTEUR =
-	    valeurDe("auteur", Author.class, Livre.class);
+	    valeurDe("author", Author.class, Book.class);
 
     /**
      * Crée un nouveau type de champ, et l’enregistre dans {@link #tous}.
