@@ -18,7 +18,7 @@ import fr.elimerl.registre.search.grammar.FieldQuery;
  * javax.persistence.criteria.CriteriaBuilder,
  * javax.persistence.criteria.CriteriaQuery, javax.persistence.criteria.Root)
  * createPredicate(CriteriaBuilder, CriteriaQuery, Root)}) est testée dans
- * {@link TestCréerPrédicat}.
+ * {@link CreatePredicateTest}.
  */
 public class TestRequêteSurChamp {
 
