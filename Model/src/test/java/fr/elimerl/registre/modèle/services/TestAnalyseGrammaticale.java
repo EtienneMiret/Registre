@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.search.grammar.RequêteEntreParenthèse;
+import fr.elimerl.registre.search.grammar.BracketedQuery;
 import fr.elimerl.registre.search.grammar.RequêteSurChamp;
 import fr.elimerl.registre.search.signes.Champ;
 import fr.elimerl.registre.search.signes.MotClé;
@@ -155,7 +155,7 @@ public class TestAnalyseGrammaticale {
 		new RequêteSurChamp(Champ.TITRE, maman),
 		new RequêteSurChamp(Champ.COMMENTAIRE,
 			etienne, grégoire),
-		new RequêteEntreParenthèse(
+		new BracketedQuery(
 			new SearchQuery(true,
 				new SimpleKeyword(toto),
 				new SimpleKeyword(tata),
@@ -206,17 +206,17 @@ public class TestAnalyseGrammaticale {
 	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
 
 	final SearchQuery attendue = new SearchQuery(true,
-		new RequêteEntreParenthèse(new SearchQuery(false,
+		new BracketedQuery(new SearchQuery(false,
 			new SimpleKeyword(a),
 			new SimpleKeyword(b),
 			new SimpleKeyword(c)
 		)),
-		new RequêteEntreParenthèse(new SearchQuery(false,
+		new BracketedQuery(new SearchQuery(false,
 			new SimpleKeyword(d),
 			new SimpleKeyword(e),
 			new SimpleKeyword(f)
 		)),
-		new RequêteEntreParenthèse(new SearchQuery(false,
+		new BracketedQuery(new SearchQuery(false,
 			new SimpleKeyword(g),
 			new SimpleKeyword(h),
 			new SimpleKeyword(i)

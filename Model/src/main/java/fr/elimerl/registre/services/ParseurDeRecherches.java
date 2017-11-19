@@ -183,7 +183,7 @@ public class ParseurDeRecherches {
 	final Signe premierSigne = signes.poll();
 	if (premierSigne == Parenthèse.OUVRANTE) {
 	    final SearchQuery sousRequête = analyserGrammaticalement(signes);
-	    résultat = new RequêteEntreParenthèse(sousRequête);
+	    résultat = new BracketedQuery(sousRequête);
 	    final Signe signeSuivant = signes.poll();
 	    if (signeSuivant != Parenthèse.FERMANTE) {
 		throw new ParseException("« ) » attendu, « " + signeSuivant

@@ -248,15 +248,15 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteEntreParenthèse#createPredicate(
+     * Test de la méthode {@link BracketedQuery#createPredicate(
      * CriteriaBuilder, CriteriaQuery, Root)}.
      */
     @Test
     public void testRequêteEntreParenthèse() {
 	journal.info("Création d’un prédicat à partir d’une requête entre "
 		+ "parenthèses.");
-	final RequêteEntreParenthèse requêteEntreParenthèse =
-		new RequêteEntreParenthèse(
+	final BracketedQuery requêteEntreParenthèse =
+		new BracketedQuery(
 			new SearchQuery(true,
 				new SimpleKeyword(new MotClé("super"))
 			)

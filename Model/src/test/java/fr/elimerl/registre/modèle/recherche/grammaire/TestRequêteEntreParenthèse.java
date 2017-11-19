@@ -10,10 +10,10 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Test;
 
 import fr.elimerl.registre.search.grammar.Expression;
-import fr.elimerl.registre.search.grammar.RequêteEntreParenthèse;
+import fr.elimerl.registre.search.grammar.BracketedQuery;
 
 /**
- * Cas de test JUnit pour la classe {@link RequêteEntreParenthèse}.
+ * Cas de test JUnit pour la classe {@link BracketedQuery}.
  */
 public class TestRequêteEntreParenthèse {
 
@@ -24,10 +24,10 @@ public class TestRequêteEntreParenthèse {
     @Test
     public void égaux() {
 	final SearchQuery requête = new SearchQuery(true);
-	final RequêteEntreParenthèse parenthèse1 =
-		new RequêteEntreParenthèse(requête);
-	final RequêteEntreParenthèse parenthèse2 =
-		new RequêteEntreParenthèse(requête);
+	final BracketedQuery parenthèse1 =
+		new BracketedQuery(requête);
+	final BracketedQuery parenthèse2 =
+		new BracketedQuery(requête);
 	assertTrue(parenthèse1.equals(parenthèse2));
 	assertTrue(parenthèse2.equals(parenthèse1));
     }
@@ -40,10 +40,10 @@ public class TestRequêteEntreParenthèse {
     public void différents() {
 	final SearchQuery requête1 = new SearchQuery(true, mock(Expression.class));
 	final SearchQuery requête2 = new SearchQuery(true, mock(Expression.class));
-	final RequêteEntreParenthèse parenthèse1 =
-		new RequêteEntreParenthèse(requête1);
-	final RequêteEntreParenthèse parenthèse2 =
-		new RequêteEntreParenthèse(requête2);
+	final BracketedQuery parenthèse1 =
+		new BracketedQuery(requête1);
+	final BracketedQuery parenthèse2 =
+		new BracketedQuery(requête2);
 	assertFalse(parenthèse1.equals(parenthèse2));
 	assertFalse(parenthèse2.equals(parenthèse1));
     }
@@ -53,7 +53,7 @@ public class TestRequêteEntreParenthèse {
      */
     @Test
     public void contratEqualsEtHashCode() {
-	EqualsVerifier.forClass(RequêteEntreParenthèse.class).verify();
+	EqualsVerifier.forClass(BracketedQuery.class).verify();
     }
 
 }
