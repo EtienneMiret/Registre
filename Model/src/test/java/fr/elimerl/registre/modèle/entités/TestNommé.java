@@ -89,11 +89,11 @@ public class TestNommé {
     }
 
     /**
-     * Tests sur la classe {@link Scénariste}.
+     * Tests sur la classe {@link ScriptWriter}.
      */
     @Test
     public void scénariste() {
-	final Scénariste scénariste = new Scénariste(NOM_CRÉATION);
+	final ScriptWriter scénariste = new ScriptWriter(NOM_CRÉATION);
 	testerTout(scénariste);
     }
 

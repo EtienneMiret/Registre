@@ -289,12 +289,12 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche de scénaristes.");
 
 	final String nomMorvan = "Jean-David Morvan";
-	final Scénariste morvan = gestionnaire.fournirScénariste(nomMorvan);
+	final ScriptWriter morvan = gestionnaire.fournirScénariste(nomMorvan);
 	assertNotNull(morvan);
 	assertEquals(nomMorvan, morvan.getName());
 
 	final String nomRenard = "Renard";
-	final Scénariste renard = gestionnaire.fournirScénariste(nomRenard);
+	final ScriptWriter renard = gestionnaire.fournirScénariste(nomRenard);
 	assertNotNull(renard);
 	assertNotNull(renard.getId());
 	assertEquals(nomRenard, renard.getName());

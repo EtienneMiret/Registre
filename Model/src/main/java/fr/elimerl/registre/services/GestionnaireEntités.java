@@ -183,9 +183,9 @@ public class GestionnaireEntités {
      *            nom du scénariste voulu.
      * @return le scénariste ayant le nom donné en argument.
      */
-    public Scénariste fournirScénariste(final String nom) {
-	final Scénariste enBase = chercherNommé(Scénariste.class, nom);
-	return (enBase == null ? em.merge(new Scénariste(nom)) : enBase);
+    public ScriptWriter fournirScénariste(final String nom) {
+	final ScriptWriter enBase = chercherNommé(ScriptWriter.class, nom);
+	return (enBase == null ? em.merge(new ScriptWriter(nom)) : enBase);
     }
 
     /**

@@ -60,7 +60,7 @@ public final class Champ extends Signe {
 
     /** Le scénariste d’une bande-dessinée. */
     public static final Champ SCÉNARISTE =
-	    valeurDe("scriptWriter", Scénariste.class, Comic.class);
+	    valeurDe("scriptWriter", ScriptWriter.class, Comic.class);
 
     /** L’auteur d’un livre. */
     public static final Champ AUTEUR =

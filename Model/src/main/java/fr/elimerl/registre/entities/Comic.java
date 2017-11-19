@@ -28,7 +28,7 @@ public class Comic extends Record {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "scenariste")
-    private Scénariste scriptWriter;
+    private ScriptWriter scriptWriter;
 
     /**
      * Number of this comic within its series.
@@ -97,7 +97,7 @@ public class Comic extends Record {
      * @return the script writer of this comic, or {@code null} if unknown.
      * @see #scriptWriter
      */
-    public Scénariste getScriptWriter() {
+    public ScriptWriter getScriptWriter() {
         return scriptWriter;
     }
 
@@ -108,7 +108,7 @@ public class Comic extends Record {
      * 		script writer of this comic, or {@code null} if unknown.
      * @see #scriptWriter
      */
-    public void setScriptWriter(final Scénariste scriptWriter) {
+    public void setScriptWriter(final ScriptWriter scriptWriter) {
         this.scriptWriter = scriptWriter;
     }
 

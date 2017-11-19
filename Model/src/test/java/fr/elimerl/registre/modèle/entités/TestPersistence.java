@@ -215,7 +215,7 @@ public class TestPersistence {
     @Test
     public void enregistrementScénariste() {
 	logger.info("Test d’enregistrement d’un scénariste.");
-	enregistrementNommé(new Scénariste(NOM));
+	enregistrementNommé(new ScriptWriter(NOM));
     }
 
     /**
@@ -306,7 +306,7 @@ public class TestPersistence {
 	emplacement = em.merge(emplacement);
 	Cartoonist dessinateur = new Cartoonist(NOM);
 	dessinateur = em.merge(dessinateur);
-	Scénariste scénariste = new Scénariste(NOM);
+	ScriptWriter scénariste = new ScriptWriter(NOM);
 	scénariste = em.merge(scénariste);
 	final Integer numéro = Integer.valueOf(12);
 
@@ -612,8 +612,8 @@ public class TestPersistence {
     public void deuxScénaristesIdentiques() {
 	logger.info("Test de l’enregistrement de deux scénaristes "
 		+ "identiques.");
-	em.merge(new Scénariste(NOM));
-	em.merge(new Scénariste(NOM));
+	em.merge(new ScriptWriter(NOM));
+	em.merge(new ScriptWriter(NOM));
 	em.flush();
     }
 
@@ -658,7 +658,7 @@ public class TestPersistence {
 	em.merge(new Location(NOM));
 	em.merge(new Owner(NOM));
 	em.merge(new Director(NOM));
-	em.merge(new Scénariste(NOM));
+	em.merge(new ScriptWriter(NOM));
 	em.merge(new Série(NOM));
 	em.flush();
     }
@@ -972,18 +972,18 @@ public class TestPersistence {
     @Test
     public void chargerScénaristes() {
 	logger.info("Chargement des scénaristes de test-data.sql.");
-	final Iterator<Scénariste> scénaristes =
-		chargerNommés(Scénariste.class);
+	final Iterator<ScriptWriter> scénaristes =
+		chargerNommés(ScriptWriter.class);
 
-	final Scénariste vanHamme = scénaristes.next();
+	final ScriptWriter vanHamme = scénaristes.next();
 	assertEquals(ZÉRO, vanHamme.getId().intValue());
 	assertEquals("Jean Van Hamme", vanHamme.getName());
 
-	final Scénariste renard = scénaristes.next();
+	final ScriptWriter renard = scénaristes.next();
 	assertEquals(UN, renard.getId().intValue());
 	assertEquals("Renard", renard.getName());
 
-	final Scénariste renéGoscinny = scénaristes.next();
+	final ScriptWriter renéGoscinny = scénaristes.next();
 	assertEquals(DEUX, renéGoscinny.getId().intValue());
 	assertEquals("René Goscinny", renéGoscinny.getName());
 

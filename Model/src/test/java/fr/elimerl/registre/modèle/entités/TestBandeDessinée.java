@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import fr.elimerl.registre.entities.Cartoonist;
 import fr.elimerl.registre.entities.Comic;
+import fr.elimerl.registre.entities.ScriptWriter;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.entities.Scénariste;
 import fr.elimerl.registre.entities.Utilisateur;
 
 /**
@@ -61,16 +61,16 @@ public class TestBandeDessinée {
     }
 
     /**
-     * Teste les méthodes {@link Comic#setScriptWriter(Scénariste)
-     * setScriptWriter(Scénariste)} et {@link Comic#getScriptWriter()
+     * Teste les méthodes {@link Comic#setScriptWriter(ScriptWriter)
+     * setScriptWriter(ScriptWriter)} et {@link Comic#getScriptWriter()
      * getScriptWriter()}.
      */
     @Test
     public void scénariste() {
 	logger.info("Test du scénariste.");
 
-	final Scénariste scénariste1 = new Scénariste("Renard");
-	final Scénariste scénariste2 = new Scénariste("Callède");
+	final ScriptWriter scénariste1 = new ScriptWriter("Renard");
+	final ScriptWriter scénariste2 = new ScriptWriter("Callède");
 
 	bandeDessinée.setScriptWriter(scénariste1);
 	assertEquals("Le scénariste n’a pas été défini correctement.",
