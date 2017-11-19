@@ -263,14 +263,14 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche de réalisateurs.");
 
 	final String nomSpielberg = "Steven Spielberg";
-	final Réalisateur spielberg =
+	final Director spielberg =
 		gestionnaire.fournirRéalisateur(nomSpielberg);
 	assertNotNull(spielberg);
 	assertNotNull(spielberg.getId());
 	assertEquals(nomSpielberg, spielberg.getName());
 
 	final String nomPeterJackson = "Peter Jackson";
-	final Réalisateur peterJackson =
+	final Director peterJackson =
 		gestionnaire.fournirRéalisateur(nomPeterJackson);
 	assertNotNull(peterJackson);
 	assertEquals(nomPeterJackson, peterJackson.getName());

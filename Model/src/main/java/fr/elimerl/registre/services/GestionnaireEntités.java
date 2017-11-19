@@ -170,9 +170,9 @@ public class GestionnaireEntités {
      *            nom du réalisateur voulu.
      * @return le réalisateur ayant le nom donné en argument.
      */
-    public Réalisateur fournirRéalisateur(final String nom) {
-	final Réalisateur enBase = chercherNommé(Réalisateur.class, nom);
-	return (enBase == null ? em.merge(new Réalisateur(nom)) : enBase);
+    public Director fournirRéalisateur(final String nom) {
+	final Director enBase = chercherNommé(Director.class, nom);
+	return (enBase == null ? em.merge(new Director(nom)) : enBase);
     }
 
     /**

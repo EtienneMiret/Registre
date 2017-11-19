@@ -271,12 +271,12 @@ public class TestFilm {
 
     /**
      * Teste les méthodes {@link Movie#getDirector() getDirector()} et
-     * {@link Movie#setDirector(Réalisateur) setDirector(Réalisateur)}.
+     * {@link Movie#setDirector(Director) setDirector(Director)}.
      */
     @Test
     public void testRéalisateur() {
-	final Réalisateur réalisateur1 = new Réalisateur("Spielberg");
-	final Réalisateur réalisateur2 = new Réalisateur("Marie Devautour");
+	final Director réalisateur1 = new Director("Spielberg");
+	final Director réalisateur2 = new Director("Marie Devautour");
 	logger.info("Test du réalisateur.");
 
 	film.setDirector(réalisateur1);

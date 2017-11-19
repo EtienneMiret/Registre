@@ -64,7 +64,7 @@ public class Movie extends Record {
     /** This movie’s director. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "realisateur")
-    private Réalisateur director;
+    private Director director;
 
     /** The actors who played in this movie. */
     @ManyToMany(fetch = FetchType.LAZY)
@@ -151,7 +151,7 @@ public class Movie extends Record {
      * @return this movie’s director.
      * @see #director
      */
-    public Réalisateur getDirector() {
+    public Director getDirector() {
 	return director;
     }
 
@@ -162,7 +162,7 @@ public class Movie extends Record {
      * 		this movie’s director.
      * @see #director
      */
-    public void setDirector(final Réalisateur director) {
+    public void setDirector(final Director director) {
 	this.director = director;
     }
 

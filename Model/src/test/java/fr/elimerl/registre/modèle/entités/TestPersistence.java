@@ -206,7 +206,7 @@ public class TestPersistence {
     @Test
     public void enregistrementRéalisateur() {
 	logger.info("Test d’enregistrement d’un réalisateur.");
-	enregistrementNommé(new Réalisateur(NOM));
+	enregistrementNommé(new Director(NOM));
     }
 
     /**
@@ -373,7 +373,7 @@ public class TestPersistence {
 	assertNull(film.getRomanticStyle());
 	assertNull(film.getSfStyle());
 
-	Réalisateur réalisateur = new Réalisateur(NOM);
+	Director réalisateur = new Director(NOM);
 	réalisateur = em.merge(réalisateur);
 	Actor acteur1 = new Actor("Très bon acteur");
 	acteur1 = em.merge(acteur1);
@@ -599,8 +599,8 @@ public class TestPersistence {
     public void deuxRéalisateursIdentiques() {
 	logger.info("Test de l’enregistrement de deux réalisateurs "
 		+ "identiques.");
-	em.merge(new Réalisateur(NOM));
-	em.merge(new Réalisateur(NOM));
+	em.merge(new Director(NOM));
+	em.merge(new Director(NOM));
 	em.flush();
     }
 
@@ -657,7 +657,7 @@ public class TestPersistence {
 	em.merge(new Cartoonist(NOM));
 	em.merge(new Location(NOM));
 	em.merge(new Owner(NOM));
-	em.merge(new Réalisateur(NOM));
+	em.merge(new Director(NOM));
 	em.merge(new Scénariste(NOM));
 	em.merge(new Série(NOM));
 	em.flush();
@@ -947,18 +947,18 @@ public class TestPersistence {
     @Test
     public void chargerRéalisateurs() {
 	logger.info("Chargement des réalisateurs de test-data.sql.");
-	final Iterator<Réalisateur> réalisateurs =
-		chargerNommés(Réalisateur.class);
+	final Iterator<Director> réalisateurs =
+		chargerNommés(Director.class);
 
-	final Réalisateur georgeLucas = réalisateurs.next();
+	final Director georgeLucas = réalisateurs.next();
 	assertEquals(UN, georgeLucas.getId().intValue());
 	assertEquals("George Lucas", georgeLucas.getName());
 
-	final Réalisateur lucBesson = réalisateurs.next();
+	final Director lucBesson = réalisateurs.next();
 	assertEquals(DEUX, lucBesson.getId().intValue());
 	assertEquals("Luc Besson", lucBesson.getName());
 
-	final Réalisateur stevenSpielberg = réalisateurs.next();
+	final Director stevenSpielberg = réalisateurs.next();
 	assertEquals(ZÉRO, stevenSpielberg.getId().intValue());
 	assertEquals("Steven Spielberg", stevenSpielberg.getName());
 

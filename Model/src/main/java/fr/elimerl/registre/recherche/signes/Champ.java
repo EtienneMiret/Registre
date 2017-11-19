@@ -44,7 +44,7 @@ public final class Champ extends Signe {
 
     /** Le réalisateur d’un film. */
     public static final Champ RÉALISATEUR =
-	    valeurDe("director", Réalisateur.class, Movie.class);
+	    valeurDe("director", Director.class, Movie.class);
 
     /** Un acteur qui joue dans un film. */
     public static final Champ ACTEUR =

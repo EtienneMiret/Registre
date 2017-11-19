@@ -62,11 +62,11 @@ public class TestNommé {
     }
 
     /**
-     * Tests sur la classe {@link Réalisateur}.
+     * Tests sur la classe {@link Director}.
      */
     @Test
     public void réalisateur() {
-	final Réalisateur réalisateur = new Réalisateur(NOM_CRÉATION);
+	final Director réalisateur = new Director(NOM_CRÉATION);
 	testerTout(réalisateur);
     }
 

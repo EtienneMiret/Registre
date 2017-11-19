@@ -17,7 +17,7 @@
     <class>fr.elimerl.registre.entities.Word</class>
     <class>fr.elimerl.registre.entities.Named</class>
     <class>fr.elimerl.registre.entities.Owner</class>
-    <class>fr.elimerl.registre.entities.Réalisateur</class>
+    <class>fr.elimerl.registre.entities.Director</class>
     <class>fr.elimerl.registre.entities.Référence</class>
     <class>fr.elimerl.registre.entities.Scénariste</class>
     <class>fr.elimerl.registre.entities.Série</class>
