@@ -5,12 +5,12 @@ import static org.junit.Assert.assertEquals;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import fr.elimerl.registre.search.grammar.SimpleKeyword;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.search.grammar.MotCléSimple;
 import fr.elimerl.registre.search.grammar.Requête;
 import fr.elimerl.registre.search.grammar.RequêteEntreParenthèse;
 import fr.elimerl.registre.search.grammar.RequêteSurChamp;
@@ -71,7 +71,7 @@ public class TestAnalyseGrammaticale {
 
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
-	final Requête attendue = new Requête(true, new MotCléSimple(motClé));
+	final Requête attendue = new Requête(true, new SimpleKeyword(motClé));
 	assertEquals(attendue, résultat);
     }
 
@@ -91,9 +91,9 @@ public class TestAnalyseGrammaticale {
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
 	final Requête attendue = new Requête(true,
-		new MotCléSimple(toto),
-		new MotCléSimple(tata),
-		new MotCléSimple(titi));
+		new SimpleKeyword(toto),
+		new SimpleKeyword(tata),
+		new SimpleKeyword(titi));
 	assertEquals(attendue, résultat);
     }
 
@@ -116,9 +116,9 @@ public class TestAnalyseGrammaticale {
 	final Requête résultat = parseur.analyserGrammaticalement(signes);
 
 	final Requête attendue = new Requête(false,
-		new MotCléSimple(toto),
-		new MotCléSimple(tata),
-		new MotCléSimple(titi));
+		new SimpleKeyword(toto),
+		new SimpleKeyword(tata),
+		new SimpleKeyword(titi));
 	assertEquals(attendue, résultat);
     }
 
@@ -157,9 +157,9 @@ public class TestAnalyseGrammaticale {
 			etienne, grégoire),
 		new RequêteEntreParenthèse(
 			new Requête(true,
-				new MotCléSimple(toto),
-				new MotCléSimple(tata),
-				new MotCléSimple(titi)
+				new SimpleKeyword(toto),
+				new SimpleKeyword(tata),
+				new SimpleKeyword(titi)
 			)
 		)
 	);
@@ -207,19 +207,19 @@ public class TestAnalyseGrammaticale {
 
 	final Requête attendue = new Requête(true,
 		new RequêteEntreParenthèse(new Requête(false,
-			new MotCléSimple(a),
-			new MotCléSimple(b),
-			new MotCléSimple(c)
+			new SimpleKeyword(a),
+			new SimpleKeyword(b),
+			new SimpleKeyword(c)
 		)),
 		new RequêteEntreParenthèse(new Requête(false,
-			new MotCléSimple(d),
-			new MotCléSimple(e),
-			new MotCléSimple(f)
+			new SimpleKeyword(d),
+			new SimpleKeyword(e),
+			new SimpleKeyword(f)
 		)),
 		new RequêteEntreParenthèse(new Requête(false,
-			new MotCléSimple(g),
-			new MotCléSimple(h),
-			new MotCléSimple(i)
+			new SimpleKeyword(g),
+			new SimpleKeyword(h),
+			new SimpleKeyword(i)
 		))
 	);
 	assertEquals(attendue, résultat);

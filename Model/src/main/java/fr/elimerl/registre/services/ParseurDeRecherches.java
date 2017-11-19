@@ -8,14 +8,11 @@ import java.util.List;
 import java.util.Queue;
 import java.util.regex.Matcher;
 
+import fr.elimerl.registre.search.grammar.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.search.grammar.Expression;
-import fr.elimerl.registre.search.grammar.MotCléSimple;
-import fr.elimerl.registre.search.grammar.Requête;
-import fr.elimerl.registre.search.grammar.RequêteEntreParenthèse;
-import fr.elimerl.registre.search.grammar.RequêteSurChamp;
+import fr.elimerl.registre.search.grammar.SimpleKeyword;
 import fr.elimerl.registre.search.signes.Champ;
 import fr.elimerl.registre.search.signes.MotClé;
 import fr.elimerl.registre.search.signes.Opérateur;
@@ -193,7 +190,7 @@ public class ParseurDeRecherches {
 			+ " » trouvé.", -1);
 	    }
 	} else if (premierSigne instanceof MotClé) {
-	    résultat = new MotCléSimple((MotClé) premierSigne);
+	    résultat = new SimpleKeyword((MotClé) premierSigne);
 	} else if (premierSigne instanceof Champ) {
 	    résultat = analyserChamp((Champ) premierSigne, signes);
 	} else {

@@ -3,15 +3,16 @@ package fr.elimerl.registre.modèle.recherche.grammaire;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
+
+import fr.elimerl.registre.search.grammar.SimpleKeyword;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.search.grammar.MotCléSimple;
 import fr.elimerl.registre.search.signes.MotClé;
 
 /**
- * Cas de test JUnit pour la classe {@link MotCléSimple}.
+ * Cas de test JUnit pour la classe {@link SimpleKeyword}.
  */
 public class TestMotCléSimple {
 
@@ -22,8 +23,8 @@ public class TestMotCléSimple {
     @Test
     public void egaux() {
 	final MotClé signe = new MotClé("qqch");
-	final MotCléSimple expr1 = new MotCléSimple(signe);
-	final MotCléSimple expr2 = new MotCléSimple(signe);
+	final SimpleKeyword expr1 = new SimpleKeyword(signe);
+	final SimpleKeyword expr2 = new SimpleKeyword(signe);
 	assertTrue(expr1.equals(expr2));
 	assertTrue(expr2.equals(expr1));
     }
@@ -37,8 +38,8 @@ public class TestMotCléSimple {
 	final MotClé signe1 = new MotClé("quelque chose");
 	final MotClé signe2 = new MotClé("autre chose");
 	assumeFalse(signe1.equals(signe2));
-	final MotCléSimple expr1 = new MotCléSimple(signe1);
-	final MotCléSimple expr2 = new MotCléSimple(signe2);
+	final SimpleKeyword expr1 = new SimpleKeyword(signe1);
+	final SimpleKeyword expr2 = new SimpleKeyword(signe2);
 	assertFalse(expr1.equals(expr2));
 	assertFalse(expr2.equals(expr1));
     }
@@ -48,7 +49,7 @@ public class TestMotCléSimple {
      */
     @Test
     public void contratEqualsEtHashCode() {
-	EqualsVerifier.forClass(MotCléSimple.class).verify();
+	EqualsVerifier.forClass(SimpleKeyword.class).verify();
     }
 
 }

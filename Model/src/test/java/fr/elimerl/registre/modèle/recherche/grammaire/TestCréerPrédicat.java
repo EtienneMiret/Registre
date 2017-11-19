@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.search.grammar.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +23,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.search.grammar.Expression;
-import fr.elimerl.registre.search.grammar.MotCléSimple;
-import fr.elimerl.registre.search.grammar.Requête;
-import fr.elimerl.registre.search.grammar.RequêteEntreParenthèse;
-import fr.elimerl.registre.search.grammar.RequêteSurChamp;
+import fr.elimerl.registre.search.grammar.SimpleKeyword;
 import fr.elimerl.registre.search.signes.Champ;
 import fr.elimerl.registre.search.signes.MotClé;
 import fr.elimerl.registre.services.Indexeur;
@@ -83,12 +80,12 @@ public class TestCréerPrédicat {
 
     /**
      * Test de la méthode
-     * {@link MotCléSimple#createPredicate(CriteriaBuilder, CriteriaQuery, Root)}.
+     * {@link SimpleKeyword#createPredicate(CriteriaBuilder, CriteriaQuery, Root)}.
      */
     @Test
     public void testMotCléSimple() {
 	journal.info("Création d’un prédicat à partir d’un mot clé simple.");
-	final MotCléSimple motClé = new MotCléSimple(new MotClé("super"));
+	final SimpleKeyword motClé = new SimpleKeyword(new MotClé("super"));
 	final List<Record> résultats = exécuter(motClé);
 	vérifier(résultats, 1);
     }
@@ -261,7 +258,7 @@ public class TestCréerPrédicat {
 	final RequêteEntreParenthèse requêteEntreParenthèse =
 		new RequêteEntreParenthèse(
 			new Requête(true,
-				new MotCléSimple(new MotClé("super"))
+				new SimpleKeyword(new MotClé("super"))
 			)
 		);
 	final List<Record> résultats = exécuter(requêteEntreParenthèse);
@@ -276,7 +273,7 @@ public class TestCréerPrédicat {
     public void testRequête() {
 	journal.info("Création d’un prédicat à partir d’une requête complexe.");
 	final Requête requêteUtilisateur = new Requête(false,
-		new MotCléSimple(new MotClé("coucou")),
+		new SimpleKeyword(new MotClé("coucou")),
 		new RequêteSurChamp(Champ.TITRE,
 			new MotClé("honneur"),
 			new MotClé("dette")
@@ -299,7 +296,7 @@ public class TestCréerPrédicat {
     public void testLukyPartout() {
 	journal.info("Création d’un prédicat pour la recherche de « luky »"
 		+ " dans tous les champs.");
-	final MotCléSimple motClé = new MotCléSimple(new MotClé("luky"));
+	final SimpleKeyword motClé = new SimpleKeyword(new MotClé("luky"));
 	final List<Record> résultats = exécuter(motClé);
 	vérifier(résultats, 6, 7, 8, 9);
     }
