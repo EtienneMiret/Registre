@@ -27,7 +27,7 @@ public class TestUtilisateur {
 
     /**
      * Teste la création d’un utilisateur, ainsi que les méthodes
-     * {@link Utilisateur#getNom() getNom()} et
+     * {@link Utilisateur#getNom() getName()} et
      * {@link Utilisateur#vérifierMdp(String) vérifierMdp()}.
      */
     @Test

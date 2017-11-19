@@ -60,10 +60,10 @@ public class Comic extends Record {
 	result.add("BD");
 	result.add("bande-déssinée");
 	if (cartoonist != null) {
-	    result.add(cartoonist.getNom());
+	    result.add(cartoonist.getName());
 	}
 	if (scriptWriter != null) {
-	    result.add(scriptWriter.getNom());
+	    result.add(scriptWriter.getName());
 	}
 	if (number != null) {
 	    result.add(number.toString());

@@ -81,7 +81,7 @@ public class MigratorImpl implements Migrator {
     private DataSource formerDatabase;
 
     /**
-     * Registre entity manager. Will be used to create all {@link Nommé}s.
+     * Registre entity manager. Will be used to create all {@link Named}s.
      */
     @Resource(name = "gestionnaireEntités")
     private GestionnaireEntités registreEntityManager;
@@ -355,7 +355,7 @@ public class MigratorImpl implements Migrator {
 	final CriteriaQuery<Utilisateur> query =
 		builder.createQuery(Utilisateur.class);
 	final Root<Utilisateur> root = query.from(Utilisateur.class);
-	query.where(root.get("nom").in(newName));
+	query.where(root.get("name").in(newName));
 	Utilisateur result;
 	try {
 	    result = jpaEntityManager.createQuery(query).getSingleResult();

@@ -8,7 +8,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "acteurs")
-public class Actor extends Nommé {
+public class Actor extends Named {
 
     /**
      * Register a new actor with the given name. There must be no such actor in

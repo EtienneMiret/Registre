@@ -8,7 +8,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "dessinateurs")
-public class Cartoonist extends Nommé {
+public class Cartoonist extends Named {
 
     /**
      * Register a new cartoonist with the given name. There must be no such

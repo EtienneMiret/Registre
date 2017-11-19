@@ -8,7 +8,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "scenaristes")
-public class Scénariste extends Nommé {
+public class Scénariste extends Named {
 
     /**
      * Construit un nouveau scénariste portant le nom donné en paramètre. Deux

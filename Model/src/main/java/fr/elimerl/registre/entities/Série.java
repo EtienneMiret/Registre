@@ -8,7 +8,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "series")
-public class Série extends Nommé {
+public class Série extends Named {
 
     /**
      * Crée une nouvelle série avec le nom donné en argument. Aucune série avec

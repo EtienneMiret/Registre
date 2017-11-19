@@ -13,7 +13,7 @@
   <dt>Acteurs</dt>
   <dd>
 #foreach( $acteur in $fiche.acteurs )
-    $acteur.nom#if( $foreach.last ).#elseif( $foreach.index == ($fiche.acteurs.size() - 2) ) et#else,#end
+    $acteur.name#if( $foreach.last ).#elseif( $foreach.index == ($fiche.acteurs.size() - 2) ) et#else,#end
 #end
   </dd>
 #end

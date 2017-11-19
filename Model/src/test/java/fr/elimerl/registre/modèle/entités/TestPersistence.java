@@ -51,7 +51,7 @@ public class TestPersistence {
     /** Adresse email n’appartenant à aucun utilisateur enregistré en base. */
     private static final String EMAIL = "etienne.miret@ens-lyon.org";
 
-    /** Nom qui ne doit appartenir à aucun {@link Nommé} en base. */
+    /** Nom qui ne doit appartenir à aucun {@link Named} en base. */
     private static final String NOM = "Test de persistence JUnit";
 
     /** Mot qui ne doit pas exister dans le dictionnaire de la base. */
@@ -131,19 +131,19 @@ public class TestPersistence {
     }
 
     /**
-     * Teste qu’on peut enregistrer en base le {@code Nommé} donné en argument.
+     * Teste qu’on peut enregistrer en base le {@code Named} donné en argument.
      * Cette méthode est appelée pour tester l’enregistrement en base de chaque
-     * implémentation de {@code Nommé}.
+     * implémentation de {@code Named}.
      *
      * @param nommé nommé pas encore en base.
      */
-    private void enregistrementNommé(final Nommé nommé) {
-	final String nom = nommé.getNom();
+    private void enregistrementNommé(final Named nommé) {
+	final String nom = nommé.getName();
 	assertNull(nommé.getId());
-	final Nommé nomméEnregistré = em.merge(nommé);
+	final Named nomméEnregistré = em.merge(nommé);
 	em.flush();
 	assertNotNull(nomméEnregistré.getId());
-	assertEquals(nom, nomméEnregistré.getNom());
+	assertEquals(nom, nomméEnregistré.getName());
     }
 
     /**
@@ -748,8 +748,8 @@ public class TestPersistence {
      * @return tous les objets de la classe {@code type} présents en base, triés
      *         par noms croissants.
      */
-    private <T extends Nommé> Iterator<T> chargerNommés(final Class<T> type) {
-	return charger(type, "nom");
+    private <T extends Named> Iterator<T> chargerNommés(final Class<T> type) {
+	return charger(type, "name");
     }
 
     /**
@@ -763,39 +763,39 @@ public class TestPersistence {
 
 	final Actor antonyHead = acteurs.next();
 	assertEquals(CINQ, antonyHead.getId().intValue());
-	assertEquals("Anthony Head", antonyHead.getNom());
+	assertEquals("Anthony Head", antonyHead.getName());
 
 	final Actor bradleyJames = acteurs.next();
 	assertEquals(SEPT, bradleyJames.getId().intValue());
-	assertEquals("Bradley James", bradleyJames.getNom());
+	assertEquals("Bradley James", bradleyJames.getName());
 
 	final Actor colinMorgan = acteurs.next();
 	assertEquals(HUIT, colinMorgan.getId().intValue());
-	assertEquals("Colin Morgan", colinMorgan.getNom());
+	assertEquals("Colin Morgan", colinMorgan.getName());
 
 	final Actor emmaWatson = acteurs.next();
 	assertEquals(TROIS, emmaWatson.getId().intValue());
-	assertEquals("Emma Watson", emmaWatson.getNom());
+	assertEquals("Emma Watson", emmaWatson.getName());
 
 	final Actor evaMendes = acteurs.next();
 	assertEquals(UN, evaMendes.getId().intValue());
-	assertEquals("Eva Mendes", evaMendes.getNom());
+	assertEquals("Eva Mendes", evaMendes.getName());
 
 	final Actor georgeClooney = acteurs.next();
 	assertEquals(DEUX, georgeClooney.getId().intValue());
-	assertEquals("George Clooney", georgeClooney.getNom());
+	assertEquals("George Clooney", georgeClooney.getName());
 
 	final Actor marilynMonroe = acteurs.next();
 	assertEquals(SIX, marilynMonroe.getId().intValue());
-	assertEquals("Marilyn Monroe", marilynMonroe.getNom());
+	assertEquals("Marilyn Monroe", marilynMonroe.getName());
 
 	final Actor scarlettJohansson = acteurs.next();
 	assertEquals(QUATRE, scarlettJohansson.getId().intValue());
-	assertEquals("Scarlett Johansson", scarlettJohansson.getNom());
+	assertEquals("Scarlett Johansson", scarlettJohansson.getName());
 
 	final Actor willSmith = acteurs.next();
 	assertEquals(ZÉRO, willSmith.getId().intValue());
-	assertEquals("Will Smith", willSmith.getNom());
+	assertEquals("Will Smith", willSmith.getName());
 
 	assertFalse(acteurs.hasNext());
     }
@@ -811,23 +811,23 @@ public class TestPersistence {
 
 	final Author gavThorpe = auteurs.next();
 	assertEquals(TROIS, gavThorpe.getId().intValue());
-	assertEquals("Gav Thorpe", gavThorpe.getNom());
+	assertEquals("Gav Thorpe", gavThorpe.getName());
 
 	final Author asimov = auteurs.next();
 	assertEquals(UN, asimov.getId().intValue());
-	assertEquals("Isaac Asimov", asimov.getNom());
+	assertEquals("Isaac Asimov", asimov.getName());
 
 	final Author grisham = auteurs.next();
 	assertEquals(DEUX, grisham.getId().intValue());
-	assertEquals("John Grisham", grisham.getNom());
+	assertEquals("John Grisham", grisham.getName());
 
 	final Author noickKyme = auteurs.next();
 	assertEquals(QUATRE, noickKyme.getId().intValue());
-	assertEquals("Noick Kyme", noickKyme.getNom());
+	assertEquals("Noick Kyme", noickKyme.getName());
 
 	final Author clancy = auteurs.next();
 	assertEquals(ZÉRO, clancy.getId().intValue());
-	assertEquals("Tom Clancy", clancy.getNom());
+	assertEquals("Tom Clancy", clancy.getName());
 
 	assertFalse(auteurs.hasNext());
     }
@@ -844,15 +844,15 @@ public class TestPersistence {
 
 	final Composer hansZimmer = compositeurs.next();
 	assertEquals(UN, hansZimmer.getId().intValue());
-	assertEquals("Hans Zimmer", hansZimmer.getNom());
+	assertEquals("Hans Zimmer", hansZimmer.getName());
 
 	final Composer howardShore = compositeurs.next();
 	assertEquals(ZÉRO, howardShore.getId().intValue());
-	assertEquals("Howard Shore", howardShore.getNom());
+	assertEquals("Howard Shore", howardShore.getName());
 
 	final Composer lisaGerrard = compositeurs.next();
 	assertEquals(DEUX, lisaGerrard.getId().intValue());
-	assertEquals("Lisa Gerrard", lisaGerrard.getNom());
+	assertEquals("Lisa Gerrard", lisaGerrard.getName());
 
 	assertFalse(compositeurs.hasNext());
     }
@@ -869,15 +869,15 @@ public class TestPersistence {
 
 	final Cartoonist alainHenriet = dessinateurs.next();
 	assertEquals(UN, alainHenriet.getId().intValue());
-	assertEquals("Alain Henriet", alainHenriet.getNom());
+	assertEquals("Alain Henriet", alainHenriet.getName());
 
 	final Cartoonist jigounov = dessinateurs.next();
 	assertEquals(ZÉRO, jigounov.getId().intValue());
-	assertEquals("Jigounov", jigounov.getNom());
+	assertEquals("Jigounov", jigounov.getName());
 
 	final Cartoonist morris = dessinateurs.next();
 	assertEquals(DEUX, morris.getId().intValue());
-	assertEquals("Morris", morris.getNom());
+	assertEquals("Morris", morris.getName());
 
 	assertFalse(dessinateurs.hasNext());
     }
@@ -894,23 +894,23 @@ public class TestPersistence {
 
 	final Location laRocheSurYon = emplacements.next();
 	assertEquals(UN, laRocheSurYon.getId().intValue());
-	assertEquals("La Roche sur Yon", laRocheSurYon.getNom());
+	assertEquals("La Roche sur Yon", laRocheSurYon.getName());
 
 	final Location lyon = emplacements.next();
 	assertEquals(DEUX, lyon.getId().intValue());
-	assertEquals("Lyon", lyon.getNom());
+	assertEquals("Lyon", lyon.getName());
 
 	final Location poissy = emplacements.next();
 	assertEquals(QUATRE, poissy.getId().intValue());
-	assertEquals("Poissy", poissy.getNom());
+	assertEquals("Poissy", poissy.getName());
 
 	final Location singapour = emplacements.next();
 	assertEquals(TROIS, singapour.getId().intValue());
-	assertEquals("Singapour", singapour.getNom());
+	assertEquals("Singapour", singapour.getName());
 
 	final Location verneuil = emplacements.next();
 	assertEquals(ZÉRO, verneuil.getId().intValue());
-	assertEquals("Verneuil", verneuil.getNom());
+	assertEquals("Verneuil", verneuil.getName());
 
 	assertFalse(emplacements.hasNext());
     }
@@ -927,15 +927,15 @@ public class TestPersistence {
 
 	final Propriétaire claire = propriétaires.next();
 	assertEquals(DEUX, claire.getId().intValue());
-	assertEquals("Claire", claire.getNom());
+	assertEquals("Claire", claire.getName());
 
 	final Propriétaire etienne = propriétaires.next();
 	assertEquals(ZÉRO, etienne.getId().intValue());
-	assertEquals("Etienne", etienne.getNom());
+	assertEquals("Etienne", etienne.getName());
 
 	final Propriétaire grégoire = propriétaires.next();
 	assertEquals(UN, grégoire.getId().intValue());
-	assertEquals("Grégoire", grégoire.getNom());
+	assertEquals("Grégoire", grégoire.getName());
 
 	assertFalse(propriétaires.hasNext());
     }
@@ -952,15 +952,15 @@ public class TestPersistence {
 
 	final Réalisateur georgeLucas = réalisateurs.next();
 	assertEquals(UN, georgeLucas.getId().intValue());
-	assertEquals("George Lucas", georgeLucas.getNom());
+	assertEquals("George Lucas", georgeLucas.getName());
 
 	final Réalisateur lucBesson = réalisateurs.next();
 	assertEquals(DEUX, lucBesson.getId().intValue());
-	assertEquals("Luc Besson", lucBesson.getNom());
+	assertEquals("Luc Besson", lucBesson.getName());
 
 	final Réalisateur stevenSpielberg = réalisateurs.next();
 	assertEquals(ZÉRO, stevenSpielberg.getId().intValue());
-	assertEquals("Steven Spielberg", stevenSpielberg.getNom());
+	assertEquals("Steven Spielberg", stevenSpielberg.getName());
 
 	assertFalse(réalisateurs.hasNext());
     }
@@ -977,15 +977,15 @@ public class TestPersistence {
 
 	final Scénariste vanHamme = scénaristes.next();
 	assertEquals(ZÉRO, vanHamme.getId().intValue());
-	assertEquals("Jean Van Hamme", vanHamme.getNom());
+	assertEquals("Jean Van Hamme", vanHamme.getName());
 
 	final Scénariste renard = scénaristes.next();
 	assertEquals(UN, renard.getId().intValue());
-	assertEquals("Renard", renard.getNom());
+	assertEquals("Renard", renard.getName());
 
 	final Scénariste renéGoscinny = scénaristes.next();
 	assertEquals(DEUX, renéGoscinny.getId().intValue());
-	assertEquals("René Goscinny", renéGoscinny.getNom());
+	assertEquals("René Goscinny", renéGoscinny.getName());
 
 	assertFalse(scénaristes.hasNext());
     }
@@ -1001,23 +1001,23 @@ public class TestPersistence {
 
 	final Série bouleEtBill = séries.next();
 	assertEquals(ZÉRO, bouleEtBill.getId().intValue());
-	assertEquals("Boule et Bill", bouleEtBill.getNom());
+	assertEquals("Boule et Bill", bouleEtBill.getName());
 
 	final Série harryPotter = séries.next();
 	assertEquals(TROIS, harryPotter.getId().intValue());
-	assertEquals("Harry Potter", harryPotter.getNom());
+	assertEquals("Harry Potter", harryPotter.getName());
 
 	final Série lukyLuke = séries.next();
 	assertEquals(QUATRE, lukyLuke.getId().intValue());
-	assertEquals("Luky Luke", lukyLuke.getNom());
+	assertEquals("Luky Luke", lukyLuke.getName());
 
 	final Série merlin = séries.next();
 	assertEquals(UN, merlin.getId().intValue());
-	assertEquals("Merlin", merlin.getNom());
+	assertEquals("Merlin", merlin.getName());
 
 	final Série warhammer40k = séries.next();
 	assertEquals(DEUX, warhammer40k.getId().intValue());
-	assertEquals("Warhammer 40,000", warhammer40k.getNom());
+	assertEquals("Warhammer 40,000", warhammer40k.getName());
 
 	assertFalse(séries.hasNext());
     }
@@ -1074,19 +1074,19 @@ public class TestPersistence {
 	final Comic bouleEtBill = (Comic) fiches.next();
 	assertEquals(ZÉRO, bouleEtBill.getId().intValue());
 	assertEquals("Globe-trotters", bouleEtBill.getTitle());
-	assertEquals("Boule et Bill", bouleEtBill.getSeries().getNom());
+	assertEquals("Boule et Bill", bouleEtBill.getSeries().getName());
 	assertNull(bouleEtBill.getComment());
 	assertNull(bouleEtBill.getPicture());
-	assertEquals("Claire", bouleEtBill.getOwner().getNom());
-	assertEquals("Verneuil", bouleEtBill.getLocation().getNom());
+	assertEquals("Claire", bouleEtBill.getOwner().getName());
+	assertEquals("Verneuil", bouleEtBill.getLocation().getName());
 	assertEquals("Etienne", bouleEtBill.getCreator().getNom());
 	assertEquals(df.parse("2012-12-25 22:18:30"),
 		bouleEtBill.getCreation());
 	assertEquals("Grégoire", bouleEtBill.getLastModifier().getNom());
 	assertEquals(df.parse("2013-02-16 22:19:58"),
 		bouleEtBill.getLastModification());
-	assertEquals("Jigounov", bouleEtBill.getCartoonist().getNom());
-	assertEquals("Renard", bouleEtBill.getScriptWriter().getNom());
+	assertEquals("Jigounov", bouleEtBill.getCartoonist().getName());
+	assertEquals("Renard", bouleEtBill.getScriptWriter().getName());
 	assertEquals(DOUZE, bouleEtBill.getNumber().intValue());
 
 	final Book laChuteDeDamnos = (Book) fiches.next();
@@ -1116,11 +1116,11 @@ public class TestPersistence {
 	final Movie merlin = (Movie) fiches.next();
 	assertEquals(UN, merlin.getId().intValue());
 	assertEquals("Merlin, Saison 1", merlin.getTitle());
-	assertEquals("Merlin", merlin.getSeries().getNom());
+	assertEquals("Merlin", merlin.getSeries().getName());
 	assertEquals("Une super série !", merlin.getComment());
 	assertNull(merlin.getPicture());
-	assertEquals("Etienne", merlin.getOwner().getNom());
-	assertEquals("Verneuil", merlin.getLocation().getNom());
+	assertEquals("Etienne", merlin.getOwner().getName());
+	assertEquals("Verneuil", merlin.getLocation().getName());
 	assertEquals("Etienne", merlin.getCreator().getNom());
 	assertEquals(df.parse("2012-12-25 22:21:29"), merlin.getCreation());
 	assertEquals("Claire", merlin.getLastModifier().getNom());
@@ -1128,7 +1128,7 @@ public class TestPersistence {
 		merlin.getLastModification());
 	assertEquals(Support.BRD, merlin.getSupport());
 	assertNull(merlin.getDirector());
-	assertEquals("Howard Shore", merlin.getComposer().getNom());
+	assertEquals("Howard Shore", merlin.getComposer().getName());
 	assertEquals(DEUX, merlin.getActors().size());
 
 	final Book rainbowSix = (Book) fiches.next();
@@ -1137,8 +1137,8 @@ public class TestPersistence {
 	assertNull(rainbowSix.getSeries());
 	assertNull(rainbowSix.getComment());
 	assertNull(rainbowSix.getPicture());
-	assertEquals("Etienne", rainbowSix.getOwner().getNom());
-	assertEquals("Verneuil", rainbowSix.getLocation().getNom());
+	assertEquals("Etienne", rainbowSix.getOwner().getName());
+	assertEquals("Verneuil", rainbowSix.getLocation().getName());
 	assertEquals("Etienne", rainbowSix.getCreator().getNom());
 
 	assertFalse(fiches.hasNext());

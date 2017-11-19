@@ -51,7 +51,7 @@ public class Book extends Record {
 	final List<String> result = super.getOtherFields();
 	result.add("livre");
 	if (author != null) {
-	    result.add(author.getNom());
+	    result.add(author.getName());
 	}
 	return result;
     }

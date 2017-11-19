@@ -113,7 +113,7 @@ public final class RequêteSurChamp extends Expression {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	final Subquery<Actor> sousRequête = requête.subquery(Actor.class);
 	final Root<Actor> acteur = sousRequête.from(Actor.class);
-	final Path<String> nom = acteur.get("nom");
+	final Path<String> nom = acteur.get("name");
 	sousRequête.select(acteur);
 	for (int i = 0; i < motsClés.size(); i++) {
 	    prédicats[i] = constructeur.like(constructeur.lower(nom),
@@ -126,7 +126,7 @@ public final class RequêteSurChamp extends Expression {
     }
 
     /**
-     * Crée un prédicat pour un champ qui contient un {@link Nommé}.
+     * Crée un prédicat pour un champ qui contient un {@link Named}.
      *
      * @param constructeur
      *            constructeur de requêtes.
@@ -148,7 +148,7 @@ public final class RequêteSurChamp extends Expression {
 		    : constructeur.treat(fiche, champ.getClasseDéclarante());
 	    prédicats[i] = constructeur.like(
 		    constructeur.lower(racine
-			    .get(champ.getNom()).<String>get("nom")),
+			    .get(champ.getNom()).<String>get("name")),
 			    "%" + mot + "%");
 	}
 	return constructeur.and(prédicats);

@@ -193,13 +193,13 @@ public abstract class Record {
     public List<String> getOtherFields() {
 	final List<String> result = new ArrayList<String>();
 	if (series != null) {
-	    result.add(series.getNom());
+	    result.add(series.getName());
 	}
 	if (owner != null) {
-	    result.add(owner.getNom());
+	    result.add(owner.getName());
 	}
 	if (location != null) {
-	    result.add(location.getNom());
+	    result.add(location.getName());
 	}
 	if (creator != null) {
 	    result.add(creator.getNom());

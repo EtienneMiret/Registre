@@ -79,9 +79,9 @@ public class GestionnaireEntités {
      *            le type du nommé que l’on cherche.
      * @return le nommé cherché s’il existe, {@code null} sinon.
      */
-    private <T extends Nommé> T chercherNommé(final Class<T> type,
+    private <T extends Named> T chercherNommé(final Class<T> type,
 	    final String nom) {
-	return chercher(type, "nom", nom);
+	return chercher(type, "name", nom);
     }
 
     /**

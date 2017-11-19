@@ -8,7 +8,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "emplacements")
-public class Location extends Nommé {
+public class Location extends Named {
 
     /**
      * Create a new location with the given name. There must be no such location

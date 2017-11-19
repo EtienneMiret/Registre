@@ -9,7 +9,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "proprietaires")
-public class Propriétaire extends Nommé {
+public class Propriétaire extends Named {
 
     /**
      * Constructeur sans arguments, requis par Hibernate.

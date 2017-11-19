@@ -8,7 +8,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "realisateurs")
-public class Réalisateur extends Nommé {
+public class Réalisateur extends Named {
 
     /**
      * Référence un nouveau réalisateur portant le nom donné en paramètre.

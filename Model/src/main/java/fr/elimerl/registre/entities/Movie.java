@@ -111,15 +111,15 @@ public class Movie extends Record {
 	    result.add(support.toString());
 	}
 	if (director != null) {
-	    result.add(director.getNom());
+	    result.add(director.getName());
 	}
 	if (actors != null) {
 	    for (final Actor acteur : actors) {
-		result.add(acteur.getNom());
+		result.add(acteur.getName());
 	    }
 	}
 	if (composer != null) {
-	    result.add(composer.getNom());
+	    result.add(composer.getName());
 	}
 	return result;
     }

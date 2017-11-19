@@ -8,7 +8,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "compositeurs")
-public class Composer extends Nommé {
+public class Composer extends Named {
 
     /**
      * Register a new composer with the given name.

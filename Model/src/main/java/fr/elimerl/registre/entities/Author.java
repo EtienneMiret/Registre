@@ -8,7 +8,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "auteurs")
-public class Author extends Nommé {
+public class Author extends Named {
 
     /**
      * No-args constructor. Required by Hibernate.

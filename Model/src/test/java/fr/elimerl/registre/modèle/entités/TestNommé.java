@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import fr.elimerl.registre.entities.Actor;
 
 /**
- * Teste les méthodes de {@link Nommé} sur ses différentes implémentations.
+ * Teste les méthodes de {@link Named} sur ses différentes implémentations.
  */
 public class TestNommé {
 
@@ -107,23 +107,23 @@ public class TestNommé {
     }
 
     /**
-     * Teste les méthodes {@link Nommé#getNom() getNom()} et
-     * {@link Nommé#setNom(String) setNom(String)} sur le {@link Nommé} passé
+     * Teste les méthodes {@link Named#getName() getName()} et
+     * {@link Named#setName(String) setName(String)} sur le {@link Named} passé
      * en paramètre.
      *
      * @param nommé
      *            le nommé à tester. Le nom initial doit être
      *            {@link #NOM_CRÉATION}.
      */
-    private static void testerTout(final Nommé nommé) {
+    private static void testerTout(final Named nommé) {
 	logger.info("Test de l’implémentation {}.",
 		nommé.getClass().getSimpleName());
 	assertEquals("Problème de récupération d’un nom initial.",
-		NOM_CRÉATION, nommé.getNom());
+		NOM_CRÉATION, nommé.getName());
 	for (final String nom : NOMS) {
-	    nommé.setNom(nom);
+	    nommé.setName(nom);
 	    assertEquals("Le nom n’a pas été correctement défini/récupéré.",
-		    nom, nommé.getNom());
+		    nom, nommé.getName());
 	}
     }
 
