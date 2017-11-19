@@ -9,11 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.elimerl.registre.search.tokens.Field;
-import fr.elimerl.registre.services.ParseurDeRecherches;
+import fr.elimerl.registre.services.QueryParser;
 
 /**
  * Cas de test JUnit pour la méthode
- * {@link ParseurDeRecherches#analyserLexicalement(String)}.
+ * {@link QueryParser#tokenize(String)}.
  */
 public class TestAnalyseLexicale {
 
@@ -24,14 +24,14 @@ public class TestAnalyseLexicale {
     private static final int SEPT = 7;
 
     /** Le parseur qu’on teste. */
-    private ParseurDeRecherches parseur;
+    private QueryParser parseur;
 
     /**
      * Prépare l’environnement pour les tests.
      */
     @Before
     public void setUp() {
-	parseur = new ParseurDeRecherches();
+	parseur = new QueryParser();
     }
 
     /**
@@ -39,7 +39,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserSimplesParenthèses() {
-	final Queue<Token> résultat = parseur.analyserLexicalement("(()()(");
+	final Queue<Token> résultat = parseur.tokenize("(()()(");
 	assertEquals(SIX, résultat.size());
 	assertEquals(Bracket.OPENING, résultat.poll());
 	assertEquals(Bracket.OPENING, résultat.poll());
@@ -54,7 +54,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserParenthèsesAvecEspaces() {
-	final Queue<Token> résultat = parseur.analyserLexicalement(
+	final Queue<Token> résultat = parseur.tokenize(
 		"  )(( )   (  ( ");
 	assertEquals(SIX, résultat.size());
 	assertEquals(Bracket.CLOSING, résultat.poll());
@@ -70,7 +70,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserUnicode() {
-	final Queue<Token> résultat = parseur.analyserLexicalement(
+	final Queue<Token> résultat = parseur.tokenize(
 		"ÉœÙ CŒUR Çédille àgrÂvÆ ÑñUbï Ïléà");
 	assertEquals(SIX, résultat.size());
 	assertEquals(new Keyword("éœù"), résultat.poll());
@@ -87,7 +87,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserCaractèresBizarres() {
-	final Queue<Token> résultat = parseur.analyserLexicalement(
+	final Queue<Token> résultat = parseur.tokenize(
 		"+ = or: / \t\n ( %ù §§ À \"bonjour\" ++--) **");
 	assertEquals(SIX, résultat.size());
 	assertEquals(Operator.OR, résultat.poll());
@@ -103,7 +103,7 @@ public class TestAnalyseLexicale {
      */
     @Test
     public void analyserVraieRequête() {
-	final Queue<Token> résultat = parseur.analyserLexicalement(
+	final Queue<Token> résultat = parseur.tokenize(
 		"title:(Bonjour Madame) OR coucou");
 	assertEquals(SEPT, résultat.size());
 	assertEquals(Field.TITLE, résultat.poll());

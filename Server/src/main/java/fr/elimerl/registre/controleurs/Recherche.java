@@ -18,7 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.elimerl.registre.services.ParseurDeRecherches;
+import fr.elimerl.registre.services.QueryParser;
 
 /**
  * Contrôleur chargé de traiter les recherches faites par un utilisateur.
@@ -36,7 +36,7 @@ public class Recherche {
      * Service parseur de recherches, injecté par Spring.
      */
     @Autowired
-    private ParseurDeRecherches parseur;
+    private QueryParser parseur;
 
     private CriteriaBuilder constructeur;
 
@@ -49,7 +49,7 @@ public class Recherche {
     @Transactional(readOnly = true)
     public String rechercher(@PathVariable final String texte,
 	    final Model modèle) {
-	final SearchQuery requêteRegistre = parseur.analyser(texte);
+	final SearchQuery requêteRegistre = parseur.parse(texte);
 	final CriteriaQuery<Record> requête =
 		constructeur.createQuery(Record.class);
 	final Root<Record> fiche = requête.from(Record.class);

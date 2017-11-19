@@ -6,6 +6,6 @@
 
   <import resource="sécurité.xml"/>
 
-  <bean class="fr.elimerl.registre.services.ParseurDeRecherches"/>
+  <bean class="fr.elimerl.registre.services.QueryParser"/>
 
 </beans>

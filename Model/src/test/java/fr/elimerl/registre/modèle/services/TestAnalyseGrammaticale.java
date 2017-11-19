@@ -16,11 +16,11 @@ import org.slf4j.LoggerFactory;
 import fr.elimerl.registre.search.grammar.BracketedQuery;
 import fr.elimerl.registre.search.grammar.FieldQuery;
 import fr.elimerl.registre.search.tokens.Field;
-import fr.elimerl.registre.services.ParseurDeRecherches;
+import fr.elimerl.registre.services.QueryParser;
 
 /**
  * Cas de test JUnit pour la méthode
- * {@link ParseurDeRecherches#analyserGrammaticalement(Queue)}.
+ * {@link QueryParser#analyze(Queue)}.
  */
 public class TestAnalyseGrammaticale {
 
@@ -29,7 +29,7 @@ public class TestAnalyseGrammaticale {
 	    LoggerFactory.getLogger(TestAnalyseGrammaticale.class);
 
     /** Le parseur qu’on teste. */
-    private ParseurDeRecherches parseur;
+    private QueryParser parseur;
 
     /** La suite de signes à parser. */
     private Queue<Token> signes;
@@ -39,7 +39,7 @@ public class TestAnalyseGrammaticale {
      */
     @Before
     public void setUp() {
-	parseur = new ParseurDeRecherches();
+	parseur = new QueryParser();
 	signes = new LinkedList<Token>();
     }
 
@@ -50,7 +50,7 @@ public class TestAnalyseGrammaticale {
     public void requêteVide() {
 	journal.info("Analyse grammaticale d’une requête vide.");
 
-	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyze(signes);
 
 	final SearchQuery attendue = new SearchQuery(true);
 	assertEquals(attendue, résultat);
@@ -66,7 +66,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(motClé);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyze(signes);
 
 	final SearchQuery attendue = new SearchQuery(true, new SimpleKeyword(motClé));
 	assertEquals(attendue, résultat);
@@ -85,7 +85,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(titi);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyze(signes);
 
 	final SearchQuery attendue = new SearchQuery(true,
 		new SimpleKeyword(toto),
@@ -110,7 +110,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(titi);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyze(signes);
 
 	final SearchQuery attendue = new SearchQuery(false,
 		new SimpleKeyword(toto),
@@ -146,7 +146,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(Bracket.CLOSING);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyze(signes);
 
 	final SearchQuery attendue = new SearchQuery(false,
 		new FieldQuery(Field.TITLE, maman),
@@ -200,7 +200,7 @@ public class TestAnalyseGrammaticale {
 	signes.add(Bracket.CLOSING);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyze(signes);
 
 	final SearchQuery attendue = new SearchQuery(true,
 		new BracketedQuery(new SearchQuery(false,
