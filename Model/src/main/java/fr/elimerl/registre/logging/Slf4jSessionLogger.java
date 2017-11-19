@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * S’occupe de router les journaux d’EclipseLink vers Slf4j.
+ * Route EclipseLink’s logs to SLF4J.
  */
 public class Slf4jSessionLogger extends AbstractSessionLog {
 
