@@ -33,13 +33,13 @@ public class TestSession {
     }
 
     /**
-     * Teste la méthode {@link Session#getUtilisateur() getUtilisateur()}.
+     * Teste la méthode {@link Session#getUser() getUser()}.
      */
     @Test
     public void testGetUtilisateur() {
 	final Session session = new Session(utilisateur, 0);
 	assertEquals("Erreur à la récupération de l’utilisateur.",
-		utilisateur, session.getUtilisateur());
+		utilisateur, session.getUser());
     }
 
     /**

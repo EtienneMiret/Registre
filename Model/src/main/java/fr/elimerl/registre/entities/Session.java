@@ -16,42 +16,40 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Une session ouverte par un utilisateur.
+ * A user’s session.
  */
 @Entity
 @Table(name = "sessions")
 public class Session {
 
-    /** Taille des clefs en octets. */
-    private static final int TAILLE_CLEF = 15;
+    /** Key size in bytes. */
+    private static final int KEY_SIZE = 15;
 
     /**
-     * Générateur de nombre aléatoire utilisé pour générer les clefs.
+     * Random number generator used to generate keys.
      */
     private static final Random random = new SecureRandom();
 
     /**
-     * Loggeur de cette classe.
+     * This class’ logger.
      */
-    private static final Logger logger =
-	    LoggerFactory.getLogger(Session.class);
+    private static final Logger logger = LoggerFactory.getLogger(Session.class);
 
     /**
-     * Clef utilisée pour identifier la session. Stockée dans un cookie du
-     * navigateur.
+     * Key used to identify the session. Stored in a browser cookie.
      */
     @Id
     @Column(name = "clef")
-    private String clef;
+    private String key;
 
-    /** Utilisateur qui a créé cette session. */
+    /** User who created this session. */
     @ManyToOne
     @JoinColumn(name = "utilisateur")
-    private Utilisateur utilisateur;
+    private Utilisateur user;
 
     /**
-     * Date d’expiration de la session. À cette date, la session n’est plus
-     * valide.
+     * Expiration date for this session. At this date, this session is no longer
+     * valid.
      *
      * @see #estValide()
      */
@@ -59,70 +57,71 @@ public class Session {
     private Date expiration;
 
     /**
-     * Construit une nouvelle session, de la durée précisée et pour
-     * l’utilisateur indiqué.
+     * Create a new session for the specified user and with the specified
+     * duration.
      *
-     * @param utilisateur
-     *            utilisateur associé à cette session.
-     * @param durée
-     *            durée de cette session en millisecondes.
+     * @param user
+     *          this session’s user.
+     * @param duration
+     *          this session validity duration, in milliseconds.
      */
-    public Session(final Utilisateur utilisateur, final long durée) {
-	/* Champ clef. */
-	final byte[] octets = new byte[TAILLE_CLEF];
+    public Session(final Utilisateur user, final long duration) {
+	/* Key field. */
+	final byte[] octets = new byte[KEY_SIZE];
 	synchronized (random) {
 	    random.nextBytes(octets);
 	}
-	clef = DatatypeConverter.printBase64Binary(octets);
+	key = DatatypeConverter.printBase64Binary(octets);
 
-	/* Champ utilisateur. */
-	this.utilisateur = utilisateur;
+	/* User field. */
+	this.user = user;
 
-	/* Champ expiration. */
+	/* Expiration field. */
 	expiration = new Date();
 	final long now = expiration.getTime();
-	expiration.setTime(now + durée);
+	expiration.setTime(now + duration);
 
-	logger.debug("Session {} créée pour {}.", clef, utilisateur);
+	logger.debug("Session {} created for {}.", key, user);
     }
 
     /**
-     * Constructeur sans arguments, requis par Hibernate.
+     * No-args constructor. Required by Hibernate.
      */
     protected Session() {
     }
 
     /**
-     * Renvoie l’utilisateur de cette session.
+     * Returns this session’s user.
      *
-     * @return l’utilisateur de cette session.
+     * @return this session’s user.
      */
-    public Utilisateur getUtilisateur() {
-	return utilisateur;
+    public Utilisateur getUser() {
+	return user;
     }
 
     /**
-     * Renvoie l’identifiant de cette session (sa clef).
+     * Returns this sessions id (its key).
      *
-     * @return l’identifiant de cette session (sa clef).
+     * @return this sessions id (its key).
      */
-    public String getClef() {
-	return clef;
+    public String getKey() {
+	return key;
     }
 
     /**
-     * Renvoie la date d’expiration de cette session.
+     * Returns this session’s expiration date.
      *
-     * @return la date d’expiration de cette session.
+     * @return this session’s expiration date.
      */
     public Date getExpiration() {
 	return expiration;
     }
 
     /**
-     * Indique si la session est encore valide.
+     * Tell whether this session is still valid.
      *
-     * @return {@code true} si la session n’a pas expirée, {@code false} sinon.
+     * @return {@code true} if this session hasn’t expired yet, {@code false}
+     *          otherwise.
      * @see #expiration
      */
     public boolean estValide() {
@@ -132,21 +131,21 @@ public class Session {
 
     @Override
     public String toString() {
-	return clef + ":" + utilisateur;
+	return key + ":" + user;
     }
 
     @Override
-    public boolean equals(final Object autre) {
-	if (this == autre) {
+    public boolean equals(final Object other) {
+	if (this == other) {
 	    return true;
-	} else if (autre == null) {
+	} else if (other == null) {
 	    return false;
-	} else if (autre instanceof Session) {
-	    final Session autreSession = (Session) autre;
-	    if (this.clef == null) {
-		return (autreSession.clef == null);
+	} else if (other instanceof Session) {
+	    final Session otherSession = (Session) other;
+	    if (this.key == null) {
+		return (otherSession.key == null);
 	    } else {
-		return this.clef.equals(autreSession.clef);
+		return this.key.equals(otherSession.key);
 	    }
 	} else {
 	    return false;
@@ -155,7 +154,7 @@ public class Session {
 
     @Override
     public int hashCode() {
-	return (clef == null ? 0 : clef.hashCode());
+	return (key == null ? 0 : key.hashCode());
     }
 
 }

@@ -251,11 +251,11 @@ public class TestPersistence {
 	Utilisateur utilisateur = new Utilisateur(UTILISATEUR, EMAIL);
 	utilisateur = em.merge(utilisateur);
 	Session session = new Session(utilisateur, 0L);
-	final String clef = session.getClef();
+	final String clef = session.getKey();
 	final Date expiration = session.getExpiration();
 	session = em.merge(session);
-	assertEquals(utilisateur, session.getUtilisateur());
-	assertEquals(clef, session.getClef());
+	assertEquals(utilisateur, session.getUser());
+	assertEquals(clef, session.getKey());
 	assertEquals(expiration, session.getExpiration());
     }
 
