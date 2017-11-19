@@ -196,9 +196,9 @@ public class GestionnaireEntités {
      *            nom de la série voulue.
      * @return la série ayant le nom donné en argument.
      */
-    public Série fournirSérie(final String nom) {
-	final Série enBase = chercherNommé(Série.class, nom);
-	return (enBase == null ? em.merge(new Série(nom)) : enBase);
+    public Series fournirSérie(final String nom) {
+	final Series enBase = chercherNommé(Series.class, nom);
+	return (enBase == null ? em.merge(new Series(nom)) : enBase);
     }
 
     /**

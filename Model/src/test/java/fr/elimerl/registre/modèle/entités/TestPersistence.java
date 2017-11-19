@@ -224,7 +224,7 @@ public class TestPersistence {
     @Test
     public void enregistrementSérie() {
 	logger.info("Test d’enregistrement d’une série.");
-	enregistrementNommé(new Série(NOM));
+	enregistrementNommé(new Series(NOM));
     }
 
     /**
@@ -296,7 +296,7 @@ public class TestPersistence {
 	assertNull(bandeDessinée.getNumber());
 
 	final Long id = bandeDessinée.getId();
-	Série série = new Série(NOM);
+	Series série = new Series(NOM);
 	série = em.merge(série);
 	final String commentaire = "Bonjour les gens !";
 	final String image = UUID.randomUUID().toString();
@@ -624,8 +624,8 @@ public class TestPersistence {
     @Test(expected = PersistenceException.class)
     public void deuxSériesIdentiques() {
 	logger.info("Test de l’enregistrement de deux séries identiques.");
-	em.merge(new Série(NOM));
-	em.merge(new Série(NOM));
+	em.merge(new Series(NOM));
+	em.merge(new Series(NOM));
 	em.flush();
     }
 
@@ -659,7 +659,7 @@ public class TestPersistence {
 	em.merge(new Owner(NOM));
 	em.merge(new Director(NOM));
 	em.merge(new ScriptWriter(NOM));
-	em.merge(new Série(NOM));
+	em.merge(new Series(NOM));
 	em.flush();
     }
 
@@ -997,25 +997,25 @@ public class TestPersistence {
     @Test
     public void chargerSéries() {
 	logger.info("Chargement des séries de test-data.sql.");
-	final Iterator<Série> séries = chargerNommés(Série.class);
+	final Iterator<Series> séries = chargerNommés(Series.class);
 
-	final Série bouleEtBill = séries.next();
+	final Series bouleEtBill = séries.next();
 	assertEquals(ZÉRO, bouleEtBill.getId().intValue());
 	assertEquals("Boule et Bill", bouleEtBill.getName());
 
-	final Série harryPotter = séries.next();
+	final Series harryPotter = séries.next();
 	assertEquals(TROIS, harryPotter.getId().intValue());
 	assertEquals("Harry Potter", harryPotter.getName());
 
-	final Série lukyLuke = séries.next();
+	final Series lukyLuke = séries.next();
 	assertEquals(QUATRE, lukyLuke.getId().intValue());
 	assertEquals("Luky Luke", lukyLuke.getName());
 
-	final Série merlin = séries.next();
+	final Series merlin = séries.next();
 	assertEquals(UN, merlin.getId().intValue());
 	assertEquals("Merlin", merlin.getName());
 
-	final Série warhammer40k = séries.next();
+	final Series warhammer40k = séries.next();
 	assertEquals(DEUX, warhammer40k.getId().intValue());
 	assertEquals("Warhammer 40,000", warhammer40k.getName());
 

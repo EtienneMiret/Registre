@@ -51,7 +51,7 @@ public abstract class Record {
      */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "serie")
-    private Série series;
+    private Series series;
 
     /**
      * Comment written by the users about this record. Can be very long.
@@ -273,7 +273,7 @@ public abstract class Record {
      * @return the series this records belongs to.
      * @see #series
      */
-    public Série getSeries() {
+    public Series getSeries() {
         return series;
     }
 
@@ -284,7 +284,7 @@ public abstract class Record {
      * 		series this records belongs to.
      * @see #series
      */
-    public void setSeries(final Série series) {
+    public void setSeries(final Series series) {
         this.series = series;
     }
 

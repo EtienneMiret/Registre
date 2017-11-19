@@ -143,12 +143,12 @@ public class TestFilm {
 
     /**
      * Teste les méthodes {@link Record#getSeries() getSeries()} et
-     * {@link Record#setSeries(Série) setSeries(Série)}.
+     * {@link Record#setSeries(Series) setSeries(Series)}.
      */
     @Test
     public void testSérie() {
-	final Série série1 = new Série("Robin des bois");
-	final Série série2 = new Série("Thierry la fronde");
+	final Series série1 = new Series("Robin des bois");
+	final Series série2 = new Series("Thierry la fronde");
 	logger.info("Test de la série.");
 
 	film.setSeries(série1);

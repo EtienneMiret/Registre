@@ -35,11 +35,11 @@ public class TestNommé {
     }
 
     /**
-     * Tests sur la classe {@link Série}.
+     * Tests sur la classe {@link Series}.
      */
     @Test
     public void série() {
-	final Série série = new Série(NOM_CRÉATION);
+	final Series série = new Series(NOM_CRÉATION);
 	testerTout(série);
     }
 

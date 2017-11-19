@@ -32,7 +32,7 @@ public final class Champ extends Signe {
 
     /** La série dont fait partie une fiche. */
     public static final Champ SÉRIE =
-	    valeurDe("series", Série.class, Record.class);
+	    valeurDe("series", Series.class, Record.class);
 
     /** Le propriétaire d’une fiche. */
     public static final Champ PROPRIÉTAIRE =

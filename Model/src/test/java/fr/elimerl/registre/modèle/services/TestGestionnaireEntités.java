@@ -312,13 +312,13 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche de séries.");
 
 	final String nomMerlin = "Merlin";
-	final Série merlin = gestionnaire.fournirSérie(nomMerlin);
+	final Series merlin = gestionnaire.fournirSérie(nomMerlin);
 	assertNotNull(merlin);
 	assertNotNull(merlin.getId());
 	assertEquals(nomMerlin, merlin.getName());
 
 	final String nomNcis = "NCIS";
-	final Série ncis = gestionnaire.fournirSérie(nomNcis);
+	final Series ncis = gestionnaire.fournirSérie(nomNcis);
 	assertNotNull(ncis);
 	assertEquals(nomNcis, ncis.getName());
 
