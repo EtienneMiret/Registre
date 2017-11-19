@@ -1,4 +1,4 @@
-package fr.elimerl.registre.model.entités;
+package fr.elimerl.registre.model.entities;
 
 import static org.junit.Assert.assertEquals;
 
