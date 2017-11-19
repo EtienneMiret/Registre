@@ -205,13 +205,13 @@ public class TestFilm {
 
     /**
      * Teste les méthodes {@link Record#getOwner() getOwner()} et
-     * {@link Record#setOwner(Propriétaire)
-     * setOwner(Propriétaire)}.
+     * {@link Record#setOwner(Owner)
+     * setOwner(Owner)}.
      */
     @Test
     public void testPropriétaire() {
-	final Propriétaire propriétaire1 = new Propriétaire("Etienne");
-	final Propriétaire propriétaire2 = new Propriétaire("Grégoire");
+	final Owner propriétaire1 = new Owner("Etienne");
+	final Owner propriétaire2 = new Owner("Grégoire");
 	logger.info("Test du propriétaire.");
 
 	film.setOwner(propriétaire1);

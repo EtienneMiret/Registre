@@ -157,9 +157,9 @@ public class GestionnaireEntités {
      *            nom du propriétaire voulu.
      * @return le propriétaire ayant le nom donné en argument.
      */
-    public Propriétaire fournirPropriétaire(final String nom) {
-	final Propriétaire enBase = chercherNommé(Propriétaire.class, nom);
-	return (enBase == null ? em.merge(new Propriétaire(nom)) : enBase);
+    public Owner fournirPropriétaire(final String nom) {
+	final Owner enBase = chercherNommé(Owner.class, nom);
+	return (enBase == null ? em.merge(new Owner(nom)) : enBase);
     }
 
     /**

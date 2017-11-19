@@ -232,19 +232,19 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche de propriétaires.");
 
 	final String nomEloi = "Eloi";
-	final Propriétaire eloi = gestionnaire.fournirPropriétaire(nomEloi);
+	final Owner eloi = gestionnaire.fournirPropriétaire(nomEloi);
 	assertNotNull(eloi);
 	assertEquals(nomEloi, eloi.getName());
 
 	final String nomGrégoire = "Grégoire";
-	final Propriétaire grégoire =
+	final Owner grégoire =
 		gestionnaire.fournirPropriétaire(nomGrégoire);
 	assertNotNull(grégoire);
 	assertNotNull(grégoire.getId());
 	assertEquals(nomGrégoire, grégoire.getName());
 
 	final String nomQuentin = "Quentin";
-	final Propriétaire quentin =
+	final Owner quentin =
 		gestionnaire.fournirPropriétaire(nomQuentin);
 	assertNotNull(quentin);
 	assertEquals(nomQuentin, quentin.getName());

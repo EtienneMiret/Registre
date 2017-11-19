@@ -70,7 +70,7 @@ public abstract class Record {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proprietaire")
-    private Propriétaire owner;
+    private Owner owner;
 
     /**
      * Location where the registered object is kept. Can be {@code null}.
@@ -336,7 +336,7 @@ public abstract class Record {
      * @return the owner of the item this record is about.
      * @see #owner
      */
-    public Propriétaire getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
@@ -347,7 +347,7 @@ public abstract class Record {
      * 		owner of the item this record is about.
      * @see #owner
      */
-    public void setOwner(final Propriétaire owner) {
+    public void setOwner(final Owner owner) {
         this.owner = owner;
     }
 

@@ -26,11 +26,11 @@ public class TestNommé {
 	{"Grégoire", "Claire", "Quentin", "Eloi", "Blanche", "Thibault" };
 
     /**
-     * Tests sur la classe {@link Propriétaire}.
+     * Tests sur la classe {@link Owner}.
      */
     @Test
     public void propriétaire() {
-	final Propriétaire propriétaire = new Propriétaire(NOM_CRÉATION);
+	final Owner propriétaire = new Owner(NOM_CRÉATION);
 	testerTout(propriétaire);
     }
 

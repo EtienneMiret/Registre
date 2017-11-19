@@ -197,7 +197,7 @@ public class TestPersistence {
     @Test
     public void enregistrementPropriétaire() {
 	logger.info("Test d’enregistrement d’un propriétaire.");
-	enregistrementNommé(new Propriétaire(NOM));
+	enregistrementNommé(new Owner(NOM));
     }
 
     /**
@@ -300,7 +300,7 @@ public class TestPersistence {
 	série = em.merge(série);
 	final String commentaire = "Bonjour les gens !";
 	final String image = UUID.randomUUID().toString();
-	Propriétaire propriétaire = new Propriétaire(NOM);
+	Owner propriétaire = new Owner(NOM);
 	propriétaire = em.merge(propriétaire);
 	Location emplacement = new Location(NOM);
 	emplacement = em.merge(emplacement);
@@ -586,8 +586,8 @@ public class TestPersistence {
     public void deuxPropriétairesIdentiques() {
 	logger.info("Test de l’enregistrement de deux propriétaires "
 		+ "identiques.");
-	em.merge(new Propriétaire(NOM));
-	em.merge(new Propriétaire(NOM));
+	em.merge(new Owner(NOM));
+	em.merge(new Owner(NOM));
 	em.flush();
     }
 
@@ -656,7 +656,7 @@ public class TestPersistence {
 	em.merge(new Composer(NOM));
 	em.merge(new Cartoonist(NOM));
 	em.merge(new Location(NOM));
-	em.merge(new Propriétaire(NOM));
+	em.merge(new Owner(NOM));
 	em.merge(new Réalisateur(NOM));
 	em.merge(new Scénariste(NOM));
 	em.merge(new Série(NOM));
@@ -922,18 +922,18 @@ public class TestPersistence {
     @Test
     public void chargerPropriétaires() {
 	logger.info("Chargement des propriétaires de test-data.sql.");
-	final Iterator<Propriétaire> propriétaires =
-		chargerNommés(Propriétaire.class);
+	final Iterator<Owner> propriétaires =
+		chargerNommés(Owner.class);
 
-	final Propriétaire claire = propriétaires.next();
+	final Owner claire = propriétaires.next();
 	assertEquals(DEUX, claire.getId().intValue());
 	assertEquals("Claire", claire.getName());
 
-	final Propriétaire etienne = propriétaires.next();
+	final Owner etienne = propriétaires.next();
 	assertEquals(ZÉRO, etienne.getId().intValue());
 	assertEquals("Etienne", etienne.getName());
 
-	final Propriétaire grégoire = propriétaires.next();
+	final Owner grégoire = propriétaires.next();
 	assertEquals(UN, grégoire.getId().intValue());
 	assertEquals("Grégoire", grégoire.getName());
 

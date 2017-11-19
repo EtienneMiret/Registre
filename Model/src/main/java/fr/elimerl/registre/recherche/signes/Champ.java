@@ -36,7 +36,7 @@ public final class Champ extends Signe {
 
     /** Le propriétaire d’une fiche. */
     public static final Champ PROPRIÉTAIRE =
-	    valeurDe("owner", Propriétaire.class, Record.class);
+	    valeurDe("owner", Owner.class, Record.class);
 
     /** L’emplacement où est rangé une fiche. */
     public static final Champ EMPLACEMENT =
