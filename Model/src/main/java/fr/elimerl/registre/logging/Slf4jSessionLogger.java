@@ -1,4 +1,4 @@
-package fr.elimerl.registre.journalisation;
+package fr.elimerl.registre.logging;
 
 import java.util.HashMap;
 import java.util.Map;
