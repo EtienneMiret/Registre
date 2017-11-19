@@ -1,4 +1,4 @@
-package fr.elimerl.registre.model.recherche.grammaire;
+package fr.elimerl.registre.model.search.grammaire;
 
 import static org.junit.Assert.assertEquals;
 
