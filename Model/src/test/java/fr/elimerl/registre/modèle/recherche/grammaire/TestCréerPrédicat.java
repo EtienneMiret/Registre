@@ -22,11 +22,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.search.grammaire.Expression;
-import fr.elimerl.registre.search.grammaire.MotCléSimple;
-import fr.elimerl.registre.search.grammaire.Requête;
-import fr.elimerl.registre.search.grammaire.RequêteEntreParenthèse;
-import fr.elimerl.registre.search.grammaire.RequêteSurChamp;
+import fr.elimerl.registre.search.grammar.Expression;
+import fr.elimerl.registre.search.grammar.MotCléSimple;
+import fr.elimerl.registre.search.grammar.Requête;
+import fr.elimerl.registre.search.grammar.RequêteEntreParenthèse;
+import fr.elimerl.registre.search.grammar.RequêteSurChamp;
 import fr.elimerl.registre.search.signes.Champ;
 import fr.elimerl.registre.search.signes.MotClé;
 import fr.elimerl.registre.services.Indexeur;

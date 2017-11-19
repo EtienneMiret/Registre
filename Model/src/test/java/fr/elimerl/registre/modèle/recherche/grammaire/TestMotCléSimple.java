@@ -7,7 +7,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.search.grammaire.MotCléSimple;
+import fr.elimerl.registre.search.grammar.MotCléSimple;
 import fr.elimerl.registre.search.signes.MotClé;
 
 /**

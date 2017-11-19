@@ -10,10 +10,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.search.grammaire.MotCléSimple;
-import fr.elimerl.registre.search.grammaire.Requête;
-import fr.elimerl.registre.search.grammaire.RequêteEntreParenthèse;
-import fr.elimerl.registre.search.grammaire.RequêteSurChamp;
+import fr.elimerl.registre.search.grammar.MotCléSimple;
+import fr.elimerl.registre.search.grammar.Requête;
+import fr.elimerl.registre.search.grammar.RequêteEntreParenthèse;
+import fr.elimerl.registre.search.grammar.RequêteSurChamp;
 import fr.elimerl.registre.search.signes.Champ;
 import fr.elimerl.registre.search.signes.MotClé;
 import fr.elimerl.registre.search.signes.Opérateur;

@@ -8,8 +8,8 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.search.grammaire.Expression;
-import fr.elimerl.registre.search.grammaire.Requête;
+import fr.elimerl.registre.search.grammar.Expression;
+import fr.elimerl.registre.search.grammar.Requête;
 
 /**
  * Cas de test JUnit pour la classe {@link Requête}.

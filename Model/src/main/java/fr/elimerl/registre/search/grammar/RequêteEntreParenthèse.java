@@ -1,4 +1,4 @@
-package fr.elimerl.registre.search.grammaire;
+package fr.elimerl.registre.search.grammar;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

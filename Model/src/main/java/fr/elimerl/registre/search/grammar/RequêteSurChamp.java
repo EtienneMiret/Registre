@@ -1,4 +1,4 @@
-package fr.elimerl.registre.search.grammaire;
+package fr.elimerl.registre.search.grammar;
 
 import java.util.Arrays;
 import java.util.Iterator;

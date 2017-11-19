@@ -6,7 +6,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.search.grammaire.RequêteSurChamp;
+import fr.elimerl.registre.search.grammar.RequêteSurChamp;
 import fr.elimerl.registre.search.signes.Champ;
 import fr.elimerl.registre.search.signes.MotClé;
 
