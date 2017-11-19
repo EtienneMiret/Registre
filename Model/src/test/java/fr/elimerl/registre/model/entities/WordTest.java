@@ -10,29 +10,28 @@ import nl.jqno.equalsverifier.Warning;
 import org.junit.Test;
 
 /**
- * Test JUnit pour la classe {@link Word}.
+ * JUnit test for the {@link Word} class.
  */
-public class TestMot {
+public class WordTest {
 
-    /** Un exemple de mot. */
-    private static final String MOT = "Bonjour";
+    /** A random word. */
+    private static final String WORD = "Bonjour";
 
     /**
-     * Teste le constructeur et les deux getteurs.
+     * Test the constructor and both getters.
      */
     @Test
     public void test() {
-	final Word mot = new Word(MOT);
+	final Word mot = new Word(WORD);
 	assertNull(mot.getId());
-	assertEquals(MOT, mot.getValue());
+	assertEquals(WORD, mot.getValue());
     }
 
     /**
-     * Teste les méthodes {@link Word#equals(Object) equals(Object)} et
-     * {@link Word#hashCode() hashCode()}.
+     * Test the {@link Word#equals(Object)} and {@link Word#hashCode()} methods.
      */
     @Test
-    public void equalsEtHashCode() {
+    public void equalsAndHashcode() {
 	final EqualsVerifier<Word> equalsVerifier =
 		EqualsVerifier.forClass(Word.class);
 	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
