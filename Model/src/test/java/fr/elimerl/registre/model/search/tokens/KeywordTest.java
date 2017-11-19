@@ -6,16 +6,16 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Test;
 
 /**
- * Classe de test de la classe {@link Keyword}.
+ * Test case for the {@link Keyword} class.
  */
-public class TestMotClé {
+public class KeywordTest {
 
     /**
-     * Teste les méthodes {@link Keyword#equals(Object)} et
-     * {@link Keyword#hashCode()}.
+     * Test the {@link Keyword#equals(Object)} and {@link Keyword#hashCode()}
+     * methods.
      */
     @Test
-    public void equalsEtHashCode() {
+    public void equalsAndHashCode() {
 	EqualsVerifier.forClass(Keyword.class).verify();
     }
 
