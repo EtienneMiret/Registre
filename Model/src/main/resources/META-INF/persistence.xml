@@ -4,7 +4,7 @@
   <persistence-unit name="Registre">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-    <!-- Classes à persister. -->
+    <!-- Classes to persist. -->
     <class>fr.elimerl.registre.entities.Actor</class>
     <class>fr.elimerl.registre.entities.Author</class>
     <class>fr.elimerl.registre.entities.Comic</class>
