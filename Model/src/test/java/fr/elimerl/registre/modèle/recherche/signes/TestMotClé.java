@@ -4,7 +4,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.search.signes.MotClé;
+import fr.elimerl.registre.search.tokens.MotClé;
 
 /**
  * Classe de test de la classe {@link MotClé}.

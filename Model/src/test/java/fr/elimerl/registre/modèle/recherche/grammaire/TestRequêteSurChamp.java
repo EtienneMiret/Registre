@@ -7,8 +7,8 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Test;
 
 import fr.elimerl.registre.search.grammar.FieldQuery;
-import fr.elimerl.registre.search.signes.Champ;
-import fr.elimerl.registre.search.signes.MotClé;
+import fr.elimerl.registre.search.tokens.Champ;
+import fr.elimerl.registre.search.tokens.MotClé;
 
 /**
  * Cas de test JUnit pour la classe {@link FieldQuery}. Seules les méthodes

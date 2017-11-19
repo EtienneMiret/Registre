@@ -13,11 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
-import fr.elimerl.registre.search.signes.Champ;
-import fr.elimerl.registre.search.signes.MotClé;
-import fr.elimerl.registre.search.signes.Opérateur;
-import fr.elimerl.registre.search.signes.Parenthèse;
-import fr.elimerl.registre.search.signes.Signe;
+import fr.elimerl.registre.search.tokens.Champ;
+import fr.elimerl.registre.search.tokens.MotClé;
+import fr.elimerl.registre.search.tokens.Opérateur;
+import fr.elimerl.registre.search.tokens.Parenthèse;
+import fr.elimerl.registre.search.tokens.Signe;
 
 /**
  * Classe singleton chargée de parser les recherches des utilisateurs.

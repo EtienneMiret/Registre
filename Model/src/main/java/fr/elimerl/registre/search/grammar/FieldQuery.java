@@ -14,8 +14,8 @@ import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.entities.*;
 import fr.elimerl.registre.entities.Actor;
-import fr.elimerl.registre.search.signes.Champ;
-import fr.elimerl.registre.search.signes.MotClé;
+import fr.elimerl.registre.search.tokens.Champ;
+import fr.elimerl.registre.search.tokens.MotClé;
 
 /**
  * Kind of {@link Expression} that models a query targeting a specific field.

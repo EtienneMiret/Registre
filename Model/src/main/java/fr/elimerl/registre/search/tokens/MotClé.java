@@ -1,4 +1,4 @@
-package fr.elimerl.registre.search.signes;
+package fr.elimerl.registre.search.tokens;
 
 import java.util.regex.Pattern;
 

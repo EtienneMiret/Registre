@@ -8,7 +8,7 @@ import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Reference;
-import fr.elimerl.registre.search.signes.MotClé;
+import fr.elimerl.registre.search.tokens.MotClé;
 
 /**
  * Kind of expression of this application’s query language that only contains

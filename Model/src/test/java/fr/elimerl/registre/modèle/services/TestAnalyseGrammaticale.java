@@ -14,11 +14,11 @@ import org.slf4j.LoggerFactory;
 
 import fr.elimerl.registre.search.grammar.BracketedQuery;
 import fr.elimerl.registre.search.grammar.FieldQuery;
-import fr.elimerl.registre.search.signes.Champ;
-import fr.elimerl.registre.search.signes.MotClé;
-import fr.elimerl.registre.search.signes.Opérateur;
-import fr.elimerl.registre.search.signes.Parenthèse;
-import fr.elimerl.registre.search.signes.Signe;
+import fr.elimerl.registre.search.tokens.Champ;
+import fr.elimerl.registre.search.tokens.MotClé;
+import fr.elimerl.registre.search.tokens.Opérateur;
+import fr.elimerl.registre.search.tokens.Parenthèse;
+import fr.elimerl.registre.search.tokens.Signe;
 import fr.elimerl.registre.services.ParseurDeRecherches;
 
 /**

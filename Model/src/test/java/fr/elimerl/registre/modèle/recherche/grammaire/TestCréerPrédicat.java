@@ -24,8 +24,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
-import fr.elimerl.registre.search.signes.Champ;
-import fr.elimerl.registre.search.signes.MotClé;
+import fr.elimerl.registre.search.tokens.Champ;
+import fr.elimerl.registre.search.tokens.MotClé;
 import fr.elimerl.registre.services.Indexeur;
 
 /**
