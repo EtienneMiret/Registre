@@ -43,87 +43,87 @@ public abstract class Record {
     /**
      * Title of the registerd object.
      */
-    @Column(name = "titre")
+    @Column(name = "title")
     private String title;
 
     /**
      * Series the registered object is part of. May be {@code null}.
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "serie")
+    @JoinColumn(name = "series")
     private Series series;
 
     /**
      * Comment written by the users about this record. Can be very long.
      */
-    @Column(name = "commentaire")
+    @Column(name = "comment")
     private String comment;
 
     /**
      * UUID of the picture linked with this record. Can be {@code null}.
      */
-    @Column(name = "image")
+    @Column(name = "picture")
     private String picture;
 
     /**
      * Owner of the registered object. Can be {@code null}.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "proprietaire")
+    @JoinColumn(name = "owner")
     private Owner owner;
 
     /**
      * Location where the registered object is kept. Can be {@code null}.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "emplacement")
+    @JoinColumn(name = "location")
     private Location location;
 
     /** Is this record about an action story? */
-    @Column(name = "genre_action")
+    @Column(name = "action_style")
     private Boolean actionStyle;
 
     /** Is this record about a documentary? */
-    @Column(name = "genre_documentaire")
+    @Column(name = "documentary_style")
     private Boolean documentaryStyle;
 
     /** Is this record about a fantasy story? */
-    @Column(name = "genre_fantastique")
+    @Column(name = "fantasy_style")
     private Boolean fantasyStyle;
 
     /** Is this record about a war story? */
-    @Column(name = "genre_guerre")
+    @Column(name = "war_style")
     private Boolean warStyle;
 
     /** Is this record about a true story? */
-    @Column(name = "genre_histoire_vraie")
+    @Column(name = "true_story_style")
     private Boolean trueStoryStyle;
 
     /** Is this record about a story with a historical background? */
-    @Column(name = "genre_historique")
+    @Column(name = "historical_style")
     private Boolean historicalStyle;
 
     /** Is this record about a funny story? */
-    @Column(name = "genre_humour")
+    @Column(name = "humor_style")
     private Boolean humorStyle;
 
     /** Is this record about a detective story? */
-    @Column(name = "genre_policier")
+    @Column(name = "detective_style")
     private Boolean detectiveStyle;
 
     /** Is this record about a romantic story? */
-    @Column(name = "genre_romantique")
+    @Column(name = "romantic_style")
     private Boolean romanticStyle;
 
     /** Is this record about a science-fiction story? */
-    @Column(name = "genre_sf")
+    @Column(name = "sf_style")
     private Boolean sfStyle;
 
     /**
      * User who registered this record.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "createur", updatable = false)
+    @JoinColumn(name = "creator", updatable = false)
     private User creator;
 
     /**
@@ -136,13 +136,13 @@ public abstract class Record {
      * Last user who modified this record.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dernier_editeur")
+    @JoinColumn(name = "last_modifier")
     private User lastModifier;
 
     /**
      * Last modification date of this record.
      */
-    @Column(name = "derniere_edition")
+    @Column(name = "last_modification")
     private Date lastModification;
 
     /**

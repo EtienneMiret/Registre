@@ -39,12 +39,12 @@ public class Session {
      * Key used to identify the session. Stored in a browser cookie.
      */
     @Id
-    @Column(name = "clef")
+    @Column(name = "key")
     private String key;
 
     /** User who created this session. */
     @ManyToOne
-    @JoinColumn(name = "utilisateur")
+    @JoinColumn(name = "user")
     private User user;
 
     /**

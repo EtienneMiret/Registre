@@ -63,21 +63,21 @@ public class Movie extends Record {
 
     /** This movie’s director. */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "realisateur")
+    @JoinColumn(name = "director")
     private Director director;
 
     /** The actors who played in this movie. */
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
 	name = "plays_in",
-	joinColumns = @JoinColumn(name = "film"),
-	inverseJoinColumns = @JoinColumn(name = "acteur")
+	joinColumns = @JoinColumn(name = "movie"),
+	inverseJoinColumns = @JoinColumn(name = "actor")
     )
     private Set<Actor> actors;
 
     /** This movie’s soundtrack composer. */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "compositeur")
+    @JoinColumn(name = "composer")
     private Composer composer;
 
     /**

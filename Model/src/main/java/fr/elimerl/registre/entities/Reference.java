@@ -59,17 +59,17 @@ public class Reference {
 
     /** The referenced {@link Word}. */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mot")
+    @JoinColumn(name = "word")
     private Word word;
 
     /** The {@link Field} where the referenced word is. */
     @Enumerated(EnumType.STRING)
-    @Column(name = "champ")
+    @Column(name = "field")
     private Field field;
 
     /** The {@link Record} where the referenced word is. */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fiche")
+    @JoinColumn(name = "record")
     private Record record;
 
     /**

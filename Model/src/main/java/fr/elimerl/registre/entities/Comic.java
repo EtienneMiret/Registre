@@ -20,20 +20,20 @@ public class Comic extends Record {
      * Cartoonist of this comic.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dessinateur")
+    @JoinColumn(name = "cartoonist")
     private Cartoonist cartoonist;
 
     /**
      * Script writer of this comic.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "scenariste")
+    @JoinColumn(name = "script_writer")
     private ScriptWriter scriptWriter;
 
     /**
      * Number of this comic within its series.
      */
-    @Column(name = "numero")
+    @Column(name = "number")
     private Integer number;
 
     /**

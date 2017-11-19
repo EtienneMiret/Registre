@@ -21,7 +21,7 @@ public class Word {
     private Long id;
 
     /** This word as a {@link String}. */
-    @Column(name = "mot")
+    @Column(name = "word")
     private String value;
 
     /**

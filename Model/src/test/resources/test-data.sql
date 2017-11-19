@@ -1,10 +1,10 @@
-insert into users (id, nom, email) values (
+insert into users (id, name, email) values (
 	(default, 'Etienne',  'etienne@email'),
 	(default, 'Grégoire', 'gregoire@email'),
 	(default, 'Claire',   'claire@email')
 );
 
-insert into actors (id, nom) values (
+insert into actors (id, name) values (
 	(default, 'Will Smith'),
 	(default, 'Eva Mendes'),
 	(default, 'George Clooney'),
@@ -16,7 +16,7 @@ insert into actors (id, nom) values (
 	(default, 'Colin Morgan')
 );
 
-insert into authors (id, nom) values (
+insert into authors (id, name) values (
 	(default, 'Tom Clancy'),
 	(default, 'Isaac Asimov'),
 	(default, 'John Grisham'),
@@ -24,19 +24,19 @@ insert into authors (id, nom) values (
 	(default, 'Noick Kyme')
 );
 
-insert into composers (id, nom) values (
+insert into composers (id, name) values (
 	(default, 'Howard Shore'),
 	(default, 'Hans Zimmer'),
 	(default, 'Lisa Gerrard')
 );
 
-insert into cartoonists (id, nom) values (
+insert into cartoonists (id, name) values (
 	(default, 'Jigounov'),
 	(default, 'Alain Henriet'),
 	(default, 'Morris')
 );
 
-insert into locations (id, nom) values (
+insert into locations (id, name) values (
 	(default, 'Verneuil'),
 	(default, 'La Roche sur Yon'),
 	(default, 'Lyon'),
@@ -44,25 +44,25 @@ insert into locations (id, nom) values (
 	(default, 'Poissy')
 );
 
-insert into owners (id, nom) values (
+insert into owners (id, name) values (
 	(default, 'Etienne'),
 	(default, 'Grégoire'),
 	(default, 'Claire')
 );
 
-insert into directors (id, nom) values (
+insert into directors (id, name) values (
 	(default, 'Steven Spielberg'),
 	(default, 'George Lucas'),
 	(default, 'Luc Besson')
 );
 
-insert into script_writers (id, nom) values (
+insert into script_writers (id, name) values (
 	(default, 'Jean Van Hamme'),
 	(default, 'Renard'),
 	(default, 'René Goscinny')
 );
 
-insert into series (id, nom) values (
+insert into series (id, name) values (
 	(default, 'Boule et Bill'),
 	(default, 'Merlin'),
 	(default, 'Warhammer 40,000'),
@@ -70,9 +70,8 @@ insert into series (id, nom) values (
 	(default, 'Luky Luke')
 );
 
-insert into records (id, titre, dtype, serie, commentaire, image, proprietaire,
-		emplacement, createur, creation, dernier_editeur,
-		derniere_edition) values (
+insert into records (id, title, dtype, series, comment, picture, owner,
+		location, creator, creation, last_modifier, last_modification) values (
 	(default, 'Globe-trotters', 'Comic', 0, null, null, 2,
 		0, 0, '2012-12-25 22:18:30', 1, '2013-02-16 22:19:58'),
 	(default, 'Merlin, Saison 1', 'Movie', 1, 'Une super série !', null, 0,
@@ -95,38 +94,38 @@ insert into records (id, titre, dtype, serie, commentaire, image, proprietaire,
 		1, 0, '2014-08-11 21:42:00', 0, '2014-08-11 21:42:00')
 );
 
-insert into movies (id, support, realisateur, compositeur) values (
+insert into movies (id, support, director, composer) values (
 	(1, 'BRD', null, 0),
 	(3, 'DVD', 2, null),
 	(9, 'K7', null, 1)
 );
 
-insert into comics (id, dessinateur, scenariste, numero) values (
+insert into comics (id, cartoonist, script_writer, number) values (
 	(0, 0, 1, 12),
 	(6, 2, 2, 10),
 	(7, 2, 2, 26),
 	(8, 2, 2, 29)
 );
 
-insert into books (id, auteur) values (
+insert into books (id, author) values (
 	(2, 0),
 	(4, 3),
 	(5, 4)
 );
 
-insert into plays_in (acteur, film) values (
+insert into plays_in (actor, movie) values (
 	(0, 1),
 	(3, 1),
 	(4, 3)
 );
 
-insert into dictionary (id, mot) values (
+insert into dictionary (id, word) values (
 	(default, 'une'),
 	(default, 'super'),
 	(default, 'série')
 );
 
-insert into index_ (id, mot, champ, fiche) values (
+insert into index_ (id, word, field, record) values (
 	(default, 0, 'COMMENT', 1),
 	(default, 1, 'COMMENT', 1),
 	(default, 2, 'COMMENT', 1)

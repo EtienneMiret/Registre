@@ -33,7 +33,7 @@ public class User {
     /**
      * Name of this user.
      */
-    @Column(name = "nom")
+    @Column(name = "name")
     private String name;
 
     /**

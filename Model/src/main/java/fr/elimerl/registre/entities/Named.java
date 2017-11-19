@@ -27,7 +27,7 @@ public abstract class Named {
     private Long id;
 
     /** This object’s name. */
-    @Column(name = "nom")
+    @Column(name = "name")
     private String name;
 
     /**

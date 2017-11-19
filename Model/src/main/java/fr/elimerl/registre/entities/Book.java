@@ -17,7 +17,7 @@ public class Book extends Record {
 
     /** This book’s author. */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auteur")
+    @JoinColumn(name = "author")
     private Author author;
 
     /**
