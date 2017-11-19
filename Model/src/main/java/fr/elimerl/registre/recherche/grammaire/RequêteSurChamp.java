@@ -51,10 +51,10 @@ public final class RequêteSurChamp extends Expression {
 	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Predicate résultat;
 	if (champ == Champ.TITRE) {
-	    résultat = prédicatPourRéférence(Référence.Champ.TITRE,
+	    résultat = prédicatPourRéférence(Reference.Field.TITLE,
 		    constructeur, requête, fiche);
 	} else if (champ == Champ.COMMENTAIRE) {
-	    résultat = prédicatPourRéférence(Référence.Champ.COMMENTAIRE,
+	    résultat = prédicatPourRéférence(Reference.Field.COMMENT,
 		    constructeur, requête, fiche);
 	} else if (champ == Champ.ACTEUR) {
 	    résultat = prédicatPourActeur(constructeur, requête, fiche);
@@ -79,19 +79,19 @@ public final class RequêteSurChamp extends Expression {
      *           une fiche contient les mot clés {@link #motsClés} dans son
      *           champ {@link #champ}.
      */
-    private Predicate prédicatPourRéférence(final Référence.Champ champ,
+    private Predicate prédicatPourRéférence(final Reference.Field champ,
 	    final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	final Subquery<Long> sousRequête = requête.subquery(Long.class);
-	final Root<Référence> référence = sousRequête.from(Référence.class);
-	final Path<String> mot = référence.get("mot").get("value");
-	sousRequête.select(référence.<Record>get("fiche").get("id"));
+	final Root<Reference> référence = sousRequête.from(Reference.class);
+	final Path<String> mot = référence.get("word").get("value");
+	sousRequête.select(référence.<Record>get("record").get("id"));
 	for (int i = 0; i < motsClés.size(); i++) {
 	    prédicats[i] = constructeur.equal(mot, motsClés.get(i).getValeur());
 	}
 	sousRequête.where(constructeur.and(constructeur.and(prédicats),
-		constructeur.equal(référence.get("champ"), champ)));
+		constructeur.equal(référence.get("field"), champ)));
 	return constructeur.in(fiche.get("id")).value(sousRequête);
     }
 

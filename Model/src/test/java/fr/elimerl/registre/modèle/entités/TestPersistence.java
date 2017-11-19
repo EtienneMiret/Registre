@@ -35,7 +35,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.entities.Movie.Support;
-import fr.elimerl.registre.entities.Référence.Champ;
+import fr.elimerl.registre.entities.Reference.Field;
 
 /**
  * Dans ce test JUnit, on vérifie le mapping Hibernate, le schéma de la base
@@ -495,23 +495,23 @@ public class TestPersistence {
 	logger.info("Test d’enregistrement d’une référence.");
 
 	final String titre = "Titre";
-	final Champ champ = Champ.TITRE;
+	final Field champ = Field.TITLE;
 	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
 	Record fiche = new Movie(titre, créateur, BRD);
 	fiche = em.merge(fiche);
 	Word mot = new Word(MOT);
 	mot = em.merge(mot);
-	Référence référence = new Référence(mot, champ, fiche);
+	Reference référence = new Reference(mot, champ, fiche);
 	assertNull(référence.getId());
 
 	référence = em.merge(référence);
 	em.flush();
 
 	assertNotNull(référence.getId());
-	assertEquals(mot, référence.getMot());
-	assertEquals(champ, référence.getChamp());
-	assertEquals(fiche, référence.getFiche());
+	assertEquals(mot, référence.getWord());
+	assertEquals(champ, référence.getField());
+	assertEquals(fiche, référence.getRecord());
     }
 
     /**
@@ -684,7 +684,7 @@ public class TestPersistence {
 	logger.info("Test de l’enregistrement de deux références identiques.");
 
 	final String titre = "Titre";
-	final Champ champ = Champ.TITRE;
+	final Field champ = Reference.Field.TITLE;
 	Utilisateur créateur = new Utilisateur(UTILISATEUR, EMAIL);
 	créateur = em.merge(créateur);
 	Record fiche = new Movie(titre, créateur, BRD);
@@ -692,8 +692,8 @@ public class TestPersistence {
 	Word mot = new Word(MOT);
 	mot = em.merge(mot);
 
-	em.merge(new Référence(mot, champ, fiche));
-	em.merge(new Référence(mot, champ, fiche));
+	em.merge(new Reference(mot, champ, fiche));
+	em.merge(new Reference(mot, champ, fiche));
 	em.flush();
     }
 
@@ -1175,31 +1175,31 @@ public class TestPersistence {
     @Test
     public void chargerRéférences() {
 	logger.info("Chargement des références de test-data.sql.");
-	final Iterator<Référence> références = charger(Référence.class, "id");
+	final Iterator<Reference> références = charger(Reference.class, "id");
 	logger.debug("Références chargées.");
 
 	{
-	    final Référence référence = références.next();
+	    final Reference référence = références.next();
 	    assertEquals(ZÉRO, référence.getId().intValue());
-	    assertEquals("une", référence.getMot().getValue());
-	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
-	    assertEquals(UN, référence.getFiche().getId().intValue());
+	    assertEquals("une", référence.getWord().getValue());
+	    assertEquals(Field.COMMENT, référence.getField());
+	    assertEquals(UN, référence.getRecord().getId().intValue());
 	}
 
 	{
-	    final Référence référence = références.next();
+	    final Reference référence = références.next();
 	    assertEquals(UN, référence.getId().intValue());
-	    assertEquals("super", référence.getMot().getValue());
-	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
-	    assertEquals(UN, référence.getFiche().getId().intValue());
+	    assertEquals("super", référence.getWord().getValue());
+	    assertEquals(Field.COMMENT, référence.getField());
+	    assertEquals(UN, référence.getRecord().getId().intValue());
 	}
 
 	{
-	    final Référence référence = références.next();
+	    final Reference référence = références.next();
 	    assertEquals(DEUX, référence.getId().intValue());
-	    assertEquals("série", référence.getMot().getValue());
-	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
-	    assertEquals(UN, référence.getFiche().getId().intValue());
+	    assertEquals("série", référence.getWord().getValue());
+	    assertEquals(Field.COMMENT, référence.getField());
+	    assertEquals(UN, référence.getRecord().getId().intValue());
 	}
 
 	assertFalse(références.hasNext());
@@ -1207,7 +1207,7 @@ public class TestPersistence {
 
     /**
      * Teste la désindexation d’une fiche via la requête nommée
-     * « désindexerFiche » définie dans la classe {@link Référence}.
+     * « désindexerFiche » définie dans la classe {@link Reference}.
      */
     @Test
     public void désindexerFiches() {
@@ -1215,14 +1215,14 @@ public class TestPersistence {
 
 	/* Désindexation de la fiche 0, qui n’a pas de références. */
 	final Record fiche0 = em.getReference(Record.class, Long.valueOf(ZÉRO));
-	final Query désindexerFiche0 = em.createNamedQuery("désindexerFiche");
-	désindexerFiche0.setParameter("fiche", fiche0);
+	final Query désindexerFiche0 = em.createNamedQuery("unindexRecord");
+	désindexerFiche0.setParameter("record", fiche0);
 	assertEquals(ZÉRO, désindexerFiche0.executeUpdate());
 
 	/* Désindexation de la fiche 1, qui a trois références. */
 	final Record fiche1 = em.getReference(Record.class, Long.valueOf(UN));
-	final Query désindexerFiche1 = em.createNamedQuery("désindexerFiche");
-	désindexerFiche1.setParameter("fiche", fiche1);
+	final Query désindexerFiche1 = em.createNamedQuery("unindexRecord");
+	désindexerFiche1.setParameter("record", fiche1);
 	assertEquals(TROIS, désindexerFiche1.executeUpdate());
     }
 

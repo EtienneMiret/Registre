@@ -1,8 +1,8 @@
 package fr.elimerl.registre.services;
 
-import static fr.elimerl.registre.entities.Référence.Champ.AUTRE;
-import static fr.elimerl.registre.entities.Référence.Champ.COMMENTAIRE;
-import static fr.elimerl.registre.entities.Référence.Champ.TITRE;
+import static fr.elimerl.registre.entities.Reference.Field.OTHER;
+import static fr.elimerl.registre.entities.Reference.Field.COMMENT;
+import static fr.elimerl.registre.entities.Reference.Field.TITLE;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import fr.elimerl.registre.entities.Record;
-import fr.elimerl.registre.entities.Référence;
+import fr.elimerl.registre.entities.Reference;
 import fr.elimerl.registre.recherche.signes.MotClé;
 
 /**
@@ -42,18 +42,18 @@ public class Indexeur {
      *            la fiche à indexer.
      */
     public void réindexer(final Record fiche) {
-	final Query désindexer = em.createNamedQuery("désindexerFiche");
-	désindexer.setParameter("fiche", fiche);
+	final Query désindexer = em.createNamedQuery("unindexRecord");
+	désindexer.setParameter("record", fiche);
 	désindexer.executeUpdate();
 	if (fiche.getTitle() != null) {
 	    for (final String mot : découperEnMots(fiche.getTitle())) {
-		em.persist(new Référence(ge.fournirMot(mot), TITRE, fiche));
+		em.persist(new Reference(ge.fournirMot(mot), TITLE, fiche));
 	    }
 	}
 	if (fiche.getComment() != null) {
 	    for (final String mot : découperEnMots(fiche.getComment())) {
-		em.persist(new Référence(ge.fournirMot(mot),
-			COMMENTAIRE, fiche));
+		em.persist(new Reference(ge.fournirMot(mot),
+				COMMENT, fiche));
 	    }
 	}
 	final Set<String> mots = new HashSet<String>();
@@ -61,7 +61,7 @@ public class Indexeur {
 	    mots.addAll(découperEnMots(chaîne));
 	}
 	for (final String mot : mots) {
-	    em.persist(new Référence(ge.fournirMot(mot), AUTRE, fiche));
+	    em.persist(new Reference(ge.fournirMot(mot), OTHER, fiche));
 	}
     }
 

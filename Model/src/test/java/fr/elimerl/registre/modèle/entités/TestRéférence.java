@@ -10,10 +10,10 @@ import org.junit.Test;
 
 import fr.elimerl.registre.entities.Word;
 import fr.elimerl.registre.entities.Movie.Support;
-import fr.elimerl.registre.entities.Référence.Champ;
+import fr.elimerl.registre.entities.Reference.Field;
 
 /**
- * Test JUnit pour la classe {@link Référence}.
+ * Test JUnit pour la classe {@link Reference}.
  */
 public class TestRéférence {
 
@@ -22,23 +22,23 @@ public class TestRéférence {
      */
     public void test() {
 	final Word mot = new Word("Demain");
-	final Champ champ = Champ.TITRE;
+	final Field champ = Field.TITLE;
 	final Record fiche = new Movie("Demain ne meurt jamais",
 		new Utilisateur("Etienne", "etienne@email"), Support.DVD);
-	final Référence référence = new Référence(mot, champ, fiche);
-	assertEquals(mot, référence.getMot());
-	assertEquals(champ, référence.getChamp());
-	assertEquals(fiche, référence.getFiche());
+	final Reference référence = new Reference(mot, champ, fiche);
+	assertEquals(mot, référence.getWord());
+	assertEquals(champ, référence.getField());
+	assertEquals(fiche, référence.getRecord());
     }
 
     /**
-     * Teste les méthodes {@link Référence#equals(Object) equals(Object)} et
-     * {@link Référence#hashCode() hashCode()}.
+     * Teste les méthodes {@link Reference#equals(Object) equals(Object)} et
+     * {@link Reference#hashCode() hashCode()}.
      */
     @Test
     public void equalsEtHashCode() {
-	final EqualsVerifier<Référence> equalsVerifier =
-		EqualsVerifier.forClass(Référence.class);
+	final EqualsVerifier<Reference> equalsVerifier =
+		EqualsVerifier.forClass(Reference.class);
 	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
 	equalsVerifier.verify();
     }

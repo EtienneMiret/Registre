@@ -127,7 +127,7 @@ insert into dictionaire (id, mot) values (
 );
 
 insert into index_ (id, mot, champ, fiche) values (
-	(default, 0, 'COMMENTAIRE', 1),
-	(default, 1, 'COMMENTAIRE', 1),
-	(default, 2, 'COMMENTAIRE', 1)
+	(default, 0, 'COMMENT', 1),
+	(default, 1, 'COMMENT', 1),
+	(default, 2, 'COMMENT', 1)
 );

@@ -1,8 +1,8 @@
 package fr.elimerl.registre.modèle.services;
 
-import static fr.elimerl.registre.entities.Référence.Champ.AUTRE;
-import static fr.elimerl.registre.entities.Référence.Champ.COMMENTAIRE;
-import static fr.elimerl.registre.entities.Référence.Champ.TITRE;
+import static fr.elimerl.registre.entities.Reference.Field.OTHER;
+import static fr.elimerl.registre.entities.Reference.Field.COMMENT;
+import static fr.elimerl.registre.entities.Reference.Field.TITLE;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
@@ -23,8 +23,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.entities.Référence;
-import fr.elimerl.registre.entities.Référence.Champ;
+import fr.elimerl.registre.entities.Reference;
+import fr.elimerl.registre.entities.Reference.Field;
 import fr.elimerl.registre.services.GestionnaireEntités;
 import fr.elimerl.registre.services.Indexeur;
 
@@ -66,22 +66,22 @@ public class TestIndexeur {
 	final EntityManager em = gestionnaire.getGestionnaireNatif();
 	final Record bouleEtBill = em.find(Record.class, ZÉRO);
 
-	final Set<Référence> référencesAttendues = new HashSet<Référence>();
-	référencesAttendues.add(créerRéférence("bd", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("bande", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("déssinée", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("globe", TITRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("trotters", TITRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("boule", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("et", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("bill", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("claire", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("verneuil", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("etienne", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("grégoire", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("jigounov", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("renard", AUTRE, bouleEtBill));
-	référencesAttendues.add(créerRéférence("12", AUTRE, bouleEtBill));
+	final Set<Reference> référencesAttendues = new HashSet<Reference>();
+	référencesAttendues.add(créerRéférence("bd", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("bande", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("déssinée", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("globe", TITLE, bouleEtBill));
+	référencesAttendues.add(créerRéférence("trotters", TITLE, bouleEtBill));
+	référencesAttendues.add(créerRéférence("boule", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("et", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("bill", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("claire", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("verneuil", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("etienne", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("grégoire", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("jigounov", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("renard", OTHER, bouleEtBill));
+	référencesAttendues.add(créerRéférence("12", OTHER, bouleEtBill));
 
 	indexeur.réindexer(bouleEtBill);
 	assertEquals(référencesAttendues, chargerRéférences(bouleEtBill));
@@ -96,26 +96,26 @@ public class TestIndexeur {
 	final EntityManager em = gestionnaire.getGestionnaireNatif();
 	final Record merlin = em.find(Record.class, UN);
 
-	final Set<Référence> référencesAttendues = new HashSet<Référence>();
-	référencesAttendues.add(créerRéférence("film", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("merlin", TITRE, merlin));
-	référencesAttendues.add(créerRéférence("saison", TITRE, merlin));
-	référencesAttendues.add(créerRéférence("1", TITRE, merlin));
-	référencesAttendues.add(créerRéférence("merlin", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("une", COMMENTAIRE, merlin));
-	référencesAttendues.add(créerRéférence("super", COMMENTAIRE, merlin));
-	référencesAttendues.add(créerRéférence("série", COMMENTAIRE, merlin));
-	référencesAttendues.add(créerRéférence("etienne", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("verneuil", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("claire", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("blu", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("ray", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("howard", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("shore", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("will", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("smith", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("emma", AUTRE, merlin));
-	référencesAttendues.add(créerRéférence("watson", AUTRE, merlin));
+	final Set<Reference> référencesAttendues = new HashSet<Reference>();
+	référencesAttendues.add(créerRéférence("film", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("merlin", TITLE, merlin));
+	référencesAttendues.add(créerRéférence("saison", TITLE, merlin));
+	référencesAttendues.add(créerRéférence("1", TITLE, merlin));
+	référencesAttendues.add(créerRéférence("merlin", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("une", COMMENT, merlin));
+	référencesAttendues.add(créerRéférence("super", COMMENT, merlin));
+	référencesAttendues.add(créerRéférence("série", COMMENT, merlin));
+	référencesAttendues.add(créerRéférence("etienne", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("verneuil", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("claire", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("blu", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("ray", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("howard", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("shore", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("will", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("smith", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("emma", OTHER, merlin));
+	référencesAttendues.add(créerRéférence("watson", OTHER, merlin));
 
 	indexeur.réindexer(merlin);
 	assertEquals(référencesAttendues, chargerRéférences(merlin));
@@ -130,14 +130,14 @@ public class TestIndexeur {
 	final EntityManager em = gestionnaire.getGestionnaireNatif();
 	final Record rainbowSix = em.find(Record.class, DEUX);
 
-	final Set<Référence> référencesAttendues = new HashSet<Référence>();
-	référencesAttendues.add(créerRéférence("livre", AUTRE, rainbowSix));
-	référencesAttendues.add(créerRéférence("rainbow", TITRE, rainbowSix));
-	référencesAttendues.add(créerRéférence("six", TITRE, rainbowSix));
-	référencesAttendues.add(créerRéférence("etienne", AUTRE, rainbowSix));
-	référencesAttendues.add(créerRéférence("verneuil", AUTRE, rainbowSix));
-	référencesAttendues.add(créerRéférence("tom", AUTRE, rainbowSix));
-	référencesAttendues.add(créerRéférence("clancy", AUTRE, rainbowSix));
+	final Set<Reference> référencesAttendues = new HashSet<Reference>();
+	référencesAttendues.add(créerRéférence("livre", OTHER, rainbowSix));
+	référencesAttendues.add(créerRéférence("rainbow", TITLE, rainbowSix));
+	référencesAttendues.add(créerRéférence("six", TITLE, rainbowSix));
+	référencesAttendues.add(créerRéférence("etienne", OTHER, rainbowSix));
+	référencesAttendues.add(créerRéférence("verneuil", OTHER, rainbowSix));
+	référencesAttendues.add(créerRéférence("tom", OTHER, rainbowSix));
+	référencesAttendues.add(créerRéférence("clancy", OTHER, rainbowSix));
 
 	indexeur.réindexer(rainbowSix);
 	assertEquals(référencesAttendues, chargerRéférences(rainbowSix));
@@ -150,15 +150,15 @@ public class TestIndexeur {
      *            la fiche dont on veut les références.
      * @return l’ensemble des référence de la fiche donnée.
      */
-    private Set<Référence> chargerRéférences(final Record fiche) {
+    private Set<Reference> chargerRéférences(final Record fiche) {
 	final EntityManager em = gestionnaire.getGestionnaireNatif();
 	final CriteriaBuilder constructeur = em.getCriteriaBuilder();
-	final CriteriaQuery<Référence> requête =
-		constructeur.createQuery(Référence.class);
-	final Root<Référence> racine = requête.from(Référence.class);
-	requête.where(constructeur.equal(racine.get("fiche"), fiche));
-	final List<Référence> liste = em.createQuery(requête).getResultList();
-	return new HashSet<Référence>(liste);
+	final CriteriaQuery<Reference> requête =
+		constructeur.createQuery(Reference.class);
+	final Root<Reference> racine = requête.from(Reference.class);
+	requête.where(constructeur.equal(racine.get("record"), fiche));
+	final List<Reference> liste = em.createQuery(requête).getResultList();
+	return new HashSet<Reference>(liste);
     }
 
     /**
@@ -174,9 +174,9 @@ public class TestIndexeur {
      * @return une nouvelle référence indiquant la présence du mot donné dans le
      *         champ donné de la fiche donnée.
      */
-    private Référence créerRéférence(final String mot, final Champ champ,
+    private Reference créerRéférence(final String mot, final Field champ,
 	    final Record fiche) {
-	return new Référence(gestionnaire.fournirMot(mot), champ, fiche);
+	return new Reference(gestionnaire.fournirMot(mot), champ, fiche);
     }
 
 }

@@ -95,7 +95,7 @@ public class TestCréerPrédicat {
 
     /**
      * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#TITRE TITRE}.
+     * CriteriaQuery, Root)} sur le champ {@link Champ#TITRE TITLE}.
      */
     @Test
     public void testRequêteSurChampTitre() {
@@ -109,7 +109,7 @@ public class TestCréerPrédicat {
 
     /**
      * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#COMMENTAIRE COMMENTAIRE}.
+     * CriteriaQuery, Root)} sur le champ {@link Champ#COMMENTAIRE COMMENT}.
      */
     @Test
     public void testRequêteSurChampCommentaire() {

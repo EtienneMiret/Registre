@@ -7,7 +7,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.entities.Record;
-import fr.elimerl.registre.entities.Référence;
+import fr.elimerl.registre.entities.Reference;
 import fr.elimerl.registre.recherche.signes.MotClé;
 
 /**
@@ -32,9 +32,9 @@ public final class MotCléSimple extends Expression {
     public Predicate créerPrédicat(final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Subquery<Long> sousRequête = requête.subquery(Long.class);
-	final Root<Référence> référence = sousRequête.from(Référence.class);
-	sousRequête.select(référence.<Record>get("fiche").get("id"));
-	sousRequête.where(constructeur.equal(référence.get("mot").get("value"),
+	final Root<Reference> référence = sousRequête.from(Reference.class);
+	sousRequête.select(référence.<Record>get("record").get("id"));
+	sousRequête.where(constructeur.equal(référence.get("word").get("value"),
 		motClé.getValeur()));
 	return constructeur.in(fiche.get("id")).value(sousRequête);
     }
