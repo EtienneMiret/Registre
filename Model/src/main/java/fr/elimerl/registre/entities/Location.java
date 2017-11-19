@@ -7,7 +7,7 @@ import javax.persistence.Table;
  * A location where are kept some records. Eg “Etienne’s bedroom”.
  */
 @Entity
-@Table(name = "emplacements")
+@Table(name = "locations")
 public class Location extends Named {
 
     /**

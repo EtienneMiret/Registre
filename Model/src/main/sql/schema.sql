@@ -1,43 +1,43 @@
--- Schéma de la base de données de Registre, en HSQL.
+-- Registre’s database schema, in HSQL.
 
 set database collation fr_FR;
 
-create table acteurs (
+create table actors (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null
 );
 
-create table auteurs (
+create table authors (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null
 );
 
-create table compositeurs (
+create table composers (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null
 );
 
-create table dessinateurs (
+create table cartoonists (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null
 );
 
-create table emplacements (
+create table locations (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null
 );
 
-create table proprietaires (
+create table owners (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null
 );
 
-create table realisateurs (
+create table directors (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null
 );
 
-create table scenaristes (
+create table script_writers (
 	id bigint generated always as identity primary key,
 	nom varchar(200) unique not null
 );
@@ -47,21 +47,21 @@ create table series (
 	nom varchar(200) unique not null
 );
 
-create table utilisateurs (
+create table users (
 	id bigint generated always as identity primary key,
 	nom varchar(100) unique not null,
 	email varchar(100) unique not null
 );
 
-create table fiches (
+create table records (
 	id bigint generated always as identity primary key,
 	titre varchar(200) not null,
 	dtype varchar(20) not null,
 	serie bigint references series (id),
 	commentaire clob,
 	image char(36),
-	proprietaire bigint references proprietaires (id),
-	emplacement bigint references emplacements (id),
+	proprietaire bigint references owners (id),
+	emplacement bigint references locations (id),
 	genre_action boolean,
 	genre_documentaire boolean,
 	genre_fantastique boolean,
@@ -72,52 +72,52 @@ create table fiches (
 	genre_policier boolean,
 	genre_romantique boolean,
 	genre_sf boolean,
-	createur bigint references utilisateurs (id) not null,
+	createur bigint references users (id) not null,
 	creation datetime not null,
-	dernier_editeur bigint references utilisateurs (id) not null,
+	dernier_editeur bigint references users (id) not null,
 	derniere_edition datetime not null
 );
 
-create table films (
-	id bigint primary key references fiches (id),
+create table movies (
+	id bigint primary key references records (id),
 	support varchar(3),
-	realisateur bigint references realisateurs (id),
-	compositeur bigint references compositeurs (id)
+	realisateur bigint references directors (id),
+	compositeur bigint references composers (id)
 );
 
-create table bandes_dessinees (
-	id bigint primary key references fiches (id),
-	dessinateur bigint references dessinateurs (id),
-	scenariste bigint references scenaristes (id),
+create table comics (
+	id bigint primary key references records (id),
+	dessinateur bigint references cartoonists (id),
+	scenariste bigint references script_writers (id),
 	numero int
 );
 
-create table livres (
-	id bigint primary key references fiches(id),
-	auteur bigint references auteurs(id)
+create table books (
+	id bigint primary key references records (id),
+	auteur bigint references authors(id)
 );
 
-create table joue_dans (
-	acteur bigint not null references acteurs (id),
-	film bigint not null references films (id),
+create table plays_in (
+	acteur bigint not null references actors (id),
+	film bigint not null references movies (id),
 	primary key (film, acteur)
 );
 
 create table sessions (
 	clef char(20) primary key,
-	utilisateur bigint references utilisateurs (id),
+	utilisateur bigint references users (id),
 	expiration datetime
 );
 
-create table dictionaire (
+create table dictionary (
 	id bigint generated always as identity primary key,
 	mot varchar(50) unique not null
 );
 
 create table index_ (
 	id bigint generated always as identity primary key,
-	mot bigint not null references dictionaire (id),
+	mot bigint not null references dictionary (id),
 	champ varchar(20) not null,
-	fiche bigint not null references fiches (id),
+	fiche bigint not null references records (id),
 	unique (mot, champ, fiche)
 );

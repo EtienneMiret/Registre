@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * An application’s user.
  */
 @Entity
-@Table(name = "utilisateurs")
+@Table(name = "users")
 public class User {
 
     /**

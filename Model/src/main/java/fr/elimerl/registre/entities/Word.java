@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * Word indexed by the application’s search engine.
  */
 @Entity
-@Table(name = "dictionaire")
+@Table(name = "dictionary")
 public class Word {
 
     /** Id of this word in the database. */

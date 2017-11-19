@@ -19,7 +19,7 @@ import javax.persistence.Table;
  * Record kind for movies.
  */
 @Entity
-@Table(name = "films")
+@Table(name = "movies")
 public class Movie extends Record {
 
     /**
@@ -69,7 +69,7 @@ public class Movie extends Record {
     /** The actors who played in this movie. */
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-	name = "joue_dans",
+	name = "plays_in",
 	joinColumns = @JoinColumn(name = "film"),
 	inverseJoinColumns = @JoinColumn(name = "acteur")
     )

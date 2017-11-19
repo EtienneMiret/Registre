@@ -7,7 +7,7 @@ import javax.persistence.Table;
  * A movie soundtrack composer.
  */
 @Entity
-@Table(name = "compositeurs")
+@Table(name = "composers")
 public class Composer extends Named {
 
     /**

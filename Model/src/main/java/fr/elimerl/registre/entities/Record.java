@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * A records model an object registered in the application, eg a movie.
  */
 @Entity
-@Table(name = "fiches")
+@Table(name = "records")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
 public abstract class Record {

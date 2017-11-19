@@ -7,7 +7,7 @@ import javax.persistence.Table;
  * A comic’s cartoonist.
  */
 @Entity
-@Table(name = "dessinateurs")
+@Table(name = "cartoonists")
 public class Cartoonist extends Named {
 
     /**

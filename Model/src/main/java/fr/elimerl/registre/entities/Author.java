@@ -7,7 +7,7 @@ import javax.persistence.Table;
  * A book author.
  */
 @Entity
-@Table(name = "auteurs")
+@Table(name = "authors")
 public class Author extends Named {
 
     /**

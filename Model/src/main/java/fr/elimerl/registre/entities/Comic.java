@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * Record kind for comics.
  */
 @Entity
-@Table(name = "bandes_dessinees")
+@Table(name = "comics")
 public class Comic extends Record {
 
     /**

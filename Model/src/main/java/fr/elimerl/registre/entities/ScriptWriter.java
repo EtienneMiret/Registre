@@ -7,7 +7,7 @@ import javax.persistence.Table;
  * A comic’s script writer.
  */
 @Entity
-@Table(name = "scenaristes")
+@Table(name = "script_writers")
 public class ScriptWriter extends Named {
 
     /**

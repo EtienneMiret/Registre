@@ -7,7 +7,7 @@ import javax.persistence.Table;
  * A movie director.
  */
 @Entity
-@Table(name = "realisateurs")
+@Table(name = "directors")
 public class Director extends Named {
 
     /**

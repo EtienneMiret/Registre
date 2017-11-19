@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * Record kind for books.
  */
 @Entity
-@Table(name = "livres")
+@Table(name = "books")
 public class Book extends Record {
 
     /** This book’s author. */

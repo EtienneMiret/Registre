@@ -7,7 +7,7 @@ import javax.persistence.Table;
  * An owner of a registered item. Owners usually are users, but not necessarily.
  */
 @Entity
-@Table(name = "proprietaires")
+@Table(name = "owners")
 public class Owner extends Named {
 
     /**
