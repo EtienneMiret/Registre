@@ -74,9 +74,9 @@ public class ParseurDeRecherches {
 		    i = comparateur.end();
 		}
 	    }
-	    final Iterator<Opérateur> opérateurs = Opérateur.tous().iterator();
+	    final Iterator<Operator> opérateurs = Operator.all().iterator();
 	    while (signe == null && opérateurs.hasNext()) {
-		final Opérateur opérateur = opérateurs.next();
+		final Operator opérateur = opérateurs.next();
 		final Matcher comparateur =
 			opérateur.getMotif().matcher(requête);
 		if (comparateur.find(i)) {
@@ -126,7 +126,7 @@ public class ParseurDeRecherches {
 	if (!signes.isEmpty() && signes.peek() != Parenthèse.FERMANTE) {
 	    try {
 		expressions.add(analyserExpression(signes));
-		conjonction = signes.peek() != Opérateur.OU;
+		conjonction = signes.peek() != Operator.OR;
 		if (!conjonction) {
 		    signes.poll(); // Il faut consommer l’opérateur.
 		}
@@ -149,7 +149,7 @@ public class ParseurDeRecherches {
 			&& !signes.isEmpty()
 			&& signes.peek() != Parenthèse.FERMANTE) {
 		    final Signe signeSuivant = signes.poll();
-		    if (signeSuivant != Opérateur.OU) {
+		    if (signeSuivant != Operator.OR) {
 			journal.warn("Grammaire de la requête incorrecte,"
 				+ " « ou » attendu, {} trouvé.", signeSuivant);
 			signes.clear(); // Force l’arrêt de l’analyse.

@@ -88,9 +88,9 @@ public class TestAnalyseLexicale {
     @Test
     public void analyserCaractèresBizarres() {
 	final Queue<Signe> résultat = parseur.analyserLexicalement(
-		"+ = ou: / \t\n ( %ù §§ À \"bonjour\" ++--) **");
+		"+ = or: / \t\n ( %ù §§ À \"bonjour\" ++--) **");
 	assertEquals(SIX, résultat.size());
-	assertEquals(Opérateur.OU, résultat.poll());
+	assertEquals(Operator.OR, résultat.poll());
 	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
 	assertEquals(new Keyword("ù"), résultat.poll());
 	assertEquals(new Keyword("à"), résultat.poll());
@@ -104,14 +104,14 @@ public class TestAnalyseLexicale {
     @Test
     public void analyserVraieRequête() {
 	final Queue<Signe> résultat = parseur.analyserLexicalement(
-		"title:(Bonjour Madame) OU coucou");
+		"title:(Bonjour Madame) OR coucou");
 	assertEquals(SEPT, résultat.size());
 	assertEquals(Field.TITLE, résultat.poll());
 	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
 	assertEquals(new Keyword("bonjour"), résultat.poll());
 	assertEquals(new Keyword("madame"), résultat.poll());
 	assertEquals(Parenthèse.FERMANTE, résultat.poll());
-	assertEquals(Opérateur.OU, résultat.poll());
+	assertEquals(Operator.OR, résultat.poll());
 	assertEquals(new Keyword("coucou"), résultat.poll());
     }
 
