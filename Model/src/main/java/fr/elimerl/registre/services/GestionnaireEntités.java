@@ -60,12 +60,12 @@ public class GestionnaireEntités {
      * de donnée s’il existe déjà, le crée sinon.
      *
      * @param valeur
-     *            la {@link Mot#valeur valeur} du mot.
+     *            la {@link Word#value valeur} du mot.
      * @return le mot demandé.
      */
-    public Mot fournirMot(final String valeur) {
-	final Mot enBase = chercher(Mot.class, "valeur", valeur);
-	return (enBase == null ? em.merge(new Mot(valeur)) : enBase);
+    public Word fournirMot(final String valeur) {
+	final Word enBase = chercher(Word.class, "value", valeur);
+	return (enBase == null ? em.merge(new Word(valeur)) : enBase);
     }
 
     /**

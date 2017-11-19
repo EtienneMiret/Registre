@@ -16,13 +16,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.Word;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.entities.Mot;
 import fr.elimerl.registre.entities.Référence;
 import fr.elimerl.registre.entities.Référence.Champ;
 import fr.elimerl.registre.services.GestionnaireEntités;
@@ -163,7 +163,7 @@ public class TestIndexeur {
 
     /**
      * Crée une nouvelle référence avec les paramètres donnés. Le mot donné (de
-     * type {@link String}) est converti en {@link Mot}.
+     * type {@link String}) est converti en {@link Word}.
      *
      * @param mot
      *            le mot à référencer.

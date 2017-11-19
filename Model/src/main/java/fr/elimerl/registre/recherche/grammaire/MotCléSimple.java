@@ -34,7 +34,7 @@ public final class MotCléSimple extends Expression {
 	final Subquery<Long> sousRequête = requête.subquery(Long.class);
 	final Root<Référence> référence = sousRequête.from(Référence.class);
 	sousRequête.select(référence.<Record>get("fiche").get("id"));
-	sousRequête.where(constructeur.equal(référence.get("mot").get("valeur"),
+	sousRequête.where(constructeur.equal(référence.get("mot").get("value"),
 		motClé.getValeur()));
 	return constructeur.in(fiche.get("id")).value(sousRequête);
     }

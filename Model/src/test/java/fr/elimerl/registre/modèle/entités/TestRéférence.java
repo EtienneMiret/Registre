@@ -1,16 +1,14 @@
 package fr.elimerl.registre.modèle.entités;
 
 import static org.junit.Assert.assertEquals;
+
+import fr.elimerl.registre.entities.*;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.entities.Record;
-import fr.elimerl.registre.entities.Movie;
-import fr.elimerl.registre.entities.Mot;
-import fr.elimerl.registre.entities.Référence;
-import fr.elimerl.registre.entities.Utilisateur;
+import fr.elimerl.registre.entities.Word;
 import fr.elimerl.registre.entities.Movie.Support;
 import fr.elimerl.registre.entities.Référence.Champ;
 
@@ -23,7 +21,7 @@ public class TestRéférence {
      * Teste le constructeur et les getteurs.
      */
     public void test() {
-	final Mot mot = new Mot("Demain");
+	final Word mot = new Word("Demain");
 	final Champ champ = Champ.TITRE;
 	final Record fiche = new Movie("Demain ne meurt jamais",
 		new Utilisateur("Etienne", "etienne@email"), Support.DVD);

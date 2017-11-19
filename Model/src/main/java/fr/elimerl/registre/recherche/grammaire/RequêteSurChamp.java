@@ -85,7 +85,7 @@ public final class RequêteSurChamp extends Expression {
 	final Predicate[] prédicats = new Predicate[motsClés.size()];
 	final Subquery<Long> sousRequête = requête.subquery(Long.class);
 	final Root<Référence> référence = sousRequête.from(Référence.class);
-	final Path<String> mot = référence.get("mot").get("valeur");
+	final Path<String> mot = référence.get("mot").get("value");
 	sousRequête.select(référence.<Record>get("fiche").get("id"));
 	for (int i = 0; i < motsClés.size(); i++) {
 	    prédicats[i] = constructeur.equal(mot, motsClés.get(i).getValeur());

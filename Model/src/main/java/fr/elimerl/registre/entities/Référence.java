@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 /**
  * Une {@code Référence} est une entrée dans l’index de l’application. Elle
- * associe un {@link Mot} à une {@link Record}, en précisant dans quel
+ * associe un {@link Word} à une {@link Record}, en précisant dans quel
  * {@link Champ} de la fiche il se trouve.
  */
 @Entity
@@ -58,10 +58,10 @@ public class Référence {
     @Column(name = "id")
     private Long id;
 
-    /** Le {@code Mot} référencé. */
+    /** Le {@code Word} référencé. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mot")
-    private Mot mot;
+    private Word mot;
 
     /** Le {@code Champ} dans lequel se trouve le mot référencé. */
     @Enumerated(EnumType.STRING)
@@ -89,7 +89,7 @@ public class Référence {
      * @param fiche
      *            la fiche dans laquelle se trouve le mot référencé.
      */
-    public Référence(final Mot mot, final Champ champ, final Record fiche) {
+    public Référence(final Word mot, final Champ champ, final Record fiche) {
 	this.mot = mot;
 	this.champ = champ;
 	this.fiche = fiche;
@@ -109,7 +109,7 @@ public class Référence {
      *
      * @return le mot référencé.
      */
-    public Mot getMot() {
+    public Word getMot() {
 	return mot;
     }
 

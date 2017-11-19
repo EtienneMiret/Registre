@@ -43,27 +43,27 @@ public class TestGestionnaireEntités {
 	logger.info("Recherche de mots.");
 
 	final String chaîneUne = "une";
-	final Mot une = gestionnaire.fournirMot(chaîneUne);
+	final Word une = gestionnaire.fournirMot(chaîneUne);
 	assertNotNull(une);
 	assertNotNull(une.getId());
-	assertEquals(chaîneUne, une.getValeur());
+	assertEquals(chaîneUne, une.getValue());
 
 	final String chaîneSuper = "super";
-	final Mot super_ = gestionnaire.fournirMot(chaîneSuper);
+	final Word super_ = gestionnaire.fournirMot(chaîneSuper);
 	assertNotNull(super_);
 	assertNotNull(super_.getId());
-	assertEquals(chaîneSuper, super_.getValeur());
+	assertEquals(chaîneSuper, super_.getValue());
 
 	final String chaîneSérie = "série";
-	final Mot série = gestionnaire.fournirMot(chaîneSérie);
+	final Word série = gestionnaire.fournirMot(chaîneSérie);
 	assertNotNull(série);
 	assertNotNull(série.getId());
-	assertEquals(chaîneSérie, série.getValeur());
+	assertEquals(chaîneSérie, série.getValue());
 
 	final String chaîneBonjour = "bonjour";
-	final Mot bonjour = gestionnaire.fournirMot(chaîneBonjour);
+	final Word bonjour = gestionnaire.fournirMot(chaîneBonjour);
 	assertNotNull(bonjour);
-	assertEquals(chaîneBonjour, bonjour.getValeur());
+	assertEquals(chaîneBonjour, bonjour.getValue());
 
 	assertSame(une, gestionnaire.fournirMot(chaîneUne));
 	assertSame(super_, gestionnaire.fournirMot(chaîneSuper));

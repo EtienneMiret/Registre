@@ -479,12 +479,12 @@ public class TestPersistence {
     @Test
     public void enregistrementMot() {
 	logger.info("Test d’enregistrement d’un mot.");
-	Mot mot = new Mot(MOT);
+	Word mot = new Word(MOT);
 	assertNull(mot.getId());
 	mot = em.merge(mot);
 	em.flush();
 	assertNotNull(mot.getId());
-	assertEquals(MOT, mot.getValeur());
+	assertEquals(MOT, mot.getValue());
     }
 
     /**
@@ -500,7 +500,7 @@ public class TestPersistence {
 	créateur = em.merge(créateur);
 	Record fiche = new Movie(titre, créateur, BRD);
 	fiche = em.merge(fiche);
-	Mot mot = new Mot(MOT);
+	Word mot = new Word(MOT);
 	mot = em.merge(mot);
 	Référence référence = new Référence(mot, champ, fiche);
 	assertNull(référence.getId());
@@ -670,8 +670,8 @@ public class TestPersistence {
     @Test(expected = PersistenceException.class)
     public void deuxMotsIdentiques() {
 	logger.info("Test de l’enregistrement de deux mots identiques.");
-	em.merge(new Mot(MOT));
-	em.merge(new Mot(MOT));
+	em.merge(new Word(MOT));
+	em.merge(new Word(MOT));
 	em.flush();
     }
 
@@ -689,7 +689,7 @@ public class TestPersistence {
 	créateur = em.merge(créateur);
 	Record fiche = new Movie(titre, créateur, BRD);
 	fiche = em.merge(fiche);
-	Mot mot = new Mot(MOT);
+	Word mot = new Word(MOT);
 	mot = em.merge(mot);
 
 	em.merge(new Référence(mot, champ, fiche));
@@ -1151,19 +1151,19 @@ public class TestPersistence {
     @Test
     public void chargerMots() {
 	logger.info("Chargement des mots de test-data.sql.");
-	final Iterator<Mot> mots = charger(Mot.class, "valeur");
+	final Iterator<Word> mots = charger(Word.class, "value");
 
-	final Mot série = mots.next();
+	final Word série = mots.next();
 	assertEquals(DEUX, série.getId().intValue());
-	assertEquals("série", série.getValeur());
+	assertEquals("série", série.getValue());
 
-	final Mot _super = mots.next();
+	final Word _super = mots.next();
 	assertEquals(UN, _super.getId().intValue());
-	assertEquals("super", _super.getValeur());
+	assertEquals("super", _super.getValue());
 
-	final Mot une = mots.next();
+	final Word une = mots.next();
 	assertEquals(ZÉRO, une.getId().intValue());
-	assertEquals("une", une.getValeur());
+	assertEquals("une", une.getValue());
 
 	assertFalse(mots.hasNext());
     }
@@ -1181,7 +1181,7 @@ public class TestPersistence {
 	{
 	    final Référence référence = références.next();
 	    assertEquals(ZÉRO, référence.getId().intValue());
-	    assertEquals("une", référence.getMot().getValeur());
+	    assertEquals("une", référence.getMot().getValue());
 	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
 	    assertEquals(UN, référence.getFiche().getId().intValue());
 	}
@@ -1189,7 +1189,7 @@ public class TestPersistence {
 	{
 	    final Référence référence = références.next();
 	    assertEquals(UN, référence.getId().intValue());
-	    assertEquals("super", référence.getMot().getValeur());
+	    assertEquals("super", référence.getMot().getValue());
 	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
 	    assertEquals(UN, référence.getFiche().getId().intValue());
 	}
@@ -1197,7 +1197,7 @@ public class TestPersistence {
 	{
 	    final Référence référence = références.next();
 	    assertEquals(DEUX, référence.getId().intValue());
-	    assertEquals("série", référence.getMot().getValeur());
+	    assertEquals("série", référence.getMot().getValue());
 	    assertEquals(Champ.COMMENTAIRE, référence.getChamp());
 	    assertEquals(UN, référence.getFiche().getId().intValue());
 	}

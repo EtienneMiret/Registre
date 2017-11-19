@@ -2,15 +2,15 @@ package fr.elimerl.registre.modèle.entités;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import fr.elimerl.registre.entities.Word;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.entities.Mot;
-
 /**
- * Test JUnit pour la classe {@link Mot}.
+ * Test JUnit pour la classe {@link Word}.
  */
 public class TestMot {
 
@@ -22,19 +22,19 @@ public class TestMot {
      */
     @Test
     public void test() {
-	final Mot mot = new Mot(MOT);
+	final Word mot = new Word(MOT);
 	assertNull(mot.getId());
-	assertEquals(MOT, mot.getValeur());
+	assertEquals(MOT, mot.getValue());
     }
 
     /**
-     * Teste les méthodes {@link Mot#equals(Object) equals(Object)} et
-     * {@link Mot#hashCode() hashCode()}.
+     * Teste les méthodes {@link Word#equals(Object) equals(Object)} et
+     * {@link Word#hashCode() hashCode()}.
      */
     @Test
     public void equalsEtHashCode() {
-	final EqualsVerifier<Mot> equalsVerifier =
-		EqualsVerifier.forClass(Mot.class);
+	final EqualsVerifier<Word> equalsVerifier =
+		EqualsVerifier.forClass(Word.class);
 	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
 	equalsVerifier.verify();
     }
