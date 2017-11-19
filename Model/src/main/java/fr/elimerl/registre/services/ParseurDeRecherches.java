@@ -11,16 +11,16 @@ import java.util.regex.Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.recherche.grammaire.Expression;
-import fr.elimerl.registre.recherche.grammaire.MotCléSimple;
-import fr.elimerl.registre.recherche.grammaire.Requête;
-import fr.elimerl.registre.recherche.grammaire.RequêteEntreParenthèse;
-import fr.elimerl.registre.recherche.grammaire.RequêteSurChamp;
-import fr.elimerl.registre.recherche.signes.Champ;
-import fr.elimerl.registre.recherche.signes.MotClé;
-import fr.elimerl.registre.recherche.signes.Opérateur;
-import fr.elimerl.registre.recherche.signes.Parenthèse;
-import fr.elimerl.registre.recherche.signes.Signe;
+import fr.elimerl.registre.search.grammaire.Expression;
+import fr.elimerl.registre.search.grammaire.MotCléSimple;
+import fr.elimerl.registre.search.grammaire.Requête;
+import fr.elimerl.registre.search.grammaire.RequêteEntreParenthèse;
+import fr.elimerl.registre.search.grammaire.RequêteSurChamp;
+import fr.elimerl.registre.search.signes.Champ;
+import fr.elimerl.registre.search.signes.MotClé;
+import fr.elimerl.registre.search.signes.Opérateur;
+import fr.elimerl.registre.search.signes.Parenthèse;
+import fr.elimerl.registre.search.signes.Signe;
 
 /**
  * Classe singleton chargée de parser les recherches des utilisateurs.

@@ -1,4 +1,4 @@
-package fr.elimerl.registre.recherche.signes;
+package fr.elimerl.registre.search.signes;
 
 /**
  * Ce signe est une parenthèse ouvrante ou fermante. Il n’y a donc que deux

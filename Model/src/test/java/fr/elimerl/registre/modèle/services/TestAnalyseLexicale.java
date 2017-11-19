@@ -7,11 +7,11 @@ import java.util.Queue;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.elimerl.registre.recherche.signes.Champ;
-import fr.elimerl.registre.recherche.signes.MotClé;
-import fr.elimerl.registre.recherche.signes.Opérateur;
-import fr.elimerl.registre.recherche.signes.Parenthèse;
-import fr.elimerl.registre.recherche.signes.Signe;
+import fr.elimerl.registre.search.signes.Champ;
+import fr.elimerl.registre.search.signes.MotClé;
+import fr.elimerl.registre.search.signes.Opérateur;
+import fr.elimerl.registre.search.signes.Parenthèse;
+import fr.elimerl.registre.search.signes.Signe;
 import fr.elimerl.registre.services.ParseurDeRecherches;
 
 /**

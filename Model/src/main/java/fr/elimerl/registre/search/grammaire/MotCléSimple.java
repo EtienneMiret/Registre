@@ -1,4 +1,4 @@
-package fr.elimerl.registre.recherche.grammaire;
+package fr.elimerl.registre.search.grammaire;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -8,7 +8,7 @@ import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Reference;
-import fr.elimerl.registre.recherche.signes.MotClé;
+import fr.elimerl.registre.search.signes.MotClé;
 
 /**
  * Type d’expression du langage de recherche contenant seulement un mot-clé.

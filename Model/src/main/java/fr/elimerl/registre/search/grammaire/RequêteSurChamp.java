@@ -1,4 +1,4 @@
-package fr.elimerl.registre.recherche.grammaire;
+package fr.elimerl.registre.search.grammaire;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -14,8 +14,8 @@ import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.entities.*;
 import fr.elimerl.registre.entities.Actor;
-import fr.elimerl.registre.recherche.signes.Champ;
-import fr.elimerl.registre.recherche.signes.MotClé;
+import fr.elimerl.registre.search.signes.Champ;
+import fr.elimerl.registre.search.signes.MotClé;
 
 /**
  * Type d’expression du langage de recherche qui représente une requête sur un

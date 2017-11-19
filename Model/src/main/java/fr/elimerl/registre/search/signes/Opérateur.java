@@ -1,4 +1,4 @@
-package fr.elimerl.registre.recherche.signes;
+package fr.elimerl.registre.search.signes;
 
 import java.util.ArrayList;
 import java.util.List;

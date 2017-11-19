@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Reference;
-import fr.elimerl.registre.recherche.signes.MotClé;
+import fr.elimerl.registre.search.signes.MotClé;
 
 /**
  * Service charger d’indexer les fiches.

@@ -7,8 +7,8 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.recherche.grammaire.MotCléSimple;
-import fr.elimerl.registre.recherche.signes.MotClé;
+import fr.elimerl.registre.search.grammaire.MotCléSimple;
+import fr.elimerl.registre.search.signes.MotClé;
 
 /**
  * Cas de test JUnit pour la classe {@link MotCléSimple}.
