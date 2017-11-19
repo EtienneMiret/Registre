@@ -13,27 +13,28 @@ import fr.elimerl.registre.entities.Movie.Support;
 import fr.elimerl.registre.entities.Reference.Field;
 
 /**
- * Test JUnit pour la classe {@link Reference}.
+ * JUnit test for the {@link Reference} class.
  */
-public class TestRéférence {
+public class ReferenceTest {
 
     /**
-     * Teste le constructeur et les getteurs.
+     * Test constructor and getters.
      */
+    @Test
     public void test() {
-	final Word mot = new Word("Demain");
-	final Field champ = Field.TITLE;
-	final Record fiche = new Movie("Demain ne meurt jamais",
+	final Word word = new Word("Demain");
+	final Field field = Field.TITLE;
+	final Record record = new Movie("Demain ne meurt jamais",
 		new User("Etienne", "etienne@email"), Support.DVD);
-	final Reference référence = new Reference(mot, champ, fiche);
-	assertEquals(mot, référence.getWord());
-	assertEquals(champ, référence.getField());
-	assertEquals(fiche, référence.getRecord());
+	final Reference reference = new Reference(word, field, record);
+	assertEquals(word, reference.getWord());
+	assertEquals(field, reference.getField());
+	assertEquals(record, reference.getRecord());
     }
 
     /**
-     * Teste les méthodes {@link Reference#equals(Object) equals(Object)} et
-     * {@link Reference#hashCode() hashCode()}.
+     * Test the {@link Reference#equals(Object)} and
+     * {@link Reference#hashCode()} methods.
      */
     @Test
     public void equalsEtHashCode() {
