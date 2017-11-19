@@ -1,4 +1,4 @@
-package fr.elimerl.registre.model.search.signes;
+package fr.elimerl.registre.model.search.tokens;
 
 import fr.elimerl.registre.search.tokens.Keyword;
 import nl.jqno.equalsverifier.EqualsVerifier;
