@@ -1,4 +1,4 @@
 /**
- * Paquet qui regroupe tous les singletons fournissant un service.
+ * This package groups singleton services.
  */
 package fr.elimerl.registre.services;
