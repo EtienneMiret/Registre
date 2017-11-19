@@ -16,10 +16,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.elimerl.registre.entities.Author;
-import fr.elimerl.registre.services.GestionnaireEntités;
+import fr.elimerl.registre.services.RegistreEntityManager;
 
 /**
- * Classe de teste pour le {@link GestionnaireEntités}.
+ * Classe de teste pour le {@link RegistreEntityManager}.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
@@ -32,107 +32,107 @@ public class TestGestionnaireEntités {
 
     /** Le gestionnaire d’entités testé, fournit par Spring. */
     @Resource(name = "gestionnaireEntités")
-    private GestionnaireEntités gestionnaire;
+    private RegistreEntityManager gestionnaire;
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirMot(String)
-     * fournirMot(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplyWord(String)
+     * supplyWord(String)}.
      */
     @Test
     public void fournirMot() {
 	logger.info("Recherche de mots.");
 
 	final String chaîneUne = "une";
-	final Word une = gestionnaire.fournirMot(chaîneUne);
+	final Word une = gestionnaire.supplyWord(chaîneUne);
 	assertNotNull(une);
 	assertNotNull(une.getId());
 	assertEquals(chaîneUne, une.getValue());
 
 	final String chaîneSuper = "super";
-	final Word super_ = gestionnaire.fournirMot(chaîneSuper);
+	final Word super_ = gestionnaire.supplyWord(chaîneSuper);
 	assertNotNull(super_);
 	assertNotNull(super_.getId());
 	assertEquals(chaîneSuper, super_.getValue());
 
 	final String chaîneSérie = "série";
-	final Word série = gestionnaire.fournirMot(chaîneSérie);
+	final Word série = gestionnaire.supplyWord(chaîneSérie);
 	assertNotNull(série);
 	assertNotNull(série.getId());
 	assertEquals(chaîneSérie, série.getValue());
 
 	final String chaîneBonjour = "bonjour";
-	final Word bonjour = gestionnaire.fournirMot(chaîneBonjour);
+	final Word bonjour = gestionnaire.supplyWord(chaîneBonjour);
 	assertNotNull(bonjour);
 	assertEquals(chaîneBonjour, bonjour.getValue());
 
-	assertSame(une, gestionnaire.fournirMot(chaîneUne));
-	assertSame(super_, gestionnaire.fournirMot(chaîneSuper));
-	assertSame(série, gestionnaire.fournirMot(chaîneSérie));
-	assertSame(bonjour, gestionnaire.fournirMot(chaîneBonjour));
+	assertSame(une, gestionnaire.supplyWord(chaîneUne));
+	assertSame(super_, gestionnaire.supplyWord(chaîneSuper));
+	assertSame(série, gestionnaire.supplyWord(chaîneSérie));
+	assertSame(bonjour, gestionnaire.supplyWord(chaîneBonjour));
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirActeur(String)
-     * fournirActeur(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplyActor(String)
+     * supplyActor(String)}.
      */
     @Test
     public void fournirActeur() {
 	logger.info("Recherche d’acteurs.");
 
 	final String nomEvaMendes = "Eva Mendes";
-	final Actor evaMendes = gestionnaire.fournirActeur(nomEvaMendes);
+	final Actor evaMendes = gestionnaire.supplyActor(nomEvaMendes);
 	assertNotNull(evaMendes);
 	assertNotNull(evaMendes.getId());
 	assertEquals(nomEvaMendes, evaMendes.getName());
 
 	final String nomWillSmith = "Will Smith";
-	final Actor willSmith = gestionnaire.fournirActeur(nomWillSmith);
+	final Actor willSmith = gestionnaire.supplyActor(nomWillSmith);
 	assertNotNull(willSmith);
 	assertNotNull(willSmith.getId());
 	assertEquals(nomWillSmith, willSmith.getName());
 
 	final String nomFunès = "Louis de Funès";
-	final Actor funès = gestionnaire.fournirActeur(nomFunès);
+	final Actor funès = gestionnaire.supplyActor(nomFunès);
 	assertNotNull(funès);
 	assertEquals(nomFunès, funès.getName());
 
-	assertSame(evaMendes, gestionnaire.fournirActeur(nomEvaMendes));
-	assertSame(willSmith, gestionnaire.fournirActeur(nomWillSmith));
-	assertSame(funès, gestionnaire.fournirActeur(nomFunès));
+	assertSame(evaMendes, gestionnaire.supplyActor(nomEvaMendes));
+	assertSame(willSmith, gestionnaire.supplyActor(nomWillSmith));
+	assertSame(funès, gestionnaire.supplyActor(nomFunès));
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirAuteur(String)
-     * fournirAuteur(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplyAuthor(String)
+     * supplyAuthor(String)}.
      */
     @Test
     public void fournirAuteur() {
 	logger.info("Recherche d’auteurs.");
 
 	final String nomHerbert = "Frank Hebert";
-	final Author herbert = gestionnaire.fournirAuteur(nomHerbert);
+	final Author herbert = gestionnaire.supplyAuthor(nomHerbert);
 	assertNotNull(herbert);
 	assertEquals(nomHerbert, herbert.getName());
 
 	final String nomAsimov = "Isaac Asimov";
-	final Author asimov = gestionnaire.fournirAuteur(nomAsimov);
+	final Author asimov = gestionnaire.supplyAuthor(nomAsimov);
 	assertNotNull(asimov);
 	assertNotNull(asimov.getId());
 	assertEquals(nomAsimov, asimov.getName());
 
 	final String nomTolkien = "J.R.R. Tolkien";
-	final Author tolkien = gestionnaire.fournirAuteur(nomTolkien);
+	final Author tolkien = gestionnaire.supplyAuthor(nomTolkien);
 	assertNotNull(tolkien);
 	assertEquals(nomTolkien, tolkien.getName());
 
-	assertSame(herbert, gestionnaire.fournirAuteur(nomHerbert));
-	assertSame(asimov, gestionnaire.fournirAuteur(nomAsimov));
-	assertSame(tolkien, gestionnaire.fournirAuteur(nomTolkien));
+	assertSame(herbert, gestionnaire.supplyAuthor(nomHerbert));
+	assertSame(asimov, gestionnaire.supplyAuthor(nomAsimov));
+	assertSame(tolkien, gestionnaire.supplyAuthor(nomTolkien));
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirCompositeur(String)
-     * fournirCompositeur(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplyComposer(String)
+     * supplyComposer(String)}.
      */
     @Test
     public void fournirCompositeurs() {
@@ -140,34 +140,34 @@ public class TestGestionnaireEntités {
 
 	final String nomHowardShore = "Howard Shore";
 	final Composer howardShore =
-		gestionnaire.fournirCompositeur(nomHowardShore);
+		gestionnaire.supplyComposer(nomHowardShore);
 	assertNotNull(howardShore);
 	assertNotNull(howardShore.getId());
 	assertEquals(nomHowardShore, howardShore.getName());
 
 	final String nomHansZimmer = "Hans Zimmer";
 	final Composer hansZimmer =
-		gestionnaire.fournirCompositeur(nomHansZimmer);
+		gestionnaire.supplyComposer(nomHansZimmer);
 	assertNotNull(hansZimmer);
 	assertNotNull(hansZimmer.getId());
 	assertEquals(nomHansZimmer, hansZimmer.getName());
 
 	final String nomJohnWilliams = "John Williams";
 	final Composer johnWilliams =
-		gestionnaire.fournirCompositeur(nomJohnWilliams);
+		gestionnaire.supplyComposer(nomJohnWilliams);
 	assertNotNull(johnWilliams);
 	assertEquals(nomJohnWilliams, johnWilliams.getName());
 
 	assertSame(howardShore,
-		gestionnaire.fournirCompositeur(nomHowardShore));
-	assertSame(hansZimmer, gestionnaire.fournirCompositeur(nomHansZimmer));
+		gestionnaire.supplyComposer(nomHowardShore));
+	assertSame(hansZimmer, gestionnaire.supplyComposer(nomHansZimmer));
 	assertSame(johnWilliams,
-		gestionnaire.fournirCompositeur(nomJohnWilliams));
+		gestionnaire.supplyComposer(nomJohnWilliams));
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirDessinateur(String)
-     * fournirDessinateur(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplyCartoonist(String)
+     * supplyCartoonist(String)}.
      */
     @Test
     public void fournirDessinateur() {
@@ -175,25 +175,25 @@ public class TestGestionnaireEntités {
 
 	final String nomPhilippeBuchet = "Philippe Buchet";
 	final Cartoonist philippeBuchet =
-		gestionnaire.fournirDessinateur(nomPhilippeBuchet);
+		gestionnaire.supplyCartoonist(nomPhilippeBuchet);
 	assertNotNull(philippeBuchet);
 	assertEquals(nomPhilippeBuchet, philippeBuchet.getName());
 
 	final String nomJigounov = "Jigounov";
 	final Cartoonist jigounov =
-		gestionnaire.fournirDessinateur(nomJigounov);
+		gestionnaire.supplyCartoonist(nomJigounov);
 	assertNotNull(jigounov);
 	assertNotNull(jigounov.getId());
 	assertEquals(nomJigounov, jigounov.getName());
 
 	assertSame(philippeBuchet,
-		gestionnaire.fournirDessinateur(nomPhilippeBuchet));
-	assertSame(jigounov, gestionnaire.fournirDessinateur(nomJigounov));
+		gestionnaire.supplyCartoonist(nomPhilippeBuchet));
+	assertSame(jigounov, gestionnaire.supplyCartoonist(nomJigounov));
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirEmplacement(String)
-     * fournirEmplacement(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplyLocation(String)
+     * supplyLocation(String)}.
      */
     @Test
     public void fournirEmplacement() {
@@ -201,62 +201,62 @@ public class TestGestionnaireEntités {
 
 	final String nomVerneuil = "Verneuil";
 	final Location verneuil =
-		gestionnaire.fournirEmplacement(nomVerneuil);
+		gestionnaire.supplyLocation(nomVerneuil);
 	assertNotNull(verneuil);
 	assertNotNull(verneuil.getId());
 	assertEquals(nomVerneuil, verneuil.getName());
 
 	final String nomMarcigny = "Marcigny";
 	final Location marcigny =
-		gestionnaire.fournirEmplacement(nomMarcigny);
+		gestionnaire.supplyLocation(nomMarcigny);
 	assertNotNull(marcigny);
 	assertEquals(nomMarcigny, marcigny.getName());
 
 	final String nomLyon = "Lyon";
-	final Location lyon = gestionnaire.fournirEmplacement(nomLyon);
+	final Location lyon = gestionnaire.supplyLocation(nomLyon);
 	assertNotNull(lyon);
 	assertNotNull(lyon.getId());
 	assertEquals(nomLyon, lyon.getName());
 
-	assertSame(verneuil, gestionnaire.fournirEmplacement(nomVerneuil));
-	assertSame(marcigny, gestionnaire.fournirEmplacement(nomMarcigny));
-	assertSame(lyon, gestionnaire.fournirEmplacement(nomLyon));
+	assertSame(verneuil, gestionnaire.supplyLocation(nomVerneuil));
+	assertSame(marcigny, gestionnaire.supplyLocation(nomMarcigny));
+	assertSame(lyon, gestionnaire.supplyLocation(nomLyon));
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirPropriétaire(String)
-     * fournirPropriétaire(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplyOwner(String)
+     * supplyOwner(String)}.
      */
     @Test
     public void fournirPropriétaire() {
 	logger.info("Recherche de propriétaires.");
 
 	final String nomEloi = "Eloi";
-	final Owner eloi = gestionnaire.fournirPropriétaire(nomEloi);
+	final Owner eloi = gestionnaire.supplyOwner(nomEloi);
 	assertNotNull(eloi);
 	assertEquals(nomEloi, eloi.getName());
 
 	final String nomGrégoire = "Grégoire";
 	final Owner grégoire =
-		gestionnaire.fournirPropriétaire(nomGrégoire);
+		gestionnaire.supplyOwner(nomGrégoire);
 	assertNotNull(grégoire);
 	assertNotNull(grégoire.getId());
 	assertEquals(nomGrégoire, grégoire.getName());
 
 	final String nomQuentin = "Quentin";
 	final Owner quentin =
-		gestionnaire.fournirPropriétaire(nomQuentin);
+		gestionnaire.supplyOwner(nomQuentin);
 	assertNotNull(quentin);
 	assertEquals(nomQuentin, quentin.getName());
 
-	assertSame(eloi, gestionnaire.fournirPropriétaire(nomEloi));
-	assertSame(grégoire, gestionnaire.fournirPropriétaire(nomGrégoire));
-	assertSame(quentin, gestionnaire.fournirPropriétaire(nomQuentin));
+	assertSame(eloi, gestionnaire.supplyOwner(nomEloi));
+	assertSame(grégoire, gestionnaire.supplyOwner(nomGrégoire));
+	assertSame(quentin, gestionnaire.supplyOwner(nomQuentin));
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirRéalisateur(String)
-     * fournirRéalisateur(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplyDirector(String)
+     * supplyDirector(String)}.
      */
     @Test
     public void fournirRéalisateur() {
@@ -264,66 +264,66 @@ public class TestGestionnaireEntités {
 
 	final String nomSpielberg = "Steven Spielberg";
 	final Director spielberg =
-		gestionnaire.fournirRéalisateur(nomSpielberg);
+		gestionnaire.supplyDirector(nomSpielberg);
 	assertNotNull(spielberg);
 	assertNotNull(spielberg.getId());
 	assertEquals(nomSpielberg, spielberg.getName());
 
 	final String nomPeterJackson = "Peter Jackson";
 	final Director peterJackson =
-		gestionnaire.fournirRéalisateur(nomPeterJackson);
+		gestionnaire.supplyDirector(nomPeterJackson);
 	assertNotNull(peterJackson);
 	assertEquals(nomPeterJackson, peterJackson.getName());
 
-	assertSame(spielberg, gestionnaire.fournirRéalisateur(nomSpielberg));
+	assertSame(spielberg, gestionnaire.supplyDirector(nomSpielberg));
 	assertSame(peterJackson,
-		gestionnaire.fournirRéalisateur(nomPeterJackson));
+		gestionnaire.supplyDirector(nomPeterJackson));
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirScénariste(String)
-     * fournirScénariste(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplyScriptWriter(String)
+     * supplyScriptWriter(String)}.
      */
     @Test
     public void fournirScénariste() {
 	logger.info("Recherche de scénaristes.");
 
 	final String nomMorvan = "Jean-David Morvan";
-	final ScriptWriter morvan = gestionnaire.fournirScénariste(nomMorvan);
+	final ScriptWriter morvan = gestionnaire.supplyScriptWriter(nomMorvan);
 	assertNotNull(morvan);
 	assertEquals(nomMorvan, morvan.getName());
 
 	final String nomRenard = "Renard";
-	final ScriptWriter renard = gestionnaire.fournirScénariste(nomRenard);
+	final ScriptWriter renard = gestionnaire.supplyScriptWriter(nomRenard);
 	assertNotNull(renard);
 	assertNotNull(renard.getId());
 	assertEquals(nomRenard, renard.getName());
 
-	assertSame(morvan, gestionnaire.fournirScénariste(nomMorvan));
-	assertSame(renard, gestionnaire.fournirScénariste(nomRenard));
+	assertSame(morvan, gestionnaire.supplyScriptWriter(nomMorvan));
+	assertSame(renard, gestionnaire.supplyScriptWriter(nomRenard));
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#fournirSérie(String)
-     * fournirSérie(String)}.
+     * Teste la méthode {@link RegistreEntityManager#supplySeries(String)
+     * supplySeries(String)}.
      */
     @Test
     public void fournirSérie() {
 	logger.info("Recherche de séries.");
 
 	final String nomMerlin = "Merlin";
-	final Series merlin = gestionnaire.fournirSérie(nomMerlin);
+	final Series merlin = gestionnaire.supplySeries(nomMerlin);
 	assertNotNull(merlin);
 	assertNotNull(merlin.getId());
 	assertEquals(nomMerlin, merlin.getName());
 
 	final String nomNcis = "NCIS";
-	final Series ncis = gestionnaire.fournirSérie(nomNcis);
+	final Series ncis = gestionnaire.supplySeries(nomNcis);
 	assertNotNull(ncis);
 	assertEquals(nomNcis, ncis.getName());
 
-	assertSame(merlin, gestionnaire.fournirSérie(nomMerlin));
-	assertSame(ncis, gestionnaire.fournirSérie(nomNcis));
+	assertSame(merlin, gestionnaire.supplySeries(nomMerlin));
+	assertSame(ncis, gestionnaire.supplySeries(nomNcis));
     }
 
 }

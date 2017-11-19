@@ -32,7 +32,7 @@ public class Indexeur {
      * Le gestionnaire d’entités Registre, fournit par le conteneur.
      */
     @Resource(name = "gestionnaireEntités")
-    private GestionnaireEntités ge;
+    private RegistreEntityManager ge;
 
     /**
      * Refait l’index de la fiche donnée. L’index existant est effacé, puis un
@@ -47,12 +47,12 @@ public class Indexeur {
 	désindexer.executeUpdate();
 	if (fiche.getTitle() != null) {
 	    for (final String mot : découperEnMots(fiche.getTitle())) {
-		em.persist(new Reference(ge.fournirMot(mot), TITLE, fiche));
+		em.persist(new Reference(ge.supplyWord(mot), TITLE, fiche));
 	    }
 	}
 	if (fiche.getComment() != null) {
 	    for (final String mot : découperEnMots(fiche.getComment())) {
-		em.persist(new Reference(ge.fournirMot(mot),
+		em.persist(new Reference(ge.supplyWord(mot),
 				COMMENT, fiche));
 	    }
 	}
@@ -61,7 +61,7 @@ public class Indexeur {
 	    mots.addAll(découperEnMots(chaîne));
 	}
 	for (final String mot : mots) {
-	    em.persist(new Reference(ge.fournirMot(mot), OTHER, fiche));
+	    em.persist(new Reference(ge.supplyWord(mot), OTHER, fiche));
 	}
     }
 

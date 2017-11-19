@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
 
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Movie.Support;
-import fr.elimerl.registre.services.GestionnaireEntités;
+import fr.elimerl.registre.services.RegistreEntityManager;
 import fr.elimerl.registre.services.Indexeur;
 
 /**
@@ -84,7 +84,7 @@ public class MigratorImpl implements Migrator {
      * Registre entity manager. Will be used to create all {@link Named}s.
      */
     @Resource(name = "gestionnaireEntités")
-    private GestionnaireEntités registreEntityManager;
+    private RegistreEntityManager registreEntityManager;
 
     /**
      * Service used to index records.
@@ -194,7 +194,7 @@ public class MigratorImpl implements Migrator {
 	final String styles = result.getString("genres");
 	final Book book = new Book(title, creator);
 	if (author != null && !author.isEmpty()) {
-	    book.setAuthor(registreEntityManager.fournirAuteur(author));
+	    book.setAuthor(registreEntityManager.supplyAuthor(author));
 	}
 	if (styles != null && !styles.isEmpty()) {
 	    book.setFantasyStyle(Boolean.valueOf(styles
@@ -234,12 +234,12 @@ public class MigratorImpl implements Migrator {
 	final Comic comic = new Comic(title, creator);
 	if (cartoonist != null && !cartoonist.isEmpty()) {
 	    comic.setCartoonist(
-	    	registreEntityManager.fournirDessinateur(cartoonist)
+	    	registreEntityManager.supplyCartoonist(cartoonist)
 	    );
 	}
 	if (scriptWriter != null && !scriptWriter.isEmpty()) {
 	    comic.setScriptWriter(
-	    	registreEntityManager.fournirScénariste(scriptWriter)
+	    	registreEntityManager.supplyScriptWriter(scriptWriter)
 	    );
 	}
 	if (number != null) {
@@ -278,19 +278,19 @@ public class MigratorImpl implements Migrator {
 	final Movie movie = new Movie(title, creator, support);
 	if (director != null && !director.isEmpty()) {
 	    movie.setDirector(
-	    	registreEntityManager.fournirRéalisateur(director)
+	    	registreEntityManager.supplyDirector(director)
 	    );
 	}
 	if (composer != null && !composer.isEmpty()) {
 	    movie.setComposer(
-	    	registreEntityManager.fournirCompositeur(composer)
+	    	registreEntityManager.supplyComposer(composer)
 	    );
 	}
 	actorsQuery.setInt(1, id);
 	final ResultSet acteurs = actorsQuery.executeQuery();
 	while (acteurs.next()) {
 	    final String nom = acteurs.getString("acteur");
-	    movie.getActors().add(registreEntityManager.fournirActeur(nom));
+	    movie.getActors().add(registreEntityManager.supplyActor(nom));
 	}
 	acteurs.close();
 	return movie;
@@ -318,15 +318,15 @@ public class MigratorImpl implements Migrator {
 	final Date lastModification =
 		result.getTimestamp("derniere_edition");
 	if (series != null && !series.isEmpty()) {
-	    record.setSeries(registreEntityManager.fournirSérie(series));
+	    record.setSeries(registreEntityManager.supplySeries(series));
 	}
 	if (owner != null && !owner.isEmpty()) {
 	    record.setOwner(registreEntityManager
-		    .fournirPropriétaire(owner));
+		    .supplyOwner(owner));
 	}
 	if (location != null && !location.isEmpty()) {
 	    record.setLocation(
-	    	registreEntityManager.fournirEmplacement(location)
+	    	registreEntityManager.supplyLocation(location)
 	    );
 	}
 	record.setComment(comment);

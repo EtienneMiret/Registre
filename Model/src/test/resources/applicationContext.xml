@@ -14,7 +14,7 @@
   </bean>
 
   <bean id="gestionnaireEntités"
-    class="fr.elimerl.registre.services.GestionnaireEntités"/>
+    class="fr.elimerl.registre.services.RegistreEntityManager"/>
 
   <bean id="indexeur" class="fr.elimerl.registre.services.Indexeur"/>
 

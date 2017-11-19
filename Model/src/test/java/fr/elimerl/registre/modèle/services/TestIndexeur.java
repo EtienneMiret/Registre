@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.elimerl.registre.entities.Reference;
 import fr.elimerl.registre.entities.Reference.Field;
-import fr.elimerl.registre.services.GestionnaireEntités;
+import fr.elimerl.registre.services.RegistreEntityManager;
 import fr.elimerl.registre.services.Indexeur;
 
 /**
@@ -49,7 +49,7 @@ public class TestIndexeur {
      * Gestionnaire d’entités fournit par Spring.
      */
     @Resource(name = "gestionnaireEntités")
-    private GestionnaireEntités gestionnaire;
+    private RegistreEntityManager gestionnaire;
 
     /**
      * Le service d’indexation testé, fournit par Spring.
@@ -58,12 +58,12 @@ public class TestIndexeur {
     private Indexeur indexeur;
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#réindexer(Record)
+     * Teste la méthode {@link RegistreEntityManager#réindexer(Record)
      * réindexer(Record)} sur la fiche 0 (une bande-dessinée de Boule et Bill).
      */
     @Test
     public void réindexerBouleEtBill() {
-	final EntityManager em = gestionnaire.getGestionnaireNatif();
+	final EntityManager em = gestionnaire.getJpaEntityManager();
 	final Record bouleEtBill = em.find(Record.class, ZÉRO);
 
 	final Set<Reference> référencesAttendues = new HashSet<Reference>();
@@ -88,12 +88,12 @@ public class TestIndexeur {
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#réindexer(Record)
+     * Teste la méthode {@link RegistreEntityManager#réindexer(Record)
      * réindexer(Record)} sur la fiche 1 (la saison 1 de la série Merlin).
      */
     @Test
     public void réindexerMerlin() {
-	final EntityManager em = gestionnaire.getGestionnaireNatif();
+	final EntityManager em = gestionnaire.getJpaEntityManager();
 	final Record merlin = em.find(Record.class, UN);
 
 	final Set<Reference> référencesAttendues = new HashSet<Reference>();
@@ -122,12 +122,12 @@ public class TestIndexeur {
     }
 
     /**
-     * Teste la méthode {@link GestionnaireEntités#réindexer(Record)
+     * Teste la méthode {@link RegistreEntityManager#réindexer(Record)
      * réindexer(Record)} sur la fiche 2 (un livre de Tom Clancy).
      */
     @Test
     public void réindexerRainbowSix() {
-	final EntityManager em = gestionnaire.getGestionnaireNatif();
+	final EntityManager em = gestionnaire.getJpaEntityManager();
 	final Record rainbowSix = em.find(Record.class, DEUX);
 
 	final Set<Reference> référencesAttendues = new HashSet<Reference>();
@@ -151,7 +151,7 @@ public class TestIndexeur {
      * @return l’ensemble des référence de la fiche donnée.
      */
     private Set<Reference> chargerRéférences(final Record fiche) {
-	final EntityManager em = gestionnaire.getGestionnaireNatif();
+	final EntityManager em = gestionnaire.getJpaEntityManager();
 	final CriteriaBuilder constructeur = em.getCriteriaBuilder();
 	final CriteriaQuery<Reference> requête =
 		constructeur.createQuery(Reference.class);
@@ -176,7 +176,7 @@ public class TestIndexeur {
      */
     private Reference créerRéférence(final String mot, final Field champ,
 	    final Record fiche) {
-	return new Reference(gestionnaire.fournirMot(mot), champ, fiche);
+	return new Reference(gestionnaire.supplyWord(mot), champ, fiche);
     }
 
 }
