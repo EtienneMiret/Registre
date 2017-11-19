@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.elimerl.registre.search.grammar.BracketedQuery;
-import fr.elimerl.registre.search.grammar.RequêteSurChamp;
+import fr.elimerl.registre.search.grammar.FieldQuery;
 import fr.elimerl.registre.search.signes.Champ;
 import fr.elimerl.registre.search.signes.MotClé;
 import fr.elimerl.registre.search.signes.Opérateur;
@@ -152,8 +152,8 @@ public class TestAnalyseGrammaticale {
 	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
 
 	final SearchQuery attendue = new SearchQuery(false,
-		new RequêteSurChamp(Champ.TITRE, maman),
-		new RequêteSurChamp(Champ.COMMENTAIRE,
+		new FieldQuery(Champ.TITRE, maman),
+		new FieldQuery(Champ.COMMENTAIRE,
 			etienne, grégoire),
 		new BracketedQuery(
 			new SearchQuery(true,

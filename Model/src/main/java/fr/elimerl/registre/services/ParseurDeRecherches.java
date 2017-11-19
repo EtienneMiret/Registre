@@ -215,9 +215,9 @@ public class ParseurDeRecherches {
      *             si la suite de signes ne commence ni par un mot-clé, ni par
      *             une suite de mots-clés entre parenthèse.
      */
-    private static RequêteSurChamp analyserChamp(final Champ champ,
+    private static FieldQuery analyserChamp(final Champ champ,
 	    final Queue<Signe> signes) throws ParseException {
-	final RequêteSurChamp résultat;
+	final FieldQuery résultat;
 	final Signe premierSigne = signes.poll();
 	if (premierSigne == Parenthèse.OUVRANTE) {
 	    final List<MotClé> motsClés = new ArrayList<MotClé>();
@@ -229,10 +229,10 @@ public class ParseurDeRecherches {
 		throw new ParseException("« ) » attendue, « "
 			+ signeSuivant + " » trouvé.", -1);
 	    }
-	    résultat = new RequêteSurChamp(champ,
+	    résultat = new FieldQuery(champ,
 		    motsClés.toArray(MOTS_CLÉS));
 	} else if (premierSigne instanceof MotClé) {
-	    résultat = new RequêteSurChamp(champ, (MotClé) premierSigne);
+	    résultat = new FieldQuery(champ, (MotClé) premierSigne);
 	} else {
 	    throw new ParseException("Mot-clé ou « ( » attendu, « "
 		    + premierSigne + " » trouvé.", -1);

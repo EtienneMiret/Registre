@@ -6,14 +6,14 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.search.grammar.RequêteSurChamp;
+import fr.elimerl.registre.search.grammar.FieldQuery;
 import fr.elimerl.registre.search.signes.Champ;
 import fr.elimerl.registre.search.signes.MotClé;
 
 /**
- * Cas de test JUnit pour la classe {@link RequêteSurChamp}. Seules les méthodes
+ * Cas de test JUnit pour la classe {@link FieldQuery}. Seules les méthodes
  * {@code hashCode()} et {@code equals(Object)} sont testées ici. La méthode
- * principale ({@link RequêteSurChamp#createPredicate(
+ * principale ({@link FieldQuery#createPredicate(
  * javax.persistence.criteria.CriteriaBuilder,
  * javax.persistence.criteria.CriteriaQuery, javax.persistence.criteria.Root)
  * createPredicate(CriteriaBuilder, CriteriaQuery, Root)}) est testée dans
@@ -28,10 +28,10 @@ public class TestRequêteSurChamp {
     @Test
     public void égales() {
 	final MotClé motClé = new MotClé("toto");
-	final RequêteSurChamp requête1 =
-		new RequêteSurChamp(Champ.TITRE, motClé);
-	final RequêteSurChamp requête2 =
-		new RequêteSurChamp(Champ.TITRE, motClé);
+	final FieldQuery requête1 =
+		new FieldQuery(Champ.TITRE, motClé);
+	final FieldQuery requête2 =
+		new FieldQuery(Champ.TITRE, motClé);
 	assertTrue(requête1.equals(requête2));
 	assertTrue(requête2.equals(requête1));
     }
@@ -43,10 +43,10 @@ public class TestRequêteSurChamp {
     @Test
     public void champsDifférents() {
 	final MotClé motClé = new MotClé("toto");
-	final RequêteSurChamp requête1 =
-		new RequêteSurChamp(Champ.TITRE, motClé);
-	final RequêteSurChamp requête2 =
-		new RequêteSurChamp(Champ.AUTEUR, motClé);
+	final FieldQuery requête1 =
+		new FieldQuery(Champ.TITRE, motClé);
+	final FieldQuery requête2 =
+		new FieldQuery(Champ.AUTEUR, motClé);
 	assertFalse(requête1.equals(requête2));
 	assertFalse(requête2.equals(requête1));
     }
@@ -59,10 +59,10 @@ public class TestRequêteSurChamp {
     public void motsClésDifférents() {
 	final MotClé motClé1 = new MotClé("toto");
 	final MotClé motClé2 = new MotClé("tata");
-	final RequêteSurChamp requête1 =
-		new RequêteSurChamp(Champ.TITRE, motClé1);
-	final RequêteSurChamp requête2 =
-		new RequêteSurChamp(Champ.TITRE, motClé2);
+	final FieldQuery requête1 =
+		new FieldQuery(Champ.TITRE, motClé1);
+	final FieldQuery requête2 =
+		new FieldQuery(Champ.TITRE, motClé2);
 	assertFalse(requête1.equals(requête2));
 	assertFalse(requête2.equals(requête1));
     }
@@ -72,7 +72,7 @@ public class TestRequêteSurChamp {
      */
     @Test
     public void contratEqualsEtHashCode() {
-	EqualsVerifier.forClass(RequêteSurChamp.class).verify();
+	EqualsVerifier.forClass(FieldQuery.class).verify();
     }
 
 }
