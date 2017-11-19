@@ -26,10 +26,10 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.elimerl.registre.entities.Reference;
 import fr.elimerl.registre.entities.Reference.Field;
 import fr.elimerl.registre.services.RegistreEntityManager;
-import fr.elimerl.registre.services.Indexeur;
+import fr.elimerl.registre.services.Index;
 
 /**
- * Classe de test pour l’{@link Indexeur}.
+ * Classe de test pour l’{@link Index}.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
@@ -55,11 +55,11 @@ public class TestIndexeur {
      * Le service d’indexation testé, fournit par Spring.
      */
     @Resource(name = "indexeur")
-    private Indexeur indexeur;
+    private Index indexeur;
 
     /**
      * Teste la méthode {@link RegistreEntityManager#réindexer(Record)
-     * réindexer(Record)} sur la fiche 0 (une bande-dessinée de Boule et Bill).
+     * reindex(Record)} sur la fiche 0 (une bande-dessinée de Boule et Bill).
      */
     @Test
     public void réindexerBouleEtBill() {
@@ -83,13 +83,13 @@ public class TestIndexeur {
 	référencesAttendues.add(créerRéférence("renard", OTHER, bouleEtBill));
 	référencesAttendues.add(créerRéférence("12", OTHER, bouleEtBill));
 
-	indexeur.réindexer(bouleEtBill);
+	indexeur.reindex(bouleEtBill);
 	assertEquals(référencesAttendues, chargerRéférences(bouleEtBill));
     }
 
     /**
      * Teste la méthode {@link RegistreEntityManager#réindexer(Record)
-     * réindexer(Record)} sur la fiche 1 (la saison 1 de la série Merlin).
+     * reindex(Record)} sur la fiche 1 (la saison 1 de la série Merlin).
      */
     @Test
     public void réindexerMerlin() {
@@ -117,13 +117,13 @@ public class TestIndexeur {
 	référencesAttendues.add(créerRéférence("emma", OTHER, merlin));
 	référencesAttendues.add(créerRéférence("watson", OTHER, merlin));
 
-	indexeur.réindexer(merlin);
+	indexeur.reindex(merlin);
 	assertEquals(référencesAttendues, chargerRéférences(merlin));
     }
 
     /**
      * Teste la méthode {@link RegistreEntityManager#réindexer(Record)
-     * réindexer(Record)} sur la fiche 2 (un livre de Tom Clancy).
+     * reindex(Record)} sur la fiche 2 (un livre de Tom Clancy).
      */
     @Test
     public void réindexerRainbowSix() {
@@ -139,7 +139,7 @@ public class TestIndexeur {
 	référencesAttendues.add(créerRéférence("tom", OTHER, rainbowSix));
 	référencesAttendues.add(créerRéférence("clancy", OTHER, rainbowSix));
 
-	indexeur.réindexer(rainbowSix);
+	indexeur.reindex(rainbowSix);
 	assertEquals(référencesAttendues, chargerRéférences(rainbowSix));
     }
 

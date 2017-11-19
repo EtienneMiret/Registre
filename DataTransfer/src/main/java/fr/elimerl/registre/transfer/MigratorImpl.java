@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Movie.Support;
 import fr.elimerl.registre.services.RegistreEntityManager;
-import fr.elimerl.registre.services.Indexeur;
+import fr.elimerl.registre.services.Index;
 
 /**
  * Migrator implementation. This service is responsible for migrating a batch
@@ -90,7 +90,7 @@ public class MigratorImpl implements Migrator {
      * Service used to index records.
      */
     @Resource(name = "indexeur")
-    private Indexeur index;
+    private Index index;
 
     /**
      * JPA entity manager. Will be used to create all {@link User}s.
@@ -169,7 +169,7 @@ public class MigratorImpl implements Migrator {
 	    }
 	    fillInCommonFields(record, result);
 	    final Record savedRecord = jpaEntityManager.merge(record);
-	    index.réindexer(savedRecord);
+	    index.reindex(savedRecord);
 	    logger.debug("{} migrated.", savedRecord);
 	    migrated++;
 	}

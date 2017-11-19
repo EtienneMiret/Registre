@@ -26,7 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
-import fr.elimerl.registre.services.Indexeur;
+import fr.elimerl.registre.services.Index;
 
 /**
  * Ce test JUnit teste les implémentations de la méthode
@@ -49,7 +49,7 @@ public class TestCréerPrédicat {
 
     /** Le service d’indexation, fournit par Spring. */
     @Resource(name = "indexeur")
-    private Indexeur indexeur;
+    private Index indexeur;
 
     /** Constructeur de requêtes lié à {@link #em}. */
     private CriteriaBuilder constructeur;
@@ -74,7 +74,7 @@ public class TestCréerPrédicat {
 	/* Indexation de toutes les fiches. */
 	final TypedQuery<Record> requêteJpa = em.createQuery(requête);
 	for (final Record fiche : requêteJpa.getResultList()) {
-	    indexeur.réindexer(fiche);
+	    indexeur.reindex(fiche);
 	}
     }
 

@@ -21,7 +21,7 @@
   <bean id="gestionnaireEntités"
     class="fr.elimerl.registre.services.RegistreEntityManager"/>
 
-  <bean id="indexeur" class="fr.elimerl.registre.services.Indexeur"/>
+  <bean id="indexeur" class="fr.elimerl.registre.services.Index"/>
 
   <bean id="gestionnaireTransactions" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
