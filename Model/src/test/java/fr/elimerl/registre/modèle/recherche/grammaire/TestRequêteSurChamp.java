@@ -2,12 +2,13 @@ package fr.elimerl.registre.modèle.recherche.grammaire;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import fr.elimerl.registre.search.tokens.Field;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
 import fr.elimerl.registre.search.grammar.FieldQuery;
-import fr.elimerl.registre.search.tokens.Champ;
 import fr.elimerl.registre.search.tokens.MotClé;
 
 /**
@@ -29,9 +30,9 @@ public class TestRequêteSurChamp {
     public void égales() {
 	final MotClé motClé = new MotClé("toto");
 	final FieldQuery requête1 =
-		new FieldQuery(Champ.TITRE, motClé);
+		new FieldQuery(Field.TITLE, motClé);
 	final FieldQuery requête2 =
-		new FieldQuery(Champ.TITRE, motClé);
+		new FieldQuery(Field.TITLE, motClé);
 	assertTrue(requête1.equals(requête2));
 	assertTrue(requête2.equals(requête1));
     }
@@ -44,9 +45,9 @@ public class TestRequêteSurChamp {
     public void champsDifférents() {
 	final MotClé motClé = new MotClé("toto");
 	final FieldQuery requête1 =
-		new FieldQuery(Champ.TITRE, motClé);
+		new FieldQuery(Field.TITLE, motClé);
 	final FieldQuery requête2 =
-		new FieldQuery(Champ.AUTEUR, motClé);
+		new FieldQuery(Field.AUTHOR, motClé);
 	assertFalse(requête1.equals(requête2));
 	assertFalse(requête2.equals(requête1));
     }
@@ -60,9 +61,9 @@ public class TestRequêteSurChamp {
 	final MotClé motClé1 = new MotClé("toto");
 	final MotClé motClé2 = new MotClé("tata");
 	final FieldQuery requête1 =
-		new FieldQuery(Champ.TITRE, motClé1);
+		new FieldQuery(Field.TITLE, motClé1);
 	final FieldQuery requête2 =
-		new FieldQuery(Champ.TITRE, motClé2);
+		new FieldQuery(Field.TITLE, motClé2);
 	assertFalse(requête1.equals(requête2));
 	assertFalse(requête2.equals(requête1));
     }

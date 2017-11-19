@@ -7,6 +7,7 @@ import java.util.Queue;
 
 import fr.elimerl.registre.search.grammar.SearchQuery;
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
+import fr.elimerl.registre.search.tokens.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -14,11 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import fr.elimerl.registre.search.grammar.BracketedQuery;
 import fr.elimerl.registre.search.grammar.FieldQuery;
-import fr.elimerl.registre.search.tokens.Champ;
-import fr.elimerl.registre.search.tokens.MotClé;
-import fr.elimerl.registre.search.tokens.Opérateur;
-import fr.elimerl.registre.search.tokens.Parenthèse;
-import fr.elimerl.registre.search.tokens.Signe;
+import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.services.ParseurDeRecherches;
 
 /**
@@ -133,10 +130,10 @@ public class TestAnalyseGrammaticale {
 	final MotClé toto = new MotClé("toto");
 	final MotClé tata = new MotClé("tata");
 	final MotClé titi = new MotClé("titi");
-	signes.add(Champ.TITRE);
+	signes.add(Field.TITLE);
 	signes.add(maman);
 	signes.add(Opérateur.OU);
-	signes.add(Champ.COMMENTAIRE);
+	signes.add(Field.COMMENT);
 	signes.add(Parenthèse.OUVRANTE);
 	signes.add(etienne);
 	signes.add(grégoire);
@@ -152,8 +149,8 @@ public class TestAnalyseGrammaticale {
 	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
 
 	final SearchQuery attendue = new SearchQuery(false,
-		new FieldQuery(Champ.TITRE, maman),
-		new FieldQuery(Champ.COMMENTAIRE,
+		new FieldQuery(Field.TITLE, maman),
+		new FieldQuery(Field.COMMENT,
 			etienne, grégoire),
 		new BracketedQuery(
 			new SearchQuery(true,

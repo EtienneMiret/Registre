@@ -14,7 +14,7 @@ import javax.persistence.criteria.Subquery;
 
 import fr.elimerl.registre.entities.*;
 import fr.elimerl.registre.entities.Actor;
-import fr.elimerl.registre.search.tokens.Champ;
+import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.search.tokens.MotClé;
 
 /**
@@ -26,7 +26,7 @@ public final class FieldQuery extends Expression {
     private static final int PRIME = 31;
 
     /** Field this query is made on. */
-    private final Champ field;
+    private final Field field;
 
     /** Keyword list to find in the specified field. */
     private final List<MotClé> keywords;
@@ -38,7 +38,7 @@ public final class FieldQuery extends Expression {
      * @param keywords
      *          keywords to find in the specified field.
      */
-    public FieldQuery(final Champ field, final MotClé... keywords) {
+    public FieldQuery(final Field field, final MotClé... keywords) {
 	this.field = field;
 	this.keywords = Arrays.asList(keywords);
     }
@@ -47,13 +47,13 @@ public final class FieldQuery extends Expression {
     public Predicate createPredicate(final CriteriaBuilder builder,
 	    final CriteriaQuery<Record> query, final Root<Record> root) {
 	final Predicate result;
-	if (field == Champ.TITRE) {
+	if (field == Field.TITLE) {
 	    result = referencePredicate(Reference.Field.TITLE,
 		    builder, query, root);
-	} else if (field == Champ.COMMENTAIRE) {
+	} else if (field == Field.COMMENT) {
 	    result = referencePredicate(Reference.Field.COMMENT,
 		    builder, query, root);
-	} else if (field == Champ.ACTEUR) {
+	} else if (field == Field.ACTOR) {
 	    result = actorPredicate(builder, query, root);
 	} else {
 	    result = namedPredicate(builder, query, root);
@@ -166,12 +166,12 @@ public final class FieldQuery extends Expression {
 	final Predicate[] predicates = new Predicate[keywords.size()];
 	for (int i = 0; i < keywords.size(); i++) {
 	    final String mot = keywords.get(i).getValeur();
-	    final Root<?> racine = field.getClasseDéclarante() == Record.class
+	    final Root<?> racine = field.getDeclaringClass() == Record.class
 		    ? root
-		    : builder.treat(root, field.getClasseDéclarante());
+		    : builder.treat(root, field.getDeclaringClass());
 	    predicates[i] = builder.like(
 		    builder.lower(racine
-			    .get(field.getNom()).<String>get("name")),
+			    .get(field.getName()).<String>get("name")),
 			    "%" + mot + "%");
 	}
 	return builder.and(predicates);

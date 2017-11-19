@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.search.grammar.*;
+import fr.elimerl.registre.search.tokens.Field;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
-import fr.elimerl.registre.search.tokens.Champ;
 import fr.elimerl.registre.search.tokens.MotClé;
 import fr.elimerl.registre.services.Indexeur;
 
@@ -92,157 +92,154 @@ public class TestCréerPrédicat {
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#TITRE TITLE}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#TITLE TITLE}.
      */
     @Test
     public void testRequêteSurChampTitre() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " titre.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.TITRE, new MotClé("la"));
+		new FieldQuery(Field.TITLE, new MotClé("la"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4, 5, 7);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#COMMENTAIRE COMMENT}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#COMMENT COMMENT}.
      */
     @Test
     public void testRequêteSurChampCommentaire() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " commentaire.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.COMMENTAIRE, new MotClé("super"));
+		new FieldQuery(Field.COMMENT, new MotClé("super"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#SÉRIE SÉRIE}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#SERIES SERIES}.
      */
     @Test
     public void testRequêteSurChampSérie() {
 	journal.info("Création d’un prédicat à partir d’une requête sur la"
 		+ " série.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.SÉRIE, new MotClé("warhammer"));
+		new FieldQuery(Field.SERIES, new MotClé("warhammer"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4, 5);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#PROPRIÉTAIRE
-     * PROPRIÉTAIRE}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#OWNER OWNER}.
      */
     @Test
     public void testRequêteSurChampPropriétaire() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " propriétaire.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.PROPRIÉTAIRE, new MotClé("etienne"));
+		new FieldQuery(Field.OWNER, new MotClé("etienne"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1, 2, 4, 5);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#EMPLACEMENT
-     * EMPLACEMENT}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#LOCATION LOCATION}.
      */
     @Test
     public void testRequêteSurChampEmplacement() {
 	journal.info("Création d’un prédicat à partir d’une requête sur"
 		+ " l’emplacement.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.EMPLACEMENT, new MotClé("verneuil"));
+		new FieldQuery(Field.LOCATION, new MotClé("verneuil"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 0, 1, 2);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#RÉALISATEUR
-     * RÉALISATEUR}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#DIRECTOR DIRECTOR}.
      */
     @Test
     public void testRequêteSurChampRéalisateur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " réalisateur.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.RÉALISATEUR, new MotClé("besson"));
+		new FieldQuery(Field.DIRECTOR, new MotClé("besson"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 3);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#ACTEUR ACTEUR}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#ACTOR ACTOR}.
      */
     @Test
     public void testRequêteSurChampActeur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur les"
 		+ " acteurs");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.ACTEUR, new MotClé("scarlett"));
+		new FieldQuery(Field.ACTOR, new MotClé("scarlett"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 3);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#COMPOSITEUR COMPOSITEUR}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#COMPOSER COMPOSER}.
      */
     @Test
     public void testRequêteSurChampCompositeur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " compositeur.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.COMPOSITEUR, new MotClé("howard"));
+		new FieldQuery(Field.COMPOSER, new MotClé("howard"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 1);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#DESSINATEUR DESSINATEUR}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#CARTOONIST CARTOONIST}.
      */
     @Test
     public void testRequêteSurChampDessinateur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " dessinateur.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.DESSINATEUR, new MotClé("morris"));
+		new FieldQuery(Field.CARTOONIST, new MotClé("morris"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 6, 7, 8);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#SCÉNARISTE SCÉNARISTE}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#SCRIPT_WRITER SCRIPT_WRITER}.
      */
     @Test
     public void testRequêteSurChampScénariste() {
 	journal.info("Création d’un prédicat à partir d’une requête sur le"
 		+ " scénariste");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.SCÉNARISTE, new MotClé("renard"));
+		new FieldQuery(Field.SCRIPT_WRITER, new MotClé("renard"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 0);
     }
 
     /**
      * Test de la méthode {@link FieldQuery#createPredicate(CriteriaBuilder,
-     * CriteriaQuery, Root)} sur le champ {@link Champ#AUTEUR AUTEUR}.
+     * CriteriaQuery, Root)} sur le champ {@link Field#AUTHOR AUTHOR}.
      */
     @Test
     public void testRequêteSurChampAuteur() {
 	journal.info("Création d’un prédicat à partir d’une requête sur"
 		+ " l’auteur");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.AUTEUR, new MotClé("thorpe"));
+		new FieldQuery(Field.AUTHOR, new MotClé("thorpe"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 4);
     }
@@ -274,11 +271,11 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat à partir d’une requête complexe.");
 	final SearchQuery requêteUtilisateur = new SearchQuery(false,
 		new SimpleKeyword(new MotClé("coucou")),
-		new FieldQuery(Champ.TITRE,
+		new FieldQuery(Field.TITLE,
 			new MotClé("honneur"),
 			new MotClé("dette")
 		),
-		new FieldQuery(Champ.PROPRIÉTAIRE,
+		new FieldQuery(Field.OWNER,
 			new MotClé("etienne")
 		)
 	);
@@ -309,7 +306,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat pour la recherche de « luky »"
 		+ " dans les titres.");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.TITRE, new MotClé("luky"));
+		new FieldQuery(Field.TITLE, new MotClé("luky"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 7, 9);
     }
@@ -322,7 +319,7 @@ public class TestCréerPrédicat {
 	journal.info("Création d’un prédicat pour la recherche de « luky »"
 		+ " dans les séries");
 	final FieldQuery requêteSurChamp =
-		new FieldQuery(Champ.SÉRIE, new MotClé("luky"));
+		new FieldQuery(Field.SERIES, new MotClé("luky"));
 	final List<Record> résultats = exécuter(requêteSurChamp);
 	vérifier(résultats, 6, 7, 8);
     }

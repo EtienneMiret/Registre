@@ -4,14 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Queue;
 
+import fr.elimerl.registre.search.tokens.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.elimerl.registre.search.tokens.Champ;
-import fr.elimerl.registre.search.tokens.MotClé;
-import fr.elimerl.registre.search.tokens.Opérateur;
-import fr.elimerl.registre.search.tokens.Parenthèse;
-import fr.elimerl.registre.search.tokens.Signe;
+import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.services.ParseurDeRecherches;
 
 /**
@@ -109,7 +106,7 @@ public class TestAnalyseLexicale {
 	final Queue<Signe> résultat = parseur.analyserLexicalement(
 		"title:(Bonjour Madame) OU coucou");
 	assertEquals(SEPT, résultat.size());
-	assertEquals(Champ.TITRE, résultat.poll());
+	assertEquals(Field.TITLE, résultat.poll());
 	assertEquals(Parenthèse.OUVRANTE, résultat.poll());
 	assertEquals(new MotClé("bonjour"), résultat.poll());
 	assertEquals(new MotClé("madame"), résultat.poll());

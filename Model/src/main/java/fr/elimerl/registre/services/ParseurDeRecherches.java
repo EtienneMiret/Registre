@@ -9,15 +9,12 @@ import java.util.Queue;
 import java.util.regex.Matcher;
 
 import fr.elimerl.registre.search.grammar.*;
+import fr.elimerl.registre.search.tokens.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
-import fr.elimerl.registre.search.tokens.Champ;
-import fr.elimerl.registre.search.tokens.MotClé;
-import fr.elimerl.registre.search.tokens.Opérateur;
-import fr.elimerl.registre.search.tokens.Parenthèse;
-import fr.elimerl.registre.search.tokens.Signe;
+import fr.elimerl.registre.search.tokens.Field;
 
 /**
  * Classe singleton chargée de parser les recherches des utilisateurs.
@@ -87,9 +84,9 @@ public class ParseurDeRecherches {
 		    i = comparateur.end();
 		}
 	    }
-	    final Iterator<Champ> champs = Champ.tous.iterator();
+	    final Iterator<Field> champs = Field.all.iterator();
 	    while (signe == null && champs.hasNext()) {
-		final Champ champ = champs.next();
+		final Field champ = champs.next();
 		final Matcher comparateur = champ.getMotif().matcher(requête);
 		if (comparateur.find(i)) {
 		    signe = champ;
@@ -191,8 +188,8 @@ public class ParseurDeRecherches {
 	    }
 	} else if (premierSigne instanceof MotClé) {
 	    résultat = new SimpleKeyword((MotClé) premierSigne);
-	} else if (premierSigne instanceof Champ) {
-	    résultat = analyserChamp((Champ) premierSigne, signes);
+	} else if (premierSigne instanceof Field) {
+	    résultat = analyserChamp((Field) premierSigne, signes);
 	} else {
 	    throw new ParseException("Début d’expression attendu, « "
 		    + premierSigne + " » trouvé.", -1);
@@ -215,7 +212,7 @@ public class ParseurDeRecherches {
      *             si la suite de signes ne commence ni par un mot-clé, ni par
      *             une suite de mots-clés entre parenthèse.
      */
-    private static FieldQuery analyserChamp(final Champ champ,
+    private static FieldQuery analyserChamp(final Field champ,
 	    final Queue<Signe> signes) throws ParseException {
 	final FieldQuery résultat;
 	final Signe premierSigne = signes.poll();
