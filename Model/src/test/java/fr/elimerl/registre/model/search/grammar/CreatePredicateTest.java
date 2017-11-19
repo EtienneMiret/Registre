@@ -36,7 +36,7 @@ import fr.elimerl.registre.services.Index;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
-@Transactional("gestionnaireTransactions")
+@Transactional("transactionManager")
 public class CreatePredicateTest {
 
     /** SLF4J logger for this class. */
@@ -48,7 +48,7 @@ public class CreatePredicateTest {
     private EntityManager em;
 
     /** Spring provided indexation service. */
-    @Resource(name = "indexeur")
+    @Resource(name = "index")
     private Index index;
 
     /** Query builder linked to {@link #em}. */

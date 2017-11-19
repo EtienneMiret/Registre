@@ -13,12 +13,12 @@
     <property name="persistenceUnitName" value="Registre" />
   </bean>
 
-  <bean id="gestionnaireEntités"
+  <bean id="registreEntityManager"
     class="fr.elimerl.registre.services.RegistreEntityManager"/>
 
-  <bean id="indexeur" class="fr.elimerl.registre.services.Index"/>
+  <bean id="index" class="fr.elimerl.registre.services.Index"/>
 
-  <bean id="gestionnaireTransactions" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
   <jdbc:embedded-database id="embeddedDataSource">
     <jdbc:script location="file:${basedir}/src/main/sql/schema.sql" encoding="UTF-8"/>

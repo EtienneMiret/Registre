@@ -33,7 +33,7 @@ import fr.elimerl.registre.services.Index;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
-@Transactional("gestionnaireTransactions")
+@Transactional("transactionManager")
 public class IndexTest {
 
     /** Zero, as a {@code Long}. */
@@ -48,13 +48,13 @@ public class IndexTest {
     /**
      * The entity manager. Provided by Spring.
      */
-    @Resource(name = "gestionnaireEntités")
+    @Resource(name = "registreEntityManager")
     private RegistreEntityManager entityManager;
 
     /**
      * The indexation service under test. Provided by Spring.
      */
-    @Resource(name = "indexeur")
+    @Resource(name = "index")
     private Index index;
 
     /**

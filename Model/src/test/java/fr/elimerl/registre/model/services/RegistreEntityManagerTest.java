@@ -23,7 +23,7 @@ import fr.elimerl.registre.services.RegistreEntityManager;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
-@Transactional("gestionnaireTransactions")
+@Transactional("transactionManager")
 public class RegistreEntityManagerTest {
 
     /** This class’ logger. */
@@ -31,7 +31,7 @@ public class RegistreEntityManagerTest {
 	    LoggerFactory.getLogger(RegistreEntityManagerTest.class);
 
     /** The entity manager under test, provided by Spring. */
-    @Resource(name = "gestionnaireEntités")
+    @Resource(name = "registreEntityManager")
     private RegistreEntityManager entityManager;
 
     /**

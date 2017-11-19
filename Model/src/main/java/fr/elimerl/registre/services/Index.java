@@ -31,7 +31,7 @@ public class Index {
     /**
      * The Registre entity manager, supplied by the container.
      */
-    @Resource(name = "gestionnaireEntités")
+    @Resource(name = "registreEntityManager")
     private RegistreEntityManager rem;
 
     /**
