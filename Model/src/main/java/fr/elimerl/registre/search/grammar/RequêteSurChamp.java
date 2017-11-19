@@ -47,7 +47,7 @@ public final class RequêteSurChamp extends Expression {
     }
 
     @Override
-    public Predicate créerPrédicat(final CriteriaBuilder constructeur,
+    public Predicate createPredicate(final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Predicate résultat;
 	if (champ == Champ.TITRE) {

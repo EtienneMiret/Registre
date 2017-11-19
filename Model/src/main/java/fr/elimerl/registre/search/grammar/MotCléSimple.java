@@ -29,7 +29,7 @@ public final class MotCléSimple extends Expression {
     }
 
     @Override
-    public Predicate créerPrédicat(final CriteriaBuilder constructeur,
+    public Predicate createPredicate(final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
 	final Subquery<Long> sousRequête = requête.subquery(Long.class);
 	final Root<Reference> référence = sousRequête.from(Reference.class);

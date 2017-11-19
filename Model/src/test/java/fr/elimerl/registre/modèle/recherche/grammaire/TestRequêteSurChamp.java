@@ -13,10 +13,10 @@ import fr.elimerl.registre.search.signes.MotClé;
 /**
  * Cas de test JUnit pour la classe {@link RequêteSurChamp}. Seules les méthodes
  * {@code hashCode()} et {@code equals(Object)} sont testées ici. La méthode
- * principale ({@link RequêteSurChamp#créerPrédicat(
+ * principale ({@link RequêteSurChamp#createPredicate(
  * javax.persistence.criteria.CriteriaBuilder,
  * javax.persistence.criteria.CriteriaQuery, javax.persistence.criteria.Root)
- * créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)}) est testée dans
+ * createPredicate(CriteriaBuilder, CriteriaQuery, Root)}) est testée dans
  * {@link TestCréerPrédicat}.
  */
 public class TestRequêteSurChamp {

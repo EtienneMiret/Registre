@@ -33,7 +33,7 @@ import fr.elimerl.registre.services.Indexeur;
 
 /**
  * Ce test JUnit teste les implémentations de la méthode
- * {@link Expression#créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)} ainsi
+ * {@link Expression#createPredicate(CriteriaBuilder, CriteriaQuery, Root)} ainsi
  * que la méthode
  * {@link Requête#créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)}.
  */
@@ -83,7 +83,7 @@ public class TestCréerPrédicat {
 
     /**
      * Test de la méthode
-     * {@link MotCléSimple#créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)}.
+     * {@link MotCléSimple#createPredicate(CriteriaBuilder, CriteriaQuery, Root)}.
      */
     @Test
     public void testMotCléSimple() {
@@ -94,7 +94,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#TITRE TITLE}.
      */
     @Test
@@ -108,7 +108,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#COMMENTAIRE COMMENT}.
      */
     @Test
@@ -122,7 +122,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#SÉRIE SÉRIE}.
      */
     @Test
@@ -136,7 +136,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#PROPRIÉTAIRE
      * PROPRIÉTAIRE}.
      */
@@ -151,7 +151,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#EMPLACEMENT
      * EMPLACEMENT}.
      */
@@ -166,7 +166,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#RÉALISATEUR
      * RÉALISATEUR}.
      */
@@ -181,7 +181,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#ACTEUR ACTEUR}.
      */
     @Test
@@ -195,7 +195,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#COMPOSITEUR COMPOSITEUR}.
      */
     @Test
@@ -209,7 +209,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#DESSINATEUR DESSINATEUR}.
      */
     @Test
@@ -223,7 +223,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#SCÉNARISTE SCÉNARISTE}.
      */
     @Test
@@ -237,7 +237,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteSurChamp#créerPrédicat(CriteriaBuilder,
+     * Test de la méthode {@link RequêteSurChamp#createPredicate(CriteriaBuilder,
      * CriteriaQuery, Root)} sur le champ {@link Champ#AUTEUR AUTEUR}.
      */
     @Test
@@ -251,7 +251,7 @@ public class TestCréerPrédicat {
     }
 
     /**
-     * Test de la méthode {@link RequêteEntreParenthèse#créerPrédicat(
+     * Test de la méthode {@link RequêteEntreParenthèse#createPredicate(
      * CriteriaBuilder, CriteriaQuery, Root)}.
      */
     @Test
@@ -340,7 +340,7 @@ public class TestCréerPrédicat {
      *         vraie.
      */
     private List<Record> exécuter(final Expression expression) {
-	requête.where(expression.créerPrédicat(constructeur, requête, fiche));
+	requête.where(expression.createPredicate(constructeur, requête, fiche));
 	return em.createQuery(requête).getResultList();
     }
 

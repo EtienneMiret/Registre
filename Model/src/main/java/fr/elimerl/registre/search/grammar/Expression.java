@@ -8,25 +8,24 @@ import javax.persistence.criteria.Root;
 import fr.elimerl.registre.entities.Record;
 
 /**
- * Une expression du langage de requête, sert à construire une {@link Requête}
- * avec des opérateurs booléens.
+ * An expression in this application’s query language. Used to build a
+ * {@link Requête} with boolean operators.
  */
 public abstract class Expression {
 
     /**
-     * Crée un prédicat qui vérifie qu’une fiche correspond bien aux critères de
-     * cette expression.
+     * Create a predicate that checks a record matches this expression.
      *
-     * @param constructeur
-     *            constructeur de requête.
-     * @param requête
-     *            la requête principale dont on construit la clause where.
-     * @param fiche
-     *            la racine de la requête principale.
-     * @return un prédicat lié à la requête passée en paramètre qui vérifie
-     *         qu’une fiche correspond bien aux critères de cette expression.
+     * @param builder
+     *          query builder.
+     * @param query
+     *          the main query whose where clause is being built.
+     * @param root
+     *          the root of the main query.
+     * @return a predicate linked to the specified query that checks that a
+     *          record matches this expression.
      */
-    public abstract Predicate créerPrédicat(CriteriaBuilder constructeur,
-	    CriteriaQuery<Record> requête, Root<Record> fiche);
+    public abstract Predicate createPredicate(CriteriaBuilder builder,
+	    CriteriaQuery<Record> query, Root<Record> root);
 
 }

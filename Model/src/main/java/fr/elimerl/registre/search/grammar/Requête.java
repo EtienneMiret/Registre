@@ -65,7 +65,7 @@ public final class Requête {
 		new ArrayList<Predicate>(expressions.size());
 	final Predicate[] tableau = new Predicate[expressions.size()];
 	for (final Expression e : expressions) {
-	    sousPrédicats.add(e.créerPrédicat(constructeur, requête, fiche));
+	    sousPrédicats.add(e.createPredicate(constructeur, requête, fiche));
 	}
 	if (conjonction) {
 	    résultat = constructeur.and(sousPrédicats.toArray(tableau));
