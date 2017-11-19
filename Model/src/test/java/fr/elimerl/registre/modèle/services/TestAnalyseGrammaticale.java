@@ -5,13 +5,13 @@ import static org.junit.Assert.assertEquals;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import fr.elimerl.registre.search.grammar.SearchQuery;
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.search.grammar.Requête;
 import fr.elimerl.registre.search.grammar.RequêteEntreParenthèse;
 import fr.elimerl.registre.search.grammar.RequêteSurChamp;
 import fr.elimerl.registre.search.signes.Champ;
@@ -53,9 +53,9 @@ public class TestAnalyseGrammaticale {
     public void requêteVide() {
 	journal.info("Analyse grammaticale d’une requête vide.");
 
-	final Requête résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
 
-	final Requête attendue = new Requête(true);
+	final SearchQuery attendue = new SearchQuery(true);
 	assertEquals(attendue, résultat);
     }
 
@@ -69,9 +69,9 @@ public class TestAnalyseGrammaticale {
 	signes.add(motClé);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final Requête résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
 
-	final Requête attendue = new Requête(true, new SimpleKeyword(motClé));
+	final SearchQuery attendue = new SearchQuery(true, new SimpleKeyword(motClé));
 	assertEquals(attendue, résultat);
     }
 
@@ -88,9 +88,9 @@ public class TestAnalyseGrammaticale {
 	signes.add(titi);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final Requête résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
 
-	final Requête attendue = new Requête(true,
+	final SearchQuery attendue = new SearchQuery(true,
 		new SimpleKeyword(toto),
 		new SimpleKeyword(tata),
 		new SimpleKeyword(titi));
@@ -113,9 +113,9 @@ public class TestAnalyseGrammaticale {
 	signes.add(titi);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final Requête résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
 
-	final Requête attendue = new Requête(false,
+	final SearchQuery attendue = new SearchQuery(false,
 		new SimpleKeyword(toto),
 		new SimpleKeyword(tata),
 		new SimpleKeyword(titi));
@@ -149,14 +149,14 @@ public class TestAnalyseGrammaticale {
 	signes.add(Parenthèse.FERMANTE);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final Requête résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
 
-	final Requête attendue = new Requête(false,
+	final SearchQuery attendue = new SearchQuery(false,
 		new RequêteSurChamp(Champ.TITRE, maman),
 		new RequêteSurChamp(Champ.COMMENTAIRE,
 			etienne, grégoire),
 		new RequêteEntreParenthèse(
-			new Requête(true,
+			new SearchQuery(true,
 				new SimpleKeyword(toto),
 				new SimpleKeyword(tata),
 				new SimpleKeyword(titi)
@@ -203,20 +203,20 @@ public class TestAnalyseGrammaticale {
 	signes.add(Parenthèse.FERMANTE);
 	journal.info("Analyse grammaticale de la requête « {} ».", signes);
 
-	final Requête résultat = parseur.analyserGrammaticalement(signes);
+	final SearchQuery résultat = parseur.analyserGrammaticalement(signes);
 
-	final Requête attendue = new Requête(true,
-		new RequêteEntreParenthèse(new Requête(false,
+	final SearchQuery attendue = new SearchQuery(true,
+		new RequêteEntreParenthèse(new SearchQuery(false,
 			new SimpleKeyword(a),
 			new SimpleKeyword(b),
 			new SimpleKeyword(c)
 		)),
-		new RequêteEntreParenthèse(new Requête(false,
+		new RequêteEntreParenthèse(new SearchQuery(false,
 			new SimpleKeyword(d),
 			new SimpleKeyword(e),
 			new SimpleKeyword(f)
 		)),
-		new RequêteEntreParenthèse(new Requête(false,
+		new RequêteEntreParenthèse(new SearchQuery(false,
 			new SimpleKeyword(g),
 			new SimpleKeyword(h),
 			new SimpleKeyword(i)

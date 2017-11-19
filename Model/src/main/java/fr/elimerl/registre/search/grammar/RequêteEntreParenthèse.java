@@ -14,7 +14,7 @@ import fr.elimerl.registre.entities.Record;
 public final class RequêteEntreParenthèse extends Expression {
 
     /** La requête contenue dans cette expression. */
-    private final Requête requête;
+    private final SearchQuery requête;
 
     /**
      * Construit une requête entre parenthèse à partir d’une requête.
@@ -22,14 +22,14 @@ public final class RequêteEntreParenthèse extends Expression {
      * @param requête
      *            la requête à mettre entre parenthèse.
      */
-    public RequêteEntreParenthèse(final Requête requête) {
+    public RequêteEntreParenthèse(final SearchQuery requête) {
 	this.requête = requête;
     }
 
     @Override
     public Predicate createPredicate(final CriteriaBuilder constructeur,
 	    final CriteriaQuery<Record> requête, final Root<Record> fiche) {
-	return this.requête.créerPrédicat(constructeur, requête, fiche);
+	return this.requête.createPredicate(constructeur, requête, fiche);
     }
 
     @Override

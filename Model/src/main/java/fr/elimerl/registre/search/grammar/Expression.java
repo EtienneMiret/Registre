@@ -9,7 +9,7 @@ import fr.elimerl.registre.entities.Record;
 
 /**
  * An expression in this application’s query language. Used to build a
- * {@link Requête} with boolean operators.
+ * {@link SearchQuery} with boolean operators.
  */
 public abstract class Expression {
 

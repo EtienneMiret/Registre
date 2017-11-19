@@ -3,12 +3,13 @@ package fr.elimerl.registre.modèle.recherche.grammaire;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+
+import fr.elimerl.registre.search.grammar.SearchQuery;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
 import fr.elimerl.registre.search.grammar.Expression;
-import fr.elimerl.registre.search.grammar.Requête;
 import fr.elimerl.registre.search.grammar.RequêteEntreParenthèse;
 
 /**
@@ -22,7 +23,7 @@ public class TestRequêteEntreParenthèse {
      */
     @Test
     public void égaux() {
-	final Requête requête = new Requête(true);
+	final SearchQuery requête = new SearchQuery(true);
 	final RequêteEntreParenthèse parenthèse1 =
 		new RequêteEntreParenthèse(requête);
 	final RequêteEntreParenthèse parenthèse2 =
@@ -37,8 +38,8 @@ public class TestRequêteEntreParenthèse {
      */
     @Test
     public void différents() {
-	final Requête requête1 = new Requête(true, mock(Expression.class));
-	final Requête requête2 = new Requête(true, mock(Expression.class));
+	final SearchQuery requête1 = new SearchQuery(true, mock(Expression.class));
+	final SearchQuery requête2 = new SearchQuery(true, mock(Expression.class));
 	final RequêteEntreParenthèse parenthèse1 =
 		new RequêteEntreParenthèse(requête1);
 	final RequêteEntreParenthèse parenthèse2 =

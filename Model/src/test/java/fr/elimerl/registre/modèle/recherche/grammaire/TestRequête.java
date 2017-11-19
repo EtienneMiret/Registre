@@ -4,15 +4,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.mockito.Mockito.mock;
+
+import fr.elimerl.registre.search.grammar.SearchQuery;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
 import fr.elimerl.registre.search.grammar.Expression;
-import fr.elimerl.registre.search.grammar.Requête;
 
 /**
- * Cas de test JUnit pour la classe {@link Requête}.
+ * Cas de test JUnit pour la classe {@link SearchQuery}.
  */
 public class TestRequête {
 
@@ -21,8 +22,8 @@ public class TestRequête {
      */
     @Test
     public void conjonctionVideÉgalDisjonctionVide() {
-	final Requête conjonctionVide = new Requête(true);
-	final Requête disjonctionVide = new Requête(false);
+	final SearchQuery conjonctionVide = new SearchQuery(true);
+	final SearchQuery disjonctionVide = new SearchQuery(false);
 	assertTrue(conjonctionVide.equals(disjonctionVide));
 	assertTrue(disjonctionVide.equals(conjonctionVide));
     }
@@ -34,8 +35,8 @@ public class TestRequête {
     @Test
     public void conjonctionTailleUnÉgalDisjonctionTailleUn() {
 	final Expression expr = mock(Expression.class);
-	final Requête conjonction = new Requête(true, expr);
-	final Requête disjonction = new Requête(false, expr);
+	final SearchQuery conjonction = new SearchQuery(true, expr);
+	final SearchQuery disjonction = new SearchQuery(false, expr);
 	assertTrue(conjonction.equals(disjonction));
 	assertTrue(disjonction.equals(conjonction));
     }
@@ -49,8 +50,8 @@ public class TestRequête {
 	final Expression expr1 = mock(Expression.class);
 	final Expression expr2 = mock(Expression.class);
 	assumeFalse(expr1.equals(expr2));
-	final Requête conjonction = new Requête(true, expr1);
-	final Requête disjonction = new Requête(false, expr2);
+	final SearchQuery conjonction = new SearchQuery(true, expr1);
+	final SearchQuery disjonction = new SearchQuery(false, expr2);
 	assertFalse(conjonction.equals(disjonction));
 	assertFalse(disjonction.equals(conjonction));
     }
@@ -63,8 +64,8 @@ public class TestRequête {
     public void conjonctionTailleDeuxDifférentDisjonctionTailleDeux() {
 	final Expression expr1 = mock(Expression.class);
 	final Expression expr2 = mock(Expression.class);
-	final Requête conjonction = new Requête(true, expr1, expr2);
-	final Requête disjonction = new Requête(false, expr1, expr2);
+	final SearchQuery conjonction = new SearchQuery(true, expr1, expr2);
+	final SearchQuery disjonction = new SearchQuery(false, expr1, expr2);
 	assertFalse(conjonction.equals(disjonction));
 	assertFalse(disjonction.equals(conjonction));
     }
@@ -74,8 +75,8 @@ public class TestRequête {
      */
     @Test
     public void contratEqualsEtHashCode() {
-	final EqualsVerifier<Requête> vérifieur =
-		EqualsVerifier.forClass(Requête.class);
+	final EqualsVerifier<SearchQuery> vérifieur =
+		EqualsVerifier.forClass(SearchQuery.class);
 	vérifieur.verify();
     }
 

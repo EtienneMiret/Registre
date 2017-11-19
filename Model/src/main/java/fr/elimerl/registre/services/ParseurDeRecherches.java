@@ -44,7 +44,7 @@ public class ParseurDeRecherches {
      *            quoi.
      * @return la requête obtenue suite à l’analyse du texte passé en paramètre.
      */
-    public Requête analyser(final String requête) {
+    public SearchQuery analyser(final String requête) {
 	return analyserGrammaticalement(analyserLexicalement(requête));
     }
 
@@ -123,7 +123,7 @@ public class ParseurDeRecherches {
      * @return la requête résultant de l’analyse grammaticale des signes
      *         données.
      */
-    public Requête analyserGrammaticalement(final Queue<Signe> signes) {
+    public SearchQuery analyserGrammaticalement(final Queue<Signe> signes) {
 	final List<Expression> expressions = new ArrayList<Expression>();
 	boolean conjonction;
 	if (!signes.isEmpty() && signes.peek() != Parenthèse.FERMANTE) {
@@ -163,7 +163,7 @@ public class ParseurDeRecherches {
 		signes.clear(); // Force l’arrêt de l’analyse.
 	    }
 	}
-	return new Requête(conjonction, expressions.toArray(EXPRESSIONS));
+	return new SearchQuery(conjonction, expressions.toArray(EXPRESSIONS));
     }
 
     /**
@@ -182,7 +182,7 @@ public class ParseurDeRecherches {
 	final Expression résultat;
 	final Signe premierSigne = signes.poll();
 	if (premierSigne == Parenthèse.OUVRANTE) {
-	    final Requête sousRequête = analyserGrammaticalement(signes);
+	    final SearchQuery sousRequête = analyserGrammaticalement(signes);
 	    résultat = new RequêteEntreParenthèse(sousRequête);
 	    final Signe signeSuivant = signes.poll();
 	    if (signeSuivant != Parenthèse.FERMANTE) {

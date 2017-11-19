@@ -32,7 +32,7 @@ import fr.elimerl.registre.services.Indexeur;
  * Ce test JUnit teste les implémentations de la méthode
  * {@link Expression#createPredicate(CriteriaBuilder, CriteriaQuery, Root)} ainsi
  * que la méthode
- * {@link Requête#créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)}.
+ * {@link SearchQuery#createPredicate(CriteriaBuilder, CriteriaQuery, Root)}.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
@@ -257,7 +257,7 @@ public class TestCréerPrédicat {
 		+ "parenthèses.");
 	final RequêteEntreParenthèse requêteEntreParenthèse =
 		new RequêteEntreParenthèse(
-			new Requête(true,
+			new SearchQuery(true,
 				new SimpleKeyword(new MotClé("super"))
 			)
 		);
@@ -267,12 +267,12 @@ public class TestCréerPrédicat {
 
     /**
      * Test de la méthode
-     * {@link Requête#créerPrédicat(CriteriaBuilder, CriteriaQuery, Root)}.
+     * {@link SearchQuery#createPredicate(CriteriaBuilder, CriteriaQuery, Root)}.
      */
     @Test
     public void testRequête() {
 	journal.info("Création d’un prédicat à partir d’une requête complexe.");
-	final Requête requêteUtilisateur = new Requête(false,
+	final SearchQuery requêteUtilisateur = new SearchQuery(false,
 		new SimpleKeyword(new MotClé("coucou")),
 		new RequêteSurChamp(Champ.TITRE,
 			new MotClé("honneur"),
@@ -282,7 +282,7 @@ public class TestCréerPrédicat {
 			new MotClé("etienne")
 		)
 	);
-	requête.where(requêteUtilisateur.créerPrédicat(constructeur, requête,
+	requête.where(requêteUtilisateur.createPredicate(constructeur, requête,
 		fiche));
 	final TypedQuery<Record> requêteJpa = em.createQuery(requête);
 	final List<Record> résultats = requêteJpa.getResultList();

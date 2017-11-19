@@ -10,6 +10,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.search.grammar.SearchQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.elimerl.registre.search.grammar.Requête;
 import fr.elimerl.registre.services.ParseurDeRecherches;
 
 /**
@@ -49,12 +49,12 @@ public class Recherche {
     @Transactional(readOnly = true)
     public String rechercher(@PathVariable final String texte,
 	    final Model modèle) {
-	final Requête requêteRegistre = parseur.analyser(texte);
+	final SearchQuery requêteRegistre = parseur.analyser(texte);
 	final CriteriaQuery<Record> requête =
 		constructeur.createQuery(Record.class);
 	final Root<Record> fiche = requête.from(Record.class);
 	final Predicate prédicat =
-		requêteRegistre.créerPrédicat(constructeur, requête, fiche);
+		requêteRegistre.createPredicate(constructeur, requête, fiche);
 	requête.select(fiche);
 	requête.where(prédicat);
 	final TypedQuery<Record> requêteJpa = em.createQuery(requête);
