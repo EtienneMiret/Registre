@@ -21,44 +21,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import fr.elimerl.registre.services.QueryParser;
 
 /**
- * Contrôleur chargé de traiter les recherches faites par un utilisateur.
+ * Controller responsible for handling user made search queries.
  */
 @Controller
-public class Recherche {
+public class Search {
 
     /**
-     * Gestionnaire d’entité JPA, injecté par Spring.
+     * JPA entity manager, provided by Spring.
      */
     @PersistenceContext(name = "Registre")
     private EntityManager em;
 
     /**
-     * Service parseur de recherches, injecté par Spring.
+     * Query parser, provided by Spring.
      */
     @Autowired
-    private QueryParser parseur;
+    private QueryParser parser;
 
-    private CriteriaBuilder constructeur;
+    private CriteriaBuilder builder;
 
     @PostConstruct
     public void setUp() {
-	constructeur = em.getCriteriaBuilder();
+	builder = em.getCriteriaBuilder();
     }
 
     @RequestMapping("/Rechercher/{texte}")
     @Transactional(readOnly = true)
-    public String rechercher(@PathVariable final String texte,
-	    final Model modèle) {
-	final SearchQuery requêteRegistre = parseur.parse(texte);
-	final CriteriaQuery<Record> requête =
-		constructeur.createQuery(Record.class);
-	final Root<Record> fiche = requête.from(Record.class);
-	final Predicate prédicat =
-		requêteRegistre.createPredicate(constructeur, requête, fiche);
-	requête.select(fiche);
-	requête.where(prédicat);
-	final TypedQuery<Record> requêteJpa = em.createQuery(requête);
-	modèle.addAttribute("fiches", requêteJpa.getResultList());
+    public String search(@PathVariable final String texte,
+	    final Model model) {
+	final SearchQuery searchQuery = parser.parse(texte);
+	final CriteriaQuery<Record> query =
+		builder.createQuery(Record.class);
+	final Root<Record> record = query.from(Record.class);
+	final Predicate predicate =
+		searchQuery.createPredicate(builder, query, record);
+	query.select(record);
+	query.where(predicate);
+	final TypedQuery<Record> jpaQuery = em.createQuery(query);
+	model.addAttribute("fiches", jpaQuery.getResultList());
 	return "recherche";
     }
 
