@@ -71,7 +71,7 @@ public class SpringUser
 	if (user == null) {
 	    final EntityManagerFactory emf = ContextLoader
 		    .getCurrentWebApplicationContext()
-		    .getBean("usineGestionnairesEntités",
+		    .getBean("entityManagerFactory",
 			    EntityManagerFactory.class);
 	    user = emf.createEntityManager().find(User.class, id);
 	    logger.debug("{} was loaded from the database.", user);
