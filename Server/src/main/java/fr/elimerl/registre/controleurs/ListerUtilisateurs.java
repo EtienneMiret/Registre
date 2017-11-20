@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.elimerl.registre.security.UtilisateurSpring;
+import fr.elimerl.registre.security.SpringUser;
 
 /**
  * Contrôleur de la page qui liste les utilisateurs existants.
@@ -39,10 +39,10 @@ public class ListerUtilisateurs {
     @RequestMapping("/Utilisateurs")
     @Transactional(readOnly = true)
     public String listerUtilisateurs(final Model modèle) {
-	final UtilisateurSpring utilisateurSpring = (UtilisateurSpring)
+	final SpringUser utilisateurSpring = (SpringUser)
 		SecurityContextHolder.getContext().getAuthentication()
 		.getPrincipal();
-	modèle.addAttribute("utilisateur", utilisateurSpring.getUtilisateur());
+	modèle.addAttribute("utilisateur", utilisateurSpring.getUser());
 	final CriteriaBuilder builder = em.getCriteriaBuilder();
 	final CriteriaQuery<User> requête =
 		builder.createQuery(User.class);

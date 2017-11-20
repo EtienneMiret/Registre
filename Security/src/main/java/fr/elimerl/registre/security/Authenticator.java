@@ -74,14 +74,14 @@ public class Authenticator implements UserDetailsService,
 	if (user == null) {
 	    throw new UsernameNotFoundException("Unknown user");
 	}
-	return new UtilisateurSpring(user);
+	return new SpringUser(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(final String username) {
 	final UserDetails result;
 	try {
-	    result = new UtilisateurSpring(loadUser(username));
+	    result = new SpringUser(loadUser(username));
 	} catch (final NoResultException e) {
 	    logger.info("{} is unknown.", username);
 	    throw new UsernameNotFoundException(username, e);
