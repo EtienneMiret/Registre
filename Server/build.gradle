@@ -12,8 +12,7 @@ dependencies {
   compile group: 'org.springframework.security', name: 'spring-security-config', version:'3.2.1.RELEASE'
   compile group: 'org.springframework.security', name: 'spring-security-web', version:'3.2.1.RELEASE'
   compile group: 'org.springframework.security', name: 'spring-security-openid', version:'3.2.1.RELEASE'
-  runtime group: 'org.apache.velocity', name: 'velocity-engine-slf4j', version:'2.0.0-SNAPSHOT'
-  runtime group: 'org.apache.velocity', name: 'velocity-engine-commons-logging', version:'2.0.0-SNAPSHOT'
+  runtime group: 'org.apache.velocity', name: 'velocity', version:'1.7'
   providedCompile group: 'javax', name: 'javaee-web-api', version:'7.0'
   providedCompile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.6'
 }
