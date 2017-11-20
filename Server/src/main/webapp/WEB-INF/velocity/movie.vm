@@ -12,7 +12,7 @@
 #if( !$record.acteurs.empty )
   <dt>Acteurs</dt>
   <dd>
-#foreach( $actor in $record.acteurs )
+#foreach( $actor in $record.actors )
     $actor.name#if( $foreach.last ).#elseif( $foreach.index == ($record.acteurs.size() - 2) ) et#else,#end
 #end
   </dd>
@@ -40,10 +40,10 @@
   <dd>$record.location</dd>
 #end
   <dt>Référencement</dt>
-  <dd>Le $record.création par ${fiche.créateur}.</dd>
-#if ( $record.dernièreÉdition != $record.création )
+  <dd>Le $record.creation par ${fiche.creator}.</dd>
+#if ( $record.lastModification != $record.creation )
   <dt>Mise à jour</dt>
-  <dd>Le $record.dernièreÉdition par ${fiche.dernierÉditeur}.</dd>
+  <dd>Le $record.lastModification par ${fiche.lastModifier}.</dd>
 #end
 </dl>
 </body>
