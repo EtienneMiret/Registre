@@ -1,4 +1,4 @@
-package fr.elimerl.registre.sécurité;
+package fr.elimerl.registre.security;
 
 import java.util.Iterator;
 

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.elimerl.registre.sécurité.UtilisateurSpring;
+import fr.elimerl.registre.security.UtilisateurSpring;
 
 /**
  * Contrôleur de la page qui liste les utilisateurs existants.
