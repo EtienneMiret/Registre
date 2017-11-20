@@ -4,7 +4,7 @@
 
   <import resource="persistenceContext.xml"/>
 
-  <import resource="sécurité.xml"/>
+  <import resource="security.xml"/>
 
   <bean class="fr.elimerl.registre.services.QueryParser"/>
 

@@ -29,7 +29,7 @@ public class SpringUser
      * role and it is granted to all users.
      */
     private static final Collection<GrantedAuthority> ROLES =
-	    AuthorityUtils.createAuthorityList("ROLE_UTILISATEUR");
+	    AuthorityUtils.createAuthorityList("ROLE_USER");
 
     /**
      * {@link #user}’s id.
