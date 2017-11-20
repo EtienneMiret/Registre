@@ -1,4 +1,4 @@
-package fr.elimerl.registre.controleurs;
+package fr.elimerl.registre.controllers;
 
 import java.util.List;
 

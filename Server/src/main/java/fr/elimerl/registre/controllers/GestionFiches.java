@@ -1,4 +1,4 @@
-package fr.elimerl.registre.controleurs;
+package fr.elimerl.registre.controllers;
 
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;

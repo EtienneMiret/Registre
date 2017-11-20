@@ -1,4 +1,4 @@
-package fr.elimerl.registre.controleurs;
+package fr.elimerl.registre.controllers;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
