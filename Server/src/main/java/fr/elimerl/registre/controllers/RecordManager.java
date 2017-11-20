@@ -20,50 +20,50 @@ import fr.elimerl.registre.entities.Comic;
 import fr.elimerl.registre.entities.Record;
 
 /**
- * Contrôleur chargé de la gestion des fiches : affichage, édition et création.
+ * Controller responsible for record management: create, edit, display.
  */
 @Controller
 @RequestMapping("/Fiche")
-public class GestionFiches {
+public class RecordManager {
 
     /**
-     * Gestionnaire d’entité JPA, injecté par Spring.
+     * JPA entity manager, provided by Spring.
      */
     @PersistenceContext(name = "Registre")
     private EntityManager em;
 
     /**
-     * Affiche un fiche à l’écran pour lecture.
+     * Display a record in read-only mode.
      *
      * @param id
-     *            identifiant de la fiche à afficher.
-     * @param modèle
-     *            le modèle Spring.
-     * @param réponse
-     *            la réponse HTTP à envoyer à l’agent utilisateur.
-     * @return le nom de la vue à afficher.
+     *          id of the record to display.
+     * @param model
+     *          the Spring model.
+     * @param response
+     *          the HTTP response to send to the UA.
+     * @return the name of the view to display.
      */
     @RequestMapping(value = "/{id}", method = GET)
     @Transactional(readOnly = true)
-    public String afficher(@PathVariable final Long id, final Model modèle,
-	    final HttpServletResponse réponse) {
-	final Record fiche = em.find(Record.class, id);
-	modèle.addAttribute("fiche", fiche);
-	final String vue;
-	if (fiche == null) {
-	    vue = "ficheInexistante";
-	    réponse.setStatus(SC_NOT_FOUND);
-	} else if (fiche instanceof Movie) {
-	    vue = "film";
-	} else if (fiche instanceof Book) {
-	    vue = "livre";
-	} else if (fiche instanceof Comic) {
-	    vue = "bd";
+    public String display(@PathVariable final Long id, final Model model,
+	    final HttpServletResponse response) {
+	final Record record = em.find(Record.class, id);
+	model.addAttribute("fiche", record);
+	final String view;
+	if (record == null) {
+	    view = "ficheInexistante";
+	    response.setStatus(SC_NOT_FOUND);
+	} else if (record instanceof Movie) {
+	    view = "film";
+	} else if (record instanceof Book) {
+	    view = "livre";
+	} else if (record instanceof Comic) {
+	    view = "bd";
 	} else {
-	    vue = "typeFicheInconnu";
-	    réponse.setStatus(SC_NOT_IMPLEMENTED);
+	    view = "typeFicheInconnu";
+	    response.setStatus(SC_NOT_IMPLEMENTED);
 	}
-	return vue;
+	return view;
     }
 
 }
