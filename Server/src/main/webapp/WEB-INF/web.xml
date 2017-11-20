@@ -28,7 +28,7 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>/WEB-INF/contextePrincipal.xml</param-value>
+    <param-value>/WEB-INF/mainContext.xml</param-value>
   </context-param>
 
   <listener>
