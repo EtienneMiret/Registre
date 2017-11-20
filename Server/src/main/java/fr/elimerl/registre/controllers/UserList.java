@@ -17,39 +17,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import fr.elimerl.registre.security.SpringUser;
 
 /**
- * Contrôleur de la page qui liste les utilisateurs existants.
+ * Controller for the page that list all known users.
  */
 @Controller
-public class ListerUtilisateurs {
+public class UserList {
 
     /**
-     * Gestionnaire d’entités fournit par le conteneur. Permet d’accéder à la
-     * base de données.
+     * Entity manager provided by the container. Provide access to the database.
      */
     @PersistenceContext(unitName = "Registre")
     private EntityManager em;
 
     /**
-     * Liste les utilisateurs enregistrés en base.
+     * List all registered users.
      *
-     * @param modèle
-     *            le modèle Spring.
-     * @return le nom de la vue à afficher.
+     * @param model
+     *          the Spring model.
+     * @return the name of the view to display.
      */
     @RequestMapping("/Utilisateurs")
     @Transactional(readOnly = true)
-    public String listerUtilisateurs(final Model modèle) {
-	final SpringUser utilisateurSpring = (SpringUser)
+    public String listUsers(final Model model) {
+	final SpringUser springUser = (SpringUser)
 		SecurityContextHolder.getContext().getAuthentication()
 		.getPrincipal();
-	modèle.addAttribute("utilisateur", utilisateurSpring.getUser());
+	model.addAttribute("utilisateur", springUser.getUser());
 	final CriteriaBuilder builder = em.getCriteriaBuilder();
-	final CriteriaQuery<User> requête =
+	final CriteriaQuery<User> query =
 		builder.createQuery(User.class);
-	requête.from(User.class);
-	final List<User> utilisateurs =
-		em.createQuery(requête).getResultList();
-	modèle.addAttribute("utilisateurs", utilisateurs);
+	query.from(User.class);
+	final List<User> users =
+		em.createQuery(query).getResultList();
+	model.addAttribute("utilisateurs", users);
 	return "listeUtilisateurs";
     }
 
