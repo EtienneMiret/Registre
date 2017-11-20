@@ -1,4 +1,4 @@
 /**
- * Cet paquet regroupe tous les contrôleurs Spring de Registre.
+ * This package groups all Registre’s Spring controllers.
  */
 package fr.elimerl.registre.controllers;
