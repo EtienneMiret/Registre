@@ -1,9 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
-#set( $titrePage = 'Référence inconnue' )
-#parse( 'enTête.vm' )
+#set( $pageTitle = 'Référence inconnue' )
+#parse( 'header.vm' )
 <body>
-#parse( 'hautDePage.vm' )
-<h1>$titrePage</h1>
+#parse( 'pageTop.vm' )
+<h1>$pageTitle</h1>
 <p>Désolé, la référence que vous avez demandée n’existe pas.</p>
 </body>
 </html>

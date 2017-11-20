@@ -58,8 +58,8 @@ public class Search {
 	query.select(record);
 	query.where(predicate);
 	final TypedQuery<Record> jpaQuery = em.createQuery(query);
-	model.addAttribute("fiches", jpaQuery.getResultList());
-	return "recherche";
+	model.addAttribute("records", jpaQuery.getResultList());
+	return "search";
     }
 
 }

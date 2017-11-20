@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+#set( $pageTitle = 'Recherche' )
+#parse( 'header.vm' )
+<body>
+#parse( 'pageTop.vm' )
+<h1>$pageTitle</h1>
+<p>
+  Votre recherche a renvoyé ${records.size()}
+  résultat#if ( $records.size() > 1 )s#end.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Référence</th>
+      <th>Série</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+#foreach( $record in $records )
+    <tr>
+      <td><a href="/Registre/Fiche/$record.id">$record.title</a></td>
+      <td>#if( $record.series )$record.series#end</td>
+      <td>$record.class.simpleName</td>
+    </tr>
+#end
+  </tbody>
+</table>
+</body>
+</html>

@@ -48,19 +48,19 @@ public class RecordManager {
     public String display(@PathVariable final Long id, final Model model,
 	    final HttpServletResponse response) {
 	final Record record = em.find(Record.class, id);
-	model.addAttribute("fiche", record);
+	model.addAttribute("record", record);
 	final String view;
 	if (record == null) {
-	    view = "ficheInexistante";
+	    view = "recordNotFound";
 	    response.setStatus(SC_NOT_FOUND);
 	} else if (record instanceof Movie) {
-	    view = "film";
+	    view = "movie";
 	} else if (record instanceof Book) {
-	    view = "livre";
+	    view = "book";
 	} else if (record instanceof Comic) {
-	    view = "bd";
+	    view = "comic";
 	} else {
-	    view = "typeFicheInconnu";
+	    view = "unknownRecordType";
 	    response.setStatus(SC_NOT_IMPLEMENTED);
 	}
 	return view;

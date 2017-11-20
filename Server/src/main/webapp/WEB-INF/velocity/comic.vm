@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+#set( $pageTitle = $record.title )
+#parse( 'header.vm' )
+<body>
+#parse( 'pageTop.vm' )
+<h1>$record.title</h1>
+<dl>
+#if( $record.series )
+  <dt>Série</dt>
+  <dd>$record.series</dd>
+#end
+#if ( $record.cartoonist )
+  <dt>Dessinateur</dt>
+  <dd>$record.cartoonist</dd>
+#end
+#if ( $record.scriptWriter )
+  <dt>Scénariste</dt>
+  <dd>$record.scriptWriter</dd>
+#end
+#if( $record.comment )
+  <dt>Commentaire</dt>
+  <dd>$record.comment</dd>
+#end
+#if ( $record.owner )
+  <dt>Propriétaire</dt>
+  <dd>$record.owner</dd>
+#end
+#if ( $record.location )
+  <dt>Emplacement</dt>
+  <dd>$record.location</dd>
+#end
+  <dt>Référencement</dt>
+  <dd>Le $record.création par ${fiche.créateur}.</dd>
+#if ( $record.dernièreÉdition != $record.création )
+  <dt>Mise à jour</dt>
+  <dd>Le $record.dernièreÉdition par ${fiche.dernierÉditeur}.</dd>
+#end
+</dl>
+</body>
+</html>

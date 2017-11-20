@@ -41,15 +41,15 @@ public class UserList {
 	final SpringUser springUser = (SpringUser)
 		SecurityContextHolder.getContext().getAuthentication()
 		.getPrincipal();
-	model.addAttribute("utilisateur", springUser.getUser());
+	model.addAttribute("user", springUser.getUser());
 	final CriteriaBuilder builder = em.getCriteriaBuilder();
 	final CriteriaQuery<User> query =
 		builder.createQuery(User.class);
 	query.from(User.class);
 	final List<User> users =
 		em.createQuery(query).getResultList();
-	model.addAttribute("utilisateurs", users);
-	return "listeUtilisateurs";
+	model.addAttribute("users", users);
+	return "userList";
     }
 
 }
