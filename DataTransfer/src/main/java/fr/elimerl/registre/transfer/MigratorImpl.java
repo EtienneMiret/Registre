@@ -156,24 +156,24 @@ public class MigratorImpl implements Migrator {
 	int migrated = 0;
 	recordsQuery.setInt(1, first);
 	recordsQuery.setInt(2, number);
-	final ResultSet result = recordsQuery.executeQuery();
-	while (result.next()) {
-	    final String type = result.getString("type");
-	    final Record record;
-	    if (type.equals("livre")) {
-		record = createBook(result);
-	    } else if (type.equals("BD")) {
-		record = createComic(result);
-	    } else { // Movie. Type Blu-ray, DVD or "cassette".
-		record = createMovie(result);
-	    }
-	    fillInCommonFields(record, result);
-	    final Record savedRecord = jpaEntityManager.merge(record);
-	    index.reindex(savedRecord);
-	    logger.debug("{} migrated.", savedRecord);
-	    migrated++;
-	}
-	result.close();
+	try (ResultSet result = recordsQuery.executeQuery()) {
+            while (result.next()) {
+                final String type = result.getString("type");
+                final Record record;
+                if (type.equals("livre")) {
+                    record = createBook(result);
+                } else if (type.equals("BD")) {
+                    record = createComic(result);
+                } else { // Movie. Type Blu-ray, DVD or "cassette".
+                    record = createMovie(result);
+                }
+                fillInCommonFields(record, result);
+                final Record savedRecord = jpaEntityManager.merge(record);
+                index.reindex(savedRecord);
+                logger.debug("{} migrated.", savedRecord);
+                migrated++;
+            }
+        }
 	return migrated;
     }
 
@@ -287,12 +287,12 @@ public class MigratorImpl implements Migrator {
 	    );
 	}
 	actorsQuery.setInt(1, id);
-	final ResultSet acteurs = actorsQuery.executeQuery();
-	while (acteurs.next()) {
-	    final String nom = acteurs.getString("acteur");
-	    movie.getActors().add(registreEntityManager.supplyActor(nom));
-	}
-	acteurs.close();
+	try (ResultSet acteurs = actorsQuery.executeQuery()) {
+            while (acteurs.next()) {
+                final String nom = acteurs.getString("acteur");
+                movie.getActors().add(registreEntityManager.supplyActor(nom));
+            }
+        }
 	return movie;
     }
 

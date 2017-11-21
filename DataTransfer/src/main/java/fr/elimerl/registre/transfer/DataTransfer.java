@@ -38,9 +38,7 @@ public class DataTransfer {
      */
     public static void main(final String[] args) {
 	removeAtGenerated();
-	ClassPathXmlApplicationContext ctx = null;
-	try {
-	    ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+	try (ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml")) {
 	    final DataTransfer main =
 		    ctx.getBean("main", DataTransfer.class);
 	    main.migrateAllRecords();
@@ -49,10 +47,6 @@ public class DataTransfer {
 	    if (e.getCause() instanceof FileNotFoundException) {
 		System.err.println("There mus be a config.properties file in"
 			+ " the classpath.");
-	    }
-	} finally {
-	    if (ctx != null) {
-		ctx.close();
 	    }
 	}
     }
