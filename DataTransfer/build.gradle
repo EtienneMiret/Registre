@@ -11,6 +11,12 @@ dependencies {
   compile group: 'javax', name: 'javaee-web-api', version:'7.0'
 }
 
+jar {
+  manifest {
+    attributes 'Main-Class': 'fr.elimerl.registre.transfer.DataTransfer'
+  }
+}
+
 assemble {
   dependsOn shadowJar
 }
