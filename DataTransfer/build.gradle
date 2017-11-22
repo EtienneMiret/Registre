@@ -17,6 +17,12 @@ jar {
   }
 }
 
+shadowJar {
+  mergeServiceFiles {
+    include 'META-INF/spring.*'
+  }
+}
+
 assemble {
   dependsOn shadowJar
 }
