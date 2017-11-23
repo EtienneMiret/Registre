@@ -1,3 +1,6 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '2.0.1'
+}
 
 description = ''
 dependencies {
@@ -6,4 +9,20 @@ dependencies {
   compile group: 'org.springframework', name: 'spring-orm', version:'4.0.2.RELEASE'
   compile group: 'org.javassist', name: 'javassist', version:'3.19.0-GA'
   compile group: 'javax', name: 'javaee-web-api', version:'7.0'
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'fr.elimerl.registre.transfer.DataTransfer'
+  }
+}
+
+shadowJar {
+  mergeServiceFiles {
+    include 'META-INF/spring.*'
+  }
+}
+
+assemble {
+  dependsOn shadowJar
 }
