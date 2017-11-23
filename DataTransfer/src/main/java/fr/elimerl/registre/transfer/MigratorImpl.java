@@ -77,19 +77,19 @@ public class MigratorImpl implements Migrator {
     /**
      * Registre’s former database.
      */
-    @Resource(name = "ancienneBase")
+    @Resource(name = "oldDb")
     private DataSource formerDatabase;
 
     /**
      * Registre entity manager. Will be used to create all {@link Named}s.
      */
-    @Resource(name = "gestionnaireEntités")
+    @Resource(name = "registreEntityManager")
     private RegistreEntityManager registreEntityManager;
 
     /**
      * Service used to index records.
      */
-    @Resource(name = "indexeur")
+    @Resource(name = "index")
     private Index index;
 
     /**

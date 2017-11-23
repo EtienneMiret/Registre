@@ -18,33 +18,33 @@
 
   <context:property-placeholder location="classpath:config.properties"/>
 
-  <bean id="gestionnaireEntités"
+  <bean id="registreEntityManager"
     class="fr.elimerl.registre.services.RegistreEntityManager"/>
 
-  <bean id="indexeur" class="fr.elimerl.registre.services.Index"/>
+  <bean id="index" class="fr.elimerl.registre.services.Index"/>
 
-  <bean id="gestionnaireTransactions" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
-  <tx:annotation-driven transaction-manager="gestionnaireTransactions"/>
+  <tx:annotation-driven/>
 
-  <bean id="usineGestionnaireEntitésJpa"
+  <bean id="jpaEntityManagerFactory"
       class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-    <property name="dataSource" ref="nouvelleBase"/>
+    <property name="dataSource" ref="newDb"/>
     <property name="persistenceUnitName" value="Registre" />
   </bean>
 
-  <bean id="ancienneBase" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-    <property name="driverClass" value="${ancienneBase.pilote}"/>
-    <property name="url" value="${ancienneBase.url}"/>
-    <property name="username" value="${ancienneBase.utilisateur}"/>
-    <property name="password" value="${ancienneBase.mdp}"/>
+  <bean id="oldDb" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+    <property name="driverClass" value="${oldDb.driver}"/>
+    <property name="url" value="${oldDb.url}"/>
+    <property name="username" value="${oldDb.user}"/>
+    <property name="password" value="${oldDb.pwd}"/>
   </bean>
 
-  <bean id="nouvelleBase" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-    <property name="driverClass" value="${nouvelleBase.pilote}"/>
-    <property name="url" value="${nouvelleBase.url}"/>
-    <property name="username" value="${nouvelleBase.utilisateur}"/>
-    <property name="password" value="${nouvelleBase.mdp}"/>
+  <bean id="newDb" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+    <property name="driverClass" value="${newDb.driver}"/>
+    <property name="url" value="${newDb.url}"/>
+    <property name="username" value="${newDb.user}"/>
+    <property name="password" value="${newDb.pwd}"/>
   </bean>
 
   <bean id="main" class="fr.elimerl.registre.transfer.DataTransfer">
