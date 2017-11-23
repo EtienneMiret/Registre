@@ -334,11 +334,11 @@ public class MigratorImpl implements Migrator {
 	    record.toucher(provideUser(lastModifier));
 	}
 	defineField(record, "id", new Long(id));
-	defineField(record, "création", creation);
+	defineField(record, "creation", creation);
 	if (lastModification == null) {
-	    defineField(record, "dernièreÉdition", creation);
+	    defineField(record, "lastModification", creation);
 	} else {
-	    defineField(record, "dernièreÉdition", lastModification);
+	    defineField(record, "lastModification", lastModification);
 	}
     }
 
