@@ -1,6 +1,4 @@
 allprojects  {
-  apply plugin: 'maven'
-
   group = 'fr.elimerl.Registre'
   version = '3.0-SNAPSHOT'
 }
