@@ -9,10 +9,7 @@ subprojects {
   targetCompatibility = 1.8
 
   repositories {
-    mavenLocal()
-    
-    maven { url "https://repository.jboss.org/nexus/content/groups/public-jboss/" }
-    maven { url "http://repo.maven.apache.org/maven2" }
+    mavenCentral()
   }
 
 }
