@@ -16,7 +16,7 @@ subprojects {
 
 ext {
   springVersion = '4.0.2.RELEASE'
-  slf4jVersion = '1.7.6'
+  slf4jVersion = '1.7.15'
   junitVersion = '4.11'
   springSecurityVersion = '3.2.1.RELEASE'
 }
