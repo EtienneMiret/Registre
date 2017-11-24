@@ -17,9 +17,4 @@ subprojects {
     maven { url "http://repo.maven.apache.org/maven2" }
   }
 
-  
-  dependencies {
-    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version:'1.7.6'
-  }
-
 }
