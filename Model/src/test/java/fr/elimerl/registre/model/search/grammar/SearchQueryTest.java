@@ -77,6 +77,7 @@ public class SearchQueryTest {
     public void contratEqualsEtHashCode() {
 	final EqualsVerifier<SearchQuery> verifier =
 		EqualsVerifier.forClass(SearchQuery.class);
+	verifier.withIgnoredFields ("conjunction");
 	verifier.verify();
     }
 

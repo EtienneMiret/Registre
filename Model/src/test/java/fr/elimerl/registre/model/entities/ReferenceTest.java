@@ -41,6 +41,7 @@ public class ReferenceTest {
 	final EqualsVerifier<Reference> equalsVerifier =
 		EqualsVerifier.forClass(Reference.class);
 	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
+	equalsVerifier.withIgnoredFields ("id");
 	equalsVerifier.verify();
     }
 

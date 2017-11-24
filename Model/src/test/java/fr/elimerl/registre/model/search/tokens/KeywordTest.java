@@ -3,6 +3,7 @@ package fr.elimerl.registre.model.search.tokens;
 import fr.elimerl.registre.search.tokens.Keyword;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
+import nl.jqno.equalsverifier.Warning;
 import org.junit.Test;
 
 /**
@@ -16,7 +17,9 @@ public class KeywordTest {
      */
     @Test
     public void equalsAndHashCode() {
-	EqualsVerifier.forClass(Keyword.class).verify();
+	EqualsVerifier.forClass(Keyword.class)
+            .suppress (Warning.ALL_FIELDS_SHOULD_BE_USED)
+            .verify();
     }
 
 }

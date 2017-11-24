@@ -1,6 +1,4 @@
 allprojects  {
-  apply plugin: 'maven'
-
   group = 'fr.elimerl.Registre'
   version = '3.0-SNAPSHOT'
 }
@@ -11,15 +9,14 @@ subprojects {
   targetCompatibility = 1.8
 
   repositories {
-    mavenLocal()
-    
-    maven { url "https://repository.jboss.org/nexus/content/groups/public-jboss/" }
-    maven { url "http://repo.maven.apache.org/maven2" }
+    mavenCentral()
   }
 
-  
-  dependencies {
-    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version:'1.7.6'
-  }
+}
 
+ext {
+  springVersion = '5.0.1.RELEASE'
+  slf4jVersion = '1.7.15'
+  junitVersion = '4.12'
+  springSecurityVersion = '4.2.3.RELEASE'
 }
