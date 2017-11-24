@@ -7,7 +7,7 @@ dependencies {
   compile project(':Model')
   compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
   compile group: 'org.springframework', name: 'spring-context', version: springVersion
-  compile group: 'org.javassist', name: 'javassist', version:'3.19.0-GA'
+  compile group: 'org.javassist', name: 'javassist', version:'3.22.0-GA'
   compileOnly group: 'javax', name: 'javaee-web-api', version:'7.0'
   runtime group: 'org.springframework', name: 'spring-orm', version: springVersion
 }
