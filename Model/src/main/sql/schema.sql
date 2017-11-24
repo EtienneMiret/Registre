@@ -72,9 +72,9 @@ create table records (
 	detective_style boolean,
 	romantic_style boolean,
 	sf_style boolean,
-	creator bigint references users (id) not null,
+	creator bigint not null references users (id),
 	creation datetime not null,
-	last_modifier bigint references users (id) not null,
+	last_modifier bigint not null references users (id),
 	last_modification datetime not null
 );
 
