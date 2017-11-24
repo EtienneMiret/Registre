@@ -47,6 +47,7 @@ public class UserTest {
 	final EqualsVerifier<User> equalsVerifier =
 		EqualsVerifier.forClass(User.class);
 	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
+        equalsVerifier.withOnlyTheseFields ("name");
 	equalsVerifier.verify();
     }
 

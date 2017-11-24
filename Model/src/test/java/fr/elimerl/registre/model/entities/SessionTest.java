@@ -82,6 +82,7 @@ public class SessionTest {
 	final EqualsVerifier<Session> equalsVerifier =
 		EqualsVerifier.forClass(Session.class);
 	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
+	equalsVerifier.withOnlyTheseFields ("key");
 	equalsVerifier.verify();
     }
 

@@ -35,6 +35,7 @@ public class WordTest {
 	final EqualsVerifier<Word> equalsVerifier =
 		EqualsVerifier.forClass(Word.class);
 	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
+        equalsVerifier.withIgnoredFields ("id");
 	equalsVerifier.verify();
     }
 
