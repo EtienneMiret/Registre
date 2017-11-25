@@ -3,13 +3,12 @@ package fr.elimerl.registre.security;
 import fr.elimerl.registre.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
 
-@Resource
+@Service
 public class AuthoritiesMapper {
 
   private static final GrantedAuthority ROLE_USER =

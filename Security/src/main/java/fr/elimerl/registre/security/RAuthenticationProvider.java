@@ -1,36 +1,33 @@
 package fr.elimerl.registre.security;
 
 import fr.elimerl.registre.entities.User;
-import org.mitre.openid.connect.client.OIDCAuthenticationProvider;
 import org.mitre.openid.connect.client.UserInfoFetcher;
 import org.mitre.openid.connect.model.PendingOIDCAuthenticationToken;
 import org.mitre.openid.connect.model.UserInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.Collection;
 
+@Service("authenticationProvider")
 public class RAuthenticationProvider implements AuthenticationProvider {
 
   @PersistenceContext(name = "Registre")
   private EntityManager em;
 
-  @Resource
+  @Autowired
   private UserInfoFetcher userInfoFetcher;
 
-  @Resource
+  @Autowired
   private UserLoader userLoader;
 
-  @Resource
+  @Autowired
   private AuthoritiesMapper authoritiesMapper;
 
   @Override
