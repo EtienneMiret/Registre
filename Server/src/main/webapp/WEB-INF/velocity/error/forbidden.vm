@@ -3,7 +3,7 @@
 #parse('/header.vm')
 <body>
 <h1>Accès interdit</h1>
-<p>Désolé, vous n’avez pas accès à Registre avec ce compte.</p>
+<p>Désolé#if($principal) $principal.name#end, vous n’avez pas accès à Registre avec ce compte.</p>
 
 <div>
   <form action="$contextPath/logout" method="post">
