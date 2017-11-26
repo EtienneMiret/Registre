@@ -54,6 +54,7 @@ public class RAuthenticationProviderTest {
     when (userInfoFetcher.loadUserInfo (token)).thenReturn (userInfo);
     when (userLoader.loadUser (userInfo)).thenReturn (user);
     when (token.getAccessTokenValue ()).thenReturn ("SUPER_SECRET_TOKEN");
+    when (userInfo.getEmail ()).thenReturn ("email@example.com");
   }
 
   @Test
@@ -80,12 +81,16 @@ public class RAuthenticationProviderTest {
   }
 
   @Test
-  public void should_return_null_given_user_with_no_authorities () {
+  public void should_return_NullAuthenticationToken_given_user_with_no_authorities () {
     when (authoritiesMapper.mapAuthorities (user)).thenReturn (emptySet ());
 
     Authentication actual = authenticationProvider.authenticate (token);
 
-    assertThat (actual).isNull ();
+    assertThat (actual).isNotNull ();
+    assertThat (actual).isInstanceOf (NullAuthenticationToken.class);
+    assertThat (actual.getCredentials ()).isEqualTo ("SUPER_SECRET_TOKEN");
+    assertThat (actual.getPrincipal ()).isEqualTo ("email@example.com");
+    assertThat (actual.getAuthorities ()).isEmpty ();
   }
 
   @Test

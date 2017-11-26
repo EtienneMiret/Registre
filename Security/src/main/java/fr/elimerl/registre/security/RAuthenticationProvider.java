@@ -11,8 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Collection;
 
 /**
@@ -48,7 +46,7 @@ public class RAuthenticationProvider implements AuthenticationProvider {
     Collection<GrantedAuthority> authorities =
         authoritiesMapper.mapAuthorities (user);
     return authorities.isEmpty ()
-        ? null
+        ? new NullAuthenticationToken (userInfo, token.getAccessTokenValue ())
         : new RAuthenticationToken (user, authorities, token.getAccessTokenValue ());
   }
 

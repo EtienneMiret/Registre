@@ -9,10 +9,12 @@
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
   <http entry-point-ref="authenticationEntryPoint">
+    <intercept-url pattern="/error/forbidden" access="isAuthenticated()"/>
     <intercept-url pattern="/**" access="hasRole('USER')"/>
     <custom-filter before="PRE_AUTH_FILTER" ref="openidConnectAuthenticationFilter"/>
     <headers/>
     <logout logout-url="/logout" invalidate-session="true" delete-cookies="JSESSIONID"/>
+    <access-denied-handler error-page="/error/forbidden"/>
   </http>
 
   <authentication-manager id="authenticationManager">
