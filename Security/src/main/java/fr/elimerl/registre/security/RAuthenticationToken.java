@@ -39,6 +39,7 @@ public class RAuthenticationToken extends AbstractAuthenticationToken {
     this.userId = user.getId ();
     this.accessToken = accessToken;
     this.user = user;
+    setAuthenticated (true);
   }
 
   @Override
