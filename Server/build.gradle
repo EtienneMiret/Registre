@@ -13,5 +13,5 @@ dependencies {
   compile group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVersion
   compile group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVersion
   compileOnly group: 'javax', name: 'javaee-web-api', version:'7.0'
-  runtime group: 'org.apache.velocity', name: 'velocity-engine-core', version:'2.0'
+  runtime group: 'org.apache.velocity', name: 'velocity', version:'1.7'
 }
