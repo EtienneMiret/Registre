@@ -8,4 +8,10 @@ dependencies {
   testCompile group: 'org.assertj', name: 'assertj-core', version: '3.8.0'
   testCompile group: 'org.mockito', name: 'mockito-core', version: mockitoVersion
   testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4jVersion
+  testRuntime group: 'org.springframework', name: 'spring-orm', version: springVersion
+  testRuntime group: 'org.hsqldb', name: 'hsqldb', version: hsqldbVersion
+}
+
+processTestResources {
+  expand rootdir: rootDir
 }

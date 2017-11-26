@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/jdbc
+           http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+  <bean class="fr.elimerl.registre.security.UserLoader"/>
+
+  <bean id="embeddedEmf"
+      class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="dataSource" ref="embeddedDataSource"/>
+    <property name="persistenceUnitName" value="Registre" />
+  </bean>
+
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+
+  <jdbc:embedded-database id="embeddedDataSource">
+    <jdbc:script location="file:${rootdir}/Model/src/main/sql/schema.sql" encoding="UTF-8"/>
+    <jdbc:script location="classpath:test-data.sql" encoding="UTF-8"/>
+  </jdbc:embedded-database>
+
+</beans>

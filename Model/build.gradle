@@ -11,7 +11,7 @@ dependencies {
     testCompile group: 'org.springframework', name: 'spring-test', version: springVersion
     testCompile group: 'org.springframework', name: 'spring-context', version: springVersion
     testCompile group: 'org.springframework', name: 'spring-orm', version: springVersion
-    testCompile group: 'org.hsqldb', name: 'hsqldb', version:'2.4.0'
+    testCompile group: 'org.hsqldb', name: 'hsqldb', version: hsqldbVersion
 }
 processTestResources {
     expand(basedir: "$rootDir/Model")

@@ -20,4 +20,5 @@ ext {
   junitVersion = '4.12'
   springSecurityVersion = '4.2.3.RELEASE'
   mockitoVersion = '2.12.0'
+  hsqldbVersion = '2.4.0'
 }
