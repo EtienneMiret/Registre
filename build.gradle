@@ -19,4 +19,5 @@ ext {
   slf4jVersion = '1.7.15'
   junitVersion = '4.12'
   springSecurityVersion = '4.2.3.RELEASE'
+  mockitoVersion = '2.12.0'
 }
