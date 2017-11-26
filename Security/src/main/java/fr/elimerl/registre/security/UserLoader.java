@@ -13,6 +13,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+/**
+ * Service responsible for loading Registre {@link User}s from the database.
+ */
 @Service
 public class UserLoader {
 

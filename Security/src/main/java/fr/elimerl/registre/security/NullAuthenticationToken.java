@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import static java.util.Collections.emptySet;
 
+/**
+ * An {@link org.springframework.security.core.Authentication} for unregistered
+ * authenticated users.
+ */
 public class NullAuthenticationToken extends AbstractAuthenticationToken {
 
   private final String token;

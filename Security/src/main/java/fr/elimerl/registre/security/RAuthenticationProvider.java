@@ -17,7 +17,8 @@ import java.util.Collection;
  * This service is responsible for authenticating user have just been through
  * OpenID Connect. It processes {@link PendingOIDCAuthenticationToken}s, and
  * provides an appropriate {@link RAuthenticationToken} if the user is
- * successfully authenticated.
+ * successfully authenticated or a {@link NullAuthenticationToken} if the user
+ * isn’t registered.
  */
 @Service("authenticationProvider")
 public class RAuthenticationProvider implements AuthenticationProvider {
