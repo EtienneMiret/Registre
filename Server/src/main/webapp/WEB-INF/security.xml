@@ -12,6 +12,7 @@
     <intercept-url pattern="/**" access="hasRole('USER')"/>
     <custom-filter before="PRE_AUTH_FILTER" ref="openidConnectAuthenticationFilter"/>
     <headers/>
+    <logout logout-url="/logout" invalidate-session="true" delete-cookies="JSESSIONID"/>
   </http>
 
   <authentication-manager id="authenticationManager">
