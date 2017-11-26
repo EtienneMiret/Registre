@@ -18,9 +18,6 @@ import java.util.Collection;
 @Service("authenticationProvider")
 public class RAuthenticationProvider implements AuthenticationProvider {
 
-  @PersistenceContext(name = "Registre")
-  private EntityManager em;
-
   @Autowired
   private UserInfoFetcher userInfoFetcher;
 
