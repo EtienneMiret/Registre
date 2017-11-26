@@ -15,6 +15,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collection;
 
+/**
+ * This service is responsible for authenticating user have just been through
+ * OpenID Connect. It processes {@link PendingOIDCAuthenticationToken}s, and
+ * provides an appropriate {@link RAuthenticationToken} if the user is
+ * successfully authenticated.
+ */
 @Service("authenticationProvider")
 public class RAuthenticationProvider implements AuthenticationProvider {
 

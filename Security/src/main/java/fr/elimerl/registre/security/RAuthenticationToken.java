@@ -10,6 +10,10 @@ import org.springframework.web.context.ContextLoader;
 import javax.persistence.EntityManagerFactory;
 import java.util.Collection;
 
+/**
+ * An {@link org.springframework.security.core.Authentication} for registered
+ * Registre users.
+ */
 public class RAuthenticationToken extends AbstractAuthenticationToken {
 
   private static final Logger logger =
