@@ -47,12 +47,12 @@ public class RAuthenticationToken extends AbstractAuthenticationToken {
   }
 
   @Override
-  public Object getCredentials () {
+  public String getCredentials () {
     return accessToken;
   }
 
   @Override
-  public Object getPrincipal () {
+  public User getPrincipal () {
     if (user == null) {
       synchronized (this) {
         if (user == null) {
@@ -65,6 +65,11 @@ public class RAuthenticationToken extends AbstractAuthenticationToken {
       }
     }
     return user;
+  }
+
+  @Override
+  public String getName () {
+    return getPrincipal ().getName ();
   }
 
 }
