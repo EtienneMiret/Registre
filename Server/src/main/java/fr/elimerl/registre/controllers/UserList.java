@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.elimerl.registre.security.SpringUser;
-
 /**
  * Controller for the page that list all known users.
  */
@@ -38,10 +36,10 @@ public class UserList {
     @RequestMapping("/Utilisateurs")
     @Transactional(readOnly = true)
     public String listUsers(final Model model) {
-	final SpringUser springUser = (SpringUser)
-		SecurityContextHolder.getContext().getAuthentication()
-		.getPrincipal();
-	model.addAttribute("user", springUser.getUser());
+	final User user = (User) SecurityContextHolder.getContext()
+            .getAuthentication()
+            .getPrincipal();
+	model.addAttribute("user", user);
 	final CriteriaBuilder builder = em.getCriteriaBuilder();
 	final CriteriaQuery<User> query =
 		builder.createQuery(User.class);
