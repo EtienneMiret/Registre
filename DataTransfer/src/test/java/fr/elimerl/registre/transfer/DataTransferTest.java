@@ -13,6 +13,14 @@ public class DataTransferTest {
 
   @Test
   public void test () throws Exception {
+    try (Connection connection = DriverManager.getConnection ("jdbc:hsqldb:mem:input", "SA","")) {
+      ScriptUtils.executeSqlScript (connection, new EncodedResource (
+          new ClassPathResource ("old-schema.sql"), StandardCharsets.UTF_8
+      ));
+      ScriptUtils.executeSqlScript (connection, new EncodedResource (
+          new ClassPathResource ("test-data.sql"), StandardCharsets.UTF_8
+      ));
+    }
     try (Connection connection = DriverManager.getConnection ("jdbc:hsqldb:mem:output", "SA", "")) {
       ScriptUtils.executeSqlScript (connection, new EncodedResource (
           new ClassPathResource ("schema.sql"), StandardCharsets.UTF_8
