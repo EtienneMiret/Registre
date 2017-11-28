@@ -311,6 +311,7 @@ public class MigratorImpl implements Migrator {
 	final String series = result.getString("serie");
 	final String owner = result.getString("proprietaire");
 	final String location = result.getString("emplacement");
+	final String picture = result.getString ("image");
 	final String comment = result.getString("commentaire");
 	final Date creation = result.getTimestamp("creation");
 	final String lastModifier =
@@ -329,6 +330,9 @@ public class MigratorImpl implements Migrator {
 	    	registreEntityManager.supplyLocation(location)
 	    );
 	}
+	if (picture != null) {
+	  record.setPicture (String.valueOf (id));
+        }
 	record.setComment(comment);
 	if (lastModifier != null && !lastModifier.isEmpty()) {
 	    record.toucher(provideUser(lastModifier));
