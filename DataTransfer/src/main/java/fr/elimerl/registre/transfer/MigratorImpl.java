@@ -1,15 +1,17 @@
 package fr.elimerl.registre.transfer;
 
-import static fr.elimerl.registre.entities.Movie.Support.BRD;
-import static fr.elimerl.registre.entities.Movie.Support.DVD;
-import static fr.elimerl.registre.entities.Movie.Support.K7;
-
-import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
+import fr.elimerl.registre.entities.Book;
+import fr.elimerl.registre.entities.Comic;
+import fr.elimerl.registre.entities.Movie;
+import fr.elimerl.registre.entities.Movie.Support;
+import fr.elimerl.registre.entities.Named;
+import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.User;
+import fr.elimerl.registre.services.Index;
+import fr.elimerl.registre.services.RegistreEntityManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -22,16 +24,16 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
+import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 
-import fr.elimerl.registre.entities.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-import fr.elimerl.registre.entities.Record;
-import fr.elimerl.registre.entities.Movie.Support;
-import fr.elimerl.registre.services.RegistreEntityManager;
-import fr.elimerl.registre.services.Index;
+import static fr.elimerl.registre.entities.Movie.Support.BRD;
+import static fr.elimerl.registre.entities.Movie.Support.DVD;
+import static fr.elimerl.registre.entities.Movie.Support.K7;
 
 /**
  * Migrator implementation. This service is responsible for migrating a batch
@@ -262,6 +264,7 @@ public class MigratorImpl implements Migrator {
 	final String title = result.getString("titre");
 	final String director = result.getString("realisateur");
 	final String composer = result.getString("compositeur");
+        final String styles = result.getString ("genres");
 	final int id = result.getInt("films.id");
 	final Support support;
 	final String supportName = result.getString("type");
@@ -286,6 +289,18 @@ public class MigratorImpl implements Migrator {
 	    	registreEntityManager.supplyComposer(composer)
 	    );
 	}
+	if (styles != null && !styles.isEmpty ()) {
+	  movie.setActionStyle (styles.contains ("action"));
+	  movie.setDocumentaryStyle (styles.contains ("documentaire"));
+	  movie.setFantasyStyle (styles.contains ("fantastique"));
+	  movie.setWarStyle (styles.contains ("film de guerre"));
+	  movie.setTrueStoryStyle (styles.contains ("histoire vraie"));
+	  movie.setHistoricalStyle (styles.contains ("historique"));
+	  movie.setHumorStyle (styles.contains ("humour"));
+	  movie.setDetectiveStyle (styles.contains ("policier"));
+	  movie.setRomanticStyle (styles.contains ("romantique"));
+	  movie.setSfStyle (styles.contains ("science-fiction"));
+        }
 	actorsQuery.setInt(1, id);
 	try (ResultSet acteurs = actorsQuery.executeQuery()) {
             while (acteurs.next()) {
