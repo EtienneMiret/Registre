@@ -193,7 +193,7 @@ public class MigratorImpl implements Migrator {
 		provideUser(result.getString("createur"));
 	final String title = result.getString("titre");
 	final String author = result.getString("auteur");
-	final String styles = result.getString("genres");
+	final String styles = result.getString("livres.genres");
 	final Book book = new Book(title, creator);
 	if (author != null && !author.isEmpty()) {
 	    book.setAuthor(registreEntityManager.supplyAuthor(author));
@@ -264,7 +264,7 @@ public class MigratorImpl implements Migrator {
 	final String title = result.getString("titre");
 	final String director = result.getString("realisateur");
 	final String composer = result.getString("compositeur");
-        final String styles = result.getString ("genres");
+        final String styles = result.getString ("films.genres");
 	final int id = result.getInt("films.id");
 	final Support support;
 	final String supportName = result.getString("type");
