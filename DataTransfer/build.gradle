@@ -7,8 +7,8 @@ dependencies {
   compile project(':Model')
   compile group: 'org.slf4j', name: 'slf4j-api'
   compile group: 'org.springframework', name: 'spring-context'
-  compile group: 'org.javassist', name: 'javassist', version:'3.22.0-GA'
-  compile group: 'javax', name: 'javaee-web-api', version:'7.0'
+  compile group: 'org.javassist', name: 'javassist'
+  compile group: 'javax', name: 'javaee-web-api'
   runtime group: 'org.springframework', name: 'spring-orm'
   testCompile group: 'junit', name: 'junit'
   testCompile group: 'org.springframework', name: 'spring-jdbc'

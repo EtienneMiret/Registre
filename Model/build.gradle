@@ -1,13 +1,13 @@
 
 description = 'Modèle Registre'
 dependencies {
-    compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.jpa', version:'2.7.0'
+    compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.jpa'
     compile group: 'org.slf4j', name: 'slf4j-api'
     testCompile group: 'junit', name: 'junit'
     testCompile group: 'org.mockito', name: 'mockito-core'
     testCompile group: 'org.slf4j', name: 'slf4j-log4j12'
     testCompile group: 'org.slf4j', name: 'jul-to-slf4j'
-    testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version:'2.4'
+    testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier'
     testCompile group: 'org.springframework', name: 'spring-test'
     testCompile group: 'org.springframework', name: 'spring-context'
     testCompile group: 'org.springframework', name: 'spring-orm'
