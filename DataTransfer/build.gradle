@@ -5,16 +5,16 @@ plugins {
 description = ''
 dependencies {
   compile project(':Model')
-  compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
-  compile group: 'org.springframework', name: 'spring-context', version: springVersion
+  compile group: 'org.slf4j', name: 'slf4j-api'
+  compile group: 'org.springframework', name: 'spring-context'
   compile group: 'org.javassist', name: 'javassist', version:'3.22.0-GA'
   compile group: 'javax', name: 'javaee-web-api', version:'7.0'
-  runtime group: 'org.springframework', name: 'spring-orm', version: springVersion
-  testCompile group: 'junit', name: 'junit', version: junitVersion
-  testCompile group: 'org.springframework', name: 'spring-jdbc', version: springVersion
-  testCompile group: 'org.assertj', name: 'assertj-core', version: assertjVersion
-  testRuntime group: 'org.hsqldb', name: 'hsqldb', version: hsqldbVersion
-  testRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4jVersion
+  runtime group: 'org.springframework', name: 'spring-orm'
+  testCompile group: 'junit', name: 'junit'
+  testCompile group: 'org.springframework', name: 'spring-jdbc'
+  testCompile group: 'org.assertj', name: 'assertj-core'
+  testRuntime group: 'org.hsqldb', name: 'hsqldb'
+  testRuntime group: 'org.slf4j', name: 'slf4j-log4j12'
   testRuntime files(project(':Model').file('src/main/sql'))
 }
 

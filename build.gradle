@@ -1,3 +1,7 @@
+plugins {
+  id 'nebula.dependency-recommender' version '5.0.0' apply false
+}
+
 allprojects  {
   group = 'fr.elimerl.Registre'
   version = '3.0-SNAPSHOT'
@@ -5,6 +9,8 @@ allprojects  {
 
 subprojects {
   apply plugin: 'java'
+  apply plugin: 'nebula.dependency-recommender'
+
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
 
@@ -12,14 +18,9 @@ subprojects {
     mavenCentral()
   }
 
-}
-
-ext {
-  springVersion = '4.3.12.RELEASE'
-  slf4jVersion = '1.7.15'
-  junitVersion = '4.12'
-  springSecurityVersion = '4.2.3.RELEASE'
-  mockitoVersion = '2.12.0'
-  hsqldbVersion = '2.4.0'
-  assertjVersion = '3.8.0'
+  dependencyRecommendations {
+    propertiesFile file: parent.file ('dependencyVersions')
+    mavenBom module: [group: 'org.springframework', name: 'spring-framework-bom', ext: 'pom']
+    mavenBom module: [group: 'org.springframework.security', name: 'spring-security-bom', ext: 'pom']
+  }
 }
