@@ -1,4 +1,4 @@
-org.springframework:spring-framework-bom = 4.3.12.RELEASE
+org.springframework:spring-framework-bom = 5.0.2.RELEASE
 org.springframework.security:spring-security-bom = 4.2.3.RELEASE
 
 org.slf4j:slf4j-api = 1.7.15
