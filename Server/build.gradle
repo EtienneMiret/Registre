@@ -5,15 +5,15 @@ description = 'Serveur Registre'
 dependencies {
   compile project(':Model')
   compile project(':Security')
-  compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
-  compile group: 'org.springframework', name: 'spring-context', version: springVersion
-  compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
-  compile group: 'org.springframework', name: 'spring-context-support', version: springVersion
-  compile group: 'org.springframework', name: 'spring-orm', version: springVersion
-  compile group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVersion
-  compile group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVersion
-  compileOnly group: 'javax', name: 'javaee-web-api', version:'7.0'
-  runtime group: 'org.apache.velocity', name: 'velocity', version:'1.7'
+  compile group: 'org.slf4j', name: 'slf4j-api'
+  compile group: 'org.springframework', name: 'spring-context'
+  compile group: 'org.springframework', name: 'spring-webmvc'
+  compile group: 'org.springframework', name: 'spring-context-support'
+  compile group: 'org.springframework', name: 'spring-orm'
+  compile group: 'org.springframework.security', name: 'spring-security-config'
+  compile group: 'org.springframework.security', name: 'spring-security-web'
+  compileOnly group: 'javax', name: 'javaee-web-api'
+  runtime group: 'org.apache.velocity', name: 'velocity'
 }
 
 configurations {
