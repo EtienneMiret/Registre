@@ -19,7 +19,7 @@ subprojects {
   }
 
   dependencyRecommendations {
-    propertiesFile file: parent.file ('dependencyVersions')
+    propertiesFile file: rootProject.file ('dependencyVersions')
     mavenBom module: [group: 'org.springframework', name: 'spring-framework-bom', ext: 'pom']
     mavenBom module: [group: 'org.springframework.security', name: 'spring-security-bom', ext: 'pom']
   }
