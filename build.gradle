@@ -19,6 +19,7 @@ subprojects {
   }
 
   dependencyRecommendations {
+    strategy OverrideTransitives
     propertiesFile file: rootProject.file ('dependencyVersions')
     mavenBom module: [group: 'org.springframework', name: 'spring-framework-bom']
     mavenBom module: [group: 'org.springframework.security', name: 'spring-security-bom']
