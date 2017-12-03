@@ -20,7 +20,7 @@
   </thead>
   <tbody th:each="record : ${records}" th:remove="all-but-first">
     <tr>
-      <td><a th:href="@{/Fiche/{id}(id=${record.id})}" th:text="${record.title}">Star Wars - Un nouvel espoir</a></td>
+      <td><a th:href="@{/Fiche/{id}(id=${record.id})}" th:text="${record.title}" href="records/movie.xhtml">Star Wars - Un nouvel espoir</a></td>
       <td th:text="${record.series}">Star Wars</td>
       <td th:text="${record.class.simpleName}">Movie</td>
     </tr>

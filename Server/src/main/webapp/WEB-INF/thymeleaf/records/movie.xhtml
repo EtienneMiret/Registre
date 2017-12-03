@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head (${record.title})">
+  <title>Star Wars - Un nouvel espoir - Registre</title>
+</head>
+<body>
+
+<h1 th:text="${record.title}">Le Seigneur des Anneaux</h1>
+
+<dl>
+  <div th:if="${record.series}">
+    <dt>Série</dt>
+    <dd th:text="${record.series}">La Terre du Milieu</dd>
+  </div>
+  <div th:unless="${record.actors.isEmpty ()}">
+    <dt>Acteurs</dt>
+    <dd><th:block th:each="actor : ${record.actors}"><span th:text="${actor.name}">Luke Skywalker</span><th:block th:switch="${actorStat.index}"><th:block th:case="${actorStat.size} - 2"> et </th:block><th:block th:case="${actorStat.size} - 1">.</th:block><th:block th:case="*">, </th:block></th:block></th:block></dd>
+  </div>
+  <div th:if="${record.director}">
+    <dt>Réalisateur</dt>
+    <dd th:text="${record.director}">Spielberg</dd>
+  </div>
+  <div th:if="${record.composer}">
+    <dt>Compositeur</dt>
+    <dd th:text="${record.composer}">John Williams</dd>
+  </div>
+  <div th:if="${record.support}">
+    <dt>Support</dt>
+    <dd th:text="${record.support}">DVD</dd>
+  </div>
+  <div th:if="${record.comment}">
+    <dt>Commentaire</dt>
+    <dd th:text="${record.comment}">Le premier d’une série de films super.</dd>
+  </div>
+  <div th:if="${record.owner}">
+    <dt>Propriétaire</dt>
+    <dd th:text="${record.owner}">Etienne</dd>
+  </div>
+  <div th:if="${record.location}">
+    <dt>Emplacement</dt>
+    <dd th:text="${record.location}">Quelque part près de Paris</dd>
+  </div>
+  <div>
+    <dt>Référencement</dt>
+    <dd>Le <span th:text="${record.creation}">3 décembre 2017</span>
+      par <span th:text="${record.creator}">Système</span>.</dd>
+  </div>
+  <div th:if="${record.creation} != ${record.lastModification}">
+    <dt>Mise à jour</dt>
+    <dd>Le <span th:text="${record.lastModification}">5 décembre 2017</span>
+      par <span th:text="${record.lastModifier}">Grégoire</span>.</dd>
+  </div>
+</dl>
+
+</body>
+</html>
