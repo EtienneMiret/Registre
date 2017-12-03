@@ -14,6 +14,7 @@ dependencies {
   compile group: 'org.springframework.security', name: 'spring-security-web'
   compileOnly group: 'javax', name: 'javaee-web-api'
   runtime group: 'org.thymeleaf', name: 'thymeleaf-spring5'
+  runtime group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4'
 }
 
 configurations {

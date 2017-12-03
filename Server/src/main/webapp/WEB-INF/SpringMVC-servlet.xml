@@ -22,6 +22,11 @@
   <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
     <property name="templateResolver" ref="templateResolver"/>
     <property name="enableSpringELCompiler" value="true"/>
+    <property name="additionalDialects">
+      <set>
+        <bean class="org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect"/>
+      </set>
+    </property>
   </bean>
 
   <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">

@@ -7,7 +7,7 @@
 
 <h1>Accueil</h1>
 
-<p>Bonjour <span th:text="${user.name}">à tous</span>&#xA0;!</p>
+<p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#xA0;!</p>
 
 <div>
   <form method="post" th:action="@{/logout}">
