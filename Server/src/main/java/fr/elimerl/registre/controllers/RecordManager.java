@@ -1,23 +1,24 @@
 package fr.elimerl.registre.controllers;
 
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import fr.elimerl.registre.entities.Book;
+import fr.elimerl.registre.entities.Comic;
+import fr.elimerl.registre.entities.Movie;
+import fr.elimerl.registre.entities.Record;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
-import fr.elimerl.registre.entities.Book;
-import fr.elimerl.registre.entities.Movie;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import fr.elimerl.registre.entities.Comic;
-import fr.elimerl.registre.entities.Record;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
  * Controller responsible for record management: create, edit, display.
@@ -37,33 +38,32 @@ public class RecordManager {
      *
      * @param id
      *          id of the record to display.
-     * @param model
-     *          the Spring model.
      * @param response
      *          the HTTP response to send to the UA.
      * @return the name of the view to display.
      */
     @RequestMapping(value = "/{id}", method = GET)
     @Transactional(readOnly = true)
-    public String display(@PathVariable final Long id, final Model model,
+    public ModelAndView display(@PathVariable final Long id,
 	    final HttpServletResponse response) {
 	final Record record = em.find(Record.class, id);
-	model.addAttribute("record", record);
+	final Map<String, Object> model = new HashMap<> ();
+	model.put ("record", record);
 	final String view;
 	if (record == null) {
-	    view = "recordNotFound";
+	    view = "records/notFound";
 	    response.setStatus(SC_NOT_FOUND);
 	} else if (record instanceof Movie) {
-	    view = "movie";
+	    view = "records/movie";
 	} else if (record instanceof Book) {
-	    view = "book";
+	    view = "records/book";
 	} else if (record instanceof Comic) {
-	    view = "comic";
+	    view = "records/comic";
 	} else {
-	    view = "unknownRecordType";
+	    view = "records/unknownType";
 	    response.setStatus(SC_NOT_IMPLEMENTED);
 	}
-	return view;
+	return new ModelAndView (view, model);
     }
 
 }
