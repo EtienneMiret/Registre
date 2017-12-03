@@ -9,6 +9,8 @@
 
   <context:component-scan base-package="fr.elimerl.registre.controllers"/>
 
+  <mvc:annotation-driven/>
+
   <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
     <property name="prefix" value="/WEB-INF/thymeleaf/"/>
     <property name="suffix" value=".xhtml"/>
@@ -29,7 +31,4 @@
 
   <mvc:resources mapping="/ressources/**" location="/ressources/"/>
 
-  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-  <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
- 
- </beans>
+</beans>
