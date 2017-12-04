@@ -1,0 +1,13 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head (pageTitle)">
+  <title th:text="|${pageTitle} - Registre|">Base - Registre</title>
+</head>
+<body>
+
+<h1>Accueil</h1>
+
+<p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#xA0;!</p>
+
+</body>
+</html>

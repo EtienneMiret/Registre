@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head ('Accès interdit')">
+  <title>Accès interdit - Registre</title>
+</head>
+<body>
+
+<h1>Accès interdit</h1>
+
+<p>Désolé<span th:text="| ${#authentication.name}|"/>, vous n’avez pas accès à
+  Registre avec ce compte.</p>
+
+<div>
+  <form method="post" th:action="@{/logout}">
+    <input type="submit" value="Essayer un autre compte"/>
+  </form>
+</div>
+
+</body>
+</html>

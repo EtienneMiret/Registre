@@ -2,39 +2,38 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:security="http://www.springframework.org/schema/security"
-    xmlns:jee="http://www.springframework.org/schema/jee"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:tx="http://www.springframework.org/schema/tx"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
   <context:component-scan base-package="fr.elimerl.registre.controllers"/>
 
-  <bean id="configurationVelocity" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-    <property name="resourceLoaderPath" value="/WEB-INF/velocity/"/>
-    <property name="velocityProperties">
-      <props>
-        <prop key="input.encoding">UTF-8</prop>
-        <prop key="runtime.log.logsystem.class">org.apache.velocity.slf4j.Slf4jLogChute</prop>
-      </props>
+  <mvc:annotation-driven/>
+
+  <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+    <property name="prefix" value="/WEB-INF/thymeleaf/"/>
+    <property name="suffix" value=".xhtml"/>
+    <property name="characterEncoding" value="UTF-8"/>
+    <property name="templateMode" value="XML"/>
+    <property name="cacheable" value="true"/>
+  </bean>
+
+  <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+    <property name="templateResolver" ref="templateResolver"/>
+    <property name="enableSpringELCompiler" value="true"/>
+    <property name="additionalDialects">
+      <set>
+        <bean class="org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect"/>
+      </set>
     </property>
   </bean>
 
-  <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-    <property name="cache" value="true"/>
-    <property name="prefix" value=""/>
-    <property name="suffix" value=".vm"/>
+  <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+    <property name="templateEngine" ref="templateEngine"/>
     <property name="contentType" value="application/xhtml+xml; charset=UTF-8"/>
   </bean>
 
   <mvc:resources mapping="/ressources/**" location="/ressources/"/>
 
-  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-  <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
- 
- </beans>
+</beans>

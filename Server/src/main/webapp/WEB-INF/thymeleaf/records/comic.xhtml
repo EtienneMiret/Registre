@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head (${record.title})">
+  <title>Tintin au Tibet - Registre</title>
+</head>
+<body>
+
+<h1 th:text="${record.title}">Tintin au Tibet</h1>
+
+<dl>
+  <div th:if="${record.series}">
+    <dt>Série</dt>
+    <dd th:text="${record.series}">Tintin</dd>
+  </div>
+  <div th:if="${record.cartoonist}">
+    <dt>Dessinateur</dt>
+    <dd th:text="${record.cartoonist}">Hergé</dd>
+  </div>
+  <div th:if="${record.scriptWriter}">
+    <dt>Scénariste</dt>
+    <dd th:text="${record.scriptWriter}">Hergé</dd>
+  </div>
+  <div th:if="${record.comment}">
+    <dt>Commentaire</dt>
+    <dd th:text="${record.comment}">Un Tintin sans méchants.</dd>
+  </div>
+  <div th:if="${record.owner}">
+    <dt>Propriétaire</dt>
+    <dd th:text="${record.owner}">Maman</dd>
+  </div>
+  <div th:if="${record.location}">
+    <dt>Emplacement</dt>
+    <dd th:text="${record.location}">Quelque part près de Paris</dd>
+  </div>
+  <div>
+    <dt>Référencement</dt>
+    <dd>Le <span th:text="${record.creation}">3 décembre 2017</span>
+      par <span th:text="${record.creator}">Système</span>.</dd>
+  </div>
+  <div th:if="${record.creation} != ${record.lastModification}">
+    <dt>Mise à jour</dt>
+    <dd>Le <span th:text="${record.lastModification}">5 décembre 2017</span>
+      par <span th:text="${record.lastModifier}">Etienne</span>.</dd>
+  </div>
+</dl>
+
+</body>
+</html>

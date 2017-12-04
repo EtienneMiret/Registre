@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head ('Recherche')">
+  <title>Recherche - Registre</title>
+</head>
+<body>
+
+<h1>Recherche</h1>
+
+<p>Votre recherche a renvoyé <span th:text="${records.size ()}">4</span>
+  résultat<span th:unless="${records.isEmpty ()}">s</span>.</p>
+
+<table th:unless="${records.isEmpty ()}">
+  <thead>
+    <tr>
+      <th>Référence</th>
+      <th>Série</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody th:each="record : ${records}" th:remove="all-but-first">
+    <tr>
+      <td><a th:href="@{/Fiche/{id}(id=${record.id})}" th:text="${record.title}" href="records/movie.xhtml">Star Wars - Un nouvel espoir</a></td>
+      <td th:text="${record.series}">Star Wars</td>
+      <td th:text="${record.class.simpleName}">Movie</td>
+    </tr>
+    <tr>
+      <td><a href="records/book.xhtml">Le Seigneur des Anneaux</a></td>
+      <td/>
+      <td>Book</td>
+    </tr>
+    <tr>
+      <td><a href="records/comic.xhtml">Tintin au Tibet</a></td>
+      <td>Tintin</td>
+      <td>Comic</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
