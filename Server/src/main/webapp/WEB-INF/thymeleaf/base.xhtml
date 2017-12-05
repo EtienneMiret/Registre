@@ -13,11 +13,11 @@
 </header>
 
 <nav th:fragment="nav (currentPage)">
-  <ul>
-    <li>Bienvenue <span th:text="${#authentication.name}">à tous</span>&#xA0;!</li>
-    <li><a th:href="@{/}" th:class="${currentPage} == home ? self">Accueil</a></li>
-    <li><form method="post" th:action="@{/logout}"><input type="submit" value="Se déconnecter"/></form></li>
-  </ul>
+  <ul
+    ><li>Bienvenue <span th:text="${#authentication.name}">à tous</span>&#xA0;!</li
+    ><li><a th:href="@{/}" th:class="${currentPage} == home ? self">Accueil</a></li
+    ><li><form method="post" th:action="@{/logout}"><input type="submit" value="Déconnexion"/></form></li
+  ></ul>
 </nav>
 
 <p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#xA0;!</p>

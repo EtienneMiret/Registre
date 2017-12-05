@@ -23,3 +23,61 @@ header {
     }
   }
 }
+
+nav {
+  ul {
+    display: block;
+    background: #ebeffa;
+    padding: 11px;
+    border: 1px solid #cad5f3;
+    margin: 5px;
+
+    $border-0: 1px solid white;
+    $border-1: 1px solid #c2cff1;
+
+    li {
+      display: block;
+      margin: 0;
+      padding: 5px 0;
+      border-top: $border-0;
+      border-right: none;
+      border-bottom: $border-1;
+      border-left: none;
+
+      &:first-child {
+        border-top-style: none;
+      }
+      &:last-child {
+        border-bottom-style: none;
+      }
+
+      @media (min-width: 360px) {
+        display: inline-block;
+        padding: 0 11px;
+        border-top: none;
+        border-right: $border-1;
+        border-bottom: none;
+        border-left: $border-0;
+
+        &:first-child {
+          padding-left: 0;
+          border-left: none;
+        }
+        &:last-child {
+          padding-right: 0;
+          border-right: none;
+        }
+      }
+    }
+
+    @media (min-width: 960px) {
+      margin: 0;
+    }
+  }
+}
+
+a.self {
+  color: inherit;
+  cursor: default;
+  text-decoration: none;
+}
