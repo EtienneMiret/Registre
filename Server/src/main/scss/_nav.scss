@@ -11,6 +11,7 @@ nav {
 
     li {
       display: block;
+      height: 20px;
       margin: 0;
       padding: 5px 0;
       border-top: $border-0;
@@ -46,6 +47,22 @@ nav {
 
     @media (min-width: 960px) {
       margin: 0;
+    }
+
+    form {
+      button {
+        padding: 2px;
+        vertical-align: middle;
+        border: 1px solid #c2cff1;
+        border-radius: 6px;
+        margin-left: 2px;
+
+        > img {
+          width: 14px;
+          height: 14px;
+          display: block;
+        }
+      }
     }
   }
 }
