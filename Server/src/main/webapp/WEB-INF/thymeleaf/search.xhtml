@@ -5,7 +5,9 @@
 </head>
 <body>
 
-<h1>Recherche</h1>
+<h1 th:replace="base :: header">Recherche</h1>
+
+<div th:replace="base :: nav (search)"/>
 
 <p>Votre recherche a renvoyé <span th:text="${records.size ()}">4</span>
   résultat<span th:unless="${records.isEmpty ()}">s</span>.</p>

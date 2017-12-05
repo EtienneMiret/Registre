@@ -6,7 +6,17 @@
 </head>
 <body>
 
-<h1>Accueil</h1>
+<header th:fragment="header">
+  <h1><img th:src="@{/resources/images/logo.png}" alt="Registre" class="logo"/></h1>
+</header>
+
+<nav th:fragment="nav (currentPage)">
+  <ul>
+    <li>Bienvenue <span th:text="${#authentication.name}">à tous</span>&#xA0;!</li>
+    <li><a th:href="@{/}" th:class="${currentPage} == home ? self">Accueil</a></li>
+    <li><form method="post" th:action="@{/logout}"><input type="submit" value="Se déconnecter"/></form></li>
+  </ul>
+</nav>
 
 <p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#xA0;!</p>
 

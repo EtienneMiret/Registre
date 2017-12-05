@@ -5,12 +5,16 @@
 </head>
 <body>
 
-<h1 th:text="${record.title}">Le Seigneur des Anneaux</h1>
+<h1 th:replace="base :: header">Fiche</h1>
+
+<div th:replace="base :: nav (record)"/>
+
+<h2 th:text="${record.title}">Star Wars - Un nouvel espoir</h2>
 
 <dl>
   <div th:if="${record.series}">
     <dt>Série</dt>
-    <dd th:text="${record.series}">La Terre du Milieu</dd>
+    <dd th:text="${record.series}">Star Wars</dd>
   </div>
   <div th:unless="${record.actors.isEmpty ()}">
     <dt>Acteurs</dt>

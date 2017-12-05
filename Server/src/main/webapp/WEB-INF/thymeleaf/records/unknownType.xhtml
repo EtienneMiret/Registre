@@ -5,7 +5,11 @@
 </head>
 <body>
 
-<h1 th:text="${record.title}">Les Quatres Saisons</h1>
+<h1 th:replace="base :: header">Fiche</h1>
+
+<div th:replace="base :: nav (record)"/>
+
+<h2 th:text="${record.title}">Les Quatres Saisons</h2>
 
 <p>Il s’agit d’un type de fiche inconnu. Les détails suivants on néanmoins pu
   être récupérés&#xA0;:</p>

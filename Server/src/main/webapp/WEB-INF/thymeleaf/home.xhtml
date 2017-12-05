@@ -5,7 +5,9 @@
 </head>
 <body>
 
-<h1>Accueil</h1>
+<h1 th:replace="base :: header">Accueil</h1>
+
+<div th:replace="base :: nav (home)"/>
 
 <p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#xA0;!</p>
 
