@@ -237,6 +237,13 @@ public abstract class Record {
     }
 
     /**
+     * Returns the kind of item this record represents. Eg: "book", "movie"...
+     *
+     * @return the kind of item this record represents.
+     */
+    public abstract String getType ();
+
+    /**
      * Returns this record’s id.
      *
      * @return this record’s id.

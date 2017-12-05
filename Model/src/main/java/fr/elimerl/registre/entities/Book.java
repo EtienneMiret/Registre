@@ -56,6 +56,11 @@ public class Book extends Record {
 	return result;
     }
 
+    @Override
+    public String getType () {
+      return "book";
+    }
+
     /**
      * Returns this book’s author.
      *

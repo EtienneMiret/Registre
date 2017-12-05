@@ -124,7 +124,12 @@ public class Movie extends Record {
 	return result;
     }
 
-    /**
+    @Override
+    public String getType () {
+      return "movie";
+    }
+
+  /**
      * Returns the physical support this movie is recorded on.
      *
      * @return the physical support this movie is recorded on.
