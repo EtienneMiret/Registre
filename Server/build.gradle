@@ -1,5 +1,11 @@
+import io.freefair.gradle.plugins.jsass.SassCompile
+
+plugins {
+  id 'io.freefair.jsass-base' version '1.0.0'
+}
 
 apply plugin: 'war'
+apply plugin: 'io.freefair.jsass-base'
 
 description = 'Serveur Registre'
 dependencies {
@@ -15,6 +21,18 @@ dependencies {
   compileOnly group: 'javax', name: 'javaee-web-api'
   runtime group: 'org.thymeleaf', name: 'thymeleaf-spring5'
   runtime group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4'
+}
+
+task sass(type: SassCompile) {
+  sourceDir file ('src/main/scss')
+  destinationDir file("$buildDir/css")
+  cssPath 'resources'
+  sourceMapEnabled false
+}
+
+war {
+  from file (sass.destinationDir)
+  dependsOn sass
 }
 
 configurations {
