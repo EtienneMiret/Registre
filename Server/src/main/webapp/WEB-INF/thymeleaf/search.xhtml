@@ -10,7 +10,7 @@
 <div th:replace="base :: nav (search)"/>
 
 <p>Votre recherche a renvoyé <span th:text="${records.size ()}">4</span>
-  résultat<span th:unless="${records.isEmpty ()}">s</span>.</p>
+  résultat<span th:if="${records.size () > 1}">s</span>.</p>
 
 <table th:unless="${records.isEmpty ()}">
   <thead>
