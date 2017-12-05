@@ -1,0 +1,20 @@
+:root {
+  color: black;
+  background-color: white;
+  text-align: justify;
+}
+
+header {
+  width: 100%;
+  border-bottom: 8px solid #a5cc55;
+
+  h1 {
+    border-bottom: 2px solid #303030;
+    margin-bottom: 1px;
+
+    img.logo {
+      display: block;
+      height: 60px;
+    }
+  }
+}
