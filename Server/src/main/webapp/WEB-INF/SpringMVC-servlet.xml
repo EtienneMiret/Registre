@@ -34,6 +34,6 @@
     <property name="contentType" value="application/xhtml+xml; charset=UTF-8"/>
   </bean>
 
-  <mvc:resources mapping="/ressources/**" location="/ressources/"/>
+  <mvc:resources mapping="/resources/**" location="/resources/"/>
 
 </beans>
