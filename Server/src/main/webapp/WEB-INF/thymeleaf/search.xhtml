@@ -12,19 +12,19 @@
 <p>Votre recherche a renvoyé <span th:text="${records.size ()}">4</span>
   résultat<span th:if="${records.size () > 1}">s</span>.</p>
 
-<table th:unless="${records.isEmpty ()}">
+<table th:unless="${records.isEmpty ()}" class="search-results">
   <thead>
     <tr>
       <th>Référence</th>
       <th>Série</th>
-      <th>Type</th>
+      <th/>
     </tr>
   </thead>
-  <tbody th:each="record : ${records}" th:remove="all-but-first">
-    <tr>
-      <td><a th:href="@{/Fiche/{id}(id=${record.id})}" th:text="${record.title}" href="records/movie.xhtml">Star Wars - Un nouvel espoir</a></td>
-      <td th:text="${record.series}">Star Wars</td>
-      <td th:text="${record.class.simpleName}">Movie</td>
+  <tbody th:remove="all-but-first">
+    <tr th:each="record : ${records}">
+      <td class="title"><a th:href="@{/Fiche/{id}(id=${record.id})}" th:text="${record.title}" href="records/movie.xhtml">Star Wars - Un nouvel espoir</a></td>
+      <td class="series" th:text="${record.series}">Star Wars</td>
+      <td class="type"><img th:src="@{/resources/images/{type}.png(type=${record.type})}" th:alt="${record.type}"/></td>
     </tr>
     <tr>
       <td><a href="records/book.xhtml">Le Seigneur des Anneaux</a></td>
