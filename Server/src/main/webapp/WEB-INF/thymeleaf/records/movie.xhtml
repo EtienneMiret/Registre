@@ -5,52 +5,31 @@
 </head>
 <body>
 
-<h1 th:text="${record.title}">Le Seigneur des Anneaux</h1>
+<header th:replace="base :: header">Fiche</header>
 
-<dl>
-  <div th:if="${record.series}">
-    <dt>Série</dt>
-    <dd th:text="${record.series}">La Terre du Milieu</dd>
+<nav th:replace="base :: nav (record)"/>
+
+<main class="record">
+
+  <h1 th:text="${record.title}">Star Wars - Un nouvel espoir</h1>
+
+  <div class="picture">
+    <p>Pas d’image pour le moment.</p>
   </div>
-  <div th:unless="${record.actors.isEmpty ()}">
-    <dt>Acteurs</dt>
-    <dd><th:block th:each="actor : ${record.actors}"><span th:text="${actor.name}">Luke Skywalker</span><th:block th:switch="${actorStat.index}"><th:block th:case="${actorStat.size} - 2"> et </th:block><th:block th:case="${actorStat.size} - 1">.</th:block><th:block th:case="*">, </th:block></th:block></th:block></dd>
-  </div>
-  <div th:if="${record.director}">
-    <dt>Réalisateur</dt>
-    <dd th:text="${record.director}">Spielberg</dd>
-  </div>
-  <div th:if="${record.composer}">
-    <dt>Compositeur</dt>
-    <dd th:text="${record.composer}">John Williams</dd>
-  </div>
-  <div th:if="${record.support}">
-    <dt>Support</dt>
-    <dd th:text="${record.support}">DVD</dd>
-  </div>
-  <div th:if="${record.comment}">
-    <dt>Commentaire</dt>
-    <dd th:text="${record.comment}">Le premier d’une série de films super.</dd>
-  </div>
-  <div th:if="${record.owner}">
-    <dt>Propriétaire</dt>
-    <dd th:text="${record.owner}">Etienne</dd>
-  </div>
-  <div th:if="${record.location}">
-    <dt>Emplacement</dt>
-    <dd th:text="${record.location}">Quelque part près de Paris</dd>
-  </div>
-  <div>
-    <dt>Référencement</dt>
-    <dd>Le <span th:text="${record.creation}">3 décembre 2017</span>
-      par <span th:text="${record.creator}">Système</span>.</dd>
-  </div>
-  <div th:if="${record.creation} != ${record.lastModification}">
-    <dt>Mise à jour</dt>
-    <dd>Le <span th:text="${record.lastModification}">5 décembre 2017</span>
-      par <span th:text="${record.lastModifier}">Grégoire</span>.</dd>
-  </div>
-</dl>
+
+  <section>
+    <p th:if="${record.director}">Réalisé par <span th:text="${record.director}">Spielberg</span>.</p>
+    <p th:unless="${record.actors.isEmpty()}">Avec <th:block th:each="actor : ${record.actors}"><span th:text="${actor.name}">Luke Skywalker</span><th:block th:switch="${actorStat.index}"><th:block th:case="${actorStat.size} - 2"> et </th:block><th:block th:case="${actorStat.size} - 1">.</th:block><th:block th:case="*">, </th:block></th:block></th:block></p>
+    <p th:if="${record.composer}">Musique composée par <span th:text="${record.composer}">John Williams</span>.</p>
+    <p th:if="${record.series}">Série&#x202F;: <span th:text="${record.series}">Star Wars</span>.</p>
+    <p><span th:text="${record.support}">DVD</span><th:block th:if="${record.owner}"> appartenant à <span th:text="${record.owner}">Etienne</span></th:block>.</p>
+    <p th:if="${record.location}">Emplacement&#x202F;: <span th:text="${record.location}">quelque part près de Paris</span>.</p>
+    <p>Référencé <span th:text="${record.creation}">le dimanche 3 décembre 2017</span> par <span th:text="${record.creator}">Système</span><th:block th:if="${record.creation} != ${record.lastModification}">,
+      mis à jour <span th:text="${record.lastModification}">le mardi 5 décembre 2017</span> par <span th:text="${record.lastModifier}">Grégoire</span></th:block>.</p>
+    <p th:if="${record.comment}" th:text="${record.comment}">Le premier d’une série de films super.</p>
+  </section>
+
+</main>
 
 </body>
 </html>

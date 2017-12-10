@@ -1,0 +1,53 @@
+table.search-results {
+  margin: 5px;
+  text-align: left;
+  border-collapse: collapse;
+
+  @media (min-width: 960px) {
+    margin: 0;
+  }
+
+  thead {
+    font-weight: normal;
+    font-size: large;
+    background: #c2cff1;
+    color: #f6f6f8;
+
+    th {
+      padding: 10px;
+      border: 1px solid white;
+    }
+  }
+
+  tbody {
+    color: #303030;
+    background: #ebeffa;
+
+    tr:nth-child(odd) {
+      background: #f1f4f9;
+    }
+
+    td {
+      height: 20px;
+      padding: 10px;
+      border: 1px solid #d4dff3;
+    }
+    td.title {
+      width: 60%;
+    }
+    td.series {
+      width: 40%;
+    }
+    td.type {
+      padding: 0;
+      height: 40px;
+      width: 40px;
+      vertical-align: middle;
+      img {
+        display: block;
+        height: 40px;
+        width: 40px;
+      }
+    }
+  }
+}

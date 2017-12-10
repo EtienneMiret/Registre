@@ -71,7 +71,12 @@ public class Comic extends Record {
 	return result;
     }
 
-    /**
+    @Override
+    public String getType () {
+      return "comic";
+    }
+
+  /**
      * Returns the cartoonist of this comic.
      * @return the cartoonist of this comic, or {@code null} if unknown.
      * @see #cartoonist

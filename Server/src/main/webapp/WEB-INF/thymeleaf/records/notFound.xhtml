@@ -5,7 +5,11 @@
 </head>
 <body>
 
-<h1>Référence inconnue</h1>
+<h1 th:replace="base :: header">Fiche</h1>
+
+<div th:replace="base :: nav (record)"/>
+
+<h2>Référence inconnue</h2>
 
 <p>Désolé, la référence que vous avez demandée n’existe pas.</p>
 

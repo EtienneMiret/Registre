@@ -2,12 +2,27 @@
     xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head (pageTitle)">
   <title th:text="|${pageTitle} - Registre|">Base - Registre</title>
+  <meta name="viewport" content="initial-scale=1.0"/>
+  <link rel="icon" th:href="@{/resources/images/icon.png}"/>
+  <link rel="apple-touch-icon" th:href="@{/resources/images/icon.png}"/>
+  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css"/>
 </head>
 <body>
 
-<h1>Accueil</h1>
+<header th:fragment="header">
+  <h1><img th:src="@{/resources/images/logo.png}" alt="Registre" class="logo"/></h1>
+</header>
 
-<p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#xA0;!</p>
+<nav th:fragment="nav (currentPage)">
+  <ul
+    ><li>Bienvenue <span th:text="${#authentication.name}">à tous</span>&#x202F;!</li
+    ><li><a th:href="@{/}" th:class="${currentPage} == home ? self">Accueil</a></li
+    ><li><form th:action="@{/Rechercher}"><input name="q" placeholder="Rechercher"/><button><img th:src="@{/resources/images/search.png}" alt="Rechercher"/></button></form></li
+    ><li><form method="post" th:action="@{/logout}"><input type="submit" value="Déconnexion"/></form></li
+  ></ul>
+</nav>
+
+<p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#x202F;!</p>
 
 </body>
 </html>

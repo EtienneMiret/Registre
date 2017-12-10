@@ -1,0 +1,26 @@
+:root {
+  color: black;
+  background-color: white;
+  text-align: justify;
+}
+
+body {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: #66a7e1;
+
+  &:hover {
+    color: #4f8dc4;
+  }
+
+  &.self {
+    color: inherit;
+    cursor: default;
+    text-decoration: none;
+    font-weight: bolder;
+  }
+}

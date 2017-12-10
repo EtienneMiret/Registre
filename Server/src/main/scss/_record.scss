@@ -1,0 +1,39 @@
+main.record {
+
+  h1 {
+    font-size: x-large;
+    color: #a5cc55;
+    margin: 5px;
+  }
+
+  .picture {
+    width: 198px;
+    min-height: 280px;
+    background: #eee;
+    border: 1px solid #ddd;
+    margin: 5px auto;
+
+    @media (min-width: 400px) {
+      float: left;
+      margin: 5px 15px 15px 5px;
+    }
+
+    p {
+      width: 130px;
+      margin: 118px auto 0;
+      text-align: center;
+      color: #bbb;
+    }
+  }
+
+  section {
+    background:#ebeffa;
+    padding: 1px;
+
+    p {
+      text-align: justify;
+      margin: 15px;
+    }
+  }
+
+}

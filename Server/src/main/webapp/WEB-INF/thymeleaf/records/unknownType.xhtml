@@ -5,39 +5,30 @@
 </head>
 <body>
 
-<h1 th:text="${record.title}">Les Quatres Saisons</h1>
+<header th:replace="base :: header">Fiche</header>
 
-<p>Il s’agit d’un type de fiche inconnu. Les détails suivants on néanmoins pu
-  être récupérés&#xA0;:</p>
+<nav th:replace="base :: nav (record)"/>
 
-<dl>
-  <div th:if="${record.series}">
-    <dt>Série</dt>
-    <dd th:text="${record.series}">Vivaldi</dd>
+<main class="record">
+
+  <h1 th:text="${record.title}">Les Quatres Saisons</h1>
+
+  <div class="picture">
+    <p>Pas d’image pour le moment.</p>
   </div>
-  <div th:if="${record.comment}">
-    <dt>Commentaire</dt>
-    <dd th:text="${record.comment}">Un grand classique.</dd>
-  </div>
-  <div th:if="${record.owner}">
-    <dt>Propriétaire</dt>
-    <dd th:text="${record.owner}">Etienne</dd>
-  </div>
-  <div th:if="${record.location}">
-    <dt>Emplacement</dt>
-    <dd th:text="${record.location}">Quelque part près de Paris</dd>
-  </div>
-  <div>
-    <dt>Référencement</dt>
-    <dd>Le <span th:text="${record.creation}">3 décembre 2017</span>
-      par <span th:text="${record.creator}">Système</span>.</dd>
-  </div>
-  <div th:if="${record.creation} != ${record.lastModification}">
-    <dt>Mise à jour</dt>
-    <dd>Le <span th:text="${record.lastModification}">5 décembre 2017</span>
-      par <span th:text="${record.lastModifier}">Grégoire</span>.</dd>
-  </div>
-</dl>
+
+  <section>
+    <p>Il s’agit d’un type de fiche inconnu. Les détails suivants on néanmoins
+      pu être récupérés&#x202F;:</p>
+    <p th:if="${record.series}">Série&#x202F;: <span th:text="${record.series}">Vivaldi</span>.</p>
+    <p th:if="${record.owner}">Appartient à <span th:text="${record.owner}">Etienne</span>.</p>
+    <p th:if="${record.location}">Emplacement&#x202F;: <span th:text="${record.location}">quelque part près de Paris</span>.</p>
+    <p>Référencé <span th:text="${record.creation}">le dimanche 3 décembre 2017</span> par <span th:text="${record.creator}">Système</span><th:block th:if="${record.creation} != ${record.lastModification}">,
+      mis à jour <span th:text="${record.lastModification}">le mardi 5 décembre 2017</span> par <span th:text="${record.lastModifier}">Grégoire</span></th:block>.</p>
+    <p th:if="${record.comment}" th:text="${record.comment}">Un grand classique.</p>
+  </section>
+
+</main>
 
 </body>
 </html>
