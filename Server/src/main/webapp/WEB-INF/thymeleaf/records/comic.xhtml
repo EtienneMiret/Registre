@@ -5,48 +5,30 @@
 </head>
 <body>
 
-<h1 th:replace="base :: header">Fiche</h1>
+<header th:replace="base :: header">Fiche</header>
 
-<div th:replace="base :: nav (record)"/>
+<nav th:replace="base :: nav (record)"/>
 
-<h2 th:text="${record.title}">Tintin au Tibet</h2>
+<main class="record">
 
-<dl>
-  <div th:if="${record.series}">
-    <dt>Série</dt>
-    <dd th:text="${record.series}">Tintin</dd>
+  <h1 th:text="${record.title}">Tintin au Tibet</h1>
+
+  <div class="picture">
+    <p>Pas d’image pour le moment.</p>
   </div>
-  <div th:if="${record.cartoonist}">
-    <dt>Dessinateur</dt>
-    <dd th:text="${record.cartoonist}">Hergé</dd>
-  </div>
-  <div th:if="${record.scriptWriter}">
-    <dt>Scénariste</dt>
-    <dd th:text="${record.scriptWriter}">Hergé</dd>
-  </div>
-  <div th:if="${record.comment}">
-    <dt>Commentaire</dt>
-    <dd th:text="${record.comment}">Un Tintin sans méchants.</dd>
-  </div>
-  <div th:if="${record.owner}">
-    <dt>Propriétaire</dt>
-    <dd th:text="${record.owner}">Maman</dd>
-  </div>
-  <div th:if="${record.location}">
-    <dt>Emplacement</dt>
-    <dd th:text="${record.location}">Quelque part près de Paris</dd>
-  </div>
-  <div>
-    <dt>Référencement</dt>
-    <dd>Le <span th:text="${record.creation}">3 décembre 2017</span>
-      par <span th:text="${record.creator}">Système</span>.</dd>
-  </div>
-  <div th:if="${record.creation} != ${record.lastModification}">
-    <dt>Mise à jour</dt>
-    <dd>Le <span th:text="${record.lastModification}">5 décembre 2017</span>
-      par <span th:text="${record.lastModifier}">Etienne</span>.</dd>
-  </div>
-</dl>
+
+  <section>
+    <p th:if="${record.cartoonist}">Déssiné par <span th:text="${record.cartoonist}">Hergé</span>.</p>
+    <p th:if="${record.scriptWriter}">Sur un scénario de <span th:text="${record.scriptWriter}">Hergé</span>.</p>
+    <p th:if="${record.series}">Série&#x202F;: <span th:text="${record.series}">Tintin</span><th:block th:if="${record.number}"> (numéro <span th:text="${record.number}">12</span>)</th:block>.</p>
+    <p>BD<th:block th:if="${record.owner}"> appartenant à <span th:text="${record.owner}">Maman</span></th:block>.</p>
+    <p th:if="${record.location}">Emplacement&#x202F;: <span th:text="${record.location}">quelque part près de Paris</span>.</p>
+    <p>Référencé <span th:text="${record.creation}">le dimanche 3 décembre 2017</span> par <span th:text="${record.creator}">Système</span><th:block th:if="${record.creation} != ${record.lastModification}">,
+      mis à jour <span th:text="${record.lastModification}">le mardi 5 décembre 2017</span> par <span th:text="${record.lastModifier}">Etienne</span></th:block>.</p>
+    <p th:if="${record.comment}" th:text="${record.comment}">Un Tintin sans méchants.</p>
+  </section>
+
+</main>
 
 </body>
 </html>
