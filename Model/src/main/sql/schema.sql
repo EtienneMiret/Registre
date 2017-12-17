@@ -59,7 +59,7 @@ create table records (
 	dtype varchar(20) not null,
 	series bigint references series (id),
 	comment clob,
-	picture char(36),
+	picture varchar(50),
 	owner bigint references owners (id),
 	location bigint references locations (id),
 	action_style boolean,

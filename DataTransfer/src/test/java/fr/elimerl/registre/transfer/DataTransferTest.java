@@ -80,7 +80,7 @@ public class DataTransferTest {
         assertThat (rs.getString ("dtype")).isEqualTo ("Movie");
         assertThat (rs.getObject ("series")).isNull ();
         assertThat (rs.getString ("comment")).isEqualTo ("Hello World!");
-        assertThat (rs.getString ("picture")).isEqualToNormalizingWhitespace ("0");
+        assertThat (rs.getString ("picture")).isEqualTo ("0.jpg");
         assertThat (rs.getObject ("owner")).isNull ();
         assertThat (rs.getObject ("location")).isNull ();
         assertThat (getBoolean (rs, "action_style")).isTrue ();
@@ -106,7 +106,7 @@ public class DataTransferTest {
         assertThat (rs.getString ("dtype")).isEqualTo ("Movie");
         assertThat (rs.getObject ("series")).isNull ();
         assertThat (rs.getString ("comment")).isNull ();
-        assertThat (rs.getString ("picture")).isEqualToNormalizingWhitespace ("1");
+        assertThat (rs.getString ("picture")).isEqualTo ("1.jpg");
         assertThat (rs.getObject ("owner")).isEqualTo (OWNER_ALICE);
         assertThat (rs.getObject ("location")).isNull ();
         assertThat (getBoolean (rs, "action_style")).isFalse ();
@@ -236,7 +236,7 @@ public class DataTransferTest {
         assertThat (rs.getString ("dtype")).isEqualTo ("Comic");
         assertThat (rs.getObject ("series")).isEqualTo (SERIES_WISH);
         assertThat (rs.getString ("comment")).isNull ();
-        assertThat (rs.getString ("picture")).isEqualToNormalizingWhitespace ("6");
+        assertThat (rs.getString ("picture")).isEqualTo ("6.jpg");
         assertThat (rs.getObject ("owner")).isNull ();
         assertThat (rs.getObject ("location")).isNull ();
         assertThat (getBoolean (rs, "action_style")).isNull ();
@@ -262,7 +262,7 @@ public class DataTransferTest {
         assertThat (rs.getString ("dtype")).isEqualTo ("Movie");
         assertThat (rs.getObject ("series")).isEqualTo (SERIES_WISH);
         assertThat (rs.getString ("comment")).isNull ();
-        assertThat (rs.getString ("picture")).isEqualToNormalizingWhitespace ("7");
+        assertThat (rs.getString ("picture")).isEqualTo ("7.jpg");
         assertThat (rs.getObject ("owner")).isNull ();
         assertThat (rs.getObject ("location")).isEqualTo (LOCATION_NEWYORK);
         assertThat (getBoolean (rs, "action_style")).isNull ();
@@ -288,7 +288,7 @@ public class DataTransferTest {
         assertThat (rs.getString ("dtype")).isEqualTo ("Book");
         assertThat (rs.getObject ("series")).isEqualTo (SERIES_WISH);
         assertThat (rs.getString ("comment")).isNull ();
-        assertThat (rs.getString ("picture")).isEqualToNormalizingWhitespace ("8");
+        assertThat (rs.getString ("picture")).isEqualTo ("8.jpg");
         assertThat (rs.getObject ("owner")).isEqualTo (OWNER_ALICE);
         assertThat (rs.getObject ("location")).isNull ();
         assertThat (getBoolean (rs, "action_style")).isNull ();

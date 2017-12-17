@@ -60,7 +60,7 @@ public abstract class Record {
     private String comment;
 
     /**
-     * UUID of the picture linked with this record. Can be {@code null}.
+     * Path of the picture linked with this record. Can be {@code null}.
      */
     @Column(name = "picture")
     private String picture;
@@ -317,9 +317,9 @@ public abstract class Record {
     }
 
     /**
-     * Returns the UUID of this record’s picture.
+     * Returns the path of this record’s picture.
      *
-     * @return the UUID of this record’s picture. May be {@code null}.
+     * @return the path of this record’s picture. May be {@code null}.
      * @see #picture
      */
     public String getPicture() {
@@ -327,10 +327,10 @@ public abstract class Record {
     }
 
     /**
-     * Set the UUID of this record’s picture.
+     * Set the path of this record’s picture.
      *
      * @param picture
-     * 		UUID of this record’s picture.
+     * 		path of this record’s picture.
      * @see #picture
      */
     public void setPicture(final String picture) {

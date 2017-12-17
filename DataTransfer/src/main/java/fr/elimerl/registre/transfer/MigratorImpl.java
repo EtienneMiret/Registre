@@ -346,7 +346,7 @@ public class MigratorImpl implements Migrator {
 	    );
 	}
 	if (picture != null) {
-	  record.setPicture (String.valueOf (id));
+	  record.setPicture (id + ".jpg");
         }
 	record.setComment(comment);
 	if (lastModifier != null && !lastModifier.isEmpty()) {
