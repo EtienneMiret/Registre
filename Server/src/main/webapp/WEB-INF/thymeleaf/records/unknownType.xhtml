@@ -13,7 +13,7 @@
 
   <h1 th:text="${record.title}">Les Quatres Saisons</h1>
 
-  <div class="picture">
+  <div class="picture" th:replace="records/base :: picture (${record.picture})">
     <p>Pas d’image pour le moment.</p>
   </div>
 

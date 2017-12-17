@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Images - Registre</title>
+</head>
+<body>
+
+<div th:fragment="picture (path)">
+  <div class="picture" th:unless="${path}">
+    <p>Pas d’image pour le moment.</p>
+  </div>
+  <img class="picture" th:if="${path}" th:src="@{/resources/images/records/{picture}(picture=${path})}"/>
+</div>
+
+</body>
+</html>
