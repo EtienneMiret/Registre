@@ -63,7 +63,7 @@ public class DataTransferTest {
     }
     try (Connection connection = DriverManager.getConnection ("jdbc:hsqldb:mem:output", "SA", "")) {
       ScriptUtils.executeSqlScript (connection, new EncodedResource (
-          new ClassPathResource ("schema.sql"), StandardCharsets.UTF_8
+          new ClassPathResource ("hsql-schema.sql"), StandardCharsets.UTF_8
       ));
     }
 

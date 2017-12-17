@@ -21,7 +21,7 @@
   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
   <jdbc:embedded-database id="embeddedDataSource">
-    <jdbc:script location="file:${basedir}/src/main/sql/schema.sql" encoding="UTF-8"/>
+    <jdbc:script location="file:${basedir}/src/main/sql/hsql-schema.sql" encoding="UTF-8"/>
     <jdbc:script location="classpath:test-data.sql" encoding="UTF-8"/>
   </jdbc:embedded-database>
 
