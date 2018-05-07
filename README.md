@@ -44,3 +44,30 @@ Finally, you need to configure the following JNDI resources (this is done in
 
 [2]: https://www.slf4j.org/faq.html#compatibility
 [3]: https://console.developers.google.com/
+
+## Transfer data from Registre v2
+
+In order to migrate data from a Registre v2 instance, you need to run
+DataTransfer-3.x-all.jar. This jar can be found in the DataTransfer/build/libs
+directory after the build phase. It requires the following on the classpath
+to run:
+ * any version of slf4j-api-1.x.y.jar,
+ * the SLF4J implementation of your choice,
+ * the JDBC driver for the Registre v2 database,
+ * the JDBC driver for the Registre v3 database
+ * and a `config.properties` file with the following properties set:
+    * `oldDb.driver` (driver class of the Registre v2 database)
+    * `oldDb.url` (JDBC URL of the Registre v2 database)
+    * `oldDb.user` (user to use to connect to the v2 database)
+    * `oldDb.pwd` (password to use to connect to the v2 database)
+    * `newDb.driver` (driver class of the Registre v3 database)
+    * `newDb.url` (JDBC URL of the v3 database)
+    * `newDb.user` (user to use to connect to the v3 database)
+    * `newDb.pwd` (password to use to connect to the v3 database)
+    * `batchSize` (number of records to migrate in one transaction).
+
+Note that the `-cp` option is ignored by java when the `-jar` option is issued.
+So you probably want to put all those jars in a “libs” directory, the config
+file in a “config” directory, and run:
+
+    $ java -cp "$(printf '%s:' libs/*.jar)config" fr.elimerl.registre.transfer.DataTransfer
