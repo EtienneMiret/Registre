@@ -14,9 +14,9 @@ Registre uses [Gradle][1] as its build tool. A great thing about Gradle is that
 you don’t need to install it, you just need to run the “gradlew” wrapper
 provided with the sources.
 
- 1. export JAVA_HOME=/path/to/java/8 # Make sure you’re using java 8
- 2. ./gradlew assemble # Build
- 3. ./gradlew check # Run test suites
+    $ export JAVA_HOME=/path/to/java/8   # Make sure you’re using java 8
+    $ ./gradlew assemble                 # Build
+    $ ./gradlew check                    # Run test suites
 
 [1]: https://gradle.org/
 
