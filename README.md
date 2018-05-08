@@ -33,6 +33,10 @@ You will also need the following JARs in the classpath
  * the SLF4J implementation of your choice (it may be several JARs)
  * the JDBC driver of your choice
 
+You need to setup an SQL database. Any [database supported by EclipseLink][4]
+will do, but you may need to translate the schema. Available schemas are in the
+Model/src/main/sql directory. In any case, you need to run the schema yourself.
+
 Finally, you need to configure the following JNDI resources (this is done in
 /usr/local/tomcat/conf/context.xml for Tomcat):
  * `jdbc/Registre`: a container authenticated javax.sql.DataSource.
@@ -44,6 +48,7 @@ Finally, you need to configure the following JNDI resources (this is done in
 
 [2]: https://www.slf4j.org/faq.html#compatibility
 [3]: https://console.developers.google.com/
+[4]: https://wiki.eclipse.org/EclipseLink/FAQ/JPA#What_databases_are_supported.3F
 
 ## Transfer data from Registre v2
 
@@ -71,3 +76,5 @@ So you probably want to put all those jars in a “libs” directory, the config
 file in a “config” directory, and run:
 
     $ java -cp "$(printf '%s:' libs/*.jar)config" fr.elimerl.registre.transfer.DataTransfer
+
+Also note that the target database needs to already have a schema.
