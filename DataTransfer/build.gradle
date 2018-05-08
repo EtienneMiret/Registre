@@ -28,6 +28,9 @@ shadowJar {
   mergeServiceFiles {
     include 'META-INF/spring.*'
   }
+  dependencies {
+    exclude(dependency('org.slf4j:slf4j-api'))
+  }
 }
 
 assemble {
