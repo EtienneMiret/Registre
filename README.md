@@ -78,3 +78,16 @@ file in a “config” directory, and run:
     $ java -cp "$(printf '%s:' libs/*.jar)config" fr.elimerl.registre.transfer.DataTransfer
 
 Also note that the target database needs to already have a schema.
+
+## Configuring users
+
+Only users who have their email registered in the database can connect to
+Registre. Their is no way for them to register themselves. An administrator
+must add them with the following SQL query:
+
+    INSERT INTO users (name, email) VALUES ('<name>', '<email>');
+
+If you migrated a Registre v2 database, you may already have a number of users,
+but they will be laking an email address. So they need to be updated:
+
+    UPDATE users SET email = '<email>' WHERE name = '<name>';
