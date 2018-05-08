@@ -66,4 +66,14 @@ public class RecordManager {
     return new ModelAndView (view, model);
   }
 
+  /**
+   * Get the record editor, empty.
+   *
+   * @return the name of the view to display.
+   */
+  @RequestMapping("/Nouvelle")
+  public ModelAndView getEditor () {
+    return new ModelAndView ("records/editor");
+  }
+
 }
