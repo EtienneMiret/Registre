@@ -57,6 +57,10 @@ public class Search {
         searchQuery.createPredicate (builder, query, record);
     query.select (record);
     query.where (predicate);
+    query.orderBy (
+        builder.asc (record.get ("title")),
+        builder.asc (record.get ("id"))
+    );
     final TypedQuery<Record> jpaQuery = em.createQuery (query);
     final Map<String, Object> model = new HashMap<> ();
     model.put ("records", jpaQuery.getResultList ());
