@@ -27,40 +27,44 @@ import java.util.Map;
 @Controller
 public class Search {
 
-    /**
-     * JPA entity manager, provided by Spring.
-     */
-    @PersistenceContext(name = "Registre")
-    private EntityManager em;
+  /**
+   * JPA entity manager, provided by Spring.
+   */
+  @PersistenceContext(name = "Registre")
+  private EntityManager em;
 
-    /**
-     * Query parser, provided by Spring.
-     */
-    @Autowired
-    private QueryParser parser;
+  /**
+   * Query parser, provided by Spring.
+   */
+  @Autowired
+  private QueryParser parser;
 
-    private CriteriaBuilder builder;
+  private CriteriaBuilder builder;
 
-    @PostConstruct
-    public void setUp() {
-	builder = em.getCriteriaBuilder();
-    }
+  @PostConstruct
+  public void setUp () {
+    builder = em.getCriteriaBuilder ();
+  }
 
-    @RequestMapping("/Rechercher")
-    @Transactional(readOnly = true)
-    public ModelAndView search(@RequestParam final String q) {
-	final SearchQuery searchQuery = parser.parse(q);
-	final CriteriaQuery<Record> query =
-		builder.createQuery(Record.class);
-	final Root<Record> record = query.from(Record.class);
-	final Predicate predicate =
-		searchQuery.createPredicate(builder, query, record);
-	query.select(record);
-	query.where(predicate);
-	final TypedQuery<Record> jpaQuery = em.createQuery(query);
-	final Map<String, Object> model = new HashMap<> ();
-	model.put ("records", jpaQuery.getResultList());
-	return new ModelAndView ("search", model);
-    }
+  @RequestMapping("/Rechercher")
+  @Transactional(readOnly = true)
+  public ModelAndView search (@RequestParam final String q) {
+    final SearchQuery searchQuery = parser.parse (q);
+    final CriteriaQuery<Record> query =
+        builder.createQuery (Record.class);
+    final Root<Record> record = query.from (Record.class);
+    final Predicate predicate =
+        searchQuery.createPredicate (builder, query, record);
+    query.select (record);
+    query.where (predicate);
+    query.orderBy (
+        builder.asc (record.get ("title")),
+        builder.asc (record.get ("id"))
+    );
+    final TypedQuery<Record> jpaQuery = em.createQuery (query);
+    final Map<String, Object> model = new HashMap<> ();
+    model.put ("records", jpaQuery.getResultList ());
+    return new ModelAndView ("search", model);
+  }
 
 }
