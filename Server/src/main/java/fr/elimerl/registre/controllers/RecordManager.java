@@ -27,43 +27,43 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping("/Fiche")
 public class RecordManager {
 
-    /**
-     * JPA entity manager, provided by Spring.
-     */
-    @PersistenceContext(name = "Registre")
-    private EntityManager em;
+  /**
+   * JPA entity manager, provided by Spring.
+   */
+  @PersistenceContext(name = "Registre")
+  private EntityManager em;
 
-    /**
-     * Display a record in read-only mode.
-     *
-     * @param id
-     *          id of the record to display.
-     * @param response
-     *          the HTTP response to send to the UA.
-     * @return the name of the view to display.
-     */
-    @RequestMapping(value = "/{id}", method = GET)
-    @Transactional(readOnly = true)
-    public ModelAndView display(@PathVariable final Long id,
-	    final HttpServletResponse response) {
-	final Record record = em.find(Record.class, id);
-	final Map<String, Object> model = new HashMap<> ();
-	model.put ("record", record);
-	final String view;
-	if (record == null) {
-	    view = "records/notFound";
-	    response.setStatus(SC_NOT_FOUND);
-	} else if (record instanceof Movie) {
-	    view = "records/movie";
-	} else if (record instanceof Book) {
-	    view = "records/book";
-	} else if (record instanceof Comic) {
-	    view = "records/comic";
-	} else {
-	    view = "records/unknownType";
-	    response.setStatus(SC_NOT_IMPLEMENTED);
-	}
-	return new ModelAndView (view, model);
+  /**
+   * Display a record in read-only mode.
+   *
+   * @param id
+   *          id of the record to display.
+   * @param response
+   *          the HTTP response to send to the UA.
+   * @return the name of the view to display.
+   */
+  @RequestMapping(value = "/{id}", method = GET)
+  @Transactional(readOnly = true)
+  public ModelAndView display (@PathVariable final Long id,
+      final HttpServletResponse response) {
+    final Record record = em.find (Record.class, id);
+    final Map<String, Object> model = new HashMap<> ();
+    model.put ("record", record);
+    final String view;
+    if (record == null) {
+      view = "records/notFound";
+      response.setStatus (SC_NOT_FOUND);
+    } else if (record instanceof Movie) {
+      view = "records/movie";
+    } else if (record instanceof Book) {
+      view = "records/book";
+    } else if (record instanceof Comic) {
+      view = "records/comic";
+    } else {
+      view = "records/unknownType";
+      response.setStatus (SC_NOT_IMPLEMENTED);
     }
+    return new ModelAndView (view, model);
+  }
 
 }
