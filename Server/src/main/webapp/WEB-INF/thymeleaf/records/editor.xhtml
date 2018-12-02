@@ -11,6 +11,46 @@
 
 <main class="editor">
 
+  <form method="post" th:action="@{/Fiche/}">
+    <p><label>Titre&#x202F;: <input name="title"/></label></p>
+    <p><label>Type&#x202F;:
+      <select name="type">
+        <option value="movie">Film</option>
+        <option value="comic">BD</option>
+        <option value="book">Livre</option>
+      </select>
+    </label></p>
+    <p class="movie"><label>Support&#x202F;:
+      <select name="support">
+        <option value="BRD">Blu-Ray</option>
+        <option value="DEM">Dématerialisé</option>
+        <option value="DVD">DVD</option>
+        <option value="K7">Cassette</option>
+      </select>
+    </label></p>
+    <p class="movie"><label>Réalisateur&#x202F;:
+      <input name="director"/></label></p>
+    <div class="movie"><label>Acteurs&#x202F;:</label>
+      <ul>
+        <li><input name="actor"/></li>
+        <li><input name="actor"/></li>
+        <li><input name="actor"/></li>
+      </ul>
+    </div>
+    <p class="movie"><label>Compositeur&#x202F;:
+      <input name="composer"/></label></p>
+    <p class="comic"><label>Dessinateur&#x202F;:
+      <input name="cartoonist"/></label></p>
+    <p class="comic"><label>Scénariste&#x202F;:
+      <input name="scriptWriter"/></label></p>
+    <p class="book"><label>Auteur&#x202F;: <input name="author"/></label></p>
+    <p><label>Série&#x202F;: <input name="series"/></label></p>
+    <p><label>Commentaire&#x202F;: <textarea name="comment"/></label></p>
+    <p><label>Propriétaire&#x202F;: <input name="owner"/></label></p>
+    <p><label>Emplacement&#x202F;: <input name="location"/></label></p>
+    <p><label>Image&#x202F;: <input type="file" name="picture"/></label></p>
+  </form>
+
 </main>
 
 </body>
