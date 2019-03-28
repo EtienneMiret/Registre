@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head ('Erreur interne du serveur')">
+  <title>Erreur interne du serveur - Registre</title>
+</head>
+<body>
+
+<h1 th:replace="base :: header">Erreur interne du serveur</h1>
+
+<div th:replace="base :: nav (error)"/>
+
+<p>Nous sommes désolés, une erreur s’est produite sur notre serveur. Vous pouvez
+  essayer de retourner à l’<a th:href="@{/}">accueil</a> ou de contacter un
+  administrateur.</p>
+<p>Sachez que cette erreur a été enregistrée dans les journaux du serveur pour
+  investigation.</p>
+
+</body>
+</html>
