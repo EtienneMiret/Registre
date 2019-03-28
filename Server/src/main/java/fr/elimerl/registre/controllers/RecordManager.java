@@ -6,6 +6,7 @@ import fr.elimerl.registre.entities.Movie;
 import fr.elimerl.registre.entities.Record;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -71,7 +72,7 @@ public class RecordManager {
    *
    * @return the name of the view to display.
    */
-  @RequestMapping("/Nouvelle")
+  @GetMapping
   public ModelAndView getEditor () {
     return new ModelAndView ("records/editor");
   }

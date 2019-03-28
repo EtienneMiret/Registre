@@ -17,7 +17,7 @@
   <ul
     ><li>Bienvenue <span th:text="${#authentication.name}">à tous</span>&#x202F;!</li
     ><li><a th:href="@{/}" th:class="${currentPage} == home ? self">Accueil</a></li
-    ><li><a th:href="@{/Fiche/Nouvelle}" th:class="${currentPage} == newRecord ? self">Ajouter une référence</a></li
+    ><li><a th:href="@{/Fiche/}" th:class="${currentPage} == newRecord ? self">Ajouter une référence</a></li
     ><li><form th:action="@{/Rechercher}"><input name="q" placeholder="Rechercher"/><button><img th:src="@{/resources/images/search.png}" alt="Rechercher"/></button></form></li
     ><li><form method="post" th:action="@{/logout}"><input type="submit" value="Déconnexion"/></form></li
   ></ul>
