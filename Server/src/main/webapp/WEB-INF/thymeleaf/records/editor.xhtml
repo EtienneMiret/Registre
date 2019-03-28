@@ -11,7 +11,8 @@
 
 <main class="editor">
 
-  <form method="post" th:action="@{/Fiche/}">
+  <form method="post" th:action="@{/Fiche/}" enctype="multipart/form-data"
+      accept-charset="UTF-8">
     <p><label>Titre&#x202F;: <input name="title"/></label></p>
     <p><label>Type&#x202F;:
       <select name="type">
@@ -32,9 +33,9 @@
       <input name="director"/></label></p>
     <div class="movie"><label>Acteurs&#x202F;:</label>
       <ul>
-        <li><input name="actor"/></li>
-        <li><input name="actor"/></li>
-        <li><input name="actor"/></li>
+        <li><input name="actors[0]"/></li>
+        <li><input name="actors[1]"/></li>
+        <li><input name="actors[2]"/></li>
       </ul>
     </div>
     <p class="movie"><label>Compositeur&#x202F;:
@@ -49,6 +50,7 @@
     <p><label>Propriétaire&#x202F;: <input name="owner"/></label></p>
     <p><label>Emplacement&#x202F;: <input name="location"/></label></p>
     <p><label>Image&#x202F;: <input type="file" name="picture"/></label></p>
+    <p><button>Ajouter</button></p>
   </form>
 
 </main>
