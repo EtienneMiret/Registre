@@ -9,6 +9,9 @@
 
 <nav th:replace="base :: nav (newRecord)"/>
 
+<aside th:if="${record}">Votre nouvelle fiche a été enregistrée sous le numéro
+  <a th:href="@{/Fiche/{id}(id=${record.id})}" th:text="${record.id}">42</a>.</aside>
+
 <main class="editor">
 
   <form method="post" th:action="@{/Fiche/}" enctype="multipart/form-data"
