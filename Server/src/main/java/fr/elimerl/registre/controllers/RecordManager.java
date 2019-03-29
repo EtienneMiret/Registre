@@ -7,6 +7,7 @@ import fr.elimerl.registre.entities.Movie;
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.User;
 import fr.elimerl.registre.security.RAuthenticationToken;
+import fr.elimerl.registre.services.Index;
 import fr.elimerl.registre.services.RegistreEntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +50,9 @@ public class RecordManager {
 
   @Autowired
   private RegistreEntityManager rem;
+
+  @Autowired
+  private Index index;
 
   /**
    * Display a record in read-only mode.
@@ -127,6 +131,7 @@ public class RecordManager {
     }
     record.setComment (command.getComment ());
     record = em.merge (record);
+    index.reindex (record);
     return new ModelAndView (
         "records/editor",
         singletonMap ("record", record)

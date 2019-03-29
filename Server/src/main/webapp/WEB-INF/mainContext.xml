@@ -6,7 +6,8 @@
 
   <import resource="security.xml"/>
 
+  <bean class="fr.elimerl.registre.services.Index"/>
   <bean class="fr.elimerl.registre.services.QueryParser"/>
-  <bean class="fr.elimerl.registre.services.RegistreEntityManager"/>
+  <bean name="registreEntityManager" class="fr.elimerl.registre.services.RegistreEntityManager"/>
 
 </beans>
