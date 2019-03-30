@@ -40,6 +40,7 @@ task sass(type: SassCompile) {
 task tsc (type: YarnTask) {
   args = ['run', 'tsc', '--outdir', "$buildDir/js/resources"]
 
+  inputs.file file ('tsconfig.json')
   inputs.dir file ('src/main/ts')
   outputs.dir file ("$buildDir/js")
   dependsOn yarn

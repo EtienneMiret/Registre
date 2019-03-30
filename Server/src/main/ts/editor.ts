@@ -8,7 +8,7 @@ function hideExcept (form: HTMLFormElement, typeToKeep: string, type: string) {
   const elements =
       <HTMLCollectionOf<HTMLElement>>form.getElementsByClassName (type);
   for (let i = 0; i < elements.length; i++) {
-    elements.item (i).hidden = typeToKeep !== type;
+    elements.item (i)!.hidden = typeToKeep !== type;
   }
 }
 
@@ -26,8 +26,8 @@ function addActor (actorsList: HTMLOListElement|HTMLUListElement) {
 
 function ready () {
   const form = <HTMLFormElement>document.getElementById ('form');
-  hideUnusedFields (form, form.elements['type'].value);
-  document.getElementById ('add-actor').hidden = false;
+  hideUnusedFields (form, (<HTMLSelectElement>form.elements.namedItem('type')).value);
+  document.getElementById ('add-actor')!.hidden = false;
 }
 
 ready ();
