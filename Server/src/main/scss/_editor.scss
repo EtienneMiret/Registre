@@ -2,7 +2,6 @@ main.editor {
 
   form p, form div {
     background: #f0f3f8;
-    display: block;
     padding: 20px;
   }
 
@@ -21,6 +20,10 @@ main.editor {
     background: #a6cc55;
     border: 0;
     cursor: pointer;
+  }
+
+  [hidden] {
+    display: none;
   }
 
 }

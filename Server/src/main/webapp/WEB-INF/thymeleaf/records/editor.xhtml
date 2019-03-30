@@ -4,6 +4,7 @@
   <title>Ajouter une référence - Registre</title>
 </head>
 <body>
+<script defer="" th:src="@{/resources/editor.js}"/>
 
 <header th:replace="base :: header">Éditeur</header>
 
@@ -17,10 +18,10 @@
   <h1>Ajouter une référence</h1>
 
   <form method="post" th:action="@{/Fiche/}" enctype="multipart/form-data"
-      accept-charset="UTF-8">
+      accept-charset="UTF-8" id="form">
     <p><label>Titre&#x202F;: <input name="title"/></label></p>
     <p><label>Type&#x202F;:
-      <select name="type">
+      <select name="type" onchange="hideUnusedFields (this.form, this.value);">
         <option value="movie"
             th:selected="${command} and ${#strings.toString(command.type)} == movie"
             >Film</option>
@@ -51,11 +52,14 @@
     <p class="movie"><label>Réalisateur&#x202F;: <input name="director"
       th:value="${command} ? ${command.director}"/></label></p>
     <div class="movie"><label>Acteurs&#x202F;:</label>
-      <ul>
+      <ul id="actors">
         <li><input name="actors[0]"/></li>
         <li><input name="actors[1]"/></li>
         <li><input name="actors[2]"/></li>
       </ul>
+      <button id="add-actor" type="button"
+          onclick="addActor (document.getElementById ('actors'));"
+          hidden="">+</button>
     </div>
     <p class="movie"><label>Compositeur&#x202F;: <input name="composer"
         th:value="${command} ? ${command.composer}"/></label></p>
