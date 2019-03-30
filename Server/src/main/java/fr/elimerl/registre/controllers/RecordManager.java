@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.util.Collections.singletonMap;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -132,10 +131,10 @@ public class RecordManager {
     record.setComment (command.getComment ());
     record = em.merge (record);
     index.reindex (record);
-    return new ModelAndView (
-        "records/editor",
-        singletonMap ("record", record)
-    );
+    Map<String, Object> model = new HashMap<> ();
+    model.put ("record", record);
+    model.put ("command", command);
+    return new ModelAndView ("records/editor", model);
   }
 
   private Record createMovie (RecordCommand command, User user) {
