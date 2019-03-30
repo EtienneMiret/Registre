@@ -2,6 +2,7 @@ import io.freefair.gradle.plugins.jsass.SassCompile
 
 plugins {
   id 'io.freefair.jsass-base' version '1.0.0'
+  id 'com.moowork.node' version '1.3.1'
 }
 
 apply plugin: 'war'
@@ -23,6 +24,12 @@ dependencies {
   runtime group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4'
 }
 
+node {
+  version = '11.13.0'
+  yarnVersion = '1.15.2'
+  download = true
+}
+
 task sass(type: SassCompile) {
   sourceDir file ('src/main/scss')
   destinationDir file("$buildDir/css")
@@ -30,11 +37,25 @@ task sass(type: SassCompile) {
   sourceMapEnabled false
 }
 
+task tsc (type: YarnTask) {
+  args = ['run', 'tsc', '--outdir', "$buildDir/js/resources"]
+
+  inputs.dir file ('src/main/ts')
+  outputs.dir file ("$buildDir/js")
+  dependsOn yarn
+}
+
 war {
   from file (sass.destinationDir)
+  from file ("$buildDir/js")
   dependsOn sass
+  dependsOn tsc
 }
 
 configurations {
   runtime.exclude group: 'org.slf4j', module: 'slf4j-api'
+}
+
+clean {
+  delete 'node_modules'
 }
