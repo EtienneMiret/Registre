@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "target": "es6"
+  },
+  "include": [
+    "src/main/ts/**/*"
+  ]
+}

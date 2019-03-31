@@ -1,0 +1,29 @@
+main.editor {
+
+  form p, form div {
+    background: #f0f3f8;
+    padding: 20px;
+  }
+
+  textarea {
+    width: 100%;
+  }
+
+  button {
+    display: block;
+    margin: 0 0 0 auto;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: -1px 1px #809b48;
+    background: #a6cc55;
+    border: 0;
+    cursor: pointer;
+  }
+
+  [hidden] {
+    display: none;
+  }
+
+}
