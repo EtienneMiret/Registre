@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head ('Erreur interne du serveur')">
+  <title>Mauvaise requête - Registre</title>
+</head>
+<body>
+
+<h1 th:replace="base :: header">Mauvaise requête</h1>
+
+<div th:replace="base :: nav (error)"/>
+
+<main>
+  <p>Désolé<span th:text="| ${#authentication.name}|"/>, votre navigateur a
+    envoyé une requête invalide à notre serveur, que nous ne pouvons donc
+    traiter.</p>
+</main>
+
+</body>
+</html>

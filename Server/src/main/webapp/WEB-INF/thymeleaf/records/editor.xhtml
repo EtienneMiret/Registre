@@ -19,7 +19,7 @@
 
   <form method="post" th:action="@{/Fiche/}" enctype="multipart/form-data"
       accept-charset="UTF-8" id="form">
-    <p><label>Titre&#x202F;: <input name="title"/></label></p>
+    <p><label>Titre&#x202F;: <input name="title" required=""/></label></p>
     <p><label>Type&#x202F;:
       <select name="type" onchange="hideUnusedFields (this.form, this.value);">
         <option value="movie"

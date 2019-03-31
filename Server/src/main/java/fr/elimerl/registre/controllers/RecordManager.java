@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,7 +100,7 @@ public class RecordManager {
   @PostMapping
   @Transactional
   public ModelAndView create (
-      RecordCommand command,
+      @Valid RecordCommand command,
       @AuthenticationPrincipal RAuthenticationToken token
   ) {
     User user = token.getPrincipal ();

@@ -1,18 +1,25 @@
 package fr.elimerl.registre.commands;
 
+import fr.elimerl.registre.constraints.MovieHasSupport;
 import fr.elimerl.registre.entities.Movie;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@MovieHasSupport
 public class RecordCommand {
 
   public enum Type {
     movie, comic, book
   }
 
+  @NotNull
+  @NotBlank
   private String title;
 
+  @NotNull
   private Type type;
 
   private Movie.Support support;

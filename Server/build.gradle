@@ -19,6 +19,7 @@ dependencies {
   compile group: 'org.springframework', name: 'spring-orm'
   compile group: 'org.springframework.security', name: 'spring-security-config'
   compile group: 'org.springframework.security', name: 'spring-security-web'
+  compile group: 'org.hibernate.validator', name: 'hibernate-validator'
   compileOnly group: 'javax', name: 'javaee-web-api'
   runtime group: 'org.thymeleaf', name: 'thymeleaf-spring5'
   runtime group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4'
