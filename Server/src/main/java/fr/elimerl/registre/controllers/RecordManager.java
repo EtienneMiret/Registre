@@ -97,6 +97,16 @@ public class RecordManager {
     return new ModelAndView ("records/editor");
   }
 
+  /**
+   * Create a new record and save it to the database.
+   *
+   * @param command
+   *          specification of the record to create.
+   * @param token
+   *          authenticated principal creating this record.
+   * @return the record editor, populated with the supplied {@code command} and
+   *          the created {@link Record}.
+   */
   @PostMapping
   @Transactional
   public ModelAndView create (
@@ -138,7 +148,17 @@ public class RecordManager {
     return new ModelAndView ("records/editor", model);
   }
 
-  private Record createMovie (RecordCommand command, User user) {
+  /**
+   * Create a {@link Movie} record from the provided {@link RecordCommand}. Only
+   * mandatory and movie specific fields will be populated.
+   *
+   * @param command
+   *          specification of the movie to create.
+   * @param user
+   *          user who originated the creation.
+   * @return the newly created movie, not yet saved to the database.
+   */
+  private Movie createMovie (RecordCommand command, User user) {
     Movie movie = new Movie (command.getTitle (), user, command.getSupport ());
     if (isNotBlank (command.getDirector ())) {
       movie.setDirector (rem.supplyDirector (command.getDirector ()));
@@ -156,7 +176,17 @@ public class RecordManager {
     return movie;
   }
 
-  private Record createComic (RecordCommand command, User user) {
+  /**
+   * Create a {@link Comic} record from the provided {@link RecordCommand}. Only
+   * mandatory and comic specific fields will be populated.
+   *
+   * @param command
+   *          specification of the comic to create.
+   * @param user
+   *          user who originated the creation.
+   * @return the newly created comic, not yet saved to the database.
+   */
+  private Comic createComic (RecordCommand command, User user) {
     Comic comic = new Comic (command.getTitle (), user);
     if (isNotBlank (command.getCartoonist ())) {
       comic.setCartoonist (rem.supplyCartoonist (command.getCartoonist ()));
@@ -167,7 +197,17 @@ public class RecordManager {
     return comic;
   }
 
-  private Record createBook (RecordCommand command, User user) {
+  /**
+   * Create a {@link Book} record from the provided {@link RecordCommand}. Only
+   * mandatory and book specific fields will be populated.
+   *
+   * @param command
+   *          specification of the book to create.
+   * @param user
+   *          user who originated the creation.
+   * @return the newly created book, not yet saved to the database.
+   */
+  private Book createBook (RecordCommand command, User user) {
     Book book = new Book (command.getTitle (), user);
     if (isNotBlank (command.getAuthor ())) {
       book.setAuthor (rem.supplyAuthor (command.getAuthor ()));
