@@ -15,7 +15,8 @@
 
 <main class="editor">
 
-  <h1>Ajouter une référence</h1>
+  <h1><span th:text="${command.id} ? Modifier : Ajouter">Ajouter</span>
+    une référence</h1>
 
   <form method="post" enctype="multipart/form-data"
       th:action="${id} ? @{/Fiche/{id}(id=*{id})} : @{/Fiche/}"
@@ -67,7 +68,7 @@
     <p><label>Emplacement&#x202F;:
       <input name="location" th:value="*{location}"/></label></p>
     <p><label>Image&#x202F;: <input type="file" name="picture"/></label></p>
-    <p><button>Ajouter</button></p>
+    <p><button th:text="*{id} ? Modifier : Ajouter">Ajouter</button></p>
   </form>
 
 </main>
