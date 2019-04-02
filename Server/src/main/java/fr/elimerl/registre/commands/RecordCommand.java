@@ -6,16 +6,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static java.util.stream.Collectors.toCollection;
 
 @MovieHasSupport
 public class RecordCommand {
+
+  private static final int NUM_BLANK_ACTORS = 3;
 
   public enum Type {
     movie, comic, book
   }
 
-  @NotNull
   @NotBlank
   private String title;
 
@@ -45,6 +50,36 @@ public class RecordCommand {
   private String location;
 
   private MultipartFile picture;
+
+  /**
+   * Create an empty {@link RecordCommand}, good for creation or for populating
+   * with a form.
+   */
+  public RecordCommand () {
+    actors = new ArrayList<> ();
+    addBlankActors ();
+  }
+
+  /**
+   * Empty fields that we don't want to be reused for creation of subsequent
+   * records. Also add some blank actors fields if needed.
+   */
+  public void prepareForReuse () {
+    this.title = null;
+    this.comment = null;
+    this.picture = null;
+    this.actors = actors.stream ()
+        .filter (Objects::nonNull)
+        .filter (s -> !s.isEmpty ())
+        .collect (toCollection (ArrayList::new));
+    addBlankActors ();
+  }
+
+  private void addBlankActors () {
+    for (int i = 0; i < NUM_BLANK_ACTORS; i++) {
+      actors.add ("");
+    }
+  }
 
   public String getTitle () {
     return title;

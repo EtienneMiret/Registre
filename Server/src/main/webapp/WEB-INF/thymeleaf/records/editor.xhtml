@@ -18,64 +18,52 @@
   <h1>Ajouter une référence</h1>
 
   <form method="post" th:action="@{/Fiche/}" enctype="multipart/form-data"
-      accept-charset="UTF-8" id="form">
-    <p><label>Titre&#x202F;: <input name="title" required=""/></label></p>
+      accept-charset="UTF-8" id="form" th:object="${command}">
+    <p><label>Titre&#x202F;:
+      <input name="title" th:value="*{title}" required=""/></label></p>
     <p><label>Type&#x202F;:
-      <select name="type" onchange="hideUnusedFields (this.form, this.value);">
-        <option value="movie"
-            th:selected="${command} and ${#strings.toString(command.type)} == movie"
-            >Film</option>
-        <option value="comic"
-            th:selected="${command} and ${#strings.toString(command.type)} == comic"
-            >BD</option>
-        <option value="book"
-            th:selected="${command} and ${#strings.toString(command.type)} == book"
-            >Livre</option>
+      <select th:field="*{type}" onchange="hideUnusedFields (this.form, this.value);">
+        <option value="movie">Film</option>
+        <option value="comic">BD</option>
+        <option value="book">Livre</option>
       </select>
     </label></p>
     <p class="movie"><label>Support&#x202F;:
-      <select name="support">
-        <option value="BRD" 
-            th:selected="${command} and ${#strings.toString(command.support)} == BRD"
-            >Blu-Ray</option>
-        <option value="DEM"
-            th:selected="${command} and ${#strings.toString(command.support)} == DEM"
-            >Dématerialisé</option>
-        <option value="DVD"
-            th:selected="${command} and ${#strings.toString(command.support)} == DVD"
-            >DVD</option>
-        <option value="K7"
-            th:selected="${command} and ${#strings.toString(command.support)} == K7"
-            >Cassette</option>
+      <select th:field="*{support}">
+        <option value="BRD">Blu-Ray</option>
+        <option value="DEM">Dématerialisé</option>
+        <option value="DVD">DVD</option>
+        <option value="K7">Cassette</option>
       </select>
     </label></p>
-    <p class="movie"><label>Réalisateur&#x202F;: <input name="director"
-      th:value="${command} ? ${command.director}"/></label></p>
+    <p class="movie"><label>Réalisateur&#x202F;:
+      <input name="director" th:value="*{director}"/></label></p>
     <div class="movie"><label>Acteurs&#x202F;:</label>
       <ul id="actors">
-        <li><input name="actors[0]"/></li>
-        <li><input name="actors[1]"/></li>
-        <li><input name="actors[2]"/></li>
+        <li th:each="actor : *{actors}"><input
+            th:name="'actors[' + ${actorStat.index} +']'" th:value="${actor}"
+        /></li>
       </ul>
       <button id="add-actor" type="button"
           onclick="addActor (document.getElementById ('actors'));"
           hidden="">+</button>
     </div>
-    <p class="movie"><label>Compositeur&#x202F;: <input name="composer"
-        th:value="${command} ? ${command.composer}"/></label></p>
-    <p class="comic"><label>Dessinateur&#x202F;: <input name="cartoonist"
-        th:value="${command} ? ${command.cartoonist}"/></label></p>
-    <p class="comic"><label>Scénariste&#x202F;: <input name="scriptWriter"
-        th:value="${command} ? ${command.scriptWriter}"/></label></p>
+    <p class="movie"><label>Compositeur&#x202F;:
+      <input name="composer" th:value="*{composer}"/></label></p>
+    <p class="comic"><label>Dessinateur&#x202F;:
+      <input name="cartoonis" th:value="*{cartoonist}"/></label></p>
+    <p class="comic"><label>Scénariste&#x202F;:
+      <input name="scriptWriter" th:value="*{scriptWriter}"/></label></p>
     <p class="book"><label>Auteur&#x202F;:
-      <input name="author" th:value="${command} ? ${command.author}"/></label></p>
+      <input name="author" th:value="*{author}"/></label></p>
     <p><label>Série&#x202F;:
-      <input name="series" th:value="${command} ? ${command.series}"/></label></p>
-    <p><label>Commentaire&#x202F;: <textarea name="comment"/></label></p>
+      <input name="series" th:value="*{series}"/></label></p>
+    <p><label>Commentaire&#x202F;:
+      <textarea name="comment" th:value="*{comment}"/></label></p>
     <p><label>Propriétaire&#x202F;:
-      <input name="owner" th:value="${command} ? ${command.owner}"/></label></p>
+      <input name="owner" th:value="*{owner}"/></label></p>
     <p><label>Emplacement&#x202F;:
-      <input name="location" th:value="${command} ? ${command.location}"/></label></p>
+      <input name="location" th:value="*{location}"/></label></p>
     <p><label>Image&#x202F;: <input type="file" name="picture"/></label></p>
     <p><button>Ajouter</button></p>
   </form>

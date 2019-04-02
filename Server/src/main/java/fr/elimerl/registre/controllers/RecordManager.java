@@ -28,6 +28,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Collections.singletonMap;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -94,7 +95,8 @@ public class RecordManager {
    */
   @GetMapping
   public ModelAndView getEditor () {
-    return new ModelAndView ("records/editor");
+    Map<String, Object> model = singletonMap ("command", new RecordCommand ());
+    return new ModelAndView ("records/editor", model);
   }
 
   /**
@@ -142,6 +144,7 @@ public class RecordManager {
     record.setComment (command.getComment ());
     record = em.merge (record);
     index.reindex (record);
+    command.prepareForReuse ();
     Map<String, Object> model = new HashMap<> ();
     model.put ("record", record);
     model.put ("command", command);
