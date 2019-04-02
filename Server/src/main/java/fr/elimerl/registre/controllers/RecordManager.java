@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Collections.singletonMap;
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -73,8 +74,7 @@ public class RecordManager {
     model.put ("record", record);
     final String view;
     if (record == null) {
-      view = "records/notFound";
-      response.setStatus (SC_NOT_FOUND);
+      return notFound (response);
     } else if (record instanceof Movie) {
       view = "records/movie";
     } else if (record instanceof Book) {
@@ -89,6 +89,30 @@ public class RecordManager {
   }
 
   /**
+   * Get the record editor, populated with a record for edition.
+   *
+   * @param id
+   *          id of the record to populate the editor with.
+   * @param response
+   *          the HTTP response to send to the UA.
+   * @return the record editor, populated with the requested record.
+   */
+  @GetMapping ("/{id}/Edition")
+  @Transactional (readOnly = true)
+  public ModelAndView getEditor (
+      @PathVariable Long id,
+      HttpServletResponse response
+  ) {
+    Record record = em.find (Record.class, id);
+    if (record == null) {
+      return notFound (response);
+    }
+    RecordCommand command = new RecordCommand (record);
+    Map<String, Object> model = singletonMap ("command", command);
+    return new ModelAndView ("records/editor", model);
+  }
+
+  /**
    * Get the record editor, empty.
    *
    * @return the name of the view to display.
@@ -97,6 +121,66 @@ public class RecordManager {
   public ModelAndView getEditor () {
     Map<String, Object> model = singletonMap ("command", new RecordCommand ());
     return new ModelAndView ("records/editor", model);
+  }
+
+  /**
+   * Update a record.
+   *
+   * @param id
+   *          id of the record to update.
+   * @param command
+   *          specification of the update to make. Must be of the same type than
+   *          the specified record.
+   * @param token
+   *          authenticated principal creating this record.
+   * @param response
+   *          the HTTP response to send to the UA.
+   * @return a record display view, populated with the updated record.
+   */
+  @PostMapping ("/{id}")
+  @Transactional
+  public ModelAndView update (
+      @PathVariable Long id,
+      @Valid RecordCommand command,
+      @AuthenticationPrincipal RAuthenticationToken token,
+      HttpServletResponse response
+  ) {
+    User user = token.getPrincipal ();
+    String view;
+    Record record = em.find (Record.class, id);
+    if (record == null) {
+      return notFound (response);
+    } else if (record instanceof Movie) {
+      if (command.getType () != RecordCommand.Type.movie) {
+        response.setStatus (SC_BAD_REQUEST);
+        return new ModelAndView ("error/bad-request");
+      }
+      view = "records/movie";
+      updateMovie (command, (Movie) record);
+    } else if (record instanceof Comic) {
+      if (command.getType () != RecordCommand.Type.comic) {
+        response.setStatus (SC_BAD_REQUEST);
+        return new ModelAndView ("error/bad-request");
+      }
+      view = "records/comic";
+      updateComic (command, (Comic) record);
+    } else if (record instanceof Book) {
+      if (command.getType () != RecordCommand.Type.book) {
+        response.setStatus (SC_BAD_REQUEST);
+        return new ModelAndView ("error/bad-request");
+      }
+      view = "records/book";
+      updateBook (command, (Book) record);
+    } else {
+      view = "records/unknownType";
+      response.setStatus (SC_NOT_IMPLEMENTED);
+    }
+    updateCommonFields (command, record);
+    record.toucher (user);
+    logger.info ("{} updated {}.", user, record);
+    record = em.merge (record);
+    index.reindex (record);
+    return new ModelAndView (view, singletonMap ("record", record));
   }
 
   /**
@@ -117,7 +201,6 @@ public class RecordManager {
   ) {
     User user = token.getPrincipal ();
     logger.info ("{} creates a new {}.", user, command.getType ());
-    logger.debug ("EntityManger: {}", em);
     Record record;
     switch (command.getType ()) {
       case movie:
@@ -132,6 +215,18 @@ public class RecordManager {
       default:
         throw new RuntimeException ("Unknown type: " + command.getType ());
     }
+    updateCommonFields (command, record);
+    record = em.merge (record);
+    index.reindex (record);
+    command.prepareForReuse ();
+    Map<String, Object> model = new HashMap<> ();
+    model.put ("record", record);
+    model.put ("command", command);
+    return new ModelAndView ("records/editor", model);
+  }
+
+  private void updateCommonFields (RecordCommand command, Record record) {
+    record.setTitle (command.getTitle ());
     if (isNotBlank (command.getSeries ())) {
       record.setSeries (rem.supplySeries (command.getSeries ()));
     }
@@ -142,13 +237,6 @@ public class RecordManager {
       record.setLocation (rem.supplyLocation (command.getLocation ()));
     }
     record.setComment (command.getComment ());
-    record = em.merge (record);
-    index.reindex (record);
-    command.prepareForReuse ();
-    Map<String, Object> model = new HashMap<> ();
-    model.put ("record", record);
-    model.put ("command", command);
-    return new ModelAndView ("records/editor", model);
   }
 
   /**
@@ -163,6 +251,11 @@ public class RecordManager {
    */
   private Movie createMovie (RecordCommand command, User user) {
     Movie movie = new Movie (command.getTitle (), user, command.getSupport ());
+    updateMovie (command, movie);
+    return movie;
+  }
+
+  private void updateMovie (RecordCommand command, Movie movie) {
     if (isNotBlank (command.getDirector ())) {
       movie.setDirector (rem.supplyDirector (command.getDirector ()));
     }
@@ -176,7 +269,6 @@ public class RecordManager {
     if (isNotBlank (command.getComposer ())) {
       movie.setComposer (rem.supplyComposer (command.getComposer ()));
     }
-    return movie;
   }
 
   /**
@@ -191,13 +283,17 @@ public class RecordManager {
    */
   private Comic createComic (RecordCommand command, User user) {
     Comic comic = new Comic (command.getTitle (), user);
+    updateComic (command, comic);
+    return comic;
+  }
+
+  private void updateComic (RecordCommand command, Comic comic) {
     if (isNotBlank (command.getCartoonist ())) {
       comic.setCartoonist (rem.supplyCartoonist (command.getCartoonist ()));
     }
     if (isNotBlank (command.getScriptWriter ())) {
       comic.setScriptWriter (rem.supplyScriptWriter (command.getScriptWriter ()));
     }
-    return comic;
   }
 
   /**
@@ -212,14 +308,23 @@ public class RecordManager {
    */
   private Book createBook (RecordCommand command, User user) {
     Book book = new Book (command.getTitle (), user);
+    updateBook (command, book);
+    return book;
+  }
+
+  private void updateBook (RecordCommand command, Book book) {
     if (isNotBlank (command.getAuthor ())) {
       book.setAuthor (rem.supplyAuthor (command.getAuthor ()));
     }
-    return book;
   }
 
   private boolean isNotBlank (String string) {
     return string != null && !string.trim ().isEmpty ();
+  }
+
+  private ModelAndView notFound (HttpServletResponse response) {
+    response.setStatus (SC_NOT_FOUND);
+    return new ModelAndView ("records/notFound");
   }
 
 }

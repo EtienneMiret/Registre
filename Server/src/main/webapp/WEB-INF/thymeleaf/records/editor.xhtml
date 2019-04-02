@@ -17,11 +17,13 @@
 
   <h1>Ajouter une référence</h1>
 
-  <form method="post" th:action="@{/Fiche/}" enctype="multipart/form-data"
+  <form method="post" enctype="multipart/form-data"
+      th:action="${id} ? @{/Fiche/{id}(id=*{id})} : @{/Fiche/}"
       accept-charset="UTF-8" id="form" th:object="${command}">
+    <input th:if="*{id}" th:field="*{type}" type="hidden"/>
     <p><label>Titre&#x202F;:
       <input name="title" th:value="*{title}" required=""/></label></p>
-    <p><label>Type&#x202F;:
+    <p th:if="not *{id}"><label>Type&#x202F;:
       <select th:field="*{type}" onchange="hideUnusedFields (this.form, this.value);">
         <option value="movie">Film</option>
         <option value="comic">BD</option>

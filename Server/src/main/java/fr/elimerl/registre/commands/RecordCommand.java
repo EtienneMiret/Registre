@@ -1,16 +1,25 @@
 package fr.elimerl.registre.commands;
 
 import fr.elimerl.registre.constraints.MovieHasSupport;
+import fr.elimerl.registre.entities.Book;
+import fr.elimerl.registre.entities.Comic;
 import fr.elimerl.registre.entities.Movie;
+import fr.elimerl.registre.entities.Named;
+import fr.elimerl.registre.entities.Record;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toSet;
 
 @MovieHasSupport
 public class RecordCommand {
@@ -20,6 +29,8 @@ public class RecordCommand {
   public enum Type {
     movie, comic, book
   }
+
+  private Long id;
 
   @NotBlank
   private String title;
@@ -61,6 +72,45 @@ public class RecordCommand {
   }
 
   /**
+   * Create a {@link RecordCommand} for edition of the given {@link Record}.
+   *
+   * @param record
+   *          the record to prepare for edition.
+   */
+  public RecordCommand (Record record) {
+    this.id = record.getId ();
+    this.title = record.getTitle ();
+    this.actors = new ArrayList<> ();
+    if (record instanceof Movie) {
+      Movie movie = (Movie) record;
+      this.type = Type.movie;
+      this.support = movie.getSupport ();
+      this.director = get (movie, Movie::getDirector);
+      this.actors.addAll (Optional.of (movie)
+          .map (Movie::getActors)
+          .map (Collection::stream)
+          .orElse (Stream.empty ())
+          .map (Named::getName)
+          .collect(toSet ()));
+      this.composer = get (movie, Movie::getComposer);
+    } else if (record instanceof Comic) {
+      Comic comic = (Comic) record;
+      this.type = Type.comic;
+      this.cartoonist = get (comic, Comic::getCartoonist);
+      this.scriptWriter = get (comic, Comic::getScriptWriter);
+    } else if (record instanceof Book) {
+      Book book = (Book) record;
+      this.type = Type.book;
+      this.author = get (book, Book::getAuthor);
+    }
+    this.series = get (record, Record::getSeries);
+    this.comment = record.getComment ();
+    this.owner = get (record, Record::getOwner);
+    this.location = get (record, Record::getLocation);
+    addBlankActors ();
+  }
+
+  /**
    * Empty fields that we don't want to be reused for creation of subsequent
    * records. Also add some blank actors fields if needed.
    */
@@ -79,6 +129,10 @@ public class RecordCommand {
     for (int i = 0; i < NUM_BLANK_ACTORS; i++) {
       actors.add ("");
     }
+  }
+
+  public Long getId () {
+    return id;
   }
 
   public String getTitle () {
@@ -191,6 +245,13 @@ public class RecordCommand {
 
   public void setPicture (MultipartFile picture) {
     this.picture = picture;
+  }
+
+  private static <T> String get (T t, Function<T, Named> f) {
+    return Optional.of (t)
+        .map (f)
+        .map (Named::getName)
+        .orElse (null);
   }
 
 }
