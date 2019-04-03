@@ -1,5 +1,18 @@
 package fr.elimerl.registre.services;
 
+import fr.elimerl.registre.search.grammar.BracketedQuery;
+import fr.elimerl.registre.search.grammar.Expression;
+import fr.elimerl.registre.search.grammar.FieldQuery;
+import fr.elimerl.registre.search.grammar.SearchQuery;
+import fr.elimerl.registre.search.grammar.SimpleKeyword;
+import fr.elimerl.registre.search.tokens.Bracket;
+import fr.elimerl.registre.search.tokens.Field;
+import fr.elimerl.registre.search.tokens.Keyword;
+import fr.elimerl.registre.search.tokens.Operator;
+import fr.elimerl.registre.search.tokens.Token;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,14 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.regex.Matcher;
-
-import fr.elimerl.registre.search.grammar.*;
-import fr.elimerl.registre.search.tokens.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import fr.elimerl.registre.search.grammar.SimpleKeyword;
-import fr.elimerl.registre.search.tokens.Field;
 
 /**
  * Singleton service responsible for parsing users’ queries.
@@ -71,7 +76,7 @@ public class QueryParser {
 		    i = matcher.end();
 		}
 	    }
-	    final Iterator<Operator> operators = Operator.all().iterator();
+	    final Iterator<Operator> operators = Operator.all.iterator();
 	    while (token == null && operators.hasNext()) {
 		final Operator operator = operators.next();
 		final Matcher matcher =
