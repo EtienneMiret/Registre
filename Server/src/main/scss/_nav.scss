@@ -61,8 +61,18 @@ nav {
           width: 14px;
           height: 14px;
           display: block;
+          background: transparent;
+          border: none;
         }
       }
+    }
+
+    img {
+      height: 20px;
+      background: white;
+      vertical-align: middle;
+      border: 1px solid #c2cff1;
+      border-radius: 4px;
     }
   }
 }
