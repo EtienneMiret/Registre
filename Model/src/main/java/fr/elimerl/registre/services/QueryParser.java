@@ -10,6 +10,7 @@ import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.search.tokens.Keyword;
 import fr.elimerl.registre.search.tokens.Operator;
 import fr.elimerl.registre.search.tokens.Token;
+import fr.elimerl.registre.search.tokens.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,6 +84,15 @@ public class QueryParser {
             operator.getPattern ().matcher (query);
         if (matcher.find (i)) {
           token = operator;
+          i = matcher.end ();
+        }
+      }
+      final Iterator<Type> types = Type.all.iterator ();
+      while (token == null && types.hasNext ()) {
+        final Type type = types.next ();
+        final Matcher matcher = type.getPattern ().matcher (query);
+        if (matcher.find (i)) {
+          token = type;
           i = matcher.end ();
         }
       }

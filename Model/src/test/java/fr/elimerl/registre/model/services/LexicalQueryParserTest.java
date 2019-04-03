@@ -5,6 +5,7 @@ import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.search.tokens.Keyword;
 import fr.elimerl.registre.search.tokens.Operator;
 import fr.elimerl.registre.search.tokens.Token;
+import fr.elimerl.registre.search.tokens.Type;
 import fr.elimerl.registre.services.QueryParser;
 import org.junit.Before;
 import org.junit.Test;
@@ -107,6 +108,21 @@ public class LexicalQueryParserTest {
     assertEquals (Bracket.CLOSING, actual.poll ());
     assertEquals (Operator.OR, actual.poll ());
     assertEquals (new Keyword ("coucou"), actual.poll ());
+  }
+
+  /**
+   * Test the lexical analysis of types operator and tokens.
+   */
+  @Test
+  public void types () {
+    final Queue<Token> actual = parser.tokenize (
+      "type:book comic movie"
+    );
+    assertEquals (4, actual.size ());
+    assertEquals (Operator.TYPE, actual.poll ());
+    assertEquals (Type.BOOK, actual.poll ());
+    assertEquals (Type.COMIC, actual.poll ());
+    assertEquals (Type.MOVIE, actual.poll ());
   }
 
 }
