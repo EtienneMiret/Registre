@@ -1,4 +1,7 @@
+@import "lib";
+
 main.record {
+  $float-breakpoint: 400px;
 
   .picture {
     width: 198px;
@@ -7,7 +10,7 @@ main.record {
     border: 1px solid #ddd;
     margin: 5px auto;
 
-    @media (min-width: 400px) {
+    @media (min-width: $float-breakpoint) {
       float: left;
       margin: 5px 15px 15px 5px;
     }
@@ -23,11 +26,21 @@ main.record {
   section {
     background:#ebeffa;
     padding: 1px;
+    @media (min-width: $float-breakpoint) {
+      min-height: 300px;
+    }
 
     p {
       text-align: justify;
       margin: 15px;
     }
+
+    a {
+      @extend %button;
+      margin: 30px 15px 15px auto;
+      width: 50px;
+    }
+
   }
 
 }

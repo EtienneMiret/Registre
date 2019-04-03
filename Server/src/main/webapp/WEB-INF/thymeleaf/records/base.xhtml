@@ -12,5 +12,7 @@
   <img class="picture" th:if="${path}" th:src="@{/resources/images/records/{picture}(picture=${path})}"/>
 </div>
 
+<a th:fragment="editButton (record)" th:href="@{/Fiche/{id}/Edition(id=${record.id})}">Modifier</a>
+
 </body>
 </html>
