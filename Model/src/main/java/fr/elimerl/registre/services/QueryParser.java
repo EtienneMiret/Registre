@@ -5,6 +5,7 @@ import fr.elimerl.registre.search.grammar.Expression;
 import fr.elimerl.registre.search.grammar.FieldQuery;
 import fr.elimerl.registre.search.grammar.SearchQuery;
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
+import fr.elimerl.registre.search.grammar.TypeQuery;
 import fr.elimerl.registre.search.tokens.Bracket;
 import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.search.tokens.Keyword;
@@ -200,6 +201,8 @@ public class QueryParser {
             -1
         );
       }
+    } else if (firstToken == Operator.TYPE) {
+      result = analyseType (tokens);
     } else if (firstToken instanceof Keyword) {
       result = new SimpleKeyword ((Keyword) firstToken);
     } else if (firstToken instanceof Field) {
@@ -252,6 +255,19 @@ public class QueryParser {
       );
     }
     return result;
+  }
+
+  private static TypeQuery analyseType (final Queue<Token> tokens)
+      throws ParseException {
+    Token token = tokens.poll ();
+    if (token instanceof Type) {
+      return new TypeQuery ((Type) token);
+    } else {
+      throw new ParseException (
+          "Type expected. “" + token + "” found.",
+          -1
+      );
+    }
   }
 
 }

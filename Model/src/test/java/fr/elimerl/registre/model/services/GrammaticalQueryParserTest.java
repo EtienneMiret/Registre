@@ -4,11 +4,13 @@ import fr.elimerl.registre.search.grammar.BracketedQuery;
 import fr.elimerl.registre.search.grammar.FieldQuery;
 import fr.elimerl.registre.search.grammar.SearchQuery;
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
+import fr.elimerl.registre.search.grammar.TypeQuery;
 import fr.elimerl.registre.search.tokens.Bracket;
 import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.search.tokens.Keyword;
 import fr.elimerl.registre.search.tokens.Operator;
 import fr.elimerl.registre.search.tokens.Token;
+import fr.elimerl.registre.search.tokens.Type;
 import fr.elimerl.registre.services.QueryParser;
 import org.junit.Before;
 import org.junit.Test;
@@ -121,6 +123,34 @@ public class GrammaticalQueryParserTest {
         new SimpleKeyword (toto),
         new SimpleKeyword (tata),
         new SimpleKeyword (titi));
+    assertEquals (expected, actual);
+  }
+
+  /**
+   * Analysing a type query.
+   */
+  @Test
+  public void typeQuery () {
+    tokens.add (Type.BOOK);
+    tokens.add (Bracket.OPENING);
+    tokens.add (Operator.TYPE);
+    tokens.add (Type.MOVIE);
+    tokens.add (Operator.OR);
+    tokens.add (Operator.TYPE);
+    tokens.add (Type.COMIC);
+    tokens.add (Bracket.CLOSING);
+    tokens.add (new Keyword ("store"));
+
+    final SearchQuery actual = parser.analyze (tokens);
+
+    final SearchQuery expected = new SearchQuery (true,
+        new SimpleKeyword (Type.BOOK),
+        new BracketedQuery (new SearchQuery (false,
+            new TypeQuery (Type.MOVIE),
+            new TypeQuery (Type.COMIC)
+        )),
+        new SimpleKeyword (new Keyword ("store"))
+    );
     assertEquals (expected, actual);
   }
 
