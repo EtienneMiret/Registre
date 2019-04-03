@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 import java.util.Objects;
 
 /**
@@ -27,7 +28,10 @@ public final class TypeQuery extends Expression {
       CriteriaQuery<Record> query,
       Root<Record> root
   ) {
-    return null;
+    Subquery<Long> subquery = query.subquery (Long.class);
+    Root<? extends Record> from = subquery.from (type.getClazz ());
+    subquery.select (from.get ("id"));
+    return builder.in (root.get ("id")).value (subquery);
   }
 
   @Override

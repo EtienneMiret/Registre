@@ -6,8 +6,10 @@ import fr.elimerl.registre.search.grammar.Expression;
 import fr.elimerl.registre.search.grammar.FieldQuery;
 import fr.elimerl.registre.search.grammar.SearchQuery;
 import fr.elimerl.registre.search.grammar.SimpleKeyword;
+import fr.elimerl.registre.search.grammar.TypeQuery;
 import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.search.tokens.Keyword;
+import fr.elimerl.registre.search.tokens.Type;
 import fr.elimerl.registre.services.Index;
 import org.junit.Before;
 import org.junit.Test;
@@ -307,6 +309,30 @@ public class CreatePredicateTest {
         new FieldQuery (Field.SERIES, new Keyword ("luky"));
     final List<Record> results = execute (fieldQuery);
     check (results, 6, 7, 8);
+  }
+
+  /**
+   * Test searching for books.
+   */
+  @Test
+  public void books () {
+    logger.info ("Creating a predicate to search for books.");
+    TypeQuery typeQuery = new TypeQuery (Type.BOOK);
+    final List<Record> results = execute (typeQuery);
+    check (results, 2, 4, 5);
+  }
+
+  /**
+   * Test searching for books and movies.
+   */
+  @Test
+  public void booksAndMovies () {
+    logger.info ("Creating a predicate to search for books and movies.");
+    TypeQuery books = new TypeQuery (Type.BOOK);
+    TypeQuery movies = new TypeQuery (Type.MOVIE);
+    SearchQuery searchQuery = new SearchQuery (false, books, movies);
+    final List<Record> results = execute (new BracketedQuery (searchQuery));
+    check (results, 1, 2, 3, 4, 5, 9);
   }
 
   /**
