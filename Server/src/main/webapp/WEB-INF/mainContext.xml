@@ -6,8 +6,18 @@
 
   <import resource="security.xml"/>
 
+  <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+    <property name="converters">
+      <set>
+        <ref bean="instantConverter"/>
+      </set>
+    </property>
+  </bean>
+
+  <bean id="instantConverter" class="fr.elimerl.registre.converters.InstantConverter"/>
   <bean class="fr.elimerl.registre.services.Index"/>
   <bean class="fr.elimerl.registre.services.QueryParser"/>
   <bean name="registreEntityManager" class="fr.elimerl.registre.services.RegistreEntityManager"/>
+  <bean class="fr.elimerl.registre.config.ClockProvider"/>
 
 </beans>
