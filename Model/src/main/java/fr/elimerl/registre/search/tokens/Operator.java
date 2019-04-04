@@ -20,6 +20,7 @@ public final class Operator extends Token {
    */
   public static final Operator TYPE = new Operator ("type:");
 
+  /** List of all operators. Read-only. */
   public static final List<Operator> all;
 
   static {

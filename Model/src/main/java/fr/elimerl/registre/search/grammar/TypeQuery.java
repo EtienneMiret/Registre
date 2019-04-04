@@ -16,8 +16,15 @@ import java.util.Objects;
  */
 public final class TypeQuery extends Expression {
 
+  /** Which subtype of {@link Record} is targeted. */
   private final Type type;
 
+  /**
+   * Create a new expression for targeting a subtype of {@link Record}.
+   *
+   * @param type
+   *          the specific subtype of {@link Record} being targeted.
+   */
   public TypeQuery (Type type) {
     this.type = type;
   }
