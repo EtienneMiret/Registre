@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
  * A keyword is a word within a query that the user wishes to find in its
  * results.
  */
-public final class Keyword extends Token {
+public class Keyword extends Token {
 
     /** Pattern for all keywords. */
     public static final Pattern PATTERN =
@@ -37,7 +37,7 @@ public final class Keyword extends Token {
     }
 
     @Override
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
 	final boolean result;
 	if (this == other) {
 	    result = true;
@@ -57,7 +57,7 @@ public final class Keyword extends Token {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
 	return (value == null ? 0 : value.hashCode());
     }
 
