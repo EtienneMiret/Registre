@@ -35,28 +35,28 @@ public class InstantConverterTest {
 
   @Test
   public void less_than_1_min_ago () {
-    String actual = converter.convert (Instant.parse ("2019-04-04T19:39:51Z"));
+    String actual = converter.print (Instant.parse ("2019-04-04T19:39:51Z"), null);
 
     assertThat (actual).isEqualTo ("à l’instant");
   }
 
   @Test
   public void less_than_1_min_from_now () {
-    String actual = converter.convert (Instant.parse ("2019-04-04T19:41:02Z"));
+    String actual = converter.print (Instant.parse ("2019-04-04T19:41:02Z"), null);
 
     assertThat (actual).isEqualTo ("dans un instant");
   }
 
   @Test
   public void less_than_1_hour_ago () {
-    String actual = converter.convert (Instant.parse ("2019-04-04T19:35:41Z"));
+    String actual = converter.print (Instant.parse ("2019-04-04T19:35:41Z"), null);
 
     assertThat (actual).isEqualTo ("il y a 4 minutes");
   }
 
   @Test
   public void less_than_1_hour_from_now () {
-    String actual = converter.convert (Instant.parse ("2019-04-04T20:12:04Z"));
+    String actual = converter.print (Instant.parse ("2019-04-04T20:12:04Z"), null);
 
     assertThat (actual).isEqualTo ("dans 31 minutes");
   }
@@ -65,7 +65,7 @@ public class InstantConverterTest {
   public void today_more_than_1_hour_ago () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2019-04-04T13:32:12Z"));
+    String actual = converter.print (Instant.parse ("2019-04-04T13:32:12Z"), null);
 
     assertThat (actual).isEqualTo ("aujourd’hui à 15h32");
   }
@@ -74,7 +74,7 @@ public class InstantConverterTest {
   public void today_more_than_1_hour_from_now () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2019-04-04T21:13:27Z"));
+    String actual = converter.print (Instant.parse ("2019-04-04T21:13:27Z"), null);
 
     assertThat (actual).isEqualTo ("aujourd’hui à 23h13");
   }
@@ -83,7 +83,7 @@ public class InstantConverterTest {
   public void yesterday () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2019-04-02T23:38:14Z"));
+    String actual = converter.print (Instant.parse ("2019-04-02T23:38:14Z"), null);
 
     assertThat (actual).isEqualTo ("hier à 1h38");
   }
@@ -92,7 +92,7 @@ public class InstantConverterTest {
   public void tomorrow () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2019-04-05T00:58:32Z"));
+    String actual = converter.print (Instant.parse ("2019-04-05T00:58:32Z"), null);
 
     assertThat (actual).isEqualTo ("demain à 2h58");
   }
@@ -101,7 +101,7 @@ public class InstantConverterTest {
   public void the_day_before_yesterday () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2019-04-02T10:12:35Z"));
+    String actual = converter.print (Instant.parse ("2019-04-02T10:12:35Z"), null);
 
     assertThat (actual).isEqualTo ("avant-hier à 12h12");
   }
@@ -110,7 +110,7 @@ public class InstantConverterTest {
   public void the_day_after_tomorrow () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2019-04-06T13:09:23Z"));
+    String actual = converter.print (Instant.parse ("2019-04-06T13:09:23Z"), null);
 
     assertThat (actual).isEqualTo ("après-demain à 15h09");
   }
@@ -119,7 +119,7 @@ public class InstantConverterTest {
   public void less_than_6_months_ago () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2019-01-07T16:39:53Z"));
+    String actual = converter.print (Instant.parse ("2019-01-07T16:39:53Z"), null);
 
     assertThat (actual).isEqualTo ("lundi 7 janvier à 17h39");
   }
@@ -128,7 +128,7 @@ public class InstantConverterTest {
   public void less_than_6_months_from_now () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2019-07-14T06:00:00Z"));
+    String actual = converter.print (Instant.parse ("2019-07-14T06:00:00Z"), null);
 
     assertThat (actual).isEqualTo ("dimanche 14 juillet à 8h00");
   }
@@ -137,7 +137,7 @@ public class InstantConverterTest {
   public void more_than_6_months_ago () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2017-12-25T15:17:02Z"));
+    String actual = converter.print (Instant.parse ("2017-12-25T15:17:02Z"), null);
 
     assertThat (actual).isEqualTo ("lundi 25 décembre 2017");
   }
@@ -146,7 +146,7 @@ public class InstantConverterTest {
   public void more_than_6_months_from_now () {
     when (clock.getZone ()).thenReturn (ZoneId.of ("Europe/Paris"));
 
-    String actual = converter.convert (Instant.parse ("2020-01-31T23:45:01Z"));
+    String actual = converter.print (Instant.parse ("2020-01-31T23:45:01Z"), null);
 
     assertThat (actual).isEqualTo ("samedi 1er février 2020");
   }

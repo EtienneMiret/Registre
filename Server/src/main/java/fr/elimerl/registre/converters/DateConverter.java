@@ -1,9 +1,10 @@
 package fr.elimerl.registre.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.Formatter;
 
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Format {@link java.util.Date} for display in French.
@@ -17,15 +18,20 @@ import java.util.Date;
  *   <li>…
  * </ul>
  */
-public class DateConverter implements Converter<Date, String> {
+public class DateConverter implements Formatter<Date> {
 
   /** Actual converter used for this job. */
   @Autowired
   private InstantConverter instantConverter;
 
   @Override
-  public String convert (Date source) {
-    return instantConverter.convert (source.toInstant ());
+  public String print (Date source, Locale locale) {
+    return instantConverter.print (source.toInstant (), locale);
+  }
+
+  @Override
+  public Date parse (String text, Locale locale) {
+    return Date.from (instantConverter.parse (text, locale));
   }
 
 }

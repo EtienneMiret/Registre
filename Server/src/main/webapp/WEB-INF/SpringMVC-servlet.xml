@@ -11,7 +11,7 @@
 
   <context:component-scan base-package="fr.elimerl.registre.controllers,fr.elimerl.registre.advices"/>
 
-  <mvc:annotation-driven/>
+  <mvc:annotation-driven conversion-service="conversionService"/>
 
   <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
     <property name="prefix" value="/WEB-INF/thymeleaf/"/>

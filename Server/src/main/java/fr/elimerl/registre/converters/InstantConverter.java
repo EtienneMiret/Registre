@@ -1,7 +1,7 @@
 package fr.elimerl.registre.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.Formatter;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -25,7 +25,7 @@ import static java.time.temporal.ChronoUnit.SECONDS;
  *   <li>…
  * </ul>
  */
-public class InstantConverter implements Converter<Instant, String> {
+public class InstantConverter implements Formatter<Instant> {
 
   private static final DateTimeFormatter TODAY =
       DateTimeFormatter.ofPattern ("'aujourd’hui à' H'h'mm");
@@ -65,13 +65,18 @@ public class InstantConverter implements Converter<Instant, String> {
   private Clock clock;
 
   @Override
-  public String convert (Instant source) {
+  public String print (Instant source, Locale locale) {
     Instant now = Instant.now (clock);
     if (source.compareTo (now) <= 0) {
       return convertPast (source, now);
     } else {
       return convertFuture (source, now);
     }
+  }
+
+  @Override
+  public Instant parse (String text, Locale locale) {
+    throw new UnsupportedOperationException ();
   }
 
   /**

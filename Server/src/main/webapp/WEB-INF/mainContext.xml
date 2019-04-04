@@ -6,8 +6,9 @@
 
   <import resource="security.xml"/>
 
-  <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-    <property name="converters">
+  <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    <property name="registerDefaultFormatters" value="false"/>
+    <property name="formatters">
       <set>
         <ref bean="instantConverter"/>
         <ref bean="dateConverter"/>
