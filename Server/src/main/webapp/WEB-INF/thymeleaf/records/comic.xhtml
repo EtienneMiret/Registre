@@ -23,8 +23,8 @@
     <p th:if="${record.series}">Série&#x202F;: <span th:text="${record.series}">Tintin</span><th:block th:if="${record.number}"> (numéro <span th:text="${record.number}">12</span>)</th:block>.</p>
     <p>BD<th:block th:if="${record.owner}"> appartenant à <span th:text="${record.owner}">Maman</span></th:block>.</p>
     <p th:if="${record.location}">Emplacement&#x202F;: <span th:text="${record.location}">quelque part près de Paris</span>.</p>
-    <p>Référencé <span th:text="${record.creation}">le dimanche 3 décembre 2017</span> par <span th:text="${record.creator}">Système</span><th:block th:if="${record.creation} != ${record.lastModification}">,
-      mis à jour <span th:text="${record.lastModification}">le mardi 5 décembre 2017</span> par <span th:text="${record.lastModifier}">Etienne</span></th:block>.</p>
+    <p>Référencé <span th:text="${{record.creation}}">le dimanche 3 décembre 2017</span> par <span th:text="${record.creator}">Système</span><th:block th:if="${record.creation} != ${record.lastModification}">,
+      mis à jour <span th:text="${{record.lastModification}}">le mardi 5 décembre 2017</span> par <span th:text="${record.lastModifier}">Etienne</span></th:block>.</p>
     <p th:if="${record.comment}" th:text="${record.comment}">Un Tintin sans méchants.</p>
     <a th:replace="records/base :: editButton (${record})">Modifier</a>
   </section>

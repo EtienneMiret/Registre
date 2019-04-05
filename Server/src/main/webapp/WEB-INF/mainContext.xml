@@ -6,8 +6,21 @@
 
   <import resource="security.xml"/>
 
+  <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    <property name="registerDefaultFormatters" value="false"/>
+    <property name="formatters">
+      <set>
+        <ref bean="instantConverter"/>
+        <ref bean="dateConverter"/>
+      </set>
+    </property>
+  </bean>
+
+  <bean id="instantConverter" class="fr.elimerl.registre.converters.InstantConverter"/>
+  <bean id="dateConverter" class="fr.elimerl.registre.converters.DateConverter"/>
   <bean class="fr.elimerl.registre.services.Index"/>
   <bean class="fr.elimerl.registre.services.QueryParser"/>
   <bean name="registreEntityManager" class="fr.elimerl.registre.services.RegistreEntityManager"/>
+  <bean class="fr.elimerl.registre.config.ClockProvider"/>
 
 </beans>
