@@ -1,3 +1,5 @@
+const INTERVAL = 1000;
+
 const ONCE : AddEventListenerOptions = {
   once: true,
   passive: true
@@ -12,6 +14,7 @@ const ACTIVE: AddEventListenerOptions = {
 };
 
 const xhr = new XMLHttpRequest ();
+let lastSentTime = new Date (0);
 let timeout: number | undefined;
 let previousValue = '';
 let currentLi: HTMLLIElement | undefined;
@@ -30,6 +33,9 @@ function listSuggestions () {
   if (xhr.status === 200) {
     const result = <string[]>JSON.parse (xhr.response);
     const list = getList ();
+    while (list.hasChildNodes ()) {
+      list.removeChild (list.firstChild!);
+    }
     result.map (createHTMLLIElement).forEach (li => {
       list.appendChild (li);
     });
@@ -37,15 +43,26 @@ function listSuggestions () {
   }
 }
 
-function sendRequest (url: URL) {
-  xhr.open ('GET', url.toString ());
-  xhr.setRequestHeader ('Accept', 'application/json');
-  xhr.addEventListener ('load', listSuggestions, ONCE);
-  xhr.send ();
+function sendRequest (input: HTMLInputElement) {
+  if (input.value !== '' && input.value !== previousValue) {
+    window.clearTimeout (timeout);
+    previousValue = input.value;
+    lastSentTime = new Date ();
+    timeout = undefined;
+    const path = <string>input.dataset['autoCompletePath'];
+    const url = new URL (path, document.baseURI);
+    url.searchParams.append ('q', input.value);
+    xhr.abort ();
+    xhr.open ('GET', url.toString ());
+    xhr.setRequestHeader ('Accept', 'application/json');
+    xhr.addEventListener ('load', listSuggestions, ONCE);
+    xhr.send ();
+  }
 }
 
 function clear () {
   window.clearTimeout (timeout);
+  timeout = undefined;
   previousValue = '';
   currentLi = undefined;
   xhr.abort ();
@@ -57,17 +74,15 @@ function clear () {
 }
 
 function autoComplete (input: HTMLInputElement) {
-  clear ();
   const list = getList ();
   list.style.setProperty ('left', input.offsetLeft + 'px');
   list.style.setProperty ('top', (input.offsetTop + input.offsetHeight) + 'px');
 
-  if (input.value !== '' && input.value !== previousValue) {
-    const path = <string>input.dataset['autoCompletePath'];
-    const url = new URL (path, document.baseURI);
-    url.searchParams.append ('q', input.value);
-    previousValue = input.value;
-    timeout = window.setTimeout (sendRequest, 800, url);
+  const delta = new Date ().getTime () - lastSentTime.getTime ();
+  if (delta >= INTERVAL) {
+    sendRequest (input);
+  } else if (timeout === undefined) {
+    timeout = window.setTimeout (sendRequest, INTERVAL - delta, input);
   }
 }
 
@@ -86,8 +101,6 @@ function moveOn (event: KeyboardEvent) {
         if (list.hasChildNodes()) {
           currentLi = <HTMLLIElement>list.firstChild;
           currentLi.classList.add ('active');
-        } else {
-          autoComplete (input);
         }
       }
       break;
@@ -103,26 +116,34 @@ function moveOn (event: KeyboardEvent) {
       if (currentLi) {
         event.preventDefault ();
         input.value = currentLi.innerText;
+        clear ();
       }
       break;
   }
 }
 
+const KEY_DOWN_KEYS = new Set<string> ([
+  'Escape',
+  'ArrowDown',
+  'ArrowUp',
+  'Enter',
+  'Tab'
+]);
+
 function keyDown (event: KeyboardEvent) {
-  const input = <HTMLInputElement>event.target;
-  switch (event.key) {
-    case 'Escape':
+  if (KEY_DOWN_KEYS.has (event.key)) {
+    if (event.key === 'Escape') {
       clear ();
-      break;
-    case 'ArrowDown':
-    case 'ArrowUp':
-    case 'Enter':
-    case 'Tab':
+    } else {
       moveOn (event);
-      break;
-    default:
-      autoComplete (input);
-      break;
+    }
+  }
+}
+
+function keyUp (event: KeyboardEvent) {
+  if (!KEY_DOWN_KEYS.has (event.key)) {
+    const input = <HTMLInputElement>event.target;
+    autoComplete (input);
   }
 }
 
@@ -131,6 +152,8 @@ export function enableAutoCompletion () {
   autoCompletableInputs.forEach ((input) => {
     input.autocomplete = 'off';
     input.addEventListener ('keydown', keyDown, ACTIVE);
+    input.addEventListener ('keyup', keyUp, SEVERAL_TIMES);
+    input.addEventListener ('focus', () => previousValue = input.value, SEVERAL_TIMES);
     input.addEventListener ('blur', clear, SEVERAL_TIMES);
   });
 }
