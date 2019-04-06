@@ -47,6 +47,9 @@ function autoComplete (event: Event) {
 }
 
 export function enableAutoCompletion () {
-  document.querySelectorAll ('input[data-auto-complete-path]')
-      .forEach (input => input.addEventListener ('keyup', autoComplete, SEVERAL_TIMES));
+  const autoCompletableInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll ('input[data-auto-complete-path]');
+  autoCompletableInputs.forEach ((input) => {
+    input.autocomplete = 'off';
+    input.addEventListener ('keyup', autoComplete, SEVERAL_TIMES);
+  });
 }
