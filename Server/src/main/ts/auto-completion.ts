@@ -20,9 +20,6 @@ function listSuggestions () {
   if (xhr.status === 200) {
     const result = <string[]>JSON.parse (xhr.response);
     const list = <HTMLOListElement>document.getElementById ('auto-complete-list');
-    while (list.hasChildNodes()) {
-      list.removeChild (list.firstChild!);
-    }
     result.map (createHTMLLIElement).forEach (li => {
       list.appendChild (li);
     });
@@ -37,7 +34,15 @@ function sendRequest (url: URL) {
   xhr.send ();
 }
 
-function autoComplete (event: Event) {
+function clearList () {
+  const list = <HTMLOListElement>document.getElementById ('auto-complete-list');
+  list.hidden = true;
+  while (list.hasChildNodes()) {
+    list.removeChild (list.firstChild!);
+  }
+}
+
+function autoComplete (event: KeyboardEvent) {
   const input = <HTMLInputElement>event.target;
   const path = <string>input.dataset['autoCompletePath'];
   const url = new URL (path, document.baseURI);
@@ -45,13 +50,14 @@ function autoComplete (event: Event) {
 
   window.clearTimeout (timeout);
   xhr.abort ();
-  timeout = window.setTimeout (sendRequest, 800, url);
+  if (event.key !== 'Escape') {
+    timeout = window.setTimeout (sendRequest, 800, url);
+  }
 
   const list = <HTMLOListElement>document.getElementById ('auto-complete-list');
-  const inputRect = input.getBoundingClientRect();
-  list.hidden = true;
   list.style.setProperty ('left', input.offsetLeft + 'px');
   list.style.setProperty ('top', (input.offsetTop + input.offsetHeight) + 'px');
+  clearList ();
 }
 
 export function enableAutoCompletion () {
@@ -59,5 +65,6 @@ export function enableAutoCompletion () {
   autoCompletableInputs.forEach ((input) => {
     input.autocomplete = 'off';
     input.addEventListener ('keyup', autoComplete, SEVERAL_TIMES);
+    input.addEventListener ('blur', clearList, SEVERAL_TIMES);
   });
 }
