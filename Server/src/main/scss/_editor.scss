@@ -29,6 +29,10 @@ main.editor {
     > li {
       display: block;
       padding: 2px;
+
+      &.active {
+        background: lightcyan;
+      }
     }
   }
 
