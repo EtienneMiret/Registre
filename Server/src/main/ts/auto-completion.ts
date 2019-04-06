@@ -9,6 +9,7 @@ const SEVERAL_TIMES : AddEventListenerOptions = {
 
 const xhr = new XMLHttpRequest ();
 let timeout: number | undefined;
+let previousValue = '';
 
 function createHTMLLIElement (content: string): HTMLLIElement {
   const li = <HTMLLIElement>document.createElementNS ('http://www.w3.org/1999/xhtml', 'li');
@@ -34,7 +35,10 @@ function sendRequest (url: URL) {
   xhr.send ();
 }
 
-function clearList () {
+function clear () {
+  window.clearTimeout (timeout);
+  previousValue = '';
+  xhr.abort ();
   const list = <HTMLOListElement>document.getElementById ('auto-complete-list');
   list.hidden = true;
   while (list.hasChildNodes()) {
@@ -45,19 +49,18 @@ function clearList () {
 function autoComplete (event: KeyboardEvent) {
   const input = <HTMLInputElement>event.target;
   const path = <string>input.dataset['autoCompletePath'];
-  const url = new URL (path, document.baseURI);
-  url.searchParams.append ('q', input.value);
-
-  window.clearTimeout (timeout);
-  xhr.abort ();
-  if (event.key !== 'Escape') {
-    timeout = window.setTimeout (sendRequest, 800, url);
-  }
 
   const list = <HTMLOListElement>document.getElementById ('auto-complete-list');
   list.style.setProperty ('left', input.offsetLeft + 'px');
   list.style.setProperty ('top', (input.offsetTop + input.offsetHeight) + 'px');
-  clearList ();
+  clear ();
+
+  if (event.key !== 'Escape' && input.value !== '' && input.value !== previousValue) {
+    const url = new URL (path, document.baseURI);
+    url.searchParams.append ('q', input.value);
+    previousValue = input.value;
+    timeout = window.setTimeout (sendRequest, 800, url);
+  }
 }
 
 export function enableAutoCompletion () {
@@ -65,6 +68,6 @@ export function enableAutoCompletion () {
   autoCompletableInputs.forEach ((input) => {
     input.autocomplete = 'off';
     input.addEventListener ('keyup', autoComplete, SEVERAL_TIMES);
-    input.addEventListener ('blur', clearList, SEVERAL_TIMES);
+    input.addEventListener ('blur', clear, SEVERAL_TIMES);
   });
 }
