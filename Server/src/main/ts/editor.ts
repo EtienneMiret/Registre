@@ -26,8 +26,26 @@ function addActor (actorsList: HTMLOListElement|HTMLUListElement) {
 
 function ready () {
   const form = <HTMLFormElement>document.getElementById ('form');
-  hideUnusedFields (form, (<HTMLSelectElement>form.elements.namedItem('type')).value);
-  document.getElementById ('add-actor')!.hidden = false;
+  const typeSelector = <HTMLSelectElement>form.elements.namedItem ('type');
+  const addActorButton = <HTMLButtonElement>document.getElementById ('add-actor');
+  const actorsList = <HTMLUListElement>document.getElementById ('actors');
+  hideUnusedFields (form, typeSelector.value);
+  typeSelector.addEventListener ('change', () => hideUnusedFields (form, typeSelector.value), {
+    once: false,
+    passive: true
+  });
+  addActorButton.addEventListener ('click', () => addActor (actorsList), {
+    once: false,
+    passive: true
+  });
+  addActorButton.hidden = false;
 }
 
-ready ();
+if (document.readyState === 'loading') {
+  document.addEventListener ('DOMContentLoaded', ready, {
+    once: true,
+    passive: true
+  });
+} else {
+  ready ();
+}
