@@ -20,4 +20,16 @@ main.editor {
     display: none;
   }
 
+  #auto-complete-list {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    background: white;
+
+    > li {
+      display: block;
+      padding: 2px;
+    }
+  }
+
 }

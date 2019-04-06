@@ -40,33 +40,43 @@
       </select>
     </label></p>
     <p class="movie"><label>Réalisateur&#x202F;:
-      <input name="director" th:value="*{director}"/></label></p>
+      <input name="director" th:value="*{director}"
+        th:data-auto-complete-path="@{/auto-complete/directors}"/></label></p>
     <div class="movie"><label>Acteurs&#x202F;:</label>
-      <ul id="actors">
+      <ul id="actors" th:data-auto-complete-path="@{/auto-complete/actors}">
         <li th:each="actor : *{actors}"><input
             th:name="'actors[' + ${actorStat.index} +']'" th:value="${actor}"
+            th:data-auto-complete-path="@{/auto-complete/actors}"
         /></li>
       </ul>
       <button id="add-actor" type="button" hidden="">+</button>
     </div>
     <p class="movie"><label>Compositeur&#x202F;:
-      <input name="composer" th:value="*{composer}"/></label></p>
+      <input name="composer" th:value="*{composer}"
+        th:data-auto-complete-path="@{/auto-complete/composers}"/></label></p>
     <p class="comic"><label>Dessinateur&#x202F;:
-      <input name="cartoonis" th:value="*{cartoonist}"/></label></p>
+      <input name="cartoonis" th:value="*{cartoonist}"
+        th:data-auto-complete-path="@{/auto-complete/cartoonists}"/></label></p>
     <p class="comic"><label>Scénariste&#x202F;:
-      <input name="scriptWriter" th:value="*{scriptWriter}"/></label></p>
+      <input name="scriptWriter" th:value="*{scriptWriter}"
+        th:data-auto-complete-path="@{/auto-complete/script-writers}"/></label></p>
     <p class="book"><label>Auteur&#x202F;:
-      <input name="author" th:value="*{author}"/></label></p>
+      <input name="author" th:value="*{author}"
+        th:data-auto-complete-path="@{/auto-complete/authors}"/></label></p>
     <p><label>Série&#x202F;:
-      <input name="series" th:value="*{series}"/></label></p>
+      <input name="series" th:value="*{series}"
+        th:data-auto-complete-path="@{/auto-complete/series}"/></label></p>
     <p><label>Commentaire&#x202F;:
       <textarea name="comment" th:value="*{comment}"/></label></p>
     <p><label>Propriétaire&#x202F;:
-      <input name="owner" th:value="*{owner}"/></label></p>
+      <input name="owner" th:value="*{owner}"
+        th:data-auto-complete-path="@{/auto-complete/owners}"/></label></p>
     <p><label>Emplacement&#x202F;:
-      <input name="location" th:value="*{location}"/></label></p>
+      <input name="location" th:value="*{location}"
+        th:data-auto-complete-path="@{/auto-complete/locations}"/></label></p>
     <p><label>Image&#x202F;: <input type="file" name="picture"/></label></p>
     <p><button th:text="*{id} ? Modifier : Ajouter">Ajouter</button></p>
+    <ol id="auto-complete-list" hidden=""/>
   </form>
 
 </main>

@@ -1,3 +1,5 @@
+import {enableAutoCompletion} from './auto-completion.js';
+
 function hideUnusedFields (form: HTMLFormElement, type: string) {
   hideExcept (form, type, 'comic');
   hideExcept (form, type, 'movie');
@@ -39,6 +41,7 @@ function ready () {
     passive: true
   });
   addActorButton.hidden = false;
+  enableAutoCompletion();
 }
 
 if (document.readyState === 'loading') {
