@@ -1,4 +1,4 @@
-package fr.elimerl.registre.model.search.grammar;
+package fr.elimerl.registre.search.grammar;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,8 +8,6 @@ import fr.elimerl.registre.search.tokens.Keyword;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
-
-import fr.elimerl.registre.search.grammar.FieldQuery;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

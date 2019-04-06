@@ -1,10 +1,9 @@
-package fr.elimerl.registre.model.search.grammar;
+package fr.elimerl.registre.search.grammar;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 
-import fr.elimerl.registre.search.grammar.SimpleKeyword;
 import fr.elimerl.registre.search.tokens.Keyword;
 import nl.jqno.equalsverifier.EqualsVerifier;
 

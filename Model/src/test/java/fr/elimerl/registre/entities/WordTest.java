@@ -1,9 +1,8 @@
-package fr.elimerl.registre.model.entities;
+package fr.elimerl.registre.entities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import fr.elimerl.registre.entities.Word;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 

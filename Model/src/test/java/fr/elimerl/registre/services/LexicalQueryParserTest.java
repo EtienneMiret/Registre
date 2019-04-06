@@ -1,4 +1,4 @@
-package fr.elimerl.registre.model.services;
+package fr.elimerl.registre.services;
 
 import fr.elimerl.registre.search.tokens.Bracket;
 import fr.elimerl.registre.search.tokens.Field;
@@ -6,7 +6,6 @@ import fr.elimerl.registre.search.tokens.Keyword;
 import fr.elimerl.registre.search.tokens.Operator;
 import fr.elimerl.registre.search.tokens.Token;
 import fr.elimerl.registre.search.tokens.Type;
-import fr.elimerl.registre.services.QueryParser;
 import org.junit.Before;
 import org.junit.Test;
 

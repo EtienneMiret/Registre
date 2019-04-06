@@ -1,16 +1,12 @@
-package fr.elimerl.registre.model.search.grammar;
+package fr.elimerl.registre.search.grammar;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import fr.elimerl.registre.search.grammar.SearchQuery;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
-
-import fr.elimerl.registre.search.grammar.Expression;
-import fr.elimerl.registre.search.grammar.BracketedQuery;
 
 /**
  * JUnit test case for the {@link BracketedQuery} class.
