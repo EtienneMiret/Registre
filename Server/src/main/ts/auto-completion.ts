@@ -7,14 +7,16 @@ const SEVERAL_TIMES : AddEventListenerOptions = {
   passive: true
 };
 
+const xhr = new XMLHttpRequest ();
+let timeout: number | undefined;
+
 function createHTMLLIElement (content: string): HTMLLIElement {
   const li = <HTMLLIElement>document.createElementNS ('http://www.w3.org/1999/xhtml', 'li');
   li.innerText = content;
   return li;
 }
 
-function listSuggestions (event: Event) {
-  const xhr = <XMLHttpRequest>event.target;
+function listSuggestions () {
   if (xhr.status === 200) {
     const result = <string[]>JSON.parse (xhr.response);
     const list = <HTMLOListElement>document.getElementById ('auto-complete-list');
@@ -28,16 +30,22 @@ function listSuggestions (event: Event) {
   }
 }
 
-function autoComplete (event: Event) {
-  const input = <HTMLInputElement>event.target;
-  const xhr = new XMLHttpRequest ();
-  const path = <string>input.dataset['autoCompletePath'];
-  const url = new URL (path, document.baseURI);
-  url.searchParams.append ('q', input.value);
+function sendRequest (url: URL) {
   xhr.open ('GET', url.toString ());
   xhr.setRequestHeader ('Accept', 'application/json');
   xhr.addEventListener ('load', listSuggestions, ONCE);
   xhr.send ();
+}
+
+function autoComplete (event: Event) {
+  const input = <HTMLInputElement>event.target;
+  const path = <string>input.dataset['autoCompletePath'];
+  const url = new URL (path, document.baseURI);
+  url.searchParams.append ('q', input.value);
+
+  window.clearTimeout (timeout);
+  xhr.abort ();
+  timeout = window.setTimeout (sendRequest, 800, url);
 
   const list = <HTMLOListElement>document.getElementById ('auto-complete-list');
   const inputRect = input.getBoundingClientRect();
