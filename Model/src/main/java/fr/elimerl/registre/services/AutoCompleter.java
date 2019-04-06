@@ -24,6 +24,11 @@ public class AutoCompleter {
   private static final Pattern JPA_OPERATORS = Pattern.compile ("[%_^]");
 
   /**
+   * Maximum number of suggestion to make.
+   */
+  private static final long MAX_SUGGESTIONS = 10;
+
+  /**
    * JPA entity manager.
    */
   @PersistenceContext (unitName = "Registre")
@@ -65,6 +70,7 @@ public class AutoCompleter {
         .getResultList ()
         .stream ()
         .filter (res -> regex.matcher (res).find ())
+        .limit (MAX_SUGGESTIONS)
         .collect (toList ());
   }
 
