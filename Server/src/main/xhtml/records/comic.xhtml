@@ -9,23 +9,27 @@
 
 <nav th:replace="base :: nav (record)"/>
 
-<main class="record">
+<main class="record" th:object="${record}">
 
-  <h1 th:text="${record.title}">Tintin au Tibet</h1>
+  <h1 th:text="*{title}">Tintin au Tibet</h1>
 
-  <div class="picture" th:replace="records/base :: picture (${record.picture})">
+  <div class="picture" th:replace="records/base :: picture (*{picture})">
     <p>Pas d’image pour le moment.</p>
   </div>
 
   <section>
-    <p th:if="${record.cartoonist}">Déssiné par <span th:text="${record.cartoonist}">Hergé</span>.</p>
-    <p th:if="${record.scriptWriter}">Sur un scénario de <span th:text="${record.scriptWriter}">Hergé</span>.</p>
-    <p th:if="${record.series}">Série&#x202F;: <span th:text="${record.series}">Tintin</span><th:block th:if="${record.number}"> (numéro <span th:text="${record.number}">12</span>)</th:block>.</p>
-    <p>BD<th:block th:if="${record.owner}"> appartenant à <span th:text="${record.owner}">Maman</span></th:block>.</p>
-    <p th:if="${record.location}">Emplacement&#x202F;: <span th:text="${record.location}">quelque part près de Paris</span>.</p>
-    <p>Référencé <span th:text="${{record.creation}}">le dimanche 3 décembre 2017</span> par <span th:text="${record.creator}">Système</span><th:block th:if="${record.creation} != ${record.lastModification}">,
-      mis à jour <span th:text="${{record.lastModification}}">le mardi 5 décembre 2017</span> par <span th:text="${record.lastModifier}">Etienne</span></th:block>.</p>
-    <p th:if="${record.comment}" th:text="${record.comment}">Un Tintin sans méchants.</p>
+    <p th:if="*{cartoonist}">Déssiné par
+      <a th:href="@{/Rechercher(q=|cartoonist:(*{cartoonist})|)}" th:text="*{cartoonist}">Hergé</a>.</p>
+    <p th:if="*{scriptWriter}">Sur un scénario de
+      <a th:href="@{/Rechercher(q=|scriptWriter:(*{scriptWriter})|)}" th:text="*{scriptWriter}">Hergé</a>.</p>
+    <p th:if="*{series}">Série&#x202F;:
+      <a th:href="@{/Rechercher(q=|series:(*{series})|)}" th:text="*{series}">Tintin</a><th:block th:if="*{number}"> (numéro <span th:text="*{number}">12</span>)</th:block>.</p>
+    <p>BD<th:block th:if="*{owner}"> appartenant à
+      <a th:href="@{/Rechercher(q=|owner:(*{owner})|)}" th:text="*{owner}">Maman</a></th:block>.</p>
+    <p th:if="*{location}">Emplacement&#x202F;:
+      <a th:href="@{/Rechercher(q=|location:(*{location})|)}" th:text="*{location}">quelque part près de Paris</a>.</p>
+    <p th:replace="records/base :: history (${record})">Référencé il y a longtemps par Étienne.</p>
+    <p th:if="*{comment}" th:text="*{comment}">Un Tintin sans méchants.</p>
     <a th:replace="records/base :: editButton (${record})">Modifier</a>
   </section>
 

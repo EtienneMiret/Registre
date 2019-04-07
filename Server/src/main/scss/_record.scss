@@ -35,7 +35,7 @@ main.record {
       margin: 15px;
     }
 
-    a {
+    a.edit {
       @extend %button;
       margin: 30px 15px 15px auto;
       width: 50px;

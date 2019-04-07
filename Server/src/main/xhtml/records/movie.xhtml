@@ -9,24 +9,28 @@
 
 <nav th:replace="base :: nav (record)"/>
 
-<main class="record">
+<main class="record" th:object="${record}">
 
-  <h1 th:text="${record.title}">Star Wars - Un nouvel espoir</h1>
+  <h1 th:text="*{title}">Star Wars - Un nouvel espoir</h1>
 
-  <div class="picture" th:replace="records/base :: picture (${record.picture})">
+  <div class="picture" th:replace="records/base :: picture (*{picture})">
     <p>Pas d’image pour le moment.</p>
   </div>
 
   <section>
-    <p th:if="${record.director}">Réalisé par <span th:text="${record.director}">Spielberg</span>.</p>
-    <p th:unless="${record.actors.isEmpty()}">Avec <th:block th:each="actor : ${record.actors}"><span th:text="${actor.name}">Luke Skywalker</span><th:block th:switch="${actorStat.index}"><th:block th:case="${actorStat.size} - 2"> et </th:block><th:block th:case="${actorStat.size} - 1">.</th:block><th:block th:case="*">, </th:block></th:block></th:block></p>
-    <p th:if="${record.composer}">Musique composée par <span th:text="${record.composer}">John Williams</span>.</p>
-    <p th:if="${record.series}">Série&#x202F;: <span th:text="${record.series}">Star Wars</span>.</p>
-    <p><span th:text="${record.support}">DVD</span><th:block th:if="${record.owner}"> appartenant à <span th:text="${record.owner}">Etienne</span></th:block>.</p>
-    <p th:if="${record.location}">Emplacement&#x202F;: <span th:text="${record.location}">quelque part près de Paris</span>.</p>
-    <p>Référencé <span th:text="${{record.creation}}">le dimanche 3 décembre 2017</span> par <span th:text="${record.creator}">Système</span><th:block th:if="${record.creation} != ${record.lastModification}">,
-      mis à jour <span th:text="${{record.lastModification}}">le mardi 5 décembre 2017</span> par <span th:text="${record.lastModifier}">Grégoire</span></th:block>.</p>
-    <p th:if="${record.comment}" th:text="${record.comment}">Le premier d’une série de films super.</p>
+    <p th:if="*{director}">Réalisé par
+      <a th:href="@{/Rechercher(q=|director:(*{director})|)}" th:text="*{director}">Spielberg</a>.</p>
+    <p th:unless="*{actors.isEmpty()}">Avec <th:block th:each="actor : *{actors}"><a th:href="@{/Rechercher(q=|actor:(${actor.name})|)}" th:text="${actor.name}">Luke Skywalker</a><th:block th:switch="${actorStat.index}"><th:block th:case="${actorStat.size} - 2"> et </th:block><th:block th:case="${actorStat.size} - 1">.</th:block><th:block th:case="*">, </th:block></th:block></th:block></p>
+    <p th:if="*{composer}">Musique composée par
+      <a th:href="@{/Rechercher(q=|composer:(*{composer})|)}" th:text="*{composer}">John Williams</a>.</p>
+    <p th:if="*{series}">Série&#x202F;:
+      <a th:href="@{/Rechercher(q=|series:(*{series})|)}" th:text="*{series}">Star Wars</a>.</p>
+    <p><span th:text="*{support}">DVD</span><th:block th:if="*{owner}"> appartenant à
+      <a th:href="@{/Rechercher(q=|owner:(*{owner})|)}" th:text="*{owner}">Etienne</a></th:block>.</p>
+    <p th:if="*{location}">Emplacement&#x202F;:
+      <a th:href="@{/Rechercher(q=|location:(*{location})|)}" th:text="*{location}">quelque part près de Paris</a>.</p>
+    <p th:replace="records/base :: history (${record})">Référencé il y a longtemps par Étienne.</p>
+    <p th:if="*{comment}" th:text="*{comment}">Le premier d’une série de films super.</p>
     <a th:replace="records/base :: editButton (${record})">Modifier</a>
   </section>
 
