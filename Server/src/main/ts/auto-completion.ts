@@ -151,6 +151,38 @@ function keyUp (event: KeyboardEvent) {
   }
 }
 
+function extractTargetLi (event: MouseEvent): HTMLLIElement | null {
+  let target = <HTMLElement | null>event.target;
+  while (target && (target.localName !== 'li' || target.namespaceURI !== 'http://www.w3.org/1999/xhtml')) {
+    target = target.parentElement;
+  }
+  return <HTMLLIElement | null>target;
+}
+
+function mouseMove (event: MouseEvent) {
+  const li = extractTargetLi (event);
+  if (li === null) {
+    return;
+  }
+  if (currentLi) {
+    currentLi.classList.remove ('active');
+  }
+  currentLi = li;
+  currentLi.classList.add ('active');
+}
+
+function click (event: MouseEvent) {
+  const li = extractTargetLi (event);
+  if (li
+      && document.activeElement
+      && document.activeElement.localName === 'input'
+      && document.activeElement.namespaceURI === 'http://www.w3.org/1999/xhtml') {
+    const input = <HTMLInputElement>document.activeElement;
+    input.value = li.innerText;
+    clear ();
+  }
+}
+
 export function setAutoCompletable (input: HTMLInputElement) {
   input.autocomplete = 'off';
   input.addEventListener ('keydown', keyDown, ACTIVE);
@@ -161,4 +193,7 @@ export function setAutoCompletable (input: HTMLInputElement) {
 export function enableAutoCompletion () {
   const autoCompletableInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll ('input[data-auto-complete-path]');
   autoCompletableInputs.forEach (setAutoCompletable);
+  const list = getList ();
+  list.addEventListener ('mousemove', mouseMove, PASSIVE);
+  list.addEventListener ('mousedown', click, PASSIVE);
 }
