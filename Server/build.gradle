@@ -53,6 +53,10 @@ task tsc (type: YarnTask) {
 war {
   from file (sass.destinationDir)
   from file ("$buildDir/js")
+  webInf {
+    from 'src/main/xhtml'
+    into 'thymeleaf'
+  }
   dependsOn sass
   dependsOn tsc
 }
