@@ -1,10 +1,6 @@
 const INTERVAL = 1000;
 
-const ONCE : AddEventListenerOptions = {
-  once: true,
-  passive: true
-};
-const SEVERAL_TIMES : AddEventListenerOptions = {
+const PASSIVE : AddEventListenerOptions = {
   once: false,
   passive: true
 };
@@ -14,6 +10,7 @@ const ACTIVE: AddEventListenerOptions = {
 };
 
 const xhr = new XMLHttpRequest ();
+xhr.addEventListener ('load', listSuggestions, PASSIVE);
 let lastSentTime = new Date (0);
 let timeout: number | undefined;
 let previousValue = '';
@@ -33,6 +30,7 @@ function listSuggestions () {
   if (xhr.status === 200) {
     const result = <string[]>JSON.parse (xhr.response);
     const list = getList ();
+    currentLi = undefined;
     while (list.hasChildNodes ()) {
       list.removeChild (list.firstChild!);
     }
@@ -44,7 +42,9 @@ function listSuggestions () {
 }
 
 function sendRequest (input: HTMLInputElement) {
-  if (input.value !== '' && input.value !== previousValue) {
+  if (input.value === '') {
+    clear ();
+  } else if (input.value !== previousValue) {
     window.clearTimeout (timeout);
     previousValue = input.value;
     lastSentTime = new Date ();
@@ -55,7 +55,6 @@ function sendRequest (input: HTMLInputElement) {
     xhr.abort ();
     xhr.open ('GET', url.toString ());
     xhr.setRequestHeader ('Accept', 'application/json');
-    xhr.addEventListener ('load', listSuggestions, ONCE);
     xhr.send ();
   }
 }
@@ -95,12 +94,16 @@ function moveOn (event: KeyboardEvent) {
           currentLi.classList.remove ('active');
           currentLi = <HTMLLIElement>currentLi.nextSibling;
           currentLi.classList.add ('active');
+          event.preventDefault ();
         }
       } else {
         const list = getList ();
         if (list.hasChildNodes()) {
           currentLi = <HTMLLIElement>list.firstChild;
           currentLi.classList.add ('active');
+          event.preventDefault ();
+        } else {
+          autoComplete (input);
         }
       }
       break;
@@ -109,14 +112,15 @@ function moveOn (event: KeyboardEvent) {
         currentLi.classList.remove ('active');
         currentLi = <HTMLLIElement>currentLi.previousSibling;
         currentLi.classList.add ('active');
+        event.preventDefault ();
       }
       break;
     case 'Tab':
     case 'Enter':
       if (currentLi) {
-        event.preventDefault ();
         input.value = currentLi.innerText;
         clear ();
+        event.preventDefault ();
       }
       break;
   }
@@ -150,9 +154,8 @@ function keyUp (event: KeyboardEvent) {
 export function setAutoCompletable (input: HTMLInputElement) {
   input.autocomplete = 'off';
   input.addEventListener ('keydown', keyDown, ACTIVE);
-  input.addEventListener ('keyup', keyUp, SEVERAL_TIMES);
-  input.addEventListener ('focus', () => previousValue = input.value, SEVERAL_TIMES);
-  input.addEventListener ('blur', clear, SEVERAL_TIMES);
+  input.addEventListener ('keyup', keyUp, PASSIVE);
+  input.addEventListener ('blur', clear, PASSIVE);
 }
 
 export function enableAutoCompletion () {
