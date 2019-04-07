@@ -25,13 +25,15 @@ main.editor {
     margin: 0;
     padding: 0;
     background: white;
+    box-shadow: gray -3px 3px 3px;
 
     > li {
       display: block;
       padding: 2px;
 
       &.active {
-        background: lightcyan;
+        background: hsl(210, 100%, 50%);
+        color: white;
       }
     }
   }
