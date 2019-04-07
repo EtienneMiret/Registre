@@ -9,22 +9,28 @@
 
 <nav th:replace="base :: nav (record)"/>
 
-<main class="record">
+<main class="record" th:object="${record}">
 
-  <h1 th:text="${record.title}">Le Seigneur des Anneaux</h1>
+  <h1 th:text="*{title}">Le Seigneur des Anneaux</h1>
 
-  <div class="picture" th:replace="records/base :: picture (${record.picture})">
+  <div class="picture" th:replace="records/base :: picture (*{picture})">
     <p>Pas d’image pour le moment.</p>
   </div>
 
   <section>
-    <p th:if="${record.author}">Écrit par <span th:text="${record.author}">J. R. R. Tolkien</span>.</p>
-    <p th:if="${record.series}">Série&#x202F;: <span th:text="${record.series}">La Terre du Milieu</span>.</p>
-    <p>Livre<th:block th:if="${record.owner}"> appartenant à <span th:text="${record.owner}">Etienne</span></th:block>.</p>
-    <p th:if="${record.location}">Emplacement&#x202F;: <span th:text="${record.location}">quelque part près de Paris</span>.</p>
-    <p>Référencé <span th:text="${{record.creation}}">le dimanche 3 décembre 2017</span> par <span th:text="${record.creator}">Système</span><th:block th:if="${record.creation} != ${record.lastModification}">,
-      mis à jour <span th:text="${{record.lastModification}}">le mardi 5 décembre 2017</span> par <span th:text="${record.lastModifier}">Grégoire</span></th:block>.</p>
-    <p th:if="${record.comment}" th:text="${record.comment}">Un des meilleurs livres au monde.</p>
+    <p th:if="*{author}">Écrit par
+      <a th:href="@{/Rechercher(q=|author:(*{author})|)}" th:text="*{author}">J. R. R. Tolkien</a>.</p>
+    <p th:if="*{series}">Série&#x202F;:
+      <a th:href="@{/Rechercher(q=|series:(*{series})|)}" th:text="*{series}">La Terre du Milieu</a>.</p>
+    <p>Livre<th:block th:if="*{owner}"> appartenant à
+      <a th:href="@{/Rechercher(q=|owner:(*{owner})|)}" th:text="*{owner}">Etienne</a></th:block>.</p>
+    <p th:if="*{location}">Emplacement&#x202F;:
+      <a th:href="@{/Rechercher(q=|location:(*{location})|)}" th:text="*{location}">quelque part près de Paris</a>.</p>
+    <p>Référencé <time th:datetime="*{#dates.formatISO(creation)}" th:text="*{{creation}}">le dimanche 3 décembre 2017</time>
+      par <span th:text="*{creator}">Système</span><th:block th:if="*{creation} != *{lastModification}">,
+      mis à jour <time th:datetime="*{#dates.formatISO(lastModification)}" th:text="*{{lastModification}}">le mardi 5 décembre 2017</time>
+      par <span th:text="*{lastModifier}">Grégoire</span></th:block>.</p>
+    <p th:if="*{comment}" th:text="*{comment}">Un des meilleurs livres au monde.</p>
     <a th:replace="records/base :: editButton (${record})">Modifier</a>
   </section>
 
