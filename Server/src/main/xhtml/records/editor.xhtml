@@ -31,7 +31,8 @@
         <option value="book">Livre</option>
       </select>
     </label></p>
-    <p class="movie"><label>Support&#x202F;:
+    <p class="movie"><label title="Support sur lequel est enregistré ce film. « Dématérialisé » signifie qu’on en a qu’une copie numérique."
+      >Support&#x202F;:
       <select th:field="*{support}">
         <option value="BRD">Blu-Ray</option>
         <option value="DEM">Dématerialisé</option>
@@ -71,7 +72,7 @@
     <p><label>Propriétaire&#x202F;:
       <input name="owner" th:value="*{owner}"
         th:data-auto-complete-path="@{/auto-complete/owners}"/></label></p>
-    <p><label>Emplacement&#x202F;:
+    <p><label title="Lieu où est rangé cette œuvre.">Emplacement&#x202F;:
       <input name="location" th:value="*{location}"
         th:data-auto-complete-path="@{/auto-complete/locations}"/></label></p>
     <p><label>Image&#x202F;: <input type="file" name="picture"/></label></p>
