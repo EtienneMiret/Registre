@@ -151,6 +151,11 @@ function keyUp (event: KeyboardEvent) {
   }
 }
 
+function dblClick (event: MouseEvent) {
+  const input = <HTMLInputElement>event.target;
+  autoComplete (input);
+}
+
 function extractTargetLi (event: MouseEvent): HTMLLIElement | null {
   let target = <HTMLElement | null>event.target;
   while (target && (target.localName !== 'li' || target.namespaceURI !== 'http://www.w3.org/1999/xhtml')) {
@@ -188,6 +193,7 @@ export function setAutoCompletable (input: HTMLInputElement) {
   input.addEventListener ('keydown', keyDown, ACTIVE);
   input.addEventListener ('keyup', keyUp, PASSIVE);
   input.addEventListener ('blur', clear, PASSIVE);
+  input.addEventListener ('dblclick', dblClick, PASSIVE);
 }
 
 export function enableAutoCompletion () {
