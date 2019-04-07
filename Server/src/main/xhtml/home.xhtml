@@ -9,13 +9,28 @@
 
 <div th:replace="base :: nav (home)"/>
 
-<p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#x202F;!</p>
+<main class="home">
 
-<div>
-  <form method="post" th:action="@{/logout}">
-    <input type="submit" value="Se déconnecter"/>
-  </form>
-</div>
+  <h1>Accueil</h1>
+
+  <p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#x202F;!
+    Bienvenue sur Registre&#x202F;!</p>
+
+  <p>Vous pouvez ici <a th:href="@{/Fiche}">enregistrer des références</a>,
+    puis les rechercher&#x202F;:</p>
+
+  <form th:action="@{/Rechercher}" class="search"><label
+    ><input name="q" placeholder="Rechercher" type="search"/><button
+    ><img th:src="@{/resources/images/search.png}" alt="Rechercher"/></button
+    ></label></form>
+
+  <div>
+    <form method="post" th:action="@{/logout}">
+      <input type="submit" value="Se déconnecter"/>
+    </form>
+  </div>
+
+</main>
 
 </body>
 </html>
