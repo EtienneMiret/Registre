@@ -1,3 +1,5 @@
+import { setAutoCompletable } from './auto-completion.js';
+
 function hideUnusedFields (form: HTMLFormElement, type: string) {
   hideExcept (form, type, 'comic');
   hideExcept (form, type, 'movie');
@@ -20,6 +22,8 @@ function addActor (actorsList: HTMLOListElement|HTMLUListElement) {
   const input =
       <HTMLInputElement>document.createElementNS ('http://www.w3.org/1999/xhtml', 'input');
   input.name = `actors[${index}]`;
+  input.dataset['autoCompletePath'] = actorsList.dataset['autoCompletePath'];
+  setAutoCompletable (input);
   li.appendChild (input);
   actorsList.appendChild (li);
 }

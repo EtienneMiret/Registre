@@ -147,13 +147,15 @@ function keyUp (event: KeyboardEvent) {
   }
 }
 
+export function setAutoCompletable (input: HTMLInputElement) {
+  input.autocomplete = 'off';
+  input.addEventListener ('keydown', keyDown, ACTIVE);
+  input.addEventListener ('keyup', keyUp, SEVERAL_TIMES);
+  input.addEventListener ('focus', () => previousValue = input.value, SEVERAL_TIMES);
+  input.addEventListener ('blur', clear, SEVERAL_TIMES);
+}
+
 export function enableAutoCompletion () {
   const autoCompletableInputs = <NodeListOf<HTMLInputElement>>document.querySelectorAll ('input[data-auto-complete-path]');
-  autoCompletableInputs.forEach ((input) => {
-    input.autocomplete = 'off';
-    input.addEventListener ('keydown', keyDown, ACTIVE);
-    input.addEventListener ('keyup', keyUp, SEVERAL_TIMES);
-    input.addEventListener ('focus', () => previousValue = input.value, SEVERAL_TIMES);
-    input.addEventListener ('blur', clear, SEVERAL_TIMES);
-  });
+  autoCompletableInputs.forEach (setAutoCompletable);
 }
