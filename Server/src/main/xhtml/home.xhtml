@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head ('Accueil')">
+  <title>Accueil - Registre</title>
+</head>
+<body>
+
+<h1 th:replace="base :: header">Accueil</h1>
+
+<div th:replace="base :: nav (home)"/>
+
+<main class="home">
+
+  <h1>Accueil</h1>
+
+  <p>Bonjour <span th:text="${#authentication.name}">à tous</span>&#x202F;!
+    Bienvenue sur Registre&#x202F;!</p>
+
+  <p>Vous pouvez ici <a th:href="@{/Fiche}">enregistrer des références</a>,
+    puis les rechercher&#x202F;:</p>
+
+  <form th:action="@{/Rechercher}" class="search"><label
+    ><input name="q" placeholder="Rechercher" type="search"/><button
+    ><img th:src="@{/resources/images/search.png}" alt="Rechercher"/></button
+    ></label></form>
+
+  <p>Les recherches les plus simples contiennent juste des
+    mots-clés&#x202F;:
+    <a th:href="@{/Rechercher(q='hello world')}"><kbd>hello world</kbd></a>
+    Dans ce cas, seules les références contenant tous les mots demandés
+    remontent.</p>
+
+  <p>Vous pouvez utiliser l’opérateur <kbd>or</kbd> pour faire un OU logique
+    entre deux mots&#x202F;:
+    <a th:href="@{/Rechercher(q='hello or world')}"><kbd>hello or world</kbd></a>
+    Dans ce cas, tous les termes de la recherche doivent être séparés par un
+    <kbd>or</kbd>, <kbd>hello or world war</kbd> n’est pas une recherche
+    valable.</p>
+
+  <p>Par contre, vous pouvez grouper vos termes avec des parenthèses&#x202F;:
+    <a th:href="@{/Rechercher(q='(a b) or c')}"><kbd>(a b) or c</kbd></a></p>
+
+  <p>L’opérateur <kbd>type:</kbd> permet de rechercher un type de référence
+    particulier (film, bande-dessinée ou livre). Il prend en paramètre un
+    mot-clé en anglais, <kbd>movie</kbd>, <kbd>comic</kbd> ou
+    <kbd>book</kbd>&#x202F;:
+    <a th:href="@{/Rechercher(q='type:movie')}"><kbd>type:movie</kbd></a>
+  </p>
+  
+  <p>Vous pouvez faire une recherche sur un champ particulier&#x202F;:</p>
+  <dl>
+    <dt><kbd>title:</kbd></dt>
+    <dd>Rechercher uniquement dans le titre d’une référence&#x202F;:
+      <a th:href="@{/Rechercher(q=|title:${title}|)}"
+        ><kbd th:text="|title:${title}|">title:home</kbd></a></dd>
+    <dt><kbd>comment:</kbd></dt>
+    <dd>Rechercher uniquement dans les commentaires d’une référence&#x202F;:
+      <a th:href="@{/Rechercher(q=|comment:${comment}|)}"
+        ><kbd th:text="|comment:${comment}|">comment:bonjour</kbd></a></dd>
+    <dt><kbd>series:</kbd></dt>
+    <dd>Rechercher uniquement dans les noms de séries&#x202F;:
+      <a th:href="@{/Rechercher(q=|series:(${series})|)}"
+        ><kbd th:text="|series:(${series})|">series:(big bang)</kbd></a></dd>
+    <dt><kbd>owner:</kbd></dt>
+    <dd>Rechercher uniquement parmis les propriétaires&#x202F;:
+      <a th:href="@{/Rechercher(q=|owner:(${owner})|)}"
+        ><kbd th:text="|owner:(${owner})|">owner:(Étienne)</kbd></a></dd>
+    <dt><kbd>location:</kbd></dt>
+    <dd>Rechercher uniquement parmis les emplacement&#x202F;:
+      <a th:href="@{/Rechercher(q=|location:(${location})|)}"
+        ><kbd th:text="|location:(${location})|">location:(Marcigny)</kbd></a></dd>
+    <dt><kbd>director:</kbd></dt>
+    <dd>Rechercher uniquement parmis les réalisateurs de films&#x202F;:
+      <a th:href="@{/Rechercher(q=|director:(${director})|)}"
+        ><kbd th:text="|director:(${director})|">director:(Steven Spielberg)</kbd></a></dd>
+    <dt><kbd>actor:</kbd></dt>
+    <dd>Rechercher uniquement parmis les acteurs de films&#x202F;:
+      <a th:href="@{/Rechercher(q=|actor:(${actor})|)}"
+        ><kbd th:text="|actor:(${actor})|">actor:(Anthony Head)</kbd></a></dd>
+    <dt><kbd>composer:</kbd></dt>
+    <dd>Rechercher uniquement parmis les compositeurs de musique de films&#x202F;:
+      <a th:href="@{/Rechercher(q=|composer:(${composer})|)}"
+        ><kbd th:text="|composer:(${composer})|">composer:(Howard Shore)</kbd></a></dd>
+    <dt><kbd>cartoonist:</kbd></dt>
+    <dd>Rechercher uniquement parmis les dessinateurs de bande-dessinées&#x202F;:
+      <a th:href="@{/Rechercher(q=|cartoonist:(${cartoonist})|)}"
+        ><kbd th:text="|cartoonist:(${cartoonist})|">cartoonist:(Hergé)</kbd></a></dd>
+    <dt><kbd>scriptWriter:</kbd></dt>
+    <dd>Rechercher uniquement parmis les scénaristes de bande-dessinées&#x202F;:
+      <a th:href="@{/Rechercher(q=|scriptWriter:(${scriptWriter})|)}"
+        ><kbd th:text="|scriptWriter:(${scriptWriter})|">scriptWriter:(Hergé)</kbd></a></dd>
+    <dt><kbd>author:</kbd></dt>
+    <dd>Rechercher uniquement parmis les auteurs de livres&#x202F;:
+      <a th:href="@{/Rechercher(q=|author:(${author})|)}"
+        ><kbd th:text="|author:(${author})|">author:(John Grisham)</kbd></a></dd>
+  </dl>
+
+  <p>Enfin, vous pouvez combiner tous ces opérateurs pour écrire des requêtes
+    complexes.</p>
+
+</main>
+
+</body>
+</html>

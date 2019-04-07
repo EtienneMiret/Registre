@@ -1,0 +1,41 @@
+main.home {
+  $line-height: 16px;
+
+  p {
+    margin: $line-height;
+  }
+
+  form.search {
+    label {
+      display: flex;
+      justify-content: center;
+      width: 80%;
+      margin: $line-height auto;
+    }
+
+    input {
+      flex: auto;
+    }
+
+    button {
+      margin: 0;
+      padding: 0;
+      flex: none;
+    }
+
+    img {
+      width: $line-height;
+      height: $line-height;
+    }
+  }
+
+  dl {
+    margin: $line-height;
+    padding-left: 2 * $line-height;
+
+    dt {
+      font-weight: bolder;
+    }
+  }
+
+}
