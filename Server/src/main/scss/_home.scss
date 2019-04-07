@@ -29,4 +29,13 @@ main.home {
     }
   }
 
+  dl {
+    margin: $line-height;
+    padding-left: 2 * $line-height;
+
+    dt {
+      font-weight: bolder;
+    }
+  }
+
 }
