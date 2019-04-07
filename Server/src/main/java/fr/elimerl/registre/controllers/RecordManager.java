@@ -8,6 +8,7 @@ import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.User;
 import fr.elimerl.registre.security.RAuthenticationToken;
 import fr.elimerl.registre.services.Index;
+import fr.elimerl.registre.services.PictureRegistry;
 import fr.elimerl.registre.services.RegistreEntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +56,9 @@ public class RecordManager {
 
   @Autowired
   private Index index;
+
+  @Autowired
+  private PictureRegistry pictureRegistry;
 
   /**
    * Display a record in read-only mode.
@@ -235,6 +239,13 @@ public class RecordManager {
     }
     if (isNotBlank (command.getLocation ())) {
       record.setLocation (rem.supplyLocation (command.getLocation ()));
+    }
+    if (!command.getPicture ().isEmpty ()
+        && command.getPicture ().getContentType () != null) {
+      pictureRegistry.savePicture (
+          command.getPicture ().getContentType (),
+          command.getPicture ()::getInputStream
+      ).ifPresent (record::setPicture);
     }
     record.setComment (command.getComment ());
   }

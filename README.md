@@ -37,6 +37,17 @@ You need to setup an SQL database. Any [database supported by EclipseLink][4]
 will do, but you may need to translate the schema. Available schemas are in the
 Model/src/main/sql directory. In any case, you need to run the schema yourself.
 
+In order for your users to be able to view the images they saved, you need to
+map the directory where they are stored to the `/resources/images/records` path.
+This can be achieved with the below snippet in a Tomcat’s context.xml.
+
+    <Resources>
+        <PostResources readOnly="false"
+            className="org.apache.catalina.webresources.DirResourceSet"
+            base="/srv/data/images"
+            webAppMount="/resources/images/records"/>
+    </Resources>
+
 Finally, you need to configure the following JNDI resources (this is done in
 /usr/local/tomcat/conf/context.xml for Tomcat):
  * `jdbc/Registre`: a container authenticated javax.sql.DataSource.
@@ -45,6 +56,9 @@ Finally, you need to configure the following JNDI resources (this is done in
    (both of java.lang.String type).
  * `redirectUri`: the full URL to the /login page of your Registre installation
    (of type java.lang.String).
+ * `pictureDirectory`: the full path to the directory where to store pictures
+   (of type java.lang.String). This directory needs to be writable by your
+   application container.
 
 [2]: https://www.slf4j.org/faq.html#compatibility
 [3]: https://console.developers.google.com/
