@@ -1,4 +1,4 @@
-package fr.elimerl.registre.model.services;
+package fr.elimerl.registre.services;
 
 import fr.elimerl.registre.search.grammar.BracketedQuery;
 import fr.elimerl.registre.search.grammar.FieldQuery;
@@ -11,7 +11,6 @@ import fr.elimerl.registre.search.tokens.Keyword;
 import fr.elimerl.registre.search.tokens.Operator;
 import fr.elimerl.registre.search.tokens.Token;
 import fr.elimerl.registre.search.tokens.Type;
-import fr.elimerl.registre.services.QueryParser;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

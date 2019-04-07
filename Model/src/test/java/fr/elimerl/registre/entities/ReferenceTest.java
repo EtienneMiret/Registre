@@ -1,14 +1,12 @@
-package fr.elimerl.registre.model.entities;
+package fr.elimerl.registre.entities;
 
 import static org.junit.Assert.assertEquals;
 
-import fr.elimerl.registre.entities.*;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
 
-import fr.elimerl.registre.entities.Word;
 import fr.elimerl.registre.entities.Movie.Support;
 import fr.elimerl.registre.entities.Reference.Field;
 

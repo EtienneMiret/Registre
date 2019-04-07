@@ -1,12 +1,6 @@
-package fr.elimerl.registre.model.search.grammar;
+package fr.elimerl.registre.search.grammar;
 
 import fr.elimerl.registre.entities.Record;
-import fr.elimerl.registre.search.grammar.BracketedQuery;
-import fr.elimerl.registre.search.grammar.Expression;
-import fr.elimerl.registre.search.grammar.FieldQuery;
-import fr.elimerl.registre.search.grammar.SearchQuery;
-import fr.elimerl.registre.search.grammar.SimpleKeyword;
-import fr.elimerl.registre.search.grammar.TypeQuery;
 import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.search.tokens.Keyword;
 import fr.elimerl.registre.search.tokens.Type;

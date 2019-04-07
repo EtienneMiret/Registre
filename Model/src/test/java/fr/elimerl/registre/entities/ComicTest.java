@@ -1,11 +1,7 @@
-package fr.elimerl.registre.model.entities;
+package fr.elimerl.registre.entities;
 
 import static org.junit.Assert.assertEquals;
 
-import fr.elimerl.registre.entities.Cartoonist;
-import fr.elimerl.registre.entities.Comic;
-import fr.elimerl.registre.entities.ScriptWriter;
-import fr.elimerl.registre.entities.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

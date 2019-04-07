@@ -1,6 +1,5 @@
-package fr.elimerl.registre.model.search.tokens;
+package fr.elimerl.registre.search.tokens;
 
-import fr.elimerl.registre.search.tokens.Keyword;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import nl.jqno.equalsverifier.Warning;

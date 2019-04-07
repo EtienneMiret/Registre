@@ -20,6 +20,7 @@
   <bean id="dateConverter" class="fr.elimerl.registre.converters.DateConverter"/>
   <bean class="fr.elimerl.registre.services.Index"/>
   <bean class="fr.elimerl.registre.services.QueryParser"/>
+  <bean class="fr.elimerl.registre.services.AutoCompleter"/>
   <bean name="registreEntityManager" class="fr.elimerl.registre.services.RegistreEntityManager"/>
   <bean class="fr.elimerl.registre.config.ClockProvider"/>
 

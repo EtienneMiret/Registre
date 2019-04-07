@@ -1,4 +1,4 @@
-package fr.elimerl.registre.model.entities;
+package fr.elimerl.registre.entities;
 
 import static fr.elimerl.registre.entities.Movie.Support.BRD;
 import static org.junit.Assert.assertEquals;
@@ -23,7 +23,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import fr.elimerl.registre.entities.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +32,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.entities.Movie.Support;
 import fr.elimerl.registre.entities.Reference.Field;
 

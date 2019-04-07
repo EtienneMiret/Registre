@@ -1,4 +1,4 @@
-package fr.elimerl.registre.model.services;
+package fr.elimerl.registre.services;
 
 import static fr.elimerl.registre.entities.Reference.Field.OTHER;
 import static fr.elimerl.registre.entities.Reference.Field.COMMENT;
@@ -25,8 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.elimerl.registre.entities.Reference;
 import fr.elimerl.registre.entities.Reference.Field;
-import fr.elimerl.registre.services.RegistreEntityManager;
-import fr.elimerl.registre.services.Index;
 
 /**
  * Test class for the {@link Index} class.

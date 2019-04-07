@@ -18,6 +18,8 @@
 
   <bean id="index" class="fr.elimerl.registre.services.Index"/>
 
+  <bean class="fr.elimerl.registre.services.AutoCompleter"/>
+
   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
   <jdbc:embedded-database id="embeddedDataSource">
