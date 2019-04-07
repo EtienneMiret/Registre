@@ -68,7 +68,7 @@
       <input name="series" th:value="*{series}"
         th:data-auto-complete-path="@{/auto-complete/series}"/></label></p>
     <p><label>Commentaire&#x202F;:
-      <textarea name="comment" th:value="*{comment}"/></label></p>
+      <textarea name="comment" th:text="*{comment}"/></label></p>
     <p><label>Propriétaire&#x202F;:
       <input name="owner" th:value="*{owner}"
         th:data-auto-complete-path="@{/auto-complete/owners}"/></label></p>
