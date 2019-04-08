@@ -1,13 +1,5 @@
 package fr.elimerl.registre.transfer;
 
-import javassist.CannotCompileException;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtField;
-import javassist.NotFoundException;
-import javassist.bytecode.AnnotationsAttribute;
-import javassist.bytecode.FieldInfo;
-import javassist.bytecode.annotation.Annotation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanInitializationException;
@@ -35,7 +27,6 @@ public class DataTransfer {
    *     not used.
    */
   public static void main (final String[] args) {
-    removeAtGenerated ();
     try (ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext ("applicationContext.xml")) {
       final DataTransfer main =
           ctx.getBean ("main", DataTransfer.class);
@@ -46,45 +37,6 @@ public class DataTransfer {
         System.err.println ("There mus be a config.properties file in"
             + " the classpath.");
       }
-    }
-  }
-
-  /**
-   * Removes the {@code @Generated} annotation from the {@code Record} class
-   * id. This allows us to keep the id of migrated records.
-   */
-  private static void removeAtGenerated () {
-    try {
-      final ClassPool pool = ClassPool.getDefault ();
-      final CtClass record = pool.get ("fr.elimerl.registre.entities.Record");
-      final CtField id = record.getDeclaredField ("id");
-      final FieldInfo info = id.getFieldInfo ();
-      final AnnotationsAttribute attribute = (AnnotationsAttribute)
-          info.getAttribute (AnnotationsAttribute.visibleTag);
-      final Annotation[] oldAnnotations =
-          attribute.getAnnotations ();
-      final Annotation[] newAnnotations =
-          new Annotation[oldAnnotations.length - 1];
-      int i = 0;
-      for (final Annotation annotation : oldAnnotations) {
-        if (!annotation.getTypeName ().equals (
-            "javax.persistence.GeneratedValue")) {
-          newAnnotations[i] = annotation;
-          i++;
-        }
-      }
-      attribute.setAnnotations (newAnnotations);
-      record.toClass ();
-    } catch (final NotFoundException e) {
-      final String message =
-          "Could not find the Record class or is id field.";
-      logger.error (message);
-      throw new RuntimeException (message, e);
-    } catch (final CannotCompileException e) {
-      final String message =
-          "Could not compile the new Record class.";
-      logger.error (message);
-      throw new RuntimeException (message, e);
     }
   }
 
@@ -100,7 +52,7 @@ public class DataTransfer {
   /**
    * Main method of this application, it requests handling of each records.
    */
-  public void migrateAllRecords () {
+  private void migrateAllRecords () {
     int number = batchSize;
     int i = 0;
     logger.info ("Starting migration.");
