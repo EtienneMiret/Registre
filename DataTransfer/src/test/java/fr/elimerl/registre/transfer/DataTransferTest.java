@@ -65,6 +65,9 @@ public class DataTransferTest {
       ScriptUtils.executeSqlScript (connection, new EncodedResource (
           new ClassPathResource ("hsql-schema.sql"), StandardCharsets.UTF_8
       ));
+      ScriptUtils.executeSqlScript (connection, new EncodedResource (
+          new ClassPathResource ("modify-schema-for-migration.sql"), StandardCharsets.UTF_8
+      ));
     }
 
     DataTransfer.main (new String[0]);
@@ -283,12 +286,12 @@ public class DataTransferTest {
             .isEqualTo (parse ("2017-04-29T15:17:43"));
 
         assertThat (rs.next ()).isTrue ();
-        assertThat (rs.getLong ("id")).isEqualTo (8);
+        assertThat (rs.getLong ("id")).isEqualTo (9);
         assertThat (rs.getString ("title")).isEqualTo ("Happy new year!");
         assertThat (rs.getString ("dtype")).isEqualTo ("Book");
         assertThat (rs.getObject ("series")).isEqualTo (SERIES_WISH);
         assertThat (rs.getString ("comment")).isNull ();
-        assertThat (rs.getString ("picture")).isEqualTo ("8.jpg");
+        assertThat (rs.getString ("picture")).isEqualTo ("9.jpg");
         assertThat (rs.getObject ("owner")).isEqualTo (OWNER_ALICE);
         assertThat (rs.getObject ("location")).isNull ();
         assertThat (getBoolean (rs, "action_style")).isNull ();
@@ -395,7 +398,7 @@ public class DataTransferTest {
         assertThat (rs.getObject ("author")).isEqualTo (AUTHOR_FOO);
 
         assertThat (rs.next ()).isTrue ();
-        assertThat (rs.getLong ("id")).isEqualTo (8);
+        assertThat (rs.getLong ("id")).isEqualTo (9);
         assertThat (rs.getObject ("author")).isEqualTo (AUTHOR_FOO);
 
         assertThat (rs.next ()).isFalse ();
