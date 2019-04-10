@@ -1,0 +1,44 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
+  <persistence-unit name="Registre">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <mapping-file>META-INF/orm.xml</mapping-file>
+
+    <!-- Classes to persist. -->
+    <class>fr.elimerl.registre.entities.Actor</class>
+    <class>fr.elimerl.registre.entities.Author</class>
+    <class>fr.elimerl.registre.entities.Comic</class>
+    <class>fr.elimerl.registre.entities.Composer</class>
+    <class>fr.elimerl.registre.entities.Cartoonist</class>
+    <class>fr.elimerl.registre.entities.Location</class>
+    <class>fr.elimerl.registre.entities.Record</class>
+    <class>fr.elimerl.registre.entities.Movie</class>
+    <class>fr.elimerl.registre.entities.Book</class>
+    <class>fr.elimerl.registre.entities.Word</class>
+    <class>fr.elimerl.registre.entities.Named</class>
+    <class>fr.elimerl.registre.entities.Owner</class>
+    <class>fr.elimerl.registre.entities.Director</class>
+    <class>fr.elimerl.registre.entities.Reference</class>
+    <class>fr.elimerl.registre.entities.ScriptWriter</class>
+    <class>fr.elimerl.registre.entities.Series</class>
+    <class>fr.elimerl.registre.entities.Session</class>
+    <class>fr.elimerl.registre.entities.User</class>
+    <exclude-unlisted-classes/>
+
+    <properties>
+      <property name="eclipselink.weaving" value="false"/>
+      <property name="eclipselink.id-validation" value="NULL"/>
+      <property name="eclipselink.logging.logger" value="fr.elimerl.registre.logging.Slf4jSessionLogger"/>
+      <property name="eclipselink.logging.level" value="FINEST"/>
+      <property name="eclipselink.logging.sql" value="FINEST"/>
+      <property name="eclipselink.logging.level.sql" value="FINEST"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.logging.timestamp" value="false"/>
+      <property name="eclipselink.logging.thread" value="false"/>
+      <property name="eclipselink.logging.session" value="false"/>
+    </properties>
+
+  </persistence-unit>
+
+</persistence>
