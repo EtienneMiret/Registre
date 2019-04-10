@@ -267,6 +267,7 @@ public class RecordManager {
   }
 
   private void updateMovie (RecordCommand command, Movie movie) {
+    movie.setSupport (command.getSupport ());
     if (isNotBlank (command.getDirector ())) {
       movie.setDirector (rem.supplyDirector (command.getDirector ()));
     }
