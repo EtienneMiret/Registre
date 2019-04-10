@@ -271,6 +271,7 @@ public class RecordManager {
     if (isNotBlank (command.getDirector ())) {
       movie.setDirector (rem.supplyDirector (command.getDirector ()));
     }
+    movie.getActors ().clear ();
     if (command.getActors () != null) {
       command.getActors ()
           .stream ()
