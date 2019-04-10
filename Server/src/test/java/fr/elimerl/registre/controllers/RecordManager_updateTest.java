@@ -1,6 +1,7 @@
 package fr.elimerl.registre.controllers;
 
 import fr.elimerl.registre.commands.RecordCommand;
+import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.entities.Movie;
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.User;
@@ -15,11 +16,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.mockito.quality.Strictness;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,8 +35,7 @@ import static org.mockito.Mockito.when;
 public class RecordManager_updateTest {
 
   @Rule
-  public MockitoRule mockitoRule = MockitoJUnit.rule ()
-      .strictness (Strictness.STRICT_STUBS);
+  public MockitoRule mockitoRule = MockitoJUnit.rule ();
 
   @InjectMocks
   private RecordManager recordManager;
@@ -77,12 +78,12 @@ public class RecordManager_updateTest {
   @Before
   public void createCommand () {
     command = new RecordCommand ();
+    command.setTitle ("A super record");
     command.setPicture (picture);
   }
 
   @Test
   public void should_update_a_movie_support () {
-    command.setTitle ("A super cool movie");
     command.setType (RecordCommand.Type.movie);
     command.setSupport (Movie.Support.DVD);
     Movie record = new Movie ("A super cool movie", user, Movie.Support.BRD);
@@ -91,6 +92,30 @@ public class RecordManager_updateTest {
     recordManager.update (621L, command, token, servletResponse);
 
     assertThat (record.getSupport ()).isEqualTo (Movie.Support.DVD);
+  }
+
+  @Test
+  public void should_remove_actors () {
+    List<String> actors = new ArrayList<> ();
+    actors.add ("Orlando Bloom");
+    actors.add ("Anthony Heads");
+    command.setType (RecordCommand.Type.movie);
+    command.setSupport (Movie.Support.BRD);
+    command.setActors (actors);
+    Movie record = new Movie ("A super cool movie", user, Movie.Support.BRD);
+    record.getActors ().add (new Actor ("Anthony Heads"));
+    record.getActors ().add (new Actor ("Ewan McGregor"));
+    when (em.find (Record.class, 749L)).thenReturn (record);
+    when (rem.supplyActor ("Orlando Bloom"))
+        .thenReturn (new Actor ("Orlando Bloom"));
+    when (rem.supplyActor ("Anthony Heads"))
+        .thenReturn (new Actor ("Anthony Heads"));
+
+    recordManager.update (749L, command, token, servletResponse);
+
+    assertThat (record.getActors ())
+        .extracting (Actor::getName)
+        .containsExactlyInAnyOrder ("Orlando Bloom", "Anthony Heads");
   }
 
 }
