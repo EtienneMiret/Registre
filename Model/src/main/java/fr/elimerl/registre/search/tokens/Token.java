@@ -21,12 +21,26 @@ public abstract class Token {
    * @param value
    *     this new pattern’s value as a string.
    */
-  public Token (final String value) {
-    this.value = value;
-    this.pattern = Pattern.compile (
-        "\\G\\s*" + Pattern.quote (value),
-        Pattern.CASE_INSENSITIVE
+  Token (final String value) {
+    this (
+        value,
+        Pattern.compile (
+            "\\G\\s*" + Pattern.quote (value),
+            Pattern.CASE_INSENSITIVE)
     );
+  }
+
+  /**
+   * Create a new token from its string value and matching pattern.
+   *
+   * @param value
+   *     this new token’s value as a string.
+   * @param pattern
+   *     the pattern this token matches.
+   */
+  Token (final String value, final Pattern pattern) {
+    this.value = value;
+    this.pattern = pattern;
   }
 
   /**
