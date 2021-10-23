@@ -3,3 +3,7 @@
 
 # production
 /.next
+
+# config
+/.env.local
+/.env.*.local
