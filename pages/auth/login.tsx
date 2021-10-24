@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import logo from 'public/logo.png';
-import { NextPage } from 'next';
-import { signIn } from 'next-auth/react';
+import { NextPage, NextPageContext } from 'next';
+import { getSession, signIn } from 'next-auth/react';
 import styles from 'styles/Header.module.scss';
 
 const Login: NextPage = () => {
@@ -15,5 +15,21 @@ const Login: NextPage = () => {
     </main>
   </>;
 };
+
+export async function getServerSideProps (context: NextPageContext) {
+  const session = await getSession (context);
+  if (session !== null) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  };
+}
 
 export default Login;
