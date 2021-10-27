@@ -1,10 +1,20 @@
 import '../styles/globals.scss'
 import { SessionProvider } from 'next-auth/react'
-import type { AppProps } from 'next/app'
+import { RegistreAppProps } from 'lib/types';
+import Layout from 'components/layout';
 
-function MyApp ({Component, pageProps}: AppProps) {
+function MyApp ({Component, pageProps}: RegistreAppProps) {
+  if (Component.selfLayout) {
+    return <SessionProvider session={pageProps.session}>
+      <Component {...pageProps} />
+    </SessionProvider>;
+  }
+
   return <SessionProvider session={pageProps.session}>
-    <Component {...pageProps} />
+    <Layout title={Component.title}>
+      <Component {...pageProps}/>
+    </Layout>
   </SessionProvider>;
 }
-export default MyApp
+
+export default MyApp;

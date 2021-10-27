@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import logo from 'public/logo.png';
-import { NextPage, NextPageContext } from 'next';
+import { GetServerSidePropsResult, NextPageContext } from 'next';
 import { getSession, signIn } from 'next-auth/react';
 import styles from 'styles/Header.module.scss';
+import { RegistreSelfLayoutPage } from 'lib/types';
 
-const Login: NextPage = () => {
+const Login: RegistreSelfLayoutPage = () => {
   return <>
     <header className={styles.next}>
       <h1><Image className={styles.logo} src={logo} alt="Registre" width={120} height={60}/></h1>
@@ -16,7 +17,9 @@ const Login: NextPage = () => {
   </>;
 };
 
-export async function getServerSideProps (context: NextPageContext) {
+Login.selfLayout = true;
+
+export async function getServerSideProps (context: NextPageContext): Promise<GetServerSidePropsResult<{}>> {
   const session = await getSession (context);
   if (session !== null) {
     return {
