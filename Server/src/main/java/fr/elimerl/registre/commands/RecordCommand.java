@@ -62,6 +62,8 @@ public class RecordCommand {
 
   private MultipartFile picture;
 
+  private boolean pictureDeleted;
+
   /**
    * Create an empty {@link RecordCommand}, good for creation or for populating
    * with a form.
@@ -245,6 +247,14 @@ public class RecordCommand {
 
   public void setPicture (MultipartFile picture) {
     this.picture = picture;
+  }
+
+  public boolean isPictureDeleted () {
+    return pictureDeleted;
+  }
+
+  public void setPictureDeleted (boolean pictureDeleted) {
+    this.pictureDeleted = pictureDeleted;
   }
 
   private static <T> String get (T t, Function<T, Named> f) {

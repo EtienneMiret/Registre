@@ -233,14 +233,22 @@ public class RecordManager {
     record.setTitle (command.getTitle ());
     if (isNotBlank (command.getSeries ())) {
       record.setSeries (rem.supplySeries (command.getSeries ()));
+    } else {
+      record.setSeries (null);
     }
     if (isNotBlank (command.getOwner ())) {
       record.setOwner (rem.supplyOwner (command.getOwner ()));
+    } else {
+      record.setOwner (null);
     }
     if (isNotBlank (command.getLocation ())) {
       record.setLocation (rem.supplyLocation (command.getLocation ()));
+    } else {
+      record.setLocation (null);
     }
-    if (!command.getPicture ().isEmpty ()
+    if (command.isPictureDeleted ()) {
+      record.setPicture (null);
+    } else if (!command.getPicture ().isEmpty ()
         && command.getPicture ().getContentType () != null) {
       pictureRegistry.savePicture (
           command.getPicture ().getContentType (),
@@ -270,6 +278,8 @@ public class RecordManager {
     movie.setSupport (command.getSupport ());
     if (isNotBlank (command.getDirector ())) {
       movie.setDirector (rem.supplyDirector (command.getDirector ()));
+    } else {
+      movie.setDirector (null);
     }
     movie.getActors ().clear ();
     if (command.getActors () != null) {
@@ -281,6 +291,8 @@ public class RecordManager {
     }
     if (isNotBlank (command.getComposer ())) {
       movie.setComposer (rem.supplyComposer (command.getComposer ()));
+    } else {
+      movie.setComposer (null);
     }
   }
 
@@ -303,9 +315,13 @@ public class RecordManager {
   private void updateComic (RecordCommand command, Comic comic) {
     if (isNotBlank (command.getCartoonist ())) {
       comic.setCartoonist (rem.supplyCartoonist (command.getCartoonist ()));
+    } else {
+      comic.setCartoonist (null);
     }
     if (isNotBlank (command.getScriptWriter ())) {
       comic.setScriptWriter (rem.supplyScriptWriter (command.getScriptWriter ()));
+    } else {
+      comic.setScriptWriter (null);
     }
   }
 
@@ -328,6 +344,8 @@ public class RecordManager {
   private void updateBook (RecordCommand command, Book book) {
     if (isNotBlank (command.getAuthor ())) {
       book.setAuthor (rem.supplyAuthor (command.getAuthor ()));
+    } else {
+      book.setAuthor (null);
     }
   }
 
