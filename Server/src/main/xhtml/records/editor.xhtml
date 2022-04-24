@@ -75,7 +75,8 @@
     <p><label title="Lieu où est rangé cette œuvre.">Emplacement&#x202F;:
       <input name="location" th:value="*{location}"
         th:data-auto-complete-path="@{/auto-complete/locations}"/></label></p>
-    <p><label>Image&#x202F;: <input type="file" name="picture" accept="image/jpeg, image/png"/></label></p>
+    <p><label>Image&#x202F;: <input type="file" name="picture" accept="image/jpeg, image/png"/></label>
+      <label>Supprimer l’image&#x202F;: <input type="checkbox" name="pictureDeleted" th:checked="*{pictureDeleted}"/></label></p>
     <p><button th:text="*{id} ? Modifier : Ajouter">Ajouter</button></p>
     <ol id="auto-complete-list" hidden=""/>
   </form>

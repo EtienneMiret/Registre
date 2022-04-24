@@ -246,7 +246,9 @@ public class RecordManager {
     } else {
       record.setLocation (null);
     }
-    if (!command.getPicture ().isEmpty ()
+    if (command.isPictureDeleted ()) {
+      record.setPicture (null);
+    } else if (!command.getPicture ().isEmpty ()
         && command.getPicture ().getContentType () != null) {
       pictureRegistry.savePicture (
           command.getPicture ().getContentType (),
