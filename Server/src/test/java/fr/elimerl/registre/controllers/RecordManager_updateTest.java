@@ -34,6 +34,12 @@ import static org.mockito.Mockito.when;
  */
 public class RecordManager_updateTest {
 
+  private static final long ID = 1261L;
+
+  private static final String ACTOR0 = "Orlando Bloom";
+  private static final String ACTOR1 = "Erwan McGregor";
+  private static final String ACTOR2 = "Anthony Heads";
+
   @Rule
   public MockitoRule mockitoRule = MockitoJUnit.rule ();
 
@@ -87,9 +93,9 @@ public class RecordManager_updateTest {
     command.setType (RecordCommand.Type.movie);
     command.setSupport (Movie.Support.DVD);
     Movie record = new Movie ("A super cool movie", user, Movie.Support.BRD);
-    when (em.find (Record.class, 621L)).thenReturn (record);
+    when (em.find (Record.class, ID)).thenReturn (record);
 
-    recordManager.update (621L, command, token, servletResponse);
+    recordManager.update (ID, command, token, servletResponse);
 
     assertThat (record.getSupport ()).isEqualTo (Movie.Support.DVD);
   }
@@ -97,25 +103,25 @@ public class RecordManager_updateTest {
   @Test
   public void should_remove_actors () {
     List<String> actors = new ArrayList<> ();
-    actors.add ("Orlando Bloom");
-    actors.add ("Anthony Heads");
+    actors.add (ACTOR0);
+    actors.add (ACTOR1);
     command.setType (RecordCommand.Type.movie);
     command.setSupport (Movie.Support.BRD);
     command.setActors (actors);
     Movie record = new Movie ("A super cool movie", user, Movie.Support.BRD);
-    record.getActors ().add (new Actor ("Anthony Heads"));
-    record.getActors ().add (new Actor ("Ewan McGregor"));
-    when (em.find (Record.class, 749L)).thenReturn (record);
-    when (rem.supplyActor ("Orlando Bloom"))
-        .thenReturn (new Actor ("Orlando Bloom"));
-    when (rem.supplyActor ("Anthony Heads"))
-        .thenReturn (new Actor ("Anthony Heads"));
+    record.getActors ().add (new Actor (ACTOR0));
+    record.getActors ().add (new Actor (ACTOR2));
+    when (em.find (Record.class, ID)).thenReturn (record);
+    when (rem.supplyActor (ACTOR0))
+        .thenReturn (new Actor (ACTOR0));
+    when (rem.supplyActor (ACTOR1))
+        .thenReturn (new Actor (ACTOR1));
 
-    recordManager.update (749L, command, token, servletResponse);
+    recordManager.update (ID, command, token, servletResponse);
 
     assertThat (record.getActors ())
         .extracting (Actor::getName)
-        .containsExactlyInAnyOrder ("Orlando Bloom", "Anthony Heads");
+        .containsExactlyInAnyOrder (ACTOR0, ACTOR1);
   }
 
 }
