@@ -2,8 +2,10 @@ package fr.elimerl.registre.controllers;
 
 import fr.elimerl.registre.commands.RecordCommand;
 import fr.elimerl.registre.entities.Actor;
+import fr.elimerl.registre.entities.Comic;
 import fr.elimerl.registre.entities.Movie;
 import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.Series;
 import fr.elimerl.registre.entities.User;
 import fr.elimerl.registre.security.RAuthenticationToken;
 import fr.elimerl.registre.services.Index;
@@ -122,6 +124,19 @@ public class RecordManager_updateTest {
     assertThat (record.getActors ())
         .extracting (Actor::getName)
         .containsExactlyInAnyOrder (ACTOR0, ACTOR1);
+  }
+
+  @Test
+  public void should_remove_series () {
+    command.setType (RecordCommand.Type.comic);
+    command.setSeries ("");
+    Comic record = new Comic ("The Dark Knight", user);
+    record.setSeries (new Series ("Batman"));
+    when (em.find (Record.class, ID)).thenReturn (record);
+
+    recordManager.update (ID, command, token, servletResponse);
+
+    assertThat (record.getSeries ()).isNull ();
   }
 
 }
