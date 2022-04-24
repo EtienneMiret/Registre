@@ -4,7 +4,7 @@ plugins {
 
 allprojects  {
   group = 'fr.elimerl.Registre'
-  version = '3.0.1'
+  version = '3.0.2-SNAPSHOT'
   apply plugin: 'nebula.dependency-recommender'
 }
 
