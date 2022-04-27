@@ -23,7 +23,7 @@
   <tbody th:remove="all-but-first">
     <tr th:each="record : ${records}">
       <td class="title"><a th:href="@{/Fiche/{id}(id=${record.id})}" th:text="${record.title}" href="records/movie.xhtml">Star Wars - Un nouvel espoir</a></td>
-      <td class="series" th:text="${record.series}">Star Wars</td>
+      <td class="series"><a th:if="${record.series}" th:text="${record.series}" th:href="@{/Rechercher(q='series:(' + ${record.series} + ')')}">Star Wars</a></td>
       <td class="type"><img th:src="@{/resources/images/{type}.png(type=${record.type})}" th:alt="${record.type}"/></td>
     </tr>
     <tr>
