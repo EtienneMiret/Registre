@@ -38,6 +38,17 @@ table.search-results {
     td.series {
       width: 40%;
     }
+    td.picture {
+      padding: 2px;
+      height: 36px;
+      width: 36px;
+      vertical-align: middle;
+      img {
+        display: block;
+        margin: auto;
+        height: 36px;
+      }
+    }
     td.type {
       padding: 0;
       height: 40px;
