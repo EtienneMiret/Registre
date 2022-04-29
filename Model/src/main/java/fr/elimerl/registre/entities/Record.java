@@ -1,24 +1,12 @@
 package fr.elimerl.registre.entities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A records model an object registered in the application, eg a movie.
@@ -52,6 +40,12 @@ public abstract class Record {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "series")
     private Series series;
+
+    /**
+     * Number of this record within its series.
+     */
+    @Column(name = "number")
+    private Integer number;
 
     /**
      * Comment written by the users about this record. Can be very long.
@@ -195,6 +189,9 @@ public abstract class Record {
 	if (series != null) {
 	    result.add(series.getName());
 	}
+        if (number != null) {
+            result.add(number.toString());
+        }
 	if (owner != null) {
 	    result.add(owner.getName());
 	}
@@ -293,6 +290,28 @@ public abstract class Record {
      */
     public void setSeries(final Series series) {
         this.series = series;
+    }
+
+    /**
+     * Returns the number of this record within its series.
+     * @return the number of this record within its series, or {@code null} if
+     * 		unknown.
+     * @see #number
+     */
+    public Integer getNumber() {
+        return number;
+    }
+
+    /**
+     * Set the number of this record within its series.
+     *
+     * @param number
+     * 		number of this record within its series, or {@code null} if
+     * 		unknown.
+     * @see #number
+     */
+    public void setNumber(final Integer number) {
+        this.number = number;
     }
 
     /**

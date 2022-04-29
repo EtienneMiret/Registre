@@ -31,12 +31,6 @@ public class Comic extends Record {
     private ScriptWriter scriptWriter;
 
     /**
-     * Number of this comic within its series.
-     */
-    @Column(name = "number")
-    private Integer number;
-
-    /**
      * Register a new comic.
      * @param title
      * 		title for this comic.
@@ -64,9 +58,6 @@ public class Comic extends Record {
 	}
 	if (scriptWriter != null) {
 	    result.add(scriptWriter.getName());
-	}
-	if (number != null) {
-	    result.add(number.toString());
 	}
 	return result;
     }
@@ -115,36 +106,6 @@ public class Comic extends Record {
      */
     public void setScriptWriter(final ScriptWriter scriptWriter) {
         this.scriptWriter = scriptWriter;
-    }
-
-    /**
-     * Returns the number of this comic within its series.
-     * @return the number of this comic within its series, or {@code null} if
-     * 		unknown.
-     * @see #number
-     */
-    public Integer getNumber() {
-        return number;
-    }
-
-    /**
-     * Définit le numéro de cette bande-dessinée dans sa série.
-     *
-     * @param number
-     *            numéro de cette bande-dessinée dans sa série, ou {@code null}
-     *            s’il est inconnu.
-     * @see #number
-     */
-    /**
-     * Set the number of this comic within its series.
-     *
-     * @param number
-     * 		number of this comic within its series, or {@code null} if
-     * 		unknown.
-     * @see #number
-     */
-    public void setNumber(final Integer number) {
-        this.number = number;
     }
 
 }

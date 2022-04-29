@@ -160,6 +160,7 @@ public class DataTransferTest {
         assertThat (rs.getString ("title")).isEqualTo ("I like this");
         assertThat (rs.getString ("dtype")).isEqualTo ("Comic");
         assertThat (rs.getObject ("series")).isEqualTo (SERIES_ME);
+        assertThat (rs.getObject ("number")).isEqualTo (42);
         assertThat (rs.getString ("comment")).isNull ();
         assertThat (rs.getString ("picture")).isNull ();
         assertThat (rs.getObject ("owner")).isNull ();
@@ -238,6 +239,7 @@ public class DataTransferTest {
         assertThat (rs.getString ("title")).isEqualTo ("Happy Birthday");
         assertThat (rs.getString ("dtype")).isEqualTo ("Comic");
         assertThat (rs.getObject ("series")).isEqualTo (SERIES_WISH);
+        assertThat (rs.getObject ("number")).isNull ();
         assertThat (rs.getString ("comment")).isNull ();
         assertThat (rs.getString ("picture")).isEqualTo ("6.jpg");
         assertThat (rs.getObject ("owner")).isNull ();
@@ -381,13 +383,11 @@ public class DataTransferTest {
         assertThat (rs.getLong ("id")).isEqualTo (3);
         assertThat (rs.getObject ("cartoonist")).isEqualTo (CARTOONIST_ALAN);
         assertThat (rs.getObject ("script_writer")).isEqualTo (SCRIPT_WRITER_TURING);
-        assertThat (rs.getObject ("number")).isEqualTo (42);
 
         assertThat (rs.next ()).isTrue ();
         assertThat (rs.getLong ("id")).isEqualTo (6);
         assertThat (rs.getObject ("cartoonist")).isNull ();
         assertThat (rs.getObject ("script_writer")).isNull ();
-        assertThat (rs.getObject ("number")).isNull ();
 
         assertThat (rs.next ()).isFalse ();
       }

@@ -56,6 +56,7 @@ create table records (
   title text not null,
   dtype text not null,
   series bigint references series (id),
+  number int,
   comment text,
   picture text,
   owner bigint references owners (id),
@@ -86,8 +87,7 @@ create table movies (
 create table comics (
   id bigint primary key references records (id),
   cartoonist bigint references cartoonists (id),
-  script_writer bigint references script_writers (id),
-  number int
+  script_writer bigint references script_writers (id)
 );
 
 create table books (
