@@ -113,6 +113,10 @@ public abstract class Record {
     @Column(name = "sf_style")
     private Boolean sfStyle;
 
+    /** Is this record alive (as opposed to deleted)? */
+    @Column(name = "alive")
+    private boolean alive;
+
     /**
      * User who registered this record.
      */

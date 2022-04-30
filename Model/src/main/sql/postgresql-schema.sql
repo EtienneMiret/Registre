@@ -53,6 +53,7 @@ create table users (
 
 create table records (
   id bigint generated always as identity primary key,
+  alive boolean not null,
   title text not null,
   dtype text not null,
   series bigint references series (id),
