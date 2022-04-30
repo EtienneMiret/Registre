@@ -56,7 +56,10 @@ public class Search {
     final Predicate predicate =
         searchQuery.createPredicate (builder, query, record);
     query.select (record);
-    query.where (predicate);
+    query.where (builder.and (
+        predicate,
+        builder.equal (record.get ("alive"), true)
+    ));
     query.orderBy (
         builder.asc (record.get ("series")),
         builder.asc (record.get ("number")),
