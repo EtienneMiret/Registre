@@ -265,6 +265,15 @@ public abstract class Record {
     }
 
     /**
+     * Deletes this record.
+     *
+     * @see #alive
+     */
+    public void delete() {
+        this.alive = false;
+    }
+
+    /**
      * Returns this record’s title.
      *
      * @return this record’s title.

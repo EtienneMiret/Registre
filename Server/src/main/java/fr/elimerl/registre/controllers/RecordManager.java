@@ -96,6 +96,35 @@ public class RecordManager {
   }
 
   /**
+   * Delete a record (make it dead).
+   *
+   * @param id
+   *     id of the record to delete.
+   * @param token
+   *     authentication principal deleting this record.
+   * @param response
+   *     HTTP response to send to the UA.
+   */
+  @PostMapping("/{id}/Dead")
+  @Transactional
+  public ModelAndView delete(
+      @PathVariable final Long id,
+      @AuthenticationPrincipal RAuthenticationToken token,
+      final HttpServletResponse response
+  ) {
+    final Record record = em.find(Record.class, id);
+    if (record == null) {
+      return notFound(response);
+    }
+    User user = token.getPrincipal();
+    record.toucher(user);
+    record.delete();
+    logger.info("{} deleted {}.", user, record);
+    em.merge(record);
+    return new ModelAndView("redirect:/Fiche/" + id);
+  }
+
+  /**
    * Get the record editor, populated with a record for edition.
    *
    * @param id

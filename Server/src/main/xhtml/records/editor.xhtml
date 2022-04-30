@@ -82,6 +82,10 @@
     <ol id="auto-complete-list" hidden=""/>
   </form>
 
+  <form id="delete" method="post" th:if="${command.id}" th:action="@{/Fiche/{id}/Dead(id=${command.id})}">
+    <p><button>Supprimer</button></p>
+  </form>
+
 </main>
 
 </body>
