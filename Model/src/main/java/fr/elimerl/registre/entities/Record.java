@@ -29,7 +29,7 @@ public abstract class Record {
     private Long id;
 
     /**
-     * Title of the registerd object.
+     * Title of the registered object.
      */
     @Column(name = "title")
     private String title;
