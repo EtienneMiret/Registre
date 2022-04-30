@@ -58,6 +58,7 @@ create table records (
 	title varchar(200) not null,
 	dtype varchar(20) not null,
 	series bigint references series (id),
+	number int,
 	comment clob,
 	picture varchar(50),
 	owner bigint references owners (id),
@@ -88,8 +89,7 @@ create table movies (
 create table comics (
 	id bigint primary key references records (id),
 	cartoonist bigint references cartoonists (id),
-	script_writer bigint references script_writers (id),
-	number int
+	script_writer bigint references script_writers (id)
 );
 
 create table books (

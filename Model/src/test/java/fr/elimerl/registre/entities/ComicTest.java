@@ -1,11 +1,11 @@
 package fr.elimerl.registre.entities;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test class for {@link Comic}.
@@ -75,7 +75,7 @@ public class ComicTest {
     }
 
     /**
-     * Test the {@link Comic#setNumber(Integer)} and {@link Comic#getNumber()}
+     * Test the {@link Record#setNumber(Integer)} and {@link Record#getNumber()}
      * methods.
      */
     @Test
