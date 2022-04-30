@@ -12,6 +12,10 @@
   <img class="picture" th:if="${path}" th:src="@{/resources/images/records/{picture}(picture=${path})}"/>
 </div>
 
+<p th:fragment="series (record)" th:if="${record.series}" th:object="${record}">Série&#x202F;:
+  <a th:href="@{/Rechercher(q=|series:(*{series})|)}" th:text="*{series}">Tintin</a><th:block th:if="*{number}">
+    (numéro <span th:text="*{number}">12</span>)</th:block>.</p>
+
 <p th:fragment="history (record)" th:object="${record}">Référencé
   <time th:datetime="*{#dates.formatISO(creation)}" th:text="*{{creation}}">le dimanche 3 décembre 2017</time>
   par <span th:text="*{creator}">Système</span><th:block th:if="*{creation} != *{lastModification}">,

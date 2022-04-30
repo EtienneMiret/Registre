@@ -236,6 +236,7 @@ public class RecordManager {
     } else {
       record.setSeries (null);
     }
+    record.setNumber (command.getNumber ());
     if (isNotBlank (command.getOwner ())) {
       record.setOwner (rem.supplyOwner (command.getOwner ()));
     } else {

@@ -20,7 +20,7 @@
   <section>
     <p>Il s’agit d’un type de fiche inconnu. Les détails suivants on néanmoins
       pu être récupérés&#x202F;:</p>
-    <p th:if="${record.series}">Série&#x202F;: <span th:text="${record.series}">Vivaldi</span>.</p>
+    <p th:replace="records/base :: series (${record})">Série&#x202F;: Vivaldi.</p>
     <p th:if="${record.owner}">Appartient à <span th:text="${record.owner}">Etienne</span>.</p>
     <p th:if="${record.location}">Emplacement&#x202F;: <span th:text="${record.location}">quelque part près de Paris</span>.</p>
     <p>Référencé <span th:text="${{record.creation}}">le dimanche 3 décembre 2017</span> par <span th:text="${record.creator}">Système</span><th:block th:if="${record.creation} != ${record.lastModification}">,

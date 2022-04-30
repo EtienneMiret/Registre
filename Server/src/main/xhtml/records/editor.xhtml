@@ -66,7 +66,8 @@
         th:data-auto-complete-path="@{/auto-complete/authors}"/></label></p>
     <p><label>Série&#x202F;:
       <input name="series" th:value="*{series}"
-        th:data-auto-complete-path="@{/auto-complete/series}"/></label></p>
+        th:data-auto-complete-path="@{/auto-complete/series}"/></label>
+      <label>N°&#x202F;: <input name="number" type="number" step="1" th:value="*{number}"/></label></p>
     <p><label>Commentaire&#x202F;:
       <textarea name="comment" th:text="*{comment}"/></label></p>
     <p><label>Propriétaire&#x202F;:

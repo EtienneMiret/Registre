@@ -54,6 +54,8 @@ public class RecordCommand {
 
   private String series;
 
+  private Integer number;
+
   private String comment;
 
   private String owner;
@@ -106,6 +108,7 @@ public class RecordCommand {
       this.author = get (book, Book::getAuthor);
     }
     this.series = get (record, Record::getSeries);
+    this.number = record.getNumber ();
     this.comment = record.getComment ();
     this.owner = get (record, Record::getOwner);
     this.location = get (record, Record::getLocation);
@@ -215,6 +218,14 @@ public class RecordCommand {
 
   public void setSeries (String series) {
     this.series = series;
+  }
+
+  public Integer getNumber () {
+    return number;
+  }
+
+  public void setNumber (Integer number) {
+    this.number = number;
   }
 
   public String getComment () {
