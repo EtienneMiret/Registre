@@ -20,8 +20,8 @@
   <section>
     <p th:if="*{author}">Écrit par
       <a th:href="@{/Rechercher(q=|author:(*{author})|)}" th:text="*{author}">J. R. R. Tolkien</a>.</p>
-    <p th:if="*{series}">Série&#x202F;:
-      <a th:href="@{/Rechercher(q=|series:(*{series})|)}" th:text="*{series}">La Terre du Milieu</a>.</p>
+    <p th:replace="records/base :: series (${record})">Série&#x202F;:
+      <a>La Terre du Milieu</a>.</p>
     <p>Livre<th:block th:if="*{owner}"> appartenant à
       <a th:href="@{/Rechercher(q=|owner:(*{owner})|)}" th:text="*{owner}">Etienne</a></th:block>.</p>
     <p th:if="*{location}">Emplacement&#x202F;:

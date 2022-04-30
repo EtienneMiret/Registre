@@ -22,8 +22,8 @@
       <a th:href="@{/Rechercher(q=|cartoonist:(*{cartoonist})|)}" th:text="*{cartoonist}">Hergé</a>.</p>
     <p th:if="*{scriptWriter}">Sur un scénario de
       <a th:href="@{/Rechercher(q=|scriptWriter:(*{scriptWriter})|)}" th:text="*{scriptWriter}">Hergé</a>.</p>
-    <p th:if="*{series}">Série&#x202F;:
-      <a th:href="@{/Rechercher(q=|series:(*{series})|)}" th:text="*{series}">Tintin</a><th:block th:if="*{number}"> (numéro <span th:text="*{number}">12</span>)</th:block>.</p>
+    <p th:replace="records/base :: series (${record})">Série&#x202F;:
+      <a>Tintin</a> (numéro 12).</p>
     <p>BD<th:block th:if="*{owner}"> appartenant à
       <a th:href="@{/Rechercher(q=|owner:(*{owner})|)}" th:text="*{owner}">Maman</a></th:block>.</p>
     <p th:if="*{location}">Emplacement&#x202F;:
