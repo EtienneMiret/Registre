@@ -108,6 +108,7 @@ public class RecordCommand {
       this.author = get (book, Book::getAuthor);
     }
     this.series = get (record, Record::getSeries);
+    this.number = record.getNumber ();
     this.comment = record.getComment ();
     this.owner = get (record, Record::getOwner);
     this.location = get (record, Record::getLocation);
