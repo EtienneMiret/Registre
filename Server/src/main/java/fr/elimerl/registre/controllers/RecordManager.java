@@ -89,6 +89,9 @@ public class RecordManager {
       view = "records/unknownType";
       response.setStatus (SC_NOT_IMPLEMENTED);
     }
+    if (!record.isAlive ()) {
+      response.setStatus (SC_NOT_FOUND);
+    }
     return new ModelAndView (view, model);
   }
 

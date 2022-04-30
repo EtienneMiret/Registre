@@ -255,6 +255,16 @@ public abstract class Record {
     }
 
     /**
+     * Returns whether this record is deleted.
+     * @return {@code false} if this record is deleted,
+     * {@code true} otherwise.
+     * @see #alive
+     */
+    public boolean isAlive () {
+        return alive;
+    }
+
+    /**
      * Returns this record’s title.
      *
      * @return this record’s title.
