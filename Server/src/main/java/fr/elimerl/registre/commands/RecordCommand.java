@@ -54,6 +54,8 @@ public class RecordCommand {
 
   private String series;
 
+  private Integer number;
+
   private String comment;
 
   private String owner;
@@ -215,6 +217,14 @@ public class RecordCommand {
 
   public void setSeries (String series) {
     this.series = series;
+  }
+
+  public Integer getNumber () {
+    return number;
+  }
+
+  public void setNumber (Integer number) {
+    this.number = number;
   }
 
   public String getComment () {
