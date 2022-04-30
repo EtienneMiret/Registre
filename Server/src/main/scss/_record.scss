@@ -44,9 +44,12 @@ main.record {
       margin: 15px;
     }
 
-    a.edit {
+    a.edit, .revive button {
       @extend %button;
       margin: 30px 15px 15px auto;
+    }
+
+    a.edit {
       width: 50px;
     }
 

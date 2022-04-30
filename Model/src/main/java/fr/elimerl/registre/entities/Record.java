@@ -265,6 +265,15 @@ public abstract class Record {
     }
 
     /**
+     * Revives this record.
+     *
+     * @see #alive
+     */
+    public void revive() {
+        this.alive = true;
+    }
+
+    /**
      * Deletes this record.
      *
      * @see #alive

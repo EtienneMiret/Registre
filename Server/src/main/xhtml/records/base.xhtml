@@ -22,7 +22,12 @@
   mis à jour <time th:datetime="*{#dates.formatISO(lastModification)}" th:text="*{{lastModification}}">le mardi 5 décembre 2017</time>
   par <span th:text="*{lastModifier}">Grégoire</span></th:block><th:block th:if="not *{alive}">, <strong>supprimé</strong></th:block>.</p>
 
-<a th:fragment="editButton (record)" class="edit" th:href="@{/Fiche/{id}/Edition(id=${record.id})}">Modifier</a>
+<th:block th:fragment="editButton (record)">
+  <a class="edit" th:if="${record.alive}" th:href="@{/Fiche/{id}/Edition(id=${record.id})}">Modifier</a>
+  <form th:if="not ${record.alive}" class="revive" method="post" th:action="@{/Fiche/{id}/Alive(id=${record.id})}">
+    <button>Réssusciter</button>
+  </form>
+</th:block>
 
 </body>
 </html>
