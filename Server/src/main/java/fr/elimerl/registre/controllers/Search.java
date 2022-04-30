@@ -58,6 +58,8 @@ public class Search {
     query.select (record);
     query.where (predicate);
     query.orderBy (
+        builder.asc (record.get ("series")),
+        builder.asc (record.get ("number")),
         builder.asc (record.get ("title")),
         builder.asc (record.get ("id"))
     );
