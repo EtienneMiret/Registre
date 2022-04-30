@@ -38,4 +38,8 @@ main.editor {
     }
   }
 
+  #delete button {
+    @extend %button.danger;
+  }
+
 }

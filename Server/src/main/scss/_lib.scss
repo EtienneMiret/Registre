@@ -8,4 +8,9 @@
   background: #a6cc55;
   border: 0;
   cursor: pointer;
+
+  &.danger {
+    text-shadow: -1px 1px #9c4848;
+    background: #cc5658;
+  }
 }
