@@ -20,7 +20,7 @@
   <time th:datetime="*{#dates.formatISO(creation)}" th:text="*{{creation}}">le dimanche 3 décembre 2017</time>
   par <span th:text="*{creator}">Système</span><th:block th:if="*{creation} != *{lastModification}">,
   mis à jour <time th:datetime="*{#dates.formatISO(lastModification)}" th:text="*{{lastModification}}">le mardi 5 décembre 2017</time>
-  par <span th:text="*{lastModifier}">Grégoire</span></th:block>.</p>
+  par <span th:text="*{lastModifier}">Grégoire</span></th:block><th:block th:if="not *{alive}">, <strong>supprimé</strong></th:block>.</p>
 
 <a th:fragment="editButton (record)" class="edit" th:href="@{/Fiche/{id}/Edition(id=${record.id})}">Modifier</a>
 

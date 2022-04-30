@@ -9,7 +9,7 @@
 
 <nav th:replace="base :: nav (record)"/>
 
-<main class="record" th:object="${record}">
+<main th:class="${record.alive ? 'record' : 'record deleted'}" th:object="${record}">
 
   <h1 th:text="*{title}">Star Wars - Un nouvel espoir</h1>
 
