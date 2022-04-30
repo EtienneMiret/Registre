@@ -9,6 +9,8 @@ apply plugin: 'war'
 apply plugin: 'io.freefair.jsass-base'
 
 description = 'Serveur Registre'
+archivesBaseName = 'Registre'
+
 dependencies {
   compile project(':Model')
   compile project(':Security')
