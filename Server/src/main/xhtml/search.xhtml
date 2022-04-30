@@ -18,6 +18,7 @@
       <th/>
       <th>Référence</th>
       <th>Série</th>
+      <th>N°</th>
       <th/>
     </tr>
   </thead>
@@ -27,11 +28,13 @@
         ><img th:src="@{/resources/images/records/{picture}(picture=${record.picture})}" alt=""/></a></td>
       <td class="title"><a th:href="@{/Fiche/{id}(id=${record.id})}" th:text="${record.title}" href="records/movie.xhtml">Star Wars - Un nouvel espoir</a></td>
       <td class="series"><a th:if="${record.series}" th:text="${record.series}" th:href="@{/Rechercher(q='series:(' + ${record.series} + ')')}">Star Wars</a></td>
+      <td class="number" th:text="${record.number}">4</td>
       <td class="type"><img th:src="@{/resources/images/{type}.png(type=${record.type})}" th:alt="${record.type}"/></td>
     </tr>
     <tr>
       <td/>
       <td><a href="records/book.xhtml">Le Seigneur des Anneaux</a></td>
+      <td/>
       <td/>
       <td>Book</td>
     </tr>
@@ -39,6 +42,7 @@
       <td/>
       <td><a href="records/comic.xhtml">Tintin au Tibet</a></td>
       <td>Tintin</td>
+      <td>14</td>
       <td>Comic</td>
     </tr>
   </tbody>
