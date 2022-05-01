@@ -153,6 +153,16 @@ public class AutoCompleter {
   }
 
   /**
+   * List all referenced series.
+   *
+   * @return all referenced series.
+   * @see #list(Class, Class, String)
+   */
+  public List<Series> listSeries() {
+    return list(Series.class, Record.class, "series");
+  }
+
+  /**
    * List all {@link Named} of a given type. Items with no reference are omitted.
    *
    * @param resultClass

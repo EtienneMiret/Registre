@@ -127,4 +127,19 @@ public class AutoCompleterTest {
         );
   }
 
+  /** Test {@link AutoCompleter#listSeries()}. */
+  @Test
+  public void should_list_series() {
+    List<Series> actual = autoCompleter.listSeries();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Luky Luke",
+            "Warhammer 40,000",
+            "Boule et Bill",
+            "Merlin"
+        );
+  }
+
 }
