@@ -164,6 +164,7 @@ public abstract class Record {
 	this.creation = now;
 	this.lastModifier = creator;
 	this.lastModification = now;
+        this.alive = true;
 	logger.debug("{} creates a record for “{}”.", creator, title);
     }
 

@@ -1,18 +1,17 @@
 package fr.elimerl.registre.entities;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Date;
-import java.util.UUID;
-
+import fr.elimerl.registre.entities.Movie.Support;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.elimerl.registre.entities.Movie.Support;
+import java.util.Date;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test class for {@link Movie}.
@@ -43,19 +42,6 @@ public class MovieTest {
     /** Movie under test. */
     private Movie movie;
 
-    /**
-     * Vérifie qu’une date est bien dans un intervalle de test.
-     *
-     * @param message
-     *            message à afficher si {@code effective} n’est pas dans
-     *            l’intervalle de test.
-     * @param avant
-     *            date de début de l’intervalle de test (incluse).
-     * @param après
-     *            date de fin de l’intervalle de test (incluse).
-     * @param effective
-     *            date à tester.
-     */
     /**
      * Asserts that a date is within a test interval.
      *
@@ -113,6 +99,7 @@ public class MovieTest {
 	assertEquals("At creation time, the last modifier must be" +
                         " the creator.",
 		dvd.getCreator(), dvd.getLastModifier());
+	assertTrue(dvd.isAlive());
 
 	/* Waiting a bit. */
 	logger.info("Waiting a bit.");
@@ -133,6 +120,7 @@ public class MovieTest {
                 CREATOR, dvd.getCreator());
 	assertEquals("The last modifier is wrong.",
                 MODIFIER, dvd.getLastModifier());
+	assertTrue(dvd.isAlive());
     }
 
     /**
