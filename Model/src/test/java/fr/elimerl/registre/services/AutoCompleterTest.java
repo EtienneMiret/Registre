@@ -114,4 +114,17 @@ public class AutoCompleterTest {
         );
   }
 
+  /** Test {@link AutoCompleter#listScriptWriters()}. */
+  @Test
+  public void should_list_scriptwriters() {
+    List<ScriptWriter> actual = autoCompleter.listScriptWriters();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "René Goscinny",
+            "Renard"
+        );
+  }
+
 }

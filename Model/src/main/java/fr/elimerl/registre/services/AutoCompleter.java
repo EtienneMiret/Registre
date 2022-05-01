@@ -143,6 +143,16 @@ public class AutoCompleter {
   }
 
   /**
+   * List all referenced scriptwriters.
+   *
+   * @return all referenced scriptwriters.
+   * @see #list(Class, Class, String)
+   */
+  public List<ScriptWriter> listScriptWriters() {
+    return list(ScriptWriter.class, Comic.class, "scriptWriter");
+  }
+
+  /**
    * List all {@link Named} of a given type. Items with no reference are omitted.
    *
    * @param resultClass
