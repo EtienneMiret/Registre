@@ -83,6 +83,16 @@ public class AutoCompleter {
   }
 
   /**
+   * List all referenced authors.
+   *
+   * @return all referenced authors.
+   * @see #list(Class, Class, String)
+   */
+  public List<Author> listAuthors() {
+    return list(Author.class, Book.class, "author");
+  }
+
+  /**
    * List all referenced directors.
    *
    * @return all referenced directors.

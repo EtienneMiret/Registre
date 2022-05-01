@@ -1,6 +1,7 @@
 package fr.elimerl.registre.services;
 
 import fr.elimerl.registre.entities.Actor;
+import fr.elimerl.registre.entities.Author;
 import fr.elimerl.registre.entities.Director;
 import fr.elimerl.registre.entities.Named;
 import org.junit.Test;
@@ -34,6 +35,20 @@ public class AutoCompleterTest {
             "Scarlett Johansson",
             "Emma Watson",
             "Will Smith"
+        );
+  }
+
+  /** Test {@link AutoCompleter#listAuthors()}. */
+  @Test
+  public void should_list_authors() {
+    List<Author> actual = autoCompleter.listAuthors();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Gav Thorpe",
+            "Noick Kyme",
+            "Tom Clancy"
         );
   }
 
