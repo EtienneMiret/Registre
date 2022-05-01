@@ -5,10 +5,7 @@ import fr.elimerl.registre.entities.*;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 /**
@@ -143,7 +140,9 @@ public class AutoCompleter {
     Root<T> result = query.from(resultClass);
     Expression<Long> count = builder.count(result);
     query.multiselect(result);
-    query.where(builder.equal(result, record.get(attribute)));
+    Predicate equal = builder.equal(result, record.get(attribute));
+    Predicate alive = builder.equal(record.get("alive"), true);
+    query.where(builder.and(equal, alive));
     query.groupBy(result);
     query.orderBy(builder.desc(count), builder.asc(result.get("name")));
     return em.createQuery(query)
