@@ -49,6 +49,19 @@ public class AutoCompleterTest {
         );
   }
 
+  /** Test {@link AutoCompleter#listCartoonists()}. */
+  @Test
+  public void should_list_cartoonists() {
+    List<Cartoonist> actual = autoCompleter.listCartoonists();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Morris",
+            "Jigounov"
+        );
+  }
+
   /** Test {@link AutoCompleter#listComposers()}. */
   @Test
   public void should_list_composers() {

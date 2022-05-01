@@ -93,6 +93,16 @@ public class AutoCompleter {
   }
 
   /**
+   * List all referenced cartoonists.
+   *
+   * @return all referenced cartoonists.
+   * @see #list(Class, Class, String)
+   */
+  public List<Cartoonist> listCartoonists() {
+    return list(Cartoonist.class, Comic.class, "cartoonist");
+  }
+
+  /**
    * List all referenced composers.
    *
    * @return all referenced composers.
