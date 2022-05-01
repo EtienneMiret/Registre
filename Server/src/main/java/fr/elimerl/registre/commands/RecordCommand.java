@@ -123,6 +123,7 @@ public class RecordCommand {
     this.title = null;
     this.comment = null;
     this.picture = null;
+    this.number = null;
     this.actors = actors.stream ()
         .filter (Objects::nonNull)
         .filter (s -> !s.isEmpty ())
