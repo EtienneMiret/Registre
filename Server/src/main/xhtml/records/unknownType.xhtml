@@ -9,7 +9,7 @@
 
 <nav th:replace="base :: nav (record)"/>
 
-<main class="record">
+<main th:class="${record.alive ? 'record' : 'record deleted'}" th:object="${record}">
 
   <h1 th:text="${record.title}">Les Quatres Saisons</h1>
 

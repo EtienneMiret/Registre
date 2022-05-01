@@ -3,6 +3,15 @@
 main.record {
   $float-breakpoint: 400px;
 
+  &.deleted {
+    h1 {
+      color: #cc5656;
+    }
+    section {
+      background: #faebeb;
+    }
+  }
+
   .picture {
     width: 198px;
     min-height: 280px;
@@ -35,9 +44,12 @@ main.record {
       margin: 15px;
     }
 
-    a.edit {
+    a.edit, .revive button {
       @extend %button;
       margin: 30px 15px 15px auto;
+    }
+
+    a.edit {
       width: 50px;
     }
 

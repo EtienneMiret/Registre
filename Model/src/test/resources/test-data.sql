@@ -70,27 +70,27 @@ insert into series (id, name) values (
 	(default, 'Luky Luke')
 );
 
-insert into records (id, title, dtype, series, number, comment, picture, owner,
+insert into records (id, alive, title, dtype, series, number, comment, picture, owner,
 		location, creator, creation, last_modifier, last_modification) values (
-	(default, 'Globe-trotters', 'Comic', 0, 12, null, null, 2,
+	(default, true, 'Globe-trotters', 'Comic', 0, 12, null, null, 2,
 		0, 0, '2012-12-25 22:18:30', 1, '2013-02-16 22:19:58'),
-	(default, 'Merlin, Saison 1', 'Movie', 1, null, 'Une super série !', null, 0,
+	(default, true, 'Merlin, Saison 1', 'Movie', 1, null, 'Une super série !', null, 0,
 		0, 0, '2012-12-25 22:21:29', 2, '2013-02-26 22:22:06'),
-	(default, 'Rainbow Six', 'Book', null, null, null, null, 0,
+	(default, true, 'Rainbow Six', 'Book', null, null, null, null, 0,
 		0, 0, '2013-07-04 21:48:00', 0, '2013-07-04 21:48:00'),
-	(default, 'Lucy', 'Movie', null, null, null, null, null,
+	(default, true, 'Lucy', 'Movie', null, null, null, null, null,
 		4, 0, '2014-08-11 21:28:30', 0, '2014-08-11 21:28:30'),
-	(default, 'La Purge de Kadillus', 'Book', 2, null, null, null, 0,
+	(default, true, 'La Purge de Kadillus', 'Book', 2, null, null, null, 0,
 		4, 0, '2014-08-11 21:33:45', 0, '2014-08-11 21:33:45'),
-	(default, 'La Chute de Damnos', 'Book', 2, null, null, null, 0,
+	(default, true, 'La Chute de Damnos', 'Book', 2, null, null, null, 0,
 		4, 0, '2014-08-11 21:35:00', 0, '2014-08-11 21:35:00'),
-	(default, 'Alerte aux Pieds-Bleus', 'Comic', 4, 10, null, null, 1,
+	(default, true, 'Alerte aux Pieds-Bleus', 'Comic', 4, 10, null, null, 1,
 		3, 2, '2014-08-11 21:37:00', 2, '2014-08-11 21:37:00'),
-	(default, 'La Fiancée de Luky Luke', 'Comic', 4, 26, null, null, 1,
+	(default, true, 'La Fiancée de Luky Luke', 'Comic', 4, 26, null, null, 1,
 		3, 2, '2014-08-11 21:38:30', 2, '2014-08-11 21:38:30'),
-	(default, 'Le Pony Express', 'Comic', 4, 29, null, null, 1,
+	(default, true, 'Le Pony Express', 'Comic', 4, 29, null, null, 1,
 		3, 2, '2014-08-11 21:40:00', 2, '2014-08-11 21:40:00'),
-	(default, 'Luky Marines', 'Movie', null, null, 'Rien à voir avec Luky Luke.', null, 2,
+	(default, true, 'Luky Marines', 'Movie', null, null, 'Rien à voir avec Luky Luke.', null, 2,
 		1, 0, '2014-08-11 21:42:00', 0, '2014-08-11 21:42:00')
 );
 

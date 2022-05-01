@@ -113,6 +113,10 @@ public abstract class Record {
     @Column(name = "sf_style")
     private Boolean sfStyle;
 
+    /** Is this record alive (as opposed to deleted)? */
+    @Column(name = "alive")
+    private boolean alive;
+
     /**
      * User who registered this record.
      */
@@ -248,6 +252,34 @@ public abstract class Record {
      */
     public Long getId() {
         return id;
+    }
+
+    /**
+     * Returns whether this record is deleted.
+     * @return {@code false} if this record is deleted,
+     * {@code true} otherwise.
+     * @see #alive
+     */
+    public boolean isAlive () {
+        return alive;
+    }
+
+    /**
+     * Revives this record.
+     *
+     * @see #alive
+     */
+    public void revive() {
+        this.alive = true;
+    }
+
+    /**
+     * Deletes this record.
+     *
+     * @see #alive
+     */
+    public void delete() {
+        this.alive = false;
     }
 
     /**

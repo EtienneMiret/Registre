@@ -1,11 +1,7 @@
 package fr.elimerl.registre.controllers;
 
 import fr.elimerl.registre.commands.RecordCommand;
-import fr.elimerl.registre.entities.Book;
-import fr.elimerl.registre.entities.Comic;
-import fr.elimerl.registre.entities.Movie;
-import fr.elimerl.registre.entities.Record;
-import fr.elimerl.registre.entities.User;
+import fr.elimerl.registre.entities.*;
 import fr.elimerl.registre.security.RAuthenticationToken;
 import fr.elimerl.registre.services.Index;
 import fr.elimerl.registre.services.PictureRegistry;
@@ -89,7 +85,68 @@ public class RecordManager {
       view = "records/unknownType";
       response.setStatus (SC_NOT_IMPLEMENTED);
     }
+    if (!record.isAlive ()) {
+      response.setStatus (SC_NOT_FOUND);
+    }
     return new ModelAndView (view, model);
+  }
+
+  /**
+   * Delete a record (make it dead).
+   *
+   * @param id
+   *     id of the record to delete.
+   * @param token
+   *     authentication principal deleting this record.
+   * @param response
+   *     HTTP response to send to the UA.
+   */
+  @PostMapping("/{id}/Dead")
+  @Transactional
+  public ModelAndView delete(
+      @PathVariable final Long id,
+      @AuthenticationPrincipal RAuthenticationToken token,
+      final HttpServletResponse response
+  ) {
+    final Record record = em.find(Record.class, id);
+    if (record == null) {
+      return notFound(response);
+    }
+    User user = token.getPrincipal();
+    record.toucher(user);
+    record.delete();
+    logger.info("{} deleted {}.", user, record);
+    em.merge(record);
+    return new ModelAndView("redirect:/Fiche/" + id);
+  }
+
+  /**
+   * Make a record alive (not deleted).
+   *
+   * @param id
+   *     id of the record to revive.
+   * @param token
+   *     authentication principal reviving this record.
+   * @param response
+   *     HTTP response to send to the UA.
+   */
+  @PostMapping("/{id}/Alive")
+  @Transactional
+  public ModelAndView revive(
+      @PathVariable final Long id,
+      @AuthenticationPrincipal RAuthenticationToken token,
+      final HttpServletResponse response
+  ) {
+    final Record record = em.find(Record.class, id);
+    if (record == null) {
+      return notFound(response);
+    }
+    final User user = token.getPrincipal();
+    record.toucher(user);
+    record.revive();
+    logger.info("{} revived {}.", user, record);
+    em.merge(record);
+    return new ModelAndView("redirect:/Fiche/" + id);
   }
 
   /**
