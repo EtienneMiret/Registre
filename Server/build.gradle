@@ -24,7 +24,7 @@ dependencies {
   providedCompile group: 'org.slf4j', name: 'slf4j-api'
   providedCompile group: 'javax.servlet', name: 'javax.servlet-api'
   runtime group: 'org.thymeleaf', name: 'thymeleaf-spring5'
-  runtime group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4'
+  runtime group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
   testCompile group: 'junit', name: 'junit'
   testCompile group: 'org.mockito', name: 'mockito-core'
   testCompile group: 'org.assertj', name: 'assertj-core'
