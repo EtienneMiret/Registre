@@ -1,9 +1,6 @@
 package fr.elimerl.registre.services;
 
-import fr.elimerl.registre.entities.Actor;
-import fr.elimerl.registre.entities.Author;
-import fr.elimerl.registre.entities.Director;
-import fr.elimerl.registre.entities.Named;
+import fr.elimerl.registre.entities.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -49,6 +46,19 @@ public class AutoCompleterTest {
             "Gav Thorpe",
             "Noick Kyme",
             "Tom Clancy"
+        );
+  }
+
+  /** Test {@link AutoCompleter#listComposers()}. */
+  @Test
+  public void should_list_composers() {
+    List<Composer> actual = autoCompleter.listComposers();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Hans Zimmer",
+            "Howard Shore"
         );
   }
 

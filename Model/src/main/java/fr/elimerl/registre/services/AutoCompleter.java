@@ -93,6 +93,16 @@ public class AutoCompleter {
   }
 
   /**
+   * List all referenced composers.
+   *
+   * @return all referenced composers.
+   * @see #list(Class, Class, String)
+   */
+  public List<Composer> listComposers() {
+    return list(Composer.class, Movie.class, "composer");
+  }
+
+  /**
    * List all referenced directors.
    *
    * @return all referenced directors.
