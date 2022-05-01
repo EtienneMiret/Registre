@@ -133,6 +133,16 @@ public class AutoCompleter {
   }
 
   /**
+   * List all referenced owners.
+   *
+   * @return all referenced owners.
+   * @see #list(Class, Class, String)
+   */
+  public List<Owner> listOwners() {
+    return list(Owner.class, Record.class, "owner");
+  }
+
+  /**
    * List all {@link Named} of a given type. Items with no reference are omitted.
    *
    * @param resultClass

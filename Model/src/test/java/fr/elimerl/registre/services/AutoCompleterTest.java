@@ -100,4 +100,18 @@ public class AutoCompleterTest {
         );
   }
 
+  /** Test {@link AutoCompleter#listOwners()}. */
+  @Test
+  public void should_list_owners() {
+    List<Owner> actual = autoCompleter.listOwners();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Etienne",
+            "Grégoire",
+            "Claire"
+        );
+  }
+
 }
