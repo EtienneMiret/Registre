@@ -1,21 +1,8 @@
 package fr.elimerl.registre.services;
 
-import static fr.elimerl.registre.entities.Reference.Field.OTHER;
-import static fr.elimerl.registre.entities.Reference.Field.COMMENT;
-import static fr.elimerl.registre.entities.Reference.Field.TITLE;
-import static org.junit.Assert.assertEquals;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
 import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.Reference;
+import fr.elimerl.registre.entities.Reference.Field;
 import fr.elimerl.registre.entities.Word;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +10,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.elimerl.registre.entities.Reference;
-import fr.elimerl.registre.entities.Reference.Field;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static fr.elimerl.registre.entities.Reference.Field.COMMENT;
+import static fr.elimerl.registre.entities.Reference.Field.OTHER;
+import static fr.elimerl.registre.entities.Reference.Field.TITLE;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test class for the {@link Index} class.
@@ -114,6 +112,8 @@ public class IndexTest {
 	expected.add(createReference("smith", OTHER, merlin));
 	expected.add(createReference("emma", OTHER, merlin));
 	expected.add(createReference("watson", OTHER, merlin));
+	expected.add(createReference("scarlett", OTHER, merlin));
+	expected.add(createReference("johansson", OTHER, merlin));
 
 	index.reindex(merlin);
 	assertEquals(expected, loadReferences(merlin));

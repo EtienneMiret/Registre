@@ -116,6 +116,7 @@ insert into books (id, author) values (
 insert into plays_in (actor, movie) values (
 	(0, 1),
 	(3, 1),
+	(4, 1),
 	(4, 3)
 );
 
