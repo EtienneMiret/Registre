@@ -85,4 +85,19 @@ public class AutoCompleterTest {
         .containsExactly("Luc Besson");
   }
 
+  /** Test {@link AutoCompleter#listLocations()}. */
+  @Test
+  public void should_list_locations() {
+    List<Location> actual = autoCompleter.listLocations();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Poissy",
+            "Singapour",
+            "Verneuil",
+            "La Roche sur Yon"
+        );
+  }
+
 }

@@ -123,6 +123,16 @@ public class AutoCompleter {
   }
 
   /**
+   * List all referenced locations.
+   *
+   * @return all referenced locations.
+   * @see #list(Class, Class, String)
+   */
+  public List<Location> listLocations() {
+    return list(Location.class, Record.class, "location");
+  }
+
+  /**
    * List all {@link Named} of a given type. Items with no reference are omitted.
    *
    * @param resultClass
