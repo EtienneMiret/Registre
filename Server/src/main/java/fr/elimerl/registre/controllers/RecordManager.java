@@ -3,6 +3,7 @@ package fr.elimerl.registre.controllers;
 import fr.elimerl.registre.commands.RecordCommand;
 import fr.elimerl.registre.entities.*;
 import fr.elimerl.registre.security.RAuthenticationToken;
+import fr.elimerl.registre.services.AutoCompleter;
 import fr.elimerl.registre.services.Index;
 import fr.elimerl.registre.services.PictureRegistry;
 import fr.elimerl.registre.services.RegistreEntityManager;
@@ -55,6 +56,9 @@ public class RecordManager {
 
   @Autowired
   private PictureRegistry pictureRegistry;
+
+  @Autowired
+  private AutoCompleter autoCompleter;
 
   /**
    * Display a record in read-only mode.
@@ -169,7 +173,21 @@ public class RecordManager {
       return notFound (response);
     }
     RecordCommand command = new RecordCommand (record);
-    Map<String, Object> model = singletonMap ("command", command);
+    Map<String, Object> model = new HashMap<>();
+    model.put("command", command);
+    if (record instanceof Book) {
+      model.put("authors", autoCompleter.listAuthors());
+    } else if (record instanceof Comic) {
+      model.put("cartoonists", autoCompleter.listCartoonists());
+      model.put("scriptwriters", autoCompleter.listScriptWriters());
+    } else if (record instanceof Movie) {
+      model.put("actors", autoCompleter.listActors());
+      model.put("composers", autoCompleter.listComposers());
+      model.put("directors", autoCompleter.listDirectors());
+    }
+    model.put("locations", autoCompleter.listLocations());
+    model.put("owners", autoCompleter.listOwners());
+    model.put("series", autoCompleter.listSeries());
     return new ModelAndView ("records/editor", model);
   }
 
@@ -179,8 +197,19 @@ public class RecordManager {
    * @return the name of the view to display.
    */
   @GetMapping
+  @Transactional(readOnly = true)
   public ModelAndView getEditor () {
-    Map<String, Object> model = singletonMap ("command", new RecordCommand ());
+    Map<String, Object> model = new HashMap<>();
+    model.put("command", new RecordCommand());
+    model.put("actors", autoCompleter.listActors());
+    model.put("authors", autoCompleter.listAuthors());
+    model.put("cartoonists", autoCompleter.listCartoonists());
+    model.put("composers", autoCompleter.listComposers());
+    model.put("directors", autoCompleter.listDirectors());
+    model.put("locations", autoCompleter.listLocations());
+    model.put("owners", autoCompleter.listOwners());
+    model.put("scriptwriters", autoCompleter.listScriptWriters());
+    model.put("series", autoCompleter.listSeries());
     return new ModelAndView ("records/editor", model);
   }
 

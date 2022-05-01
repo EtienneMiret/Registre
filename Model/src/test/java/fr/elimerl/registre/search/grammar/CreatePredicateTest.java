@@ -175,7 +175,7 @@ public class CreatePredicateTest {
     final FieldQuery fieldQuery =
         new FieldQuery (Field.ACTOR, new Keyword ("scarlett"));
     final List<Record> results = execute (fieldQuery);
-    check (results, 3);
+    check (results, 1, 3);
   }
 
   /**

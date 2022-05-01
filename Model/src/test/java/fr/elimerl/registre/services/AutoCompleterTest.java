@@ -1,24 +1,12 @@
 package fr.elimerl.registre.services;
 
-import fr.elimerl.registre.entities.Actor;
-import fr.elimerl.registre.entities.Author;
-import fr.elimerl.registre.entities.Composer;
-import fr.elimerl.registre.entities.Location;
-import fr.elimerl.registre.entities.Named;
-import fr.elimerl.registre.entities.Series;
-import org.junit.ClassRule;
-import org.junit.Rule;
+import fr.elimerl.registre.entities.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,47 +14,132 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test case for {@link AutoCompleter}.
  */
-@RunWith (Parameterized.class)
-@ContextConfiguration ("/applicationContext.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/applicationContext.xml")
 public class AutoCompleterTest {
-
-  @Parameters (name = "{0} in {1}")
-  public static Iterable<Object[]> parameters () {
-    return Arrays.asList (
-        new Object[] {"Wil", Actor.class, new String[] {"Will Smith"}},
-        new Object[] {"smi", Actor.class, new String[] {"Will Smith"}},
-        new Object[] {"S", Actor.class, new String[] {"Scarlett Johansson", "Will Smith"}},
-        new Object[] {"Tom", Author.class, new String[] {"Tom Clancy"}},
-        new Object[] {"h", Composer.class, new String[] {"Hans Zimmer", "Howard Shore"}},
-        new Object[] {"Mer", Series.class, new String[] {"Merlin"}},
-        new Object[] {"l", Location.class, new String[] {"La Roche sur Yon", "Lyon"}},
-        new Object[] {"%e%", Series.class, new String[] {}}
-    );
-  }
-
-  @ClassRule
-  public static final SpringClassRule springClassRule = new SpringClassRule ();
-
-  @Rule
-  public SpringMethodRule springMethodRule = new SpringMethodRule ();
-
-  @Parameter (0)
-  public String query;
-
-  @Parameter (1)
-  public Class<? extends Named> clazz;
-
-  @Parameter (2)
-  public String[] expected;
 
   @Resource
   private AutoCompleter autoCompleter;
 
+  /** Test {@link AutoCompleter#listActors()}. */
   @Test
-  public void shouldAutoComplete () {
-    List<String> actual = autoCompleter.autoComplete (query, clazz);
+  public void should_list_actors() {
+    List<Actor> actual = autoCompleter.listActors();
 
-    assertThat (actual).containsExactly (expected);
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Scarlett Johansson",
+            "Emma Watson",
+            "Will Smith"
+        );
+  }
+
+  /** Test {@link AutoCompleter#listAuthors()}. */
+  @Test
+  public void should_list_authors() {
+    List<Author> actual = autoCompleter.listAuthors();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Gav Thorpe",
+            "Noick Kyme",
+            "Tom Clancy"
+        );
+  }
+
+  /** Test {@link AutoCompleter#listCartoonists()}. */
+  @Test
+  public void should_list_cartoonists() {
+    List<Cartoonist> actual = autoCompleter.listCartoonists();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Morris",
+            "Jigounov"
+        );
+  }
+
+  /** Test {@link AutoCompleter#listComposers()}. */
+  @Test
+  public void should_list_composers() {
+    List<Composer> actual = autoCompleter.listComposers();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Hans Zimmer",
+            "Howard Shore"
+        );
+  }
+
+  /** Test {@link AutoCompleter#listDirectors()}. */
+  @Test
+  public void should_list_directors() {
+    List<Director> actual = autoCompleter.listDirectors();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly("Luc Besson");
+  }
+
+  /** Test {@link AutoCompleter#listLocations()}. */
+  @Test
+  public void should_list_locations() {
+    List<Location> actual = autoCompleter.listLocations();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Poissy",
+            "Singapour",
+            "Verneuil",
+            "La Roche sur Yon"
+        );
+  }
+
+  /** Test {@link AutoCompleter#listOwners()}. */
+  @Test
+  public void should_list_owners() {
+    List<Owner> actual = autoCompleter.listOwners();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Etienne",
+            "Grégoire",
+            "Claire"
+        );
+  }
+
+  /** Test {@link AutoCompleter#listScriptWriters()}. */
+  @Test
+  public void should_list_scriptwriters() {
+    List<ScriptWriter> actual = autoCompleter.listScriptWriters();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "René Goscinny",
+            "Renard"
+        );
+  }
+
+  /** Test {@link AutoCompleter#listSeries()}. */
+  @Test
+  public void should_list_series() {
+    List<Series> actual = autoCompleter.listSeries();
+
+    assertThat(actual)
+        .extracting(Named::getName)
+        .containsExactly(
+            "Luky Luke",
+            "Warhammer 40,000",
+            "Boule et Bill",
+            "Merlin"
+        );
   }
 
 }

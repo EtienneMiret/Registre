@@ -1,28 +1,7 @@
 package fr.elimerl.registre.entities;
 
-import static fr.elimerl.registre.entities.Movie.Support.BRD;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
+import fr.elimerl.registre.entities.Movie.Support;
+import fr.elimerl.registre.entities.Reference.Field;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,8 +11,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import fr.elimerl.registre.entities.Movie.Support;
-import fr.elimerl.registre.entities.Reference.Field;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.UUID;
+
+import static fr.elimerl.registre.entities.Movie.Support.BRD;
+import static org.junit.Assert.*;
 
 /**
  * In this JUnit test, we check the JPA mapping, the database schema, and that
@@ -1103,7 +1097,7 @@ public class PersistenceTest {
 	assertEquals(Support.BRD, merlin.getSupport());
 	assertNull(merlin.getDirector());
 	assertEquals("Howard Shore", merlin.getComposer().getName());
-	assertEquals(TWO, merlin.getActors().size());
+	assertEquals(THREE, merlin.getActors().size());
 
 	final Book rainbowSix = (Book) records.next();
 	assertEquals(TWO, rainbowSix.getId().intValue());

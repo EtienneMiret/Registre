@@ -41,45 +41,62 @@
       </select>
     </label></p>
     <p class="movie"><label>Réalisateur&#x202F;:
-      <input name="director" th:value="*{director}"
-        th:data-auto-complete-path="@{/auto-complete/directors}"/></label></p>
+      <input name="director" th:value="*{director}" list="director-data"/></label></p>
     <div class="movie"><label>Acteurs&#x202F;:</label>
-      <ul id="actors" th:data-auto-complete-path="@{/auto-complete/actors}">
-        <li th:each="actor : *{actors}"><input
+      <ul id="actors">
+        <li th:each="actor : *{actors}"><input list="actor-data"
             th:name="'actors[' + ${actorStat.index} +']'" th:value="${actor}"
-            th:data-auto-complete-path="@{/auto-complete/actors}"
         /></li>
       </ul>
       <button id="add-actor" type="button" hidden="">+</button>
     </div>
     <p class="movie"><label>Compositeur&#x202F;:
-      <input name="composer" th:value="*{composer}"
-        th:data-auto-complete-path="@{/auto-complete/composers}"/></label></p>
+      <input name="composer" th:value="*{composer}" list="composer-data"/></label></p>
     <p class="comic"><label>Dessinateur&#x202F;:
-      <input name="cartoonist" th:value="*{cartoonist}"
-        th:data-auto-complete-path="@{/auto-complete/cartoonists}"/></label></p>
+      <input name="cartoonist" th:value="*{cartoonist}" list="cartoonist-data"/></label></p>
     <p class="comic"><label>Scénariste&#x202F;:
-      <input name="scriptWriter" th:value="*{scriptWriter}"
-        th:data-auto-complete-path="@{/auto-complete/script-writers}"/></label></p>
+      <input name="scriptWriter" th:value="*{scriptWriter}" list="scriptwriter-data"/></label></p>
     <p class="book"><label>Auteur&#x202F;:
-      <input name="author" th:value="*{author}"
-        th:data-auto-complete-path="@{/auto-complete/authors}"/></label></p>
+      <input name="author" th:value="*{author}" list="author-data"/></label></p>
     <p><label>Série&#x202F;:
-      <input name="series" th:value="*{series}"
-        th:data-auto-complete-path="@{/auto-complete/series}"/></label>
+      <input name="series" th:value="*{series}" list="series-data"/></label>
       <label>N°&#x202F;: <input name="number" type="number" step="1" th:value="*{number}"/></label></p>
     <p><label>Commentaire&#x202F;:
       <textarea name="comment" th:text="*{comment}"/></label></p>
     <p><label>Propriétaire&#x202F;:
-      <input name="owner" th:value="*{owner}"
-        th:data-auto-complete-path="@{/auto-complete/owners}"/></label></p>
+      <input name="owner" th:value="*{owner}" list="owner-data"/></label></p>
     <p><label title="Lieu où est rangé cette œuvre.">Emplacement&#x202F;:
-      <input name="location" th:value="*{location}"
-        th:data-auto-complete-path="@{/auto-complete/locations}"/></label></p>
+      <input name="location" th:value="*{location}" list="location-data"/></label></p>
     <p><label>Image&#x202F;: <input type="file" name="picture" accept="image/jpeg, image/png"/></label>
       <label>Supprimer l’image&#x202F;: <input type="checkbox" name="pictureDeleted" th:checked="*{pictureDeleted}"/></label></p>
     <p><button th:text="*{id} ? Modifier : Ajouter">Ajouter</button></p>
-    <ol id="auto-complete-list" hidden=""/>
+    <datalist id="actor-data">
+      <option th:each="actor : ${actors}" th:value="${actor.name}"/>
+    </datalist>
+    <datalist id="author-data">
+      <option th:each="author : ${authors}" th:value="${author.name}"/>
+    </datalist>
+    <datalist id="cartoonist-data">
+      <option th:each="cartoonist : ${cartoonists}" th:value="${cartoonist.name}"/>
+    </datalist>
+    <datalist id="composer-data">
+      <option th:each="composer : ${composers}" th:value="${composer.name}"/>
+    </datalist>
+    <datalist id="director-data">
+      <option th:each="director : ${directors}" th:value="${director.name}"/>
+    </datalist>
+    <datalist id="location-data">
+      <option th:each="location : ${locations}" th:value="${location.name}"/>
+    </datalist>
+    <datalist id="owner-data">
+      <option th:each="owner : ${owners}" th:value="${owner.name}"/>
+    </datalist>
+    <datalist id="scriptwriter-data">
+      <option th:each="sw : ${scriptwriters}" th:value="${sw.name}"/>
+    </datalist>
+    <datalist id="series-data">
+      <option th:each="s : ${series}" th:value="${s.name}"/>
+    </datalist>
   </form>
 
   <form id="delete" method="post" th:if="${command.id}" th:action="@{/Fiche/{id}/Dead(id=${command.id})}">
