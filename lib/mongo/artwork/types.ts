@@ -11,7 +11,8 @@ interface BaseArtwork {
   type: ArtworkType;
   title: string;
   series?: ObjectID;
-  number?: number;
+  season?: number;
+  episode?: number;
   comment?: string;
   picture?: string;
 }
