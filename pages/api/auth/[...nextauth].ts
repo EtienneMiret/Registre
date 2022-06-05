@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import database from 'lib/mongo/db';
+import { findByEmail } from '../../../lib/mongo/members/find';
 
 export default NextAuth ({
   providers: [
@@ -12,15 +13,17 @@ export default NextAuth ({
   ],
   callbacks: {
     async signIn({user}) {
-      return await database.then(db => db.collection('members'))
-          .then(users => users.findOne({emails: user.email}))
+      if (!user.email) {
+        return false;
+      }
+      
+      return await findByEmail(user.email)
           .then(u => {
-            return u !== null && u.accessGranted === true
+            return u !== null && u.accessGranted
           });
     },
     async session({session, user}) {
-      session.member = await database.then(db => db.collection('members'))
-          .then(members => members.findOne({emails: user.email}));
+      session.member = await findByEmail(user.email!);
       return session;
     },
   },
