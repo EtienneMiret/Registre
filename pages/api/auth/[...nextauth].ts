@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import database from 'lib/mongo/db';
-import { findByEmail } from '../../../lib/mongo/members/find';
+import { findByEmail } from '../../../lib/mongo/member/find';
 
 export default NextAuth ({
   providers: [

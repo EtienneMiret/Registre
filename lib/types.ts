@@ -22,10 +22,3 @@ export type RegistreAppProps<R extends NextRouter = NextRouter, P = {}>
     = AppPropsType<R, P> & {
   Component: RegistrePage<P, any>
 };
-
-export type Member = {
-  _id: ObjectID;
-  username: string;
-  accessGranted: boolean;
-  emails: string[];
-}

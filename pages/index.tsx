@@ -1,6 +1,7 @@
 import type { GetServerSidePropsResult, NextPageContext } from 'next';
 import { getSession, signOut } from 'next-auth/react';
-import { RegistreLayoutPage, Member } from '../lib/types';
+import { RegistreLayoutPage } from '../lib/types';
+import { Member } from '../lib/mongo/member/types';
 
 interface HomeParams {
   member: Member
