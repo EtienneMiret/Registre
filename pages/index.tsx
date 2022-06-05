@@ -1,19 +1,15 @@
-import type { GetServerSidePropsResult, NextPageContext } from 'next'
-import Head from 'next/head'
-import { getSession, signOut } from 'next-auth/react'
-import { Session } from 'next-auth';
-import Header from '../components/header';
-import Nav from '../components/nav';
-import { RegistreLayoutPage } from '../lib/types';
+import type { GetServerSidePropsResult, NextPageContext } from 'next';
+import { getSession, signOut } from 'next-auth/react';
+import { RegistreLayoutPage, Member } from '../lib/types';
 
 interface HomeParams {
-  session: Session
+  member: Member
 }
 
-const Home: RegistreLayoutPage<HomeParams> = ({session}) => {
+const Home: RegistreLayoutPage<HomeParams> = ({member}) => {
   return (
       <>
-        <p>Hello {session.user?.email}!</p>
+        <p>Bonjour {member.username}&#x202F;!</p>
         <p><button onClick={() => signOut()}>Se déconnecter</button></p>
       </>
   );
@@ -33,7 +29,7 @@ export async function getServerSideProps (context: NextPageContext): Promise<Get
   }
 
   return {
-    props: {session}
+    props: {member: session.member as Member}
   };
 }
 

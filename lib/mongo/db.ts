@@ -10,6 +10,6 @@ if (!uri) {
 }
 
 const client = new MongoClient (uri, options);
-const clientPromise = client.connect ();
+const db = client.connect ().then (c => c.db ('registre'));
 
-export default clientPromise;
+export default db;
