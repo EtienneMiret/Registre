@@ -1,5 +1,3 @@
-import { ObjectID } from 'bson';
-
 export const enum ArtworkType {
   Movie,
   Comic,
@@ -7,10 +5,10 @@ export const enum ArtworkType {
 }
 
 interface BaseArtwork {
-  _id: ObjectID;
+  _id: number;
   type: ArtworkType;
   title: string;
-  series?: ObjectID;
+  series?: number; // ID of a series
   season?: number;
   episode?: number;
   comment?: string;
@@ -27,20 +25,20 @@ export const enum Support {
 export interface Movie extends BaseArtwork {
   type: ArtworkType.Movie;
   support: Support;
-  director: ObjectID[]; // Person
-  actors: ObjectID[]; // Person
-  composer: ObjectID[]; // Person
+  director: number[]; // Person
+  actors: number[]; // Person
+  composer: number[]; // Person
 }
 
 export interface Comic extends BaseArtwork {
   type: ArtworkType.Comic;
-  cartoonist: ObjectID[]; // Person
-  scriptWriter: ObjectID[]; // Person
+  cartoonist: number[]; // Person
+  scriptWriter: number[]; // Person
 }
 
 export interface Book extends BaseArtwork {
   type: ArtworkType.Book;
-  author: ObjectID[]; // Person
+  author: number[]; // Person
 }
 
 export type Artwork = Movie | Comic | Book;

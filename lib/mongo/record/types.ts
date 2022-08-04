@@ -1,14 +1,12 @@
-import { ObjectID } from 'bson';
-
 export interface Record {
-  _id: ObjectID;
-  artwork: ObjectID; // Artwork
+  _id: number;
+  artwork: number; // Artwork
   comment: string;
-  owner: ObjectID;
-  location: ObjectID;
+  owner: number; // Person
+  location: number; // Location
   alive: boolean;
-  creator: ObjectID; // Member
+  creator: number; // Member
   creation: Date;
-  lastModifier: ObjectID; // Member
+  lastModifier: number; // Member
   lastModification: Date;
 }

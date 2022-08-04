@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import { AppPropsType } from 'next/dist/shared/lib/utils';
 import { NextRouter } from 'next/dist/shared/lib/router/router';
-import { ObjectID } from 'bson';
 
 export type RegistreSelfLayoutPage<P = {}, IP = P>
     = NextPage<P, IP> & {

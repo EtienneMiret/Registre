@@ -1,7 +1,5 @@
-import { ObjectID } from 'bson';
-
 export interface Member {
-  _id: ObjectID;
+  _id: number;
   username: string;
   accessGranted: boolean;
   emails: string[];
