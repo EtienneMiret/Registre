@@ -15,16 +15,8 @@ interface BaseArtwork {
   picture?: string;
 }
 
-export const enum Support {
-  K7,
-  DVD,
-  DEM,
-  BRD
-}
-
 export interface Movie extends BaseArtwork {
   type: ArtworkType.Movie;
-  support: Support;
   director: number[]; // Person
   actors: number[]; // Person
   composer: number[]; // Person
