@@ -10,8 +10,8 @@ export interface Record {
   support?: Support;
   artwork: number; // Artwork
   comment: string;
-  owner: number; // Person
-  location: number; // Location
+  owner?: number; // Person
+  location?: number; // Location
   alive: boolean;
   creator: number; // Member
   creation: Date;
