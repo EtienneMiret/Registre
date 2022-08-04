@@ -10,6 +10,8 @@ import movieIcon from '../public/movie.svg';
 import comicIcon from '../public/comic.svg';
 import bookIcon from '../public/book.svg';
 
+import styles from '../styles/Results.module.scss';
+
 const ICON_SIZE = 40;
 
 interface SearchParams {
@@ -36,17 +38,17 @@ const Search: RegistreLayoutPage<SearchParams> = ({results, series}) => {
     const seriesName = artwork.series ? series.find(s => s._id === artwork.series)?.name : '';
 
     return <tr>
-      <td>{picture}</td>
-      <td>{artwork.title}</td>
-      <td>{seriesName}</td>
+      <td className={styles.picture}>{picture}</td>
+      <td className={styles.title}>{artwork.title}</td>
+      <td className={styles.series}>{seriesName}</td>
       <td>{artwork.season}</td>
       <td>{artwork.episode}</td>
-      <td>{icon(artwork.type)}</td>
+      <td className={styles.type}>{icon(artwork.type)}</td>
     </tr>;
   };
 
   return <>
-    <table>
+    <table className={styles['search-results']}>
       <thead>
       <th/>
       <th>Référence</th>
