@@ -13,7 +13,8 @@ main.record {
   }
 
   .picture {
-    width: 198px;
+    $picture-width: 198px;
+    width: $picture-width;
     min-height: 280px;
     background: #eee;
     border: 1px solid #ddd;
@@ -29,6 +30,10 @@ main.record {
       margin: 118px auto 0;
       text-align: center;
       color: #bbb;
+    }
+
+    img {
+      width: $picture-width;
     }
   }
 
