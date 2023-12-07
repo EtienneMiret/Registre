@@ -29,5 +29,7 @@
   </form>
 </th:block>
 
+<div th:fragment="comment(record)" class="comment" th:text="${record.comment}" th:if="${record.comment}"/>
+
 </body>
 </html>

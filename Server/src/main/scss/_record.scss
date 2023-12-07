@@ -44,6 +44,11 @@ main.record {
       margin: 15px;
     }
 
+    .comment {
+      @extend p;
+      white-space: pre-wrap;
+    }
+
     a.edit, .revive button {
       @extend %button;
       margin: 30px 15px 15px auto;
