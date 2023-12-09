@@ -30,7 +30,7 @@
     <p th:if="*{location}">Emplacement&#x202F;:
       <a th:href="@{/Rechercher(q=|location:(*{location})|)}" th:text="*{location}">quelque part près de Paris</a>.</p>
     <p th:replace="records/base :: history (${record})">Référencé il y a longtemps par Étienne.</p>
-    <p th:if="*{comment}" th:text="*{comment}">Le premier d’une série de films super.</p>
+    <p th:replace="records/base :: comment (${record})">Le premier d’une série de films super.</p>
     <a th:replace="records/base :: editButton (${record})">Modifier</a>
   </section>
 

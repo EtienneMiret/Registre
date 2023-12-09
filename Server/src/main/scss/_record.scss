@@ -13,7 +13,8 @@ main.record {
   }
 
   .picture {
-    width: 198px;
+    $picture-width: 198px;
+    width: $picture-width;
     min-height: 280px;
     background: #eee;
     border: 1px solid #ddd;
@@ -30,6 +31,10 @@ main.record {
       text-align: center;
       color: #bbb;
     }
+
+    img {
+      width: $picture-width;
+    }
   }
 
   section {
@@ -42,6 +47,11 @@ main.record {
     p {
       text-align: justify;
       margin: 15px;
+    }
+
+    .comment {
+      @extend p;
+      white-space: pre-wrap;
     }
 
     a.edit, .revive button {

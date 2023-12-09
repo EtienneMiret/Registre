@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
     xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: head ('Ajouter une référence')">
+<head th:replace="base :: head (${command.id} ? 'Modifier - ' + ${command.title} : 'Ajouter une référence')">
   <title>Ajouter une référence - Registre</title>
 </head>
 <body>
