@@ -5,11 +5,9 @@
 </head>
 <body>
 
-<div th:fragment="picture (path)">
-  <div class="picture" th:unless="${path}">
-    <p>Pas d’image pour le moment.</p>
-  </div>
-  <img class="picture" th:if="${path}" th:src="@{/resources/images/records/{picture}(picture=${path})}"/>
+<div class="picture" th:fragment="picture (path)">
+  <p th:unless="${path}">Pas d’image pour le moment.</p>
+  <img th:if="${path}" th:src="@{/resources/images/records/{picture}(picture=${path})}"/>
 </div>
 
 <p th:fragment="series (record)" th:if="${record.series}" th:object="${record}">Série&#x202F;:
@@ -28,6 +26,8 @@
     <button>Réssusciter</button>
   </form>
 </th:block>
+
+<div th:fragment="comment(record)" class="comment" th:text="${record.comment}" th:if="${record.comment}"/>
 
 </body>
 </html>
