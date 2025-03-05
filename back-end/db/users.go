@@ -9,14 +9,14 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
-const collectionName = "users"
+const userCollection = "users"
 
 type UserRepository struct {
 	coll *mongo.Collection
 }
 
 func NewUserRepository(db *mongo.Database) *UserRepository {
-	return &UserRepository{db.Collection(collectionName)}
+	return &UserRepository{db.Collection(userCollection)}
 }
 
 func (r *UserRepository) List(ctx context.Context) ([]*types.User, error) {
