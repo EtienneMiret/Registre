@@ -46,3 +46,16 @@ func (r *UserRepository) Create(
 	}
 	return id.Hex(), nil
 }
+
+func (r *UserRepository) FindById(
+	ctx context.Context,
+	id string,
+) (*types.User, error) {
+	var res types.User
+	objId, err := bson.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+	err = r.coll.FindOne(ctx, bson.M{"_id": objId}).Decode(&res)
+	return &res, err
+}

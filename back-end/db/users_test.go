@@ -43,10 +43,12 @@ func TestUserRepository(t *testing.T) {
 	})
 
 	t.Run("Create 1 mail", func(t *testing.T) {
+		const name = "Étienne"
+		const email = "etienne.miret@ens-lyon.org"
 		id, err := repository.Create(
 			t.Context(),
-			"Étienne",
-			"etienne.miret@ens-lyon.org",
+			name,
+			email,
 		)
 		if err != nil {
 			t.Fatal(err)
@@ -54,25 +56,67 @@ func TestUserRepository(t *testing.T) {
 		if len(id) == 0 {
 			t.Fail()
 		}
-	})
 
-	t.Run("Create 0 mail", func(t *testing.T) {
-		_, err := repository.Create(t.Context(), "Quentin")
+		user, err := repository.FindById(t.Context(), id)
 		if err != nil {
 			t.Fatal(err)
 		}
+		if user.Name != name {
+			t.Fail()
+		}
+		if len(user.Emails) != 1 {
+			t.Fail()
+		}
+		if user.Emails[0] != email {
+			t.Fail()
+		}
 	})
 
-	t.Run("Create 3 mails", func(t *testing.T) {
-		_, err := repository.Create(
+	t.Run("Create 0 mail", func(t *testing.T) {
+		const name = "Quentin"
+		id, err := repository.Create(t.Context(), name)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		user, err := repository.FindById(t.Context(), id)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if user.Name != name {
+			t.Fail()
+		}
+		if len(user.Emails) != 0 {
+			t.Fail()
+		}
+	})
+
+	t.Run("Create 2 mails", func(t *testing.T) {
+		const name = "Foo"
+		var emails = []string{"foo@example.com", "foo@example.org"}
+		id, err := repository.Create(
 			t.Context(),
-			"Foo",
-			"foo@example.com",
-			"foo@example.org",
-			"admin@example.org",
+			name,
+			emails...,
 		)
 		if err != nil {
 			t.Fatal(err)
+		}
+
+		user, err := repository.FindById(t.Context(), id)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if user.Name != name {
+			t.Fail()
+		}
+		if len(user.Emails) != len(emails) {
+			t.Fail()
+		}
+		for i, email := range user.Emails {
+			if emails[i] != email {
+				t.Fail()
+			}
 		}
 	})
 
