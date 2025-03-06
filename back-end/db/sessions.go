@@ -13,7 +13,7 @@ const sessionCollection = "sessions"
 
 type SessionRepository interface {
 	Save(ctx context.Context, session *types.Session) error
-	FindByID(ctx context.Context, id string) (*types.Session, error)
+	FindById(ctx context.Context, id string) (*types.Session, error)
 }
 
 type mongoSessionRepository struct {
@@ -43,7 +43,7 @@ func (r *mongoSessionRepository) Save(
 	return err
 }
 
-func (r *mongoSessionRepository) FindByID(
+func (r *mongoSessionRepository) FindById(
 	ctx context.Context,
 	id string,
 ) (*types.Session, error) {

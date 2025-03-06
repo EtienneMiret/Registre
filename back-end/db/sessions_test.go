@@ -33,7 +33,7 @@ func TestNewSessionRepository(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = repository.FindByID(t.Context(), id)
+	_, err = repository.FindById(t.Context(), id)
 	if !errors.Is(err, mongo.ErrNoDocuments) {
 		t.Fatal(err)
 	}
@@ -106,11 +106,11 @@ func TestSessionRepository_FindByID(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	session0, err := repository.FindByID(t.Context(), id0)
+	session0, err := repository.FindById(t.Context(), id0)
 	if err != nil {
 		t.Fatal(err)
 	}
-	session1, err := repository.FindByID(t.Context(), id1)
+	session1, err := repository.FindById(t.Context(), id1)
 	if err != nil {
 		t.Fatal(err)
 	}

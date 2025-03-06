@@ -27,7 +27,7 @@ func (m *MockSessionRepository) Save(
 	return args.Error(0)
 }
 
-func (m *MockSessionRepository) FindByID(
+func (m *MockSessionRepository) FindById(
 	ctx context.Context,
 	id string,
 ) (*types.Session, error) {
