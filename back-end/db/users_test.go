@@ -11,7 +11,10 @@ import (
 func TestUserRepository_List_empty(t *testing.T) {
 	database, disconnect := ConnectTestDb(t)
 	defer disconnect()
-	repository := NewUserRepository(database)
+	repository, err := NewUserRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	list, err := repository.List(t.Context())
 
@@ -26,7 +29,10 @@ func TestUserRepository_List_empty(t *testing.T) {
 func TestUserRepository_Create_1_mail(t *testing.T) {
 	database, disconnect := ConnectTestDb(t)
 	defer disconnect()
-	repository := NewUserRepository(database)
+	repository, err := NewUserRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	const name = "Étienne"
 	const email = "etienne.miret@ens-lyon.org"
@@ -77,7 +83,10 @@ func TestUserRepository_Create_1_mail(t *testing.T) {
 func TestUserRepository_Create_0_mail(t *testing.T) {
 	database, disconnect := ConnectTestDb(t)
 	defer disconnect()
-	repository := NewUserRepository(database)
+	repository, err := NewUserRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	const name = "Quentin"
 
@@ -106,7 +115,10 @@ func TestUserRepository_Create_0_mail(t *testing.T) {
 func TestUserRepository_List_7(t *testing.T) {
 	database, disconnect := ConnectTestDb(t)
 	defer disconnect()
-	repository := NewUserRepository(database)
+	repository, err := NewUserRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	const n = 7
 
@@ -129,13 +141,16 @@ func TestUserRepository_List_7(t *testing.T) {
 func TestUserRepository_FindById(t *testing.T) {
 	database, disconnect := ConnectTestDb(t)
 	defer disconnect()
-	repository := NewUserRepository(database)
+	repository, err := NewUserRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	const name0 = "Étienne"
 	const name1 = "Quentin"
 
 	id0 := bson.NewObjectID()
-	_, err := repository.coll.InsertOne(t.Context(), bson.M{
+	_, err = repository.coll.InsertOne(t.Context(), bson.M{
 		"_id":    id0,
 		"name":   name0,
 		"emails": bson.A{},
@@ -178,6 +193,43 @@ func TestUserRepository_FindById(t *testing.T) {
 	}
 	if len(user1.Emails) != 0 {
 		t.Error("user1 emails should be empty")
+	}
+}
+
+func TestUserRepository_FindByEmail(t *testing.T) {
+	database, disconnect := ConnectTestDb(t)
+	defer disconnect()
+	repository, err := NewUserRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	const name = "Étienne"
+	const email = "etienne.miret@ens-lyon.org"
+
+	_, err = repository.coll.InsertOne(t.Context(), bson.M{
+		"name":   name,
+		"emails": bson.A{email},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	user, err := repository.FindByEmail(t.Context(), email)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if user == nil {
+		t.Fatal("user should not be nil")
+	}
+	if user.Name != name {
+		t.Error("user.name should be " + name)
+	}
+	if len(user.Emails) != 1 {
+		t.Fatal("user emails should have length", 1)
+	}
+	if user.Emails[0] != email {
+		t.Error("user email should be " + email)
 	}
 }
 

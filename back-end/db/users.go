@@ -15,8 +15,14 @@ type UserRepository struct {
 	coll *mongo.Collection
 }
 
-func NewUserRepository(db *mongo.Database) *UserRepository {
-	return &UserRepository{db.Collection(userCollection)}
+func NewUserRepository(db *mongo.Database) (*UserRepository, error) {
+	collection := db.Collection(userCollection)
+	_, err := collection.Indexes().CreateMany(context.Background(), []mongo.IndexModel{
+		{
+			Keys: bson.D{{"emails", 1}},
+		},
+	})
+	return &UserRepository{collection}, err
 }
 
 func (r *UserRepository) List(ctx context.Context) ([]*types.User, error) {
@@ -57,5 +63,14 @@ func (r *UserRepository) FindById(
 		return nil, err
 	}
 	err = r.coll.FindOne(ctx, bson.M{"_id": objId}).Decode(&res)
+	return &res, err
+}
+
+func (r *UserRepository) FindByEmail(
+	ctx context.Context,
+	email string,
+) (*types.User, error) {
+	var res types.User
+	err := r.coll.FindOne(ctx, bson.M{"emails": email}).Decode(&res)
 	return &res, err
 }
