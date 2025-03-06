@@ -32,5 +32,9 @@ func (m *MockSessionRepository) FindById(
 	id string,
 ) (*types.Session, error) {
 	args := m.Called(ctx, id)
-	return args.Get(0).(*types.Session), args.Error(1)
+	sess := args.Get(0)
+	if sess == nil {
+		return nil, args.Error(1)
+	}
+	return sess.(*types.Session), args.Error(1)
 }
