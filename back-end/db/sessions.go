@@ -6,6 +6,7 @@ import (
 	"gihub.com/EtienneMiret/Registre/back-end/types"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
+	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
 const sessionCollection = "sessions"
@@ -14,8 +15,18 @@ type SessionRepository struct {
 	coll *mongo.Collection
 }
 
-func NewSessionRepository(db *mongo.Database) *SessionRepository {
-	return &SessionRepository{db.Collection(sessionCollection)}
+func NewSessionRepository(db *mongo.Database) (*SessionRepository, error) {
+	collection := db.Collection(sessionCollection)
+	_, err := collection.Indexes().CreateMany(context.Background(), []mongo.IndexModel{
+		{
+			Keys: bson.D{{"userId", 1}},
+		},
+		{
+			Keys:    bson.D{{"expiry", 1}},
+			Options: options.Index().SetExpireAfterSeconds(0),
+		},
+	})
+	return &SessionRepository{collection}, err
 }
 
 func (r *SessionRepository) Save(

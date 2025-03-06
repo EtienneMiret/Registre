@@ -1,23 +1,58 @@
 package db
 
 import (
+	"errors"
 	"gihub.com/EtienneMiret/Registre/back-end/types"
 	"go.mongodb.org/mongo-driver/v2/bson"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 	"testing"
 	"time"
 )
 
+func TestNewSessionRepository(t *testing.T) {
+	database, done := ConnectTestDb(t)
+	defer done()
+
+	// Should not fail if indexes exist
+	_, err := NewSessionRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
+	repository, err := NewSessionRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Should delete expired sessions
+	const id = "expired-session"
+	session := &types.Session{
+		Id:     id,
+		Expiry: time.Unix(0, 0),
+	}
+	err = repository.Save(t.Context(), session)
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = repository.FindByID(t.Context(), id)
+	if !errors.Is(err, mongo.ErrNoDocuments) {
+		t.Fatal(err)
+	}
+}
+
 func TestSessionRepository_Save(t *testing.T) {
 	database, done := ConnectTestDb(t)
 	defer done()
-	repository := NewSessionRepository(database)
+	repository, err := NewSessionRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	session := &types.Session{
 		UserId: "userId",
 		Expiry: time.Unix(1<<40, 0),
 	}
 
-	err := repository.Save(t.Context(), session)
+	err = repository.Save(t.Context(), session)
 
 	if err != nil {
 		t.Fatal(err)
@@ -48,7 +83,10 @@ func TestSessionRepository_Save(t *testing.T) {
 func TestSessionRepository_FindByID(t *testing.T) {
 	database, done := ConnectTestDb(t)
 	defer done()
-	repository := NewSessionRepository(database)
+	repository, err := NewSessionRepository(database)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	const (
 		id0   = "foo"
@@ -56,7 +94,7 @@ func TestSessionRepository_FindByID(t *testing.T) {
 		user0 = "Foo"
 		user1 = "Bar"
 	)
-	_, err := repository.coll.InsertMany(t.Context(), []interface{}{
+	_, err = repository.coll.InsertMany(t.Context(), []interface{}{
 		bson.M{"_id": id0, "userId": user0},
 		bson.M{"_id": id1, "userId": user1},
 	})
