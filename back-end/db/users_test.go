@@ -49,7 +49,7 @@ func TestUserRepository_Create_1_mail(t *testing.T) {
 	if len(id) == 0 {
 		t.Error("id should not be empty")
 	}
-	raw, err := findOne(t.Context(), repository.coll, id)
+	raw, err := findOne(t.Context(), repository.(*mongoUserRepository).coll, id)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -95,7 +95,7 @@ func TestUserRepository_Create_0_mail(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	raw, err := findOne(t.Context(), repository.coll, id)
+	raw, err := findOne(t.Context(), repository.(*mongoUserRepository).coll, id)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -150,7 +150,7 @@ func TestUserRepository_FindById(t *testing.T) {
 	const name1 = "Quentin"
 
 	id0 := bson.NewObjectID()
-	_, err = repository.coll.InsertOne(t.Context(), bson.M{
+	_, err = repository.(*mongoUserRepository).coll.InsertOne(t.Context(), bson.M{
 		"_id":    id0,
 		"name":   name0,
 		"emails": bson.A{},
@@ -159,7 +159,7 @@ func TestUserRepository_FindById(t *testing.T) {
 		t.Fatal(err)
 	}
 	id1 := bson.NewObjectID()
-	_, err = repository.coll.InsertOne(t.Context(), bson.M{
+	_, err = repository.(*mongoUserRepository).coll.InsertOne(t.Context(), bson.M{
 		"_id":    id1,
 		"name":   name1,
 		"emails": bson.A{},
@@ -207,7 +207,7 @@ func TestUserRepository_FindByEmail(t *testing.T) {
 	const name = "Étienne"
 	const email = "etienne.miret@ens-lyon.org"
 
-	_, err = repository.coll.InsertOne(t.Context(), bson.M{
+	_, err = repository.(*mongoUserRepository).coll.InsertOne(t.Context(), bson.M{
 		"name":   name,
 		"emails": bson.A{email},
 	})

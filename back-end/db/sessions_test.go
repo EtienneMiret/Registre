@@ -60,7 +60,8 @@ func TestSessionRepository_Save(t *testing.T) {
 	if session.Id == "" {
 		t.Error("session.Id should not be empty")
 	}
-	raw, err := repository.coll.FindOne(t.Context(), bson.M{"_id": session.Id}).Raw()
+	raw, err := repository.(*mongoSessionRepository).
+		coll.FindOne(t.Context(), bson.M{"_id": session.Id}).Raw()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -94,10 +95,13 @@ func TestSessionRepository_FindByID(t *testing.T) {
 		user0 = "Foo"
 		user1 = "Bar"
 	)
-	_, err = repository.coll.InsertMany(t.Context(), []interface{}{
-		bson.M{"_id": id0, "userId": user0},
-		bson.M{"_id": id1, "userId": user1},
-	})
+	_, err = repository.(*mongoSessionRepository).coll.InsertMany(
+		t.Context(),
+		[]interface{}{
+			bson.M{"_id": id0, "userId": user0},
+			bson.M{"_id": id1, "userId": user1},
+		},
+	)
 	if err != nil {
 		t.Fatal(err)
 	}

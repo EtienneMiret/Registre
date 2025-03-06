@@ -11,21 +11,28 @@ import (
 
 const userCollection = "users"
 
-type UserRepository struct {
+type UserRepository interface {
+	List(ctx context.Context) ([]*types.User, error)
+	Create(ctx context.Context, name string, emails ...string) (string, error)
+	FindById(ctx context.Context, id string) (*types.User, error)
+	FindByEmail(ctx context.Context, email string) (*types.User, error)
+}
+
+type mongoUserRepository struct {
 	coll *mongo.Collection
 }
 
-func NewUserRepository(db *mongo.Database) (*UserRepository, error) {
+func NewUserRepository(db *mongo.Database) (UserRepository, error) {
 	collection := db.Collection(userCollection)
 	_, err := collection.Indexes().CreateMany(context.Background(), []mongo.IndexModel{
 		{
 			Keys: bson.D{{"emails", 1}},
 		},
 	})
-	return &UserRepository{collection}, err
+	return &mongoUserRepository{collection}, err
 }
 
-func (r *UserRepository) List(ctx context.Context) ([]*types.User, error) {
+func (r *mongoUserRepository) List(ctx context.Context) ([]*types.User, error) {
 	cursor, err := r.coll.Find(ctx, bson.D{})
 	if err != nil {
 		return nil, err
@@ -36,7 +43,7 @@ func (r *UserRepository) List(ctx context.Context) ([]*types.User, error) {
 	return result, err
 }
 
-func (r *UserRepository) Create(
+func (r *mongoUserRepository) Create(
 	ctx context.Context,
 	name string,
 	emails ...string,
@@ -53,7 +60,7 @@ func (r *UserRepository) Create(
 	return id.Hex(), nil
 }
 
-func (r *UserRepository) FindById(
+func (r *mongoUserRepository) FindById(
 	ctx context.Context,
 	id string,
 ) (*types.User, error) {
@@ -66,7 +73,7 @@ func (r *UserRepository) FindById(
 	return &res, err
 }
 
-func (r *UserRepository) FindByEmail(
+func (r *mongoUserRepository) FindByEmail(
 	ctx context.Context,
 	email string,
 ) (*types.User, error) {

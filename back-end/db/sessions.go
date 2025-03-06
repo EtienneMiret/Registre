@@ -11,11 +11,16 @@ import (
 
 const sessionCollection = "sessions"
 
-type SessionRepository struct {
+type SessionRepository interface {
+	Save(ctx context.Context, session *types.Session) error
+	FindByID(ctx context.Context, id string) (*types.Session, error)
+}
+
+type mongoSessionRepository struct {
 	coll *mongo.Collection
 }
 
-func NewSessionRepository(db *mongo.Database) (*SessionRepository, error) {
+func NewSessionRepository(db *mongo.Database) (SessionRepository, error) {
 	collection := db.Collection(sessionCollection)
 	_, err := collection.Indexes().CreateMany(context.Background(), []mongo.IndexModel{
 		{
@@ -26,10 +31,10 @@ func NewSessionRepository(db *mongo.Database) (*SessionRepository, error) {
 			Options: options.Index().SetExpireAfterSeconds(0),
 		},
 	})
-	return &SessionRepository{collection}, err
+	return &mongoSessionRepository{collection}, err
 }
 
-func (r *SessionRepository) Save(
+func (r *mongoSessionRepository) Save(
 	ctx context.Context,
 	session *types.Session,
 ) error {
@@ -38,7 +43,7 @@ func (r *SessionRepository) Save(
 	return err
 }
 
-func (r *SessionRepository) FindByID(
+func (r *mongoSessionRepository) FindByID(
 	ctx context.Context,
 	id string,
 ) (*types.Session, error) {
