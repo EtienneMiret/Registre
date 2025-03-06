@@ -2,16 +2,14 @@ package db
 
 import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
+	"go.mongodb.org/mongo-driver/v2/mongo/options"
 	"testing"
 )
 
-const (
-	testDbUrl  = "mongodb://localhost:27017"
-	testDbName = "test"
-)
+const testDbName = "test"
 
 func ConnectTestDb(t *testing.T) (*mongo.Database, func()) {
-	client, err := connect(testDbUrl)
+	client, err := connect(t.Context(), options.Client())
 	if err != nil {
 		t.Fatal(err)
 	}
