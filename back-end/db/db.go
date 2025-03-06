@@ -2,12 +2,13 @@ package db
 
 import (
 	"context"
+	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 	"os"
 )
 
-func Connect() (*mongo.Database, func() error, error) {
+func Connect() (*mongo.Database, func(logger echo.Logger), error) {
 	username, userOk := os.LookupEnv("REGISTRE_DB_USERNAME")
 	password, pwdOk := os.LookupEnv("REGISTRE_DB_PASSWORD")
 	mongoUrl, urlOk := os.LookupEnv("REGISTRE_DB_URL")
@@ -31,8 +32,8 @@ func Connect() (*mongo.Database, func() error, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	return client.Database(database), func() error {
-		return client.Disconnect(context.Background())
+	return client.Database(database), func(logger echo.Logger) {
+		logger.Fatal(client.Disconnect(context.Background()))
 	}, nil
 }
 
