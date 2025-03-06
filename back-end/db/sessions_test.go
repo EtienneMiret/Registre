@@ -23,7 +23,7 @@ func TestSessionRepository_Save(t *testing.T) {
 		t.Fatal(err)
 	}
 	if session.Id == "" {
-		t.Fail()
+		t.Error("session.Id should not be empty")
 	}
 	raw, err := repository.coll.FindOne(t.Context(), bson.M{"_id": session.Id}).Raw()
 	if err != nil {
@@ -31,17 +31,17 @@ func TestSessionRepository_Save(t *testing.T) {
 	}
 	str, ok := raw.Lookup("userId").StringValueOK()
 	if !ok {
-		t.Fail()
+		t.Fatal("userId should exist")
 	}
 	if str != session.UserId {
-		t.Fail()
+		t.Error("userId should be " + session.UserId)
 	}
 	exp, ok := raw.Lookup("expiry").TimeOK()
 	if !ok {
-		t.Fail()
+		t.Fatal("expiry should exist")
 	}
 	if exp != session.Expiry {
-		t.Fail()
+		t.Error("expiry should be " + session.Expiry.String())
 	}
 }
 
@@ -74,15 +74,15 @@ func TestSessionRepository_FindByID(t *testing.T) {
 	}
 
 	if session0.Id != id0 {
-		t.Fail()
+		t.Error("session0.Id should be " + id0)
 	}
 	if session1.Id != id1 {
-		t.Fail()
+		t.Error("session1.Id should be " + id1)
 	}
 	if session0.UserId != user0 {
-		t.Fail()
+		t.Error("session0.UserId should be " + user0)
 	}
 	if session1.UserId != user1 {
-		t.Fail()
+		t.Error("session1.UserId should be " + user1)
 	}
 }

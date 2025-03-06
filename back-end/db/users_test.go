@@ -19,7 +19,7 @@ func TestUserRepository_List_empty(t *testing.T) {
 		t.Fatal(err)
 	}
 	if len(list) != 0 {
-		t.Fail()
+		t.Error("list should be empty")
 	}
 }
 
@@ -41,7 +41,7 @@ func TestUserRepository_Create_1_mail(t *testing.T) {
 		t.Fatal(err)
 	}
 	if len(id) == 0 {
-		t.Fail()
+		t.Error("id should not be empty")
 	}
 	raw, err := findOne(t.Context(), repository.coll, id)
 	if err != nil {
@@ -49,28 +49,28 @@ func TestUserRepository_Create_1_mail(t *testing.T) {
 	}
 	str, ok := raw.Lookup("name").StringValueOK()
 	if !ok {
-		t.Fatal()
+		t.Fatal("name should exist")
 	}
 	if str != name {
-		t.Fail()
+		t.Error("name should be " + name)
 	}
 	arr, ok := raw.Lookup("emails").ArrayOK()
 	if !ok {
-		t.Fatal()
+		t.Fatal("emails should exist")
 	}
 	values, err := arr.Values()
 	if err != nil {
 		t.Fatal(err)
 	}
 	if len(values) != 1 {
-		t.Fatal()
+		t.Fatal("emails should have one element")
 	}
 	str, ok = values[0].StringValueOK()
 	if !ok {
-		t.Fatal()
+		t.Fatal("emails should contain a string")
 	}
 	if str != email {
-		t.Fail()
+		t.Error("email should be " + email)
 	}
 }
 
@@ -92,14 +92,14 @@ func TestUserRepository_Create_0_mail(t *testing.T) {
 	}
 	arr, ok := raw.Lookup("emails").ArrayOK()
 	if !ok {
-		t.Fatal()
+		t.Fatal("emails should exist")
 	}
 	values, err := arr.Values()
 	if err != nil {
 		t.Fatal(err)
 	}
 	if len(values) != 0 {
-		t.Fail()
+		t.Error("emails should be empty")
 	}
 }
 
@@ -122,7 +122,7 @@ func TestUserRepository_List_7(t *testing.T) {
 		t.Fatal(err)
 	}
 	if len(list) != n {
-		t.Fail()
+		t.Error("list should have length", n)
 	}
 }
 
@@ -162,22 +162,22 @@ func TestUserRepository_FindById(t *testing.T) {
 		t.Fatal(err)
 	}
 	if user0 == nil {
-		t.Fatal()
+		t.Fatal("user0 should not be nil")
 	}
 	if user1 == nil {
-		t.Fatal()
+		t.Fatal("user1 should not be nil")
 	}
 	if user0.Name != name0 {
-		t.Fail()
+		t.Error("user0 name should be " + name0)
 	}
 	if user1.Name != name1 {
-		t.Fail()
+		t.Error("user1 name should be " + name1)
 	}
 	if len(user0.Emails) != 0 {
-		t.Fail()
+		t.Error("user0 emails should be empty")
 	}
 	if len(user1.Emails) != 0 {
-		t.Fail()
+		t.Error("user1 emails should be empty")
 	}
 }
 
