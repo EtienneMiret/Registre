@@ -2,7 +2,7 @@ package services
 
 import (
 	"context"
-	"gihub.com/EtienneMiret/Registre/back-end/types"
+	"etienne.miret.io/registre/back/types"
 	"github.com/stretchr/testify/mock"
 	"time"
 )

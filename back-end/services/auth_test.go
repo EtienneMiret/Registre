@@ -1,7 +1,7 @@
 package services
 
 import (
-	"gihub.com/EtienneMiret/Registre/back-end/types"
+	"etienne.miret.io/registre/back/types"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/v2/mongo"

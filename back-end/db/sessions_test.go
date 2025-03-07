@@ -2,7 +2,7 @@ package db
 
 import (
 	"errors"
-	"gihub.com/EtienneMiret/Registre/back-end/types"
+	"etienne.miret.io/registre/back/types"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"testing"

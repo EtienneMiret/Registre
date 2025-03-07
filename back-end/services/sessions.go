@@ -2,8 +2,8 @@ package services
 
 import (
 	"context"
-	"gihub.com/EtienneMiret/Registre/back-end/db"
-	"gihub.com/EtienneMiret/Registre/back-end/types"
+	"etienne.miret.io/registre/back/db"
+	"etienne.miret.io/registre/back/types"
 	"time"
 )
 

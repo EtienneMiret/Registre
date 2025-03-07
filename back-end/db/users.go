@@ -3,8 +3,8 @@ package db
 import (
 	"context"
 	"errors"
+	"etienne.miret.io/registre/back/types"
 	"fmt"
-	"gihub.com/EtienneMiret/Registre/back-end/types"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )

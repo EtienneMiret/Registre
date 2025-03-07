@@ -1,4 +1,4 @@
-module gihub.com/EtienneMiret/Registre/back-end
+module etienne.miret.io/registre/back
 
 go 1.24.0
 

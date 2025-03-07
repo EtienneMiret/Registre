@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gihub.com/EtienneMiret/Registre/back-end/db"
-	"gihub.com/EtienneMiret/Registre/back-end/services"
+	"etienne.miret.io/registre/back/db"
+	"etienne.miret.io/registre/back/services"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
