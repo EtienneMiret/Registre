@@ -3,6 +3,7 @@ package main
 import (
 	"etienne.miret.io/registre/back/db"
 	"etienne.miret.io/registre/back/services"
+	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -10,6 +11,9 @@ import (
 
 func main() {
 	e := echo.New()
+	e.HideBanner = true
+	e.HidePort = true
+	e.Use(middleware.Logger())
 
 	database, disconnect, err := db.Connect()
 	if err != nil {
