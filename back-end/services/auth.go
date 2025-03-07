@@ -95,6 +95,11 @@ func (s *AuthService) Callback(c echo.Context) error {
 	if stateParam != stateCookie.Value {
 		return c.String(http.StatusBadRequest, "invalid state")
 	}
+	c.SetCookie(&http.Cookie{
+		Name:   stateCookieName,
+		Path:   "/api/auth/",
+		MaxAge: -1,
+	})
 
 	code := c.Request().URL.Query().Get("code")
 	oauth2Token, err := provider.config.Exchange(ctx, code)
