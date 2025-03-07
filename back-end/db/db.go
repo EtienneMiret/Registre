@@ -28,7 +28,7 @@ func Connect() (*mongo.Database, func(logger echo.Logger), error) {
 		database = "registre"
 	}
 
-	client, err := connect(context.Background(), opts)
+	client, err := connect(opts)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -38,7 +38,6 @@ func Connect() (*mongo.Database, func(logger echo.Logger), error) {
 }
 
 func connect(
-	ctx context.Context,
 	opts *options.ClientOptions,
 ) (*mongo.Client, error) {
 	opts.BSONOptions = &options.BSONOptions{

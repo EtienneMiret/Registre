@@ -9,7 +9,7 @@ import (
 const testDbName = "test"
 
 func ConnectTestDb(t *testing.T) (*mongo.Database, func()) {
-	client, err := connect(t.Context(), options.Client())
+	client, err := connect(options.Client())
 	if err != nil {
 		t.Fatal(err)
 	}
