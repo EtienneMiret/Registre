@@ -1,12 +1,12 @@
 package main
 
 import (
+	"context"
 	"etienne.miret.io/registre/back/db"
 	"etienne.miret.io/registre/back/services"
+	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"net/http"
-
-	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -30,13 +30,26 @@ func main() {
 		e.Logger.Fatal(err)
 	}
 
-	authService := services.NewAuthService(sessionRepository, userRepository)
+	clock := services.NewClock()
+	sessionService := services.NewSessionService(sessionRepository, clock)
+	authService := services.NewAuthService(
+		sessionRepository,
+		userRepository,
+		sessionService,
+		clock,
+	)
+	err = authService.ConfigureOidc(context.Background())
+	if err != nil {
+		e.Logger.Fatal(err)
+	}
 
 	e.Use(authService.Process)
 
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
+	e.GET("/api/auth/login/:provider", authService.Login)
+	e.GET("/api/auth/callback/:provider", authService.Callback)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
