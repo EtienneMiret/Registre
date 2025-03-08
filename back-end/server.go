@@ -32,6 +32,8 @@ func main() {
 
 	clock := services.NewClock()
 	sessionService := services.NewSessionService(sessionRepository, clock)
+
+	userService := services.NewUserService()
 	authService := services.NewAuthService(
 		sessionRepository,
 		userRepository,
@@ -50,6 +52,7 @@ func main() {
 	})
 	e.GET("/api/auth/login/:provider", authService.Login)
 	e.GET("/api/auth/callback/:provider", authService.Callback)
+	e.GET("/api/users/@me", userService.WhoAmI)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

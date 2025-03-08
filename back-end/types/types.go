@@ -6,9 +6,9 @@ import (
 )
 
 type User struct {
-	Id     string   `bson:"_id,omitempty"`
-	Name   string   `bson:"name"`
-	Emails []string `bson:"emails"`
+	Id     string   `bson:"_id,omitempty" json:"id"`
+	Name   string   `bson:"name"          json:"name"`
+	Emails []string `bson:"emails"        json:"-"`
 }
 
 type Session struct {
