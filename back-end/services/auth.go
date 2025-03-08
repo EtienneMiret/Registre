@@ -91,7 +91,7 @@ func (s *AuthService) Callback(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusBadRequest, "invalid state")
 	}
-	stateParam := c.Request().URL.Query().Get("state")
+	stateParam := c.QueryParam("state")
 	if stateParam != stateCookie.Value {
 		return c.String(http.StatusBadRequest, "invalid state")
 	}
@@ -101,7 +101,7 @@ func (s *AuthService) Callback(c echo.Context) error {
 		MaxAge: -1,
 	})
 
-	code := c.Request().URL.Query().Get("code")
+	code := c.QueryParam("code")
 	oauth2Token, err := provider.config.Exchange(ctx, code)
 	if err != nil {
 		c.Logger().Error(err)
