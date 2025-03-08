@@ -25,38 +25,48 @@ type AuthService struct {
 }
 
 func NewAuthService(
+	ctx context.Context,
 	sessionRepository db.SessionRepository,
 	userRepository db.UserRepository,
 	sessionService SessionService,
 	clock Clock,
-) *AuthService {
+) (*AuthService, error) {
+	googleClientId, ok := os.LookupEnv("REGISTRE_GOOGLE_CLIENT_ID")
+	if !ok {
+		return nil, errors.New("REGISTRE_GOOGLE_CLIENT_ID is not set")
+	}
+	googleClientSecret, ok := os.LookupEnv("REGISTRE_GOOGLE_CLIENT_SECRET")
+	if !ok {
+		return nil, errors.New("REGISTRE_GOOGLE_CLIENT_SECRET is not set")
+	}
+	googleRedirectUrl, ok := os.LookupEnv("REGISTRE_GOOGLE_REDIRECT_URL")
+	if !ok {
+		return nil, errors.New("REGISTRE_GOOGLE_REDIRECT_URL is not set")
+	}
+	googleProvider, err := oidc.NewProvider(ctx, "https://accounts.google.com")
+	if err != nil {
+		return nil, err
+	}
+	googleConfig := &oauth2.Config{
+		ClientID:     googleClientId,
+		ClientSecret: googleClientSecret,
+		RedirectURL:  googleRedirectUrl,
+		Endpoint:     googleProvider.Endpoint(),
+		Scopes:       []string{oidc.ScopeOpenID, "email"},
+	}
+
 	return &AuthService{
 		sessionRepository: sessionRepository,
 		userRepository:    userRepository,
 		sessionService:    sessionService,
 		clock:             clock,
-	}
-}
-
-func (s *AuthService) ConfigureOidc(ctx context.Context) error {
-	googleProvider, err := oidc.NewProvider(ctx, "https://accounts.google.com")
-	if err != nil {
-		return err
-	}
-	googleConfig := &oauth2.Config{
-		ClientID:     os.Getenv("REGISTRE_GOOGLE_CLIENT_ID"),
-		ClientSecret: os.Getenv("REGISTRE_GOOGLE_CLIENT_SECRET"),
-		RedirectURL:  os.Getenv("REGISTRE_GOOGLE_REDIRECT_URL"),
-		Endpoint:     googleProvider.Endpoint(),
-		Scopes:       []string{oidc.ScopeOpenID, "email"},
-	}
-	s.providers = map[string]*oidcProvider{
-		"google": {
-			provider: googleProvider,
-			config:   googleConfig,
+		providers: map[string]*oidcProvider{
+			"google": {
+				provider: googleProvider,
+				config:   googleConfig,
+			},
 		},
-	}
-	return nil
+	}, nil
 }
 
 const stateCookieName = "token"

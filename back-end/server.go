@@ -34,13 +34,13 @@ func main() {
 	sessionService := services.NewSessionService(sessionRepository, clock)
 
 	userService := services.NewUserService()
-	authService := services.NewAuthService(
+	authService, err := services.NewAuthService(
+		context.Background(),
 		sessionRepository,
 		userRepository,
 		sessionService,
 		clock,
 	)
-	err = authService.ConfigureOidc(context.Background())
 	if err != nil {
 		e.Logger.Fatal(err)
 	}
