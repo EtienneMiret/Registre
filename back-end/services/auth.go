@@ -61,6 +61,9 @@ func (s *AuthService) ConfigureOidc(ctx context.Context) error {
 
 const stateCookieName = "token"
 const sessionIdCookieName = "token"
+const redirectToCookieName = "redirectTo"
+
+const cookiePath = "/api/auth/"
 
 func (s *AuthService) Login(c echo.Context) error {
 	providerName := c.Param("provider")
@@ -74,9 +77,22 @@ func (s *AuthService) Login(c echo.Context) error {
 		Value:    state,
 		HttpOnly: true,
 		Secure:   true,
-		Path:     "/api/auth/",
+		Path:     cookiePath,
 		SameSite: http.SameSiteLaxMode,
 	})
+
+	redirectTo := c.QueryParam("redirectTo")
+	if redirectTo != "" {
+		c.SetCookie(&http.Cookie{
+			Name:     redirectToCookieName,
+			Value:    redirectTo,
+			HttpOnly: true,
+			Secure:   true,
+			Path:     cookiePath,
+			SameSite: http.SameSiteLaxMode,
+		})
+	}
+
 	return c.Redirect(http.StatusFound, provider.config.AuthCodeURL(state))
 }
 
@@ -97,7 +113,7 @@ func (s *AuthService) Callback(c echo.Context) error {
 	}
 	c.SetCookie(&http.Cookie{
 		Name:   stateCookieName,
-		Path:   "/api/auth/",
+		Path:   cookiePath,
 		MaxAge: -1,
 	})
 
@@ -154,7 +170,20 @@ func (s *AuthService) Callback(c echo.Context) error {
 		Expires:  session.Expiry,
 	})
 
-	return c.String(http.StatusOK, "Successfully logged in.")
+	var redirectTo string
+	redirectToCookie, err := c.Cookie(redirectToCookieName)
+	if err == nil {
+		redirectTo = redirectToCookie.Value
+		c.SetCookie(&http.Cookie{
+			Name:   redirectToCookieName,
+			Path:   cookiePath,
+			MaxAge: -1,
+		})
+	} else {
+		redirectTo = "/"
+	}
+
+	return c.Redirect(http.StatusFound, redirectTo)
 }
 
 var authPathRegex = regexp.MustCompile(`^/api/auth/`)
