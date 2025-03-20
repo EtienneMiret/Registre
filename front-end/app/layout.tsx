@@ -5,6 +5,7 @@ import { Nav } from "./components/Nav";
 
 import "./styles/globals.css";
 import styles from "./styles/layout.module.css";
+import {Authenticated} from '@/app/components/auth/Authenticated';
 
 interface Props {
   readonly children: ReactNode;
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: Props) {
     <StoreProvider>
       <html lang="en">
         <body>
+        <Authenticated>
           <section className={styles.container}>
             <Nav />
 
@@ -78,6 +80,7 @@ export default function RootLayout({ children }: Props) {
               </a>
             </footer>
           </section>
+        </Authenticated>
         </body>
       </html>
     </StoreProvider>
