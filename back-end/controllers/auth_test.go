@@ -1,6 +1,7 @@
-package services
+package controllers
 
 import (
+	"etienne.miret.io/registre/back/test"
 	"etienne.miret.io/registre/back/types"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -10,12 +11,12 @@ import (
 	"testing"
 )
 
-func TestAuthService_Process_ok(t *testing.T) {
+func TestAuthController_Process_ok(t *testing.T) {
 	const token = "foobar"
 	const userId = "someUser"
-	sessionRepository := &MockSessionRepository{}
-	userRepository := &MockUserRepository{}
-	authService := AuthService{
+	sessionRepository := &test.MockSessionRepository{}
+	userRepository := &test.MockUserRepository{}
+	authService := AuthController{
 		sessionRepository: sessionRepository,
 		userRepository:    userRepository,
 	}
@@ -42,10 +43,10 @@ func TestAuthService_Process_ok(t *testing.T) {
 	assert.True(t, ok)
 }
 
-func TestAuthService_Process_no_token(t *testing.T) {
-	sessionRepository := &MockSessionRepository{}
-	userRepository := &MockUserRepository{}
-	authService := AuthService{
+func TestAuthController_Process_no_token(t *testing.T) {
+	sessionRepository := &test.MockSessionRepository{}
+	userRepository := &test.MockUserRepository{}
+	authService := AuthController{
 		sessionRepository: sessionRepository,
 		userRepository:    userRepository,
 	}
@@ -65,11 +66,11 @@ func TestAuthService_Process_no_token(t *testing.T) {
 	assert.True(t, ok)
 }
 
-func TestAuthService_Process_invalid_token(t *testing.T) {
+func TestAuthController_Process_invalid_token(t *testing.T) {
 	const token = "foobar"
-	sessionRepository := &MockSessionRepository{}
-	userRepository := &MockUserRepository{}
-	authService := AuthService{
+	sessionRepository := &test.MockSessionRepository{}
+	userRepository := &test.MockUserRepository{}
+	authService := AuthController{
 		sessionRepository: sessionRepository,
 		userRepository:    userRepository,
 	}

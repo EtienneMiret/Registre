@@ -1,6 +1,7 @@
 package services
 
 import (
+	"etienne.miret.io/registre/back/test"
 	"etienne.miret.io/registre/back/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -10,10 +11,10 @@ import (
 
 func TestSessionService_Create(t *testing.T) {
 	now := time.Date(2025, 3, 6, 16, 30, 0, 0, time.UTC)
-	repository := &MockSessionRepository{}
+	repository := &test.MockSessionRepository{}
 	service := &sessionService{
 		repository: repository,
-		clock:      &MockClock{now: now},
+		clock:      test.NewMockClock(now),
 	}
 	user := &types.User{Id: "user"}
 	repository.On("Save", t.Context(), mock.Anything).Return(nil)
@@ -30,10 +31,10 @@ func TestSessionService_Create(t *testing.T) {
 
 func TestSessionService_Create_Error(t *testing.T) {
 	now := time.Unix(0, 0)
-	repository := &MockSessionRepository{}
+	repository := &test.MockSessionRepository{}
 	service := &sessionService{
 		repository: repository,
-		clock:      &MockClock{now: now},
+		clock:      test.NewMockClock(now),
 	}
 	user := &types.User{Id: "user"}
 	repository.On("Save", t.Context(), mock.Anything).Return(assert.AnError)

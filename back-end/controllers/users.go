@@ -1,4 +1,4 @@
-package services
+package controllers
 
 import (
 	"etienne.miret.io/registre/back/types"
@@ -6,14 +6,14 @@ import (
 	"net/http"
 )
 
-type UserService struct {
+type UserController struct {
 }
 
-func NewUserService() *UserService {
-	return &UserService{}
+func NewUserController() *UserController {
+	return &UserController{}
 }
 
-func (*UserService) WhoAmI(c echo.Context) error {
+func (*UserController) WhoAmI(c echo.Context) error {
 	ac, ok := c.(*types.AuthenticatedContext)
 	if !ok {
 		return c.String(http.StatusNotFound, "Not authenticated")

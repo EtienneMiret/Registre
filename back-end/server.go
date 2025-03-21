@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"etienne.miret.io/registre/back/controllers"
 	"etienne.miret.io/registre/back/db"
 	"etienne.miret.io/registre/back/services"
 	"github.com/labstack/echo/v4"
@@ -33,8 +34,8 @@ func main() {
 	clock := services.NewClock()
 	sessionService := services.NewSessionService(sessionRepository, clock)
 
-	userService := services.NewUserService()
-	authService, err := services.NewAuthService(
+	userController := controllers.NewUserController()
+	authController, err := controllers.NewAuthController(
 		context.Background(),
 		sessionRepository,
 		userRepository,
@@ -45,14 +46,14 @@ func main() {
 		e.Logger.Fatal(err)
 	}
 
-	e.Use(authService.Process)
+	e.Use(authController.Process)
 
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
-	e.GET("/api/auth/login/:provider", authService.Login)
-	e.GET("/api/auth/callback/:provider", authService.Callback)
-	e.GET("/api/users/@me", userService.WhoAmI)
+	e.GET("/api/auth/login/:provider", authController.Login)
+	e.GET("/api/auth/callback/:provider", authController.Callback)
+	e.GET("/api/users/@me", userController.WhoAmI)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

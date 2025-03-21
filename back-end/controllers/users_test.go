@@ -1,4 +1,4 @@
-package services
+package controllers
 
 import (
 	"etienne.miret.io/registre/back/types"
@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestUserService_WhoAmI(t *testing.T) {
+func TestUserController_WhoAmI(t *testing.T) {
 	e := echo.New()
 	req := httptest.NewRequest(http.MethodGet, "/users/@me", nil)
 	rec := httptest.NewRecorder()
@@ -21,9 +21,9 @@ func TestUserService_WhoAmI(t *testing.T) {
 			Emails: []string{"etienne.miret@ens-lyon.org"},
 		},
 	}
-	userService := &UserService{}
+	userController := &UserController{}
 
-	err := userService.WhoAmI(ac)
+	err := userController.WhoAmI(ac)
 
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, rec.Code)

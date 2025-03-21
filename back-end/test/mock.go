@@ -1,4 +1,4 @@
-package services
+package test
 
 import (
 	"context"
@@ -6,6 +6,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"time"
 )
+
+func NewMockClock(now time.Time) *MockClock {
+	return &MockClock{now: now}
+}
 
 type MockClock struct {
 	now time.Time

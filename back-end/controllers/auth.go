@@ -1,10 +1,11 @@
-package services
+package controllers
 
 import (
 	"context"
 	"crypto/rand"
 	"errors"
 	"etienne.miret.io/registre/back/db"
+	"etienne.miret.io/registre/back/services"
 	"etienne.miret.io/registre/back/types"
 	"fmt"
 	"github.com/coreos/go-oidc/v3/oidc"
@@ -16,21 +17,21 @@ import (
 	"regexp"
 )
 
-type AuthService struct {
+type AuthController struct {
 	sessionRepository db.SessionRepository
 	userRepository    db.UserRepository
-	sessionService    SessionService
-	clock             Clock
+	sessionService    services.SessionService
+	clock             services.Clock
 	providers         map[string]*oidcProvider
 }
 
-func NewAuthService(
+func NewAuthController(
 	ctx context.Context,
 	sessionRepository db.SessionRepository,
 	userRepository db.UserRepository,
-	sessionService SessionService,
-	clock Clock,
-) (*AuthService, error) {
+	sessionService services.SessionService,
+	clock services.Clock,
+) (*AuthController, error) {
 	googleClientId, ok := os.LookupEnv("REGISTRE_GOOGLE_CLIENT_ID")
 	if !ok {
 		return nil, errors.New("REGISTRE_GOOGLE_CLIENT_ID is not set")
@@ -55,7 +56,7 @@ func NewAuthService(
 		Scopes:       []string{oidc.ScopeOpenID, "email"},
 	}
 
-	return &AuthService{
+	return &AuthController{
 		sessionRepository: sessionRepository,
 		userRepository:    userRepository,
 		sessionService:    sessionService,
@@ -75,7 +76,7 @@ const redirectToCookieName = "redirectTo"
 
 const cookiePath = "/api/auth/"
 
-func (s *AuthService) Login(c echo.Context) error {
+func (s *AuthController) Login(c echo.Context) error {
 	providerName := c.Param("provider")
 	provider, ok := s.providers[providerName]
 	if !ok {
@@ -106,7 +107,7 @@ func (s *AuthService) Login(c echo.Context) error {
 	return c.Redirect(http.StatusFound, provider.config.AuthCodeURL(state))
 }
 
-func (s *AuthService) Callback(c echo.Context) error {
+func (s *AuthController) Callback(c echo.Context) error {
 	ctx := c.Request().Context()
 	providerName := c.Param("provider")
 	provider, ok := s.providers[providerName]
@@ -198,7 +199,7 @@ func (s *AuthService) Callback(c echo.Context) error {
 
 var authPathRegex = regexp.MustCompile(`^/api/auth/`)
 
-func (s *AuthService) Process(next echo.HandlerFunc) echo.HandlerFunc {
+func (s *AuthController) Process(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		if authPathRegex.MatchString(c.Request().URL.Path) {
 			return next(c)
@@ -228,7 +229,7 @@ func (s *AuthService) Process(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-func (s *AuthService) oidcConfig(provider *oidcProvider) *oidc.Config {
+func (s *AuthController) oidcConfig(provider *oidcProvider) *oidc.Config {
 	return &oidc.Config{
 		ClientID: provider.config.ClientID,
 		Now:      s.clock.Now,
