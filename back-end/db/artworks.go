@@ -12,6 +12,7 @@ const artworkCollection = "artworks"
 
 type ArtworkRepository interface {
 	Save(ctx context.Context, artwork *types.Artwork) error
+	FindById(ctx context.Context, id int64) (*types.Artwork, error)
 }
 
 func NewArtworkRepository(db *mongo.Database) (ArtworkRepository, error) {
@@ -34,4 +35,13 @@ func (r *mongoArtworkRepository) Save(
 		options.UpdateOne().SetUpsert(true),
 	)
 	return err
+}
+
+func (r *mongoArtworkRepository) FindById(
+	ctx context.Context,
+	id int64,
+) (*types.Artwork, error) {
+	artwork := &types.Artwork{}
+	err := r.coll.FindOne(ctx, bson.M{"_id": id}).Decode(artwork)
+	return artwork, err
 }

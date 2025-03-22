@@ -67,3 +67,45 @@ func TestArtworkRepository_Save(t *testing.T) {
 	assert.True(t, ok, "role should be string")
 	assert.Equal(t, string(tolkien.Role), role)
 }
+
+func TestArtworkRepository_FindById(t *testing.T) {
+	database, done := ConnectTestDb(t)
+	defer done()
+	repository, err := NewArtworkRepository(database)
+	assert.NoError(t, err)
+
+	id := int64(43)
+	artworkType := types.Book
+	name := "The Two Towers"
+	series := int64(12)
+	number := int32(2)
+	description := "The Lord of the Rings: Volume 2"
+	picture := "aExTufGHn"
+	tolkienId := int64(38)
+	tolkienRole := types.Author
+	_, err = database.Collection(artworkCollection).InsertOne(t.Context(), bson.M{
+		"_id":          id,
+		"type":         artworkType,
+		"name":         name,
+		"series":       series,
+		"number":       number,
+		"description":  description,
+		"picture":      picture,
+		"participants": bson.A{bson.M{"person": tolkienId, "role": tolkienRole}},
+	})
+	assert.NoError(t, err)
+
+	res, err := repository.FindById(t.Context(), id)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	assert.Equal(t, id, res.Id)
+	assert.Equal(t, artworkType, res.Type)
+	assert.Equal(t, name, res.Name)
+	assert.Equal(t, series, res.Series)
+	assert.Equal(t, number, res.Number)
+	assert.Equal(t, description, res.Description)
+	assert.Equal(t, picture, res.Picture)
+	assert.Equal(t, 1, len(res.Participants), "should have one participant")
+	assert.Equal(t, tolkienId, res.Participants[0].Person)
+	assert.Equal(t, tolkienRole, res.Participants[0].Role)
+}
