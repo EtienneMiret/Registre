@@ -124,10 +124,11 @@ func TestArtworkRepository_FindAll(t *testing.T) {
 		assert.NoError(t, err)
 	}
 
-	producer := repository.FindAll(t.Context())
+	ch, err := repository.FindAll(t.Context())
+
+	assert.NoError(t, err)
 	found := make([]*types.Artwork, 0)
-	for artwork, err := producer(); artwork != nil && err != nil; artwork, err = producer() {
-		assert.NoError(t, err)
+	for artwork := range ch {
 		found = append(found, artwork)
 	}
 	assert.Len(t, found, len(ids))

@@ -13,7 +13,7 @@ const artworkCollection = "artworks"
 type ArtworkRepository interface {
 	Save(ctx context.Context, artwork *types.Artwork) error
 	FindById(ctx context.Context, id int64) (*types.Artwork, error)
-	FindAll(ctx context.Context) func() (*types.Artwork, error)
+	FindAll(ctx context.Context) (chan *types.Artwork, error)
 }
 
 func NewArtworkRepository(db *mongo.Database) (ArtworkRepository, error) {
@@ -49,19 +49,26 @@ func (r *mongoArtworkRepository) FindById(
 
 func (r *mongoArtworkRepository) FindAll(
 	ctx context.Context,
-) func() (*types.Artwork, error) {
+) (chan *types.Artwork, error) {
+	result := make(chan *types.Artwork)
 	cursor, err := r.coll.Find(ctx, bson.M{})
 	if err != nil {
-		return func() (*types.Artwork, error) {
-			return nil, err
+		return result, err
+	}
+	stream := func() {
+		defer close(result)
+		for cursor.Next(ctx) {
+			artwork := &types.Artwork{}
+			if cursor.Decode(artwork) != nil {
+				return
+			}
+			select {
+			case result <- artwork:
+			case <-ctx.Done():
+				return
+			}
 		}
 	}
-	return func() (*types.Artwork, error) {
-		if !cursor.Next(ctx) {
-			return nil, nil
-		}
-		artwork := &types.Artwork{}
-		err := cursor.Decode(artwork)
-		return artwork, err
-	}
+	go stream()
+	return result, nil
 }
