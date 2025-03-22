@@ -109,3 +109,26 @@ func TestArtworkRepository_FindById(t *testing.T) {
 	assert.Equal(t, tolkienId, res.Participants[0].Person)
 	assert.Equal(t, tolkienRole, res.Participants[0].Role)
 }
+
+func TestArtworkRepository_FindAll(t *testing.T) {
+	database, done := ConnectTestDb(t)
+	defer done()
+	repository, err := NewArtworkRepository(database)
+	assert.NoError(t, err)
+
+	ids := []int64{42, 43, 44, 45, 46, 47, 48, 49, 50, 51}
+	for _, id := range ids {
+		_, err := database.Collection(artworkCollection).InsertOne(t.Context(), bson.M{
+			"_id": id,
+		})
+		assert.NoError(t, err)
+	}
+
+	producer := repository.FindAll(t.Context())
+	found := make([]*types.Artwork, 0)
+	for artwork, err := producer(); artwork != nil && err != nil; artwork, err = producer() {
+		assert.NoError(t, err)
+		found = append(found, artwork)
+	}
+	assert.Len(t, found, len(ids))
+}
