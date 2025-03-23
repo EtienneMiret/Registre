@@ -14,14 +14,14 @@ func TestArtworkRepository_Save(t *testing.T) {
 	assert.NoError(t, err)
 
 	tolkien := types.Participant{
-		Person: 38,
+		Person: types.Person{Id: 38, Name: "J.R.R. Tolkien"},
 		Role:   types.Author,
 	}
 	artwork := &types.Artwork{
 		Id:           42,
 		Type:         types.Book,
 		Name:         "The Fellowship of The Ring",
-		Series:       12,
+		Series:       types.Series{Id: 12, Name: "The Lord of the Rings"},
 		Number:       1,
 		Description:  "The Lord of the Rings: Volume 1",
 		Picture:      "aExTufGHn",
@@ -44,9 +44,14 @@ func TestArtworkRepository_Save(t *testing.T) {
 	name, ok := raw.Lookup("name").StringValueOK()
 	assert.True(t, ok, "name should be string")
 	assert.Equal(t, artwork.Name, name)
-	series, ok := raw.Lookup("series").Int64OK()
-	assert.True(t, ok, "series should be int64")
-	assert.Equal(t, artwork.Series, series)
+	series, ok := raw.Lookup("series").DocumentOK()
+	assert.True(t, ok, "series should be a document")
+	seriesId, ok := series.Lookup("_id").Int64OK()
+	assert.True(t, ok, "seriesId should be int64")
+	assert.Equal(t, artwork.Series.Id, seriesId)
+	seriesName, ok := series.Lookup("name").StringValueOK()
+	assert.True(t, ok, "seriesName should be string")
+	assert.Equal(t, artwork.Series.Name, seriesName)
 	number, ok := raw.Lookup("number").Int32OK()
 	assert.True(t, ok, "number should be int32")
 	assert.Equal(t, artwork.Number, number)
@@ -60,9 +65,14 @@ func TestArtworkRepository_Save(t *testing.T) {
 	assert.True(t, ok, "participants should be an array")
 	p0, ok := participants.Index(0).DocumentOK()
 	assert.True(t, ok, "participants should be an array of documents")
-	person, ok := p0.Lookup("person").Int64OK()
-	assert.True(t, ok, "person should be int64")
-	assert.Equal(t, tolkien.Person, person)
+	person, ok := p0.Lookup("person").DocumentOK()
+	assert.True(t, ok, "person should be a document")
+	personId, ok := person.Lookup("_id").Int64OK()
+	assert.True(t, ok, "personId should be int64")
+	assert.Equal(t, tolkien.Person.Id, personId)
+	personName, ok := person.Lookup("name").StringValueOK()
+	assert.True(t, ok, "personName should be string")
+	assert.Equal(t, tolkien.Person.Name, personName)
 	role, ok := p0.Lookup("role").StringValueOK()
 	assert.True(t, ok, "role should be string")
 	assert.Equal(t, string(tolkien.Role), role)
@@ -77,21 +87,26 @@ func TestArtworkRepository_FindById(t *testing.T) {
 	id := int64(43)
 	artworkType := types.Book
 	name := "The Two Towers"
-	series := int64(12)
+	seriesId := int64(12)
+	seriesName := "The Lord of the Rings"
 	number := int32(2)
 	description := "The Lord of the Rings: Volume 2"
 	picture := "aExTufGHn"
 	tolkienId := int64(38)
+	tolkienName := "J.R.R. Tolkien"
 	tolkienRole := types.Author
 	_, err = database.Collection(artworkCollection).InsertOne(t.Context(), bson.M{
-		"_id":          id,
-		"type":         artworkType,
-		"name":         name,
-		"series":       series,
-		"number":       number,
-		"description":  description,
-		"picture":      picture,
-		"participants": bson.A{bson.M{"person": tolkienId, "role": tolkienRole}},
+		"_id":         id,
+		"type":        artworkType,
+		"name":        name,
+		"series":      bson.M{"_id": seriesId, "name": seriesName},
+		"number":      number,
+		"description": description,
+		"picture":     picture,
+		"participants": bson.A{bson.M{
+			"person": bson.M{"_id": tolkienId, "name": tolkienName},
+			"role":   tolkienRole,
+		}},
 	})
 	assert.NoError(t, err)
 
@@ -101,12 +116,14 @@ func TestArtworkRepository_FindById(t *testing.T) {
 	assert.Equal(t, id, res.Id)
 	assert.Equal(t, artworkType, res.Type)
 	assert.Equal(t, name, res.Name)
-	assert.Equal(t, series, res.Series)
+	assert.Equal(t, seriesId, res.Series.Id)
+	assert.Equal(t, seriesName, res.Series.Name)
 	assert.Equal(t, number, res.Number)
 	assert.Equal(t, description, res.Description)
 	assert.Equal(t, picture, res.Picture)
 	assert.Equal(t, 1, len(res.Participants), "should have one participant")
-	assert.Equal(t, tolkienId, res.Participants[0].Person)
+	assert.Equal(t, tolkienId, res.Participants[0].Person.Id)
+	assert.Equal(t, tolkienName, res.Participants[0].Person.Name)
 	assert.Equal(t, tolkienRole, res.Participants[0].Role)
 }
 

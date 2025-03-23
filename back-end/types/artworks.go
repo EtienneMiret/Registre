@@ -4,7 +4,7 @@ type Artwork struct {
 	Id           int64         `bson:"_id" json:"id"`
 	Type         Type          `bson:"type" json:"type"`
 	Name         string        `bson:"name" json:"name"`
-	Series       int64         `bson:"series,omitempty" json:"series,omitempty"`
+	Series       Series        `bson:"series,omitempty" json:"series,omitempty"`
 	Number       int32         `bson:"number,omitempty" json:"number,omitempty"`
 	Description  string        `bson:"description,omitempty" json:"description,omitempty"`
 	Picture      string        `bson:"picture,omitempty" json:"picture,omitempty"`
@@ -36,8 +36,8 @@ const (
 
 // A Participant is a Person that took part in the making of an Artwork.
 type Participant struct {
-	Person int64 `bson:"person" json:"person"`
-	Role   Role  `bson:"role" json:"role"`
+	Person Person `bson:"person" json:"person"`
+	Role   Role   `bson:"role" json:"role"`
 }
 
 // A Type of Artwork.
