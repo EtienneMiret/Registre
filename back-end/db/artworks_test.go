@@ -133,3 +133,19 @@ func TestArtworkRepository_FindAll(t *testing.T) {
 	}
 	assert.Len(t, found, len(ids))
 }
+
+func TestArtworkRepository_FindAll_empty(t *testing.T) {
+	database, done := ConnectTestDb(t)
+	defer done()
+	repository, err := NewArtworkRepository(database)
+	assert.NoError(t, err)
+
+	ch, err := repository.FindAll(t.Context())
+
+	assert.NoError(t, err)
+	found := make([]*types.Artwork, 0)
+	for artwork := range ch {
+		found = append(found, artwork)
+	}
+	assert.Len(t, found, 0)
+}
