@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
-  commonMainImplementation("org.jetbrains.kotlin-wrappers:kotlin-react:2025.9.8-19.1.1")
-  commonMainImplementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:2025.9.8-19.1.1")
+  commonMainImplementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:2025.9.8"))
+  commonMainImplementation("org.jetbrains.kotlin-wrappers:kotlin-react")
+  commonMainImplementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
 }
