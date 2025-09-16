@@ -1,5 +1,5 @@
 plugins {
-  kotlin("multiplatform") version "2.2.20"
+  kotlin("multiplatform")
 }
 
 kotlin {
@@ -11,10 +11,6 @@ kotlin {
     }
     binaries.executable()
   }
-}
-
-repositories {
-  mavenCentral()
 }
 
 dependencies {
