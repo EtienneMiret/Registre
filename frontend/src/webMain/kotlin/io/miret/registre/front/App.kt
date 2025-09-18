@@ -1,4 +1,4 @@
-package io.miret.registre.client
+package io.miret.registre.front
 
 import react.FC
 import react.Props

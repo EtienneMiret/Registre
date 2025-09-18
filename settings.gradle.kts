@@ -1,3 +1,3 @@
 rootProject.name = "Registre"
-include("client")
-include("server")
+include("frontend")
+include("backend")
