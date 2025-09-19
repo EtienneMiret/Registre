@@ -1,5 +1,6 @@
-package io.miret.registre.front
+package io.miret.registre.front.components
 
+import io.miret.registre.front.HttpStatus
 import react.FC
 import react.Props
 import react.create
@@ -13,11 +14,6 @@ import web.dom.ElementId
 import web.dom.document
 import web.http.fetch
 import web.http.text
-
-fun main() {
-  createRoot(document.getElementById(ElementId("root"))!!)
-    .render(App.create())
-}
 
 val App = FC<Props>("App") {
   val (user, setUser) = useState("<NONE>")
