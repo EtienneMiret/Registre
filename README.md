@@ -8,6 +8,18 @@ members own. Members will register their own titles and be able to search all
 registered entries. Thus helping not gift another member a title they
 already have.
 
+## Run in development mode
+
+Run the following commands in two different terminals:
+
+```shell
+./gradlew :backend:bootRun
+```
+
+```shell
+./gradlew :frontend:jsBrowserDevelopmentRun
+```
+
 ## Build and test
 
 Registre uses [Gradle] as its build tool. A great thing about Gradle is that
