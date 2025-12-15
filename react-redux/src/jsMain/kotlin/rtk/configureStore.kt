@@ -23,5 +23,13 @@ fun <S, A : Action> configureStore(
     override val preloadedState: S? = preloadedState
     override val enhancers: Array<out StoreEnhancer>? = enhancers
   }
-  return configureStoreRaw(options)
+  return Rtk.configureStore(options)
+}
+
+@JsModule("@reduxjs/toolkit")
+@JsNonModule
+external object Rtk {
+  fun <S, A : Action> configureStore(
+    options: ConfigureStoreOptions<S, A>,
+  ): Store<S, A>
 }
