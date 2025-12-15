@@ -1,11 +1,6 @@
 package redux.rtk
 
-import redux.Action
-import redux.Dispatch
-import redux.Middleware
-import redux.Reducer
-import redux.Store
-import redux.StoreEnhancer
+import redux.*
 
 fun <S, A : Action> configureStore(
   reducer: Reducer<S, A>,
@@ -15,14 +10,12 @@ fun <S, A : Action> configureStore(
   preloadedState: S? = null,
   enhancers: Array<out StoreEnhancer>? = null,
 ): Store<S, A> {
-  val options = ConfigureStoreOptions(
-    reducer = reducer,
-    middleware = middleware,
-    devTools = devTools,
-    duplicateMiddlewareCheck = duplicateMiddlewareCheck,
-    preloadedState = preloadedState,
-    enhancers = enhancers,
-  )
+  var options = ConfigureStoreOptions(reducer)
+  middleware?.let { options = ConfigureStoreOptions.copy(options, middleware = it) }
+  devTools?.let { options = ConfigureStoreOptions.copy(options, devTools = it) }
+  duplicateMiddlewareCheck?.let { options = ConfigureStoreOptions.copy(options, duplicateMiddlewareCheck = it) }
+  preloadedState?.let { options = ConfigureStoreOptions.copy(options, preloadedState = it) }
+  enhancers?.let { options = ConfigureStoreOptions.copy(options, enhancers = it) }
   return Rtk.configureStore(options)
 }
 
