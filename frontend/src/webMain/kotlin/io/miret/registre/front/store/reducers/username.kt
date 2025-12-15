@@ -3,17 +3,17 @@ package io.miret.registre.front.store.reducers
 import io.miret.registre.front.store.actions.usernameLoadFailed
 import io.miret.registre.front.store.actions.usernameLoadStarted
 import io.miret.registre.front.store.actions.usernameLoaded
-import io.miret.registre.front.store.state.HttpExchange
+import io.miret.registre.front.store.state.HttpExchanges
 import redux.rtk.createReducer
 
-val usernameReducer = createReducer(HttpExchange.Idle()) { builder ->
+val usernameReducer = createReducer(HttpExchanges.idle()) { builder ->
   builder.addCase(usernameLoadStarted) { state, action ->
-    HttpExchange.Pending()
+    HttpExchanges.pending()
   }
   builder.addCase(usernameLoaded) { state, action ->
-    HttpExchange.Success(action.payload)
+    HttpExchanges.success(action.payload)
   }
   builder.addCase(usernameLoadFailed) { state, action ->
-    HttpExchange.Error(action.payload)
+    HttpExchanges.error(action.payload)
   }
 }

@@ -4,6 +4,7 @@ import io.miret.registre.front.store.actions.usernameLoadFailed
 import io.miret.registre.front.store.actions.usernameLoadStarted
 import io.miret.registre.front.store.actions.usernameLoaded
 import io.miret.registre.front.store.state.HttpExchange
+import io.miret.registre.front.store.state.HttpExchanges.fold
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.h1
@@ -35,18 +36,27 @@ val App = FC<Props>("App") {
   }
 
   main {
-    when (state) {
-      is HttpExchange.Idle, is HttpExchange.Pending -> p {
-        +"Chargement en cours…"
-      }
-
-      is HttpExchange.Success -> Welcome {
-        name = state.data
-      }
-
-      is HttpExchange.Error -> p {
-        +"Erreur ${state.status} lors de la connexion ☹️."
-      }
-    }
+    state.fold(
+      idle = {
+        p {
+          +"Connectez-vous pour accéder à Registre"
+        }
+      },
+      pending = {
+        p {
+          +"Chargement en cours…"
+        }
+      },
+      success = { data ->
+        Welcome {
+          name = data
+        }
+      },
+      error = { status ->
+        p {
+          +"Erreur $status lors de la connexion ☹️."
+        }
+      },
+    )
   }
 }

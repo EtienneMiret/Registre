@@ -1,5 +1,8 @@
 package io.miret.registre.front.store.state
 
-data class State(
-  val username: HttpExchange<String>,
-)
+import kotlinx.js.JsPlainObject
+
+@JsPlainObject
+external interface State {
+  val username: HttpExchange<String>
+}
