@@ -1,6 +1,6 @@
 @file:JsModule("@reduxjs/toolkit")
 
-package rtk
+package redux.rtk
 
 import redux.Action
 import redux.Reducer

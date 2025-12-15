@@ -4,7 +4,7 @@ import io.miret.registre.front.store.actions.usernameLoadFailed
 import io.miret.registre.front.store.actions.usernameLoadStarted
 import io.miret.registre.front.store.actions.usernameLoaded
 import io.miret.registre.front.store.state.HttpExchange
-import rtk.createReducer
+import redux.rtk.createReducer
 
 val usernameReducer = createReducer(HttpExchange.Idle()) { builder ->
   builder.addCase(usernameLoadStarted) { state, action ->

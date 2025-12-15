@@ -1,6 +1,6 @@
 @file:JsModule("@reduxjs/toolkit")
 
-package rtk
+package redux.rtk
 
 external fun <P> createAction(
   type: String,
