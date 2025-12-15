@@ -5,6 +5,7 @@ import io.miret.registre.front.store.actions.usernameLoadStarted
 import io.miret.registre.front.store.actions.usernameLoaded
 import io.miret.registre.front.store.state.HttpExchange
 import io.miret.registre.front.store.state.HttpExchanges.fold
+import io.miret.registre.front.store.state.State
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.h1
@@ -18,7 +19,7 @@ import web.http.fetch
 import web.http.text
 
 val App = FC<Props>("App") {
-  val state = useSelector<HttpExchange<String>, HttpExchange<String>> { it }
+  val state = useSelector<State, HttpExchange<String>> { it.username }
   val dispatch = useDispatch<Action>()
 
   useEffectOnce {
