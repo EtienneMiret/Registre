@@ -22,7 +22,7 @@ val App = FC<Props>("App") {
   val dispatch = useDispatch<Action>()
 
   useEffectOnce {
-    dispatch(usernameLoadStarted(Unit))
+    dispatch(usernameLoadStarted())
     val response = fetch("/api/auth/whoami")
     if (response.ok) {
       dispatch(usernameLoaded(response.text()))

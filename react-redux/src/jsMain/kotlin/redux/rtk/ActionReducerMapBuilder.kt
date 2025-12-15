@@ -10,6 +10,11 @@ external interface ActionReducerMapBuilder<S> {
     reducer: Reducer<S, A>,
   ): ActionReducerMapBuilder<S>
 
+  fun <A : Action> addCase(
+    actionCreator: () -> A,
+    reducer: Reducer<S, A>,
+  ): ActionReducerMapBuilder<S>
+
   fun addCase(
     type: String,
     reducer: Reducer<S, Any>,
