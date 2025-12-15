@@ -1,32 +1,32 @@
 package io.miret.registre.front.components
 
-import io.miret.registre.front.HttpStatus
+import io.miret.registre.front.store.actions.usernameLoadFailed
+import io.miret.registre.front.store.actions.usernameLoadStarted
+import io.miret.registre.front.store.actions.usernameLoaded
+import io.miret.registre.front.store.state.HttpExchange
 import react.FC
 import react.Props
-import react.create
-import react.dom.client.createRoot
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.main
 import react.dom.html.ReactHTML.p
 import react.useEffectOnce
-import react.useState
-import web.dom.ElementId
-import web.dom.document
+import redux.Action
+import redux.react.useDispatch
+import redux.react.useSelector
 import web.http.fetch
 import web.http.text
 
 val App = FC<Props>("App") {
-  val (user, setUser) = useState("<NONE>")
-  val (status, setStatus) = useState(HttpStatus.INITIAL)
+  val state = useSelector<HttpExchange<String>, HttpExchange<String>> { it }
+  val dispatch = useDispatch<Action>()
 
   useEffectOnce {
-    setStatus(HttpStatus.LOADING)
+    dispatch(usernameLoadStarted(Unit))
     val response = fetch("/api/auth/whoami")
     if (response.ok) {
-      setUser(response.text())
-      setStatus(HttpStatus.SUCCESS)
+      dispatch(usernameLoaded(response.text()))
     } else {
-      setStatus(HttpStatus.ERROR)
+      dispatch(usernameLoadFailed(response.status))
     }
   }
 
@@ -35,17 +35,17 @@ val App = FC<Props>("App") {
   }
 
   main {
-    when (status) {
-      HttpStatus.INITIAL, HttpStatus.LOADING -> p {
+    when (state) {
+      is HttpExchange.Idle, is HttpExchange.Pending -> p {
         +"Chargement en cours…"
       }
 
-      HttpStatus.SUCCESS -> Welcome {
-        name = user
+      is HttpExchange.Success -> Welcome {
+        name = state.data
       }
 
-      HttpStatus.ERROR -> p {
-        +"Erreur lors de la connexion ☹️."
+      is HttpExchange.Error -> p {
+        +"Erreur ${state.status} lors de la connexion ☹️."
       }
     }
   }
