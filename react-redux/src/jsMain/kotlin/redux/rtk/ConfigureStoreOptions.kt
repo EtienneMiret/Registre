@@ -1,11 +1,13 @@
 package redux.rtk
 
+import kotlinx.js.JsPlainObject
 import redux.Action
 import redux.Dispatch
 import redux.Middleware
 import redux.Reducer
 import redux.StoreEnhancer
 
+@JsPlainObject
 external interface ConfigureStoreOptions<S, A : Action> {
   val reducer: Reducer<S, A>
   val middleware: Array<out Middleware<S, Dispatch<A>>>?

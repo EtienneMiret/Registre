@@ -15,14 +15,14 @@ fun <S, A : Action> configureStore(
   preloadedState: S? = null,
   enhancers: Array<out StoreEnhancer>? = null,
 ): Store<S, A> {
-  val options = object : ConfigureStoreOptions<S, A> {
-    override val reducer: Reducer<S, A> = reducer
-    override val middleware: Array<out Middleware<S, Dispatch<A>>>? = middleware
-    override val devTools: Boolean? = devTools
-    override val duplicateMiddlewareCheck: Boolean? = duplicateMiddlewareCheck
-    override val preloadedState: S? = preloadedState
-    override val enhancers: Array<out StoreEnhancer>? = enhancers
-  }
+  val options = ConfigureStoreOptions(
+    reducer = reducer,
+    middleware = middleware,
+    devTools = devTools,
+    duplicateMiddlewareCheck = duplicateMiddlewareCheck,
+    preloadedState = preloadedState,
+    enhancers = enhancers,
+  )
   return Rtk.configureStore(options)
 }
 
