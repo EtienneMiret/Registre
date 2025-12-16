@@ -15,5 +15,6 @@ kotlin {
 }
 
 dependencies {
+  commonMainImplementation(project(":common"))
   commonMainImplementation(project(":react-redux"))
 }

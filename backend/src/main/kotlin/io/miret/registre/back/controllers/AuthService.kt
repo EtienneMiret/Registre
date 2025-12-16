@@ -1,5 +1,6 @@
 package io.miret.registre.back.controllers
 
+import io.miret.etienne.registre.common.User
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -9,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController
 class AuthService {
 
   @GetMapping("/whoami")
-  fun whoami() = "anonymous"
+  fun whoami(): User = User("anonymous", "Anonymous")
 
 }

@@ -1,11 +1,13 @@
 package io.miret.registre.front.components
 
+import io.miret.etienne.registre.common.User
 import io.miret.registre.front.store.actions.usernameLoadFailed
 import io.miret.registre.front.store.actions.usernameLoadStarted
 import io.miret.registre.front.store.actions.usernameLoaded
 import io.miret.registre.front.store.state.HttpExchange
 import io.miret.registre.front.store.state.HttpExchanges.fold
 import io.miret.registre.front.store.state.State
+import kotlinx.serialization.json.Json
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.h1
@@ -26,7 +28,8 @@ val App = FC<Props>("App") {
     dispatch(usernameLoadStarted())
     val response = fetch("/api/auth/whoami")
     if (response.ok) {
-      dispatch(usernameLoaded(response.text()))
+      val user = Json.decodeFromString<User>(response.text())
+      dispatch(usernameLoaded(user.name))
     } else {
       dispatch(usernameLoadFailed(response.status))
     }

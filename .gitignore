@@ -1,5 +1,6 @@
-# Ignore Gradle project-specific cache directory
+# Ignore Gradle project-specific cache directories
 .gradle
+/.kotlin
 
 # Ignore Gradle build output directory
 build
