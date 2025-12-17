@@ -7,8 +7,9 @@ plugins {
 
 dependencies {
   implementation(project(":common"))
-  implementation("org.springframework.boot:spring-boot-starter-webflux")
-  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  implementation("org.springframework.boot:spring-boot-starter-webflux") {
+    exclude("org.springframework.boot", "spring-boot-starter-json")
+  }
   implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
