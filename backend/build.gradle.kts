@@ -1,4 +1,6 @@
 plugins {
+  `registre-conventions`
+
   kotlin("jvm")
   kotlin("plugin.spring")
   id("org.springframework.boot") version Versions.springBoot

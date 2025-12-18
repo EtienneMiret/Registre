@@ -1,4 +1,6 @@
 plugins {
+  `registre-conventions`
+
   kotlin("multiplatform")
   kotlin("plugin.serialization")
 }
