@@ -11,5 +11,5 @@ kotlin {
 }
 
 dependencies {
-  commonMainApi("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+  commonMainApi("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}")
 }
