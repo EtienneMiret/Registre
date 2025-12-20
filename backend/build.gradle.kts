@@ -9,9 +9,7 @@ plugins {
 
 dependencies {
   implementation(project(":common"))
-  implementation("org.springframework.boot:spring-boot-starter-webflux") {
-    exclude("org.springframework.boot", "spring-boot-starter-json")
-  }
+  implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
   implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
