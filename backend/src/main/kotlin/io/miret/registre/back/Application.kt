@@ -9,7 +9,6 @@ import tools.jackson.dataformat.toml.TomlMapper
 import tools.jackson.module.kotlin.kotlinModule
 import java.net.URI
 import java.net.URL
-import java.nio.file.Paths
 
 @SpringBootApplication(scanBasePackages = ["io.miret.registre.back"])
 class Application {
@@ -22,8 +21,8 @@ class Application {
   @Bean
   fun configUrl(): URL =
     System.getenv("REGISTRE_CONFIG_URL")?.let { URI(it).toURL() }
+      ?: Application::class.java.getResource("registre-test.toml")
       ?: Application::class.java.getResource("registre.toml")
-      ?: Paths.get("registre.toml").toUri().toURL()
 
   @Bean
   fun registreConfig(
