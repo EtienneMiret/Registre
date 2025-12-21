@@ -4,12 +4,12 @@ plugins {
   kotlin("jvm")
   kotlin("plugin.spring")
   id("org.springframework.boot") version Versions.springBoot
-  id("io.spring.dependency-management") version Versions.springDependencyManagement
 }
 
 dependencies {
   implementation(platform("org.eclipse.jetty:jetty-bom:${Versions.jetty}"))
   implementation(platform("org.eclipse.jetty.ee10:jetty-ee10-bom:${Versions.jetty}"))
+  implementation(platform("org.springframework.boot:spring-boot-dependencies:${Versions.springBoot}"))
   implementation(project(":common"))
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")

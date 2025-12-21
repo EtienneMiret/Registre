@@ -11,7 +11,6 @@ object Versions {
   /* Backend */
   const val jetty = "12.1.5"
   const val springBoot = "4.0.0"
-  const val springDependencyManagement = "1.1.7"
   const val jackson = "3.0.3"
   const val wikidataToolkit = "0.17.0"
   const val wiremock = "3.13.2"
