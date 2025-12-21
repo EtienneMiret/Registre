@@ -1,0 +1,1769 @@
+{
+  "entities": {
+    "Q164963": {
+      "pageid": 165689,
+      "ns": 0,
+      "title": "Q164963",
+      "lastrevid": 2440274811,
+      "modified": "2025-12-09T23:40:54Z",
+      "type": "item",
+      "id": "Q164963",
+      "labels": {
+        "fr": {
+          "language": "fr",
+          "value": "Le Seigneur des anneaux : Les Deux Tours"
+        },
+        "en": {
+          "language": "en",
+          "value": "The Lord of the Rings: The Two Towers"
+        }
+      },
+      "descriptions": {
+        "en": {
+          "language": "en",
+          "value": "2002 film by Peter Jackson"
+        },
+        "fr": {
+          "language": "fr",
+          "value": "film sorti en 2002"
+        }
+      },
+      "aliases": {
+        "fr": [
+          {
+            "language": "fr",
+            "value": "Les Deux Tours"
+          },
+          {
+            "language": "fr",
+            "value": "The Lord of the Rings: The Two Towers"
+          },
+          {
+            "language": "fr",
+            "value": "Le Seigneur des Anneaux II : Les Deux Tours"
+          },
+          {
+            "language": "fr",
+            "value": "Seigneur des anneaux : Les Deux Tours"
+          }
+        ],
+        "en": [
+          {
+            "language": "en",
+            "value": "Lord of the Rings: The Two Towers"
+          },
+          {
+            "language": "en",
+            "value": "The Lord of the Rings The Two Towers"
+          }
+        ]
+      },
+      "claims": {
+        "P31": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P31",
+              "hash": "fa41184cb03f49f0edfbf2fc4f9d33e35afecaea",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 11424,
+                  "id": "Q11424"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$89BE013A-3F8B-494C-80B3-81E1AFF9DBAB",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "288ab581e7d2d02995a26dfa8b091d96e78457fc",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "6a164248fc96bfa583bbb495cb63ae6401ec203c",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 206855,
+                          "id": "Q206855"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              },
+              {
+                "hash": "fa278ebfc458360e5aed63d5058cca83c46134f1",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "e4f6d9441d0600513c4533c672b5ab472dc73694",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 328,
+                          "id": "Q328"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              }
+            ]
+          }
+        ],
+        "P57": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P57",
+              "hash": "3bb101350b9093fdc86bec8befb2c28f20d22997",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 4465,
+                  "id": "Q4465"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$B96C6A07-C8CE-429A-B35D-B00F8AA9A1AD",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "df091c0830d451fc57ce0c8b2599de3a7251150c",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "0de3a1634349c7cefe996157eb336f9c24d42c27",
+                      "datavalue": {
+                        "value": "http://www.imdb.com/title/tt0167261/",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "53d6ba881c84e09c8281f524982907a3b755a480",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "621d07e5d391584d8771828ac4d48a3373898911",
+                      "datavalue": {
+                        "value": "http://www.ofdb.de/film/28980,Der-Herr-der-Ringe-Die-Zwei-T%C3%BCrme",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "f449863f5c3016ee7535129f6ef8ac2630e4b496",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "39fa39e6e6c79e1adde27314ea4fd60a8185afae",
+                      "datavalue": {
+                        "value": "https://www.filmaffinity.com/en/film944222.html",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "ac30b401df88fc1284d9333ebc23b4dbac377551",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "91f32447e228459af528c667e94a452f90233c80",
+                      "datavalue": {
+                        "value": "http://www.allocine.fr/film/fichefilm_gen_cfilm=39186.html",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "a50d6165f91f8e8e1a433b55683c32c5b28fd286",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "ec6f56edf2266e0a6fd9791128f49cc0ee15a596",
+                      "datavalue": {
+                        "value": "http://www.bbfc.co.uk/releases/lord-rings-two-towers-2002",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "59789155d6a114875ed4e75ad3d431e26e1a78cf",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "e4822195f7c8ee3777f1d0c14f878292363a98c7",
+                      "datavalue": {
+                        "value": "http://www.sinemalar.com/film/604/yuzuklerin-efendisi-iki-kule",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "60d3f14d85258e534d1592aa304d8f12da827b2b",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "b98e17c032db5c7036c89bcd7523b129d17b639a",
+                      "datavalue": {
+                        "value": "http://www.cinematografo.it/cinedatabase/film/il-signore-degli-anelli---le-due-torri/42092/",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "30de8e087d915bb5d0ed4c2ba31ab1452c6b1748",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "bdb761ddad436194292c1e8f09de0696a76a59aa",
+                      "datavalue": {
+                        "value": "http://stopklatka.pl/film/wladca-pierscieni-dwie-wieze",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              }
+            ]
+          }
+        ],
+        "P162": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P162",
+              "hash": "c61260b9d159c6788f07191f4bba7750e27a77e8",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 4465,
+                  "id": "Q4465"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$B1BFFC74-651F-4825-BD2D-6864D37FE084",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "13bb95840cbebaa564e30acf7c9cc799c30454ea",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "e4822195f7c8ee3777f1d0c14f878292363a98c7",
+                      "datavalue": {
+                        "value": "http://www.sinemalar.com/film/604/yuzuklerin-efendisi-iki-kule",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ],
+                  "P1065": [
+                    {
+                      "snaktype": "value",
+                      "property": "P1065",
+                      "hash": "0a7dafe27b644ba89b41d4fd535fc88948c5c579",
+                      "datavalue": {
+                        "value": "https://web.archive.org/web/20160721141608/http://www.sinemalar.com/film/604/yuzuklerin-efendisi-iki-kule",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P2960": [
+                    {
+                      "snaktype": "value",
+                      "property": "P2960",
+                      "hash": "c56bbe396c444a6af25046f396e171f1454796d2",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-21T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813",
+                  "P1065",
+                  "P2960"
+                ]
+              }
+            ]
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P162",
+              "hash": "ea4610d762dcf861b7f16adb4cc37361412617e5",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 808917,
+                  "id": "Q808917"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$D47EDE76-D4E5-4402-84E3-E58D1D964942",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P162",
+              "hash": "199d62f9f37ae6dc0732f9694f011a5c2d605c1a",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 116861,
+                  "id": "Q116861"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$1DC3F316-8C92-4D44-A9C7-C2F68C12CFD2",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "59789155d6a114875ed4e75ad3d431e26e1a78cf",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "e4822195f7c8ee3777f1d0c14f878292363a98c7",
+                      "datavalue": {
+                        "value": "http://www.sinemalar.com/film/604/yuzuklerin-efendisi-iki-kule",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              }
+            ]
+          }
+        ],
+        "P58": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P58",
+              "hash": "ee070357a82703a62ae272fb1c9a862ce3170077",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 116861,
+                  "id": "Q116861"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$32D87313-083B-4C86-820B-4952FB8652E0",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P58",
+              "hash": "3a54fc693480bf2876d481457bc548849a1c34a6",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 116854,
+                  "id": "Q116854"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$0FD14BBD-9B64-4EA0-96E2-3546DB030D1E",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P58",
+              "hash": "f859400da99222842a0cacaff0ae935103a9487b",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 3498652,
+                  "id": "Q3498652"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$02EC5C77-3E4C-4CDA-BEA0-B5D284E7CD98",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P58",
+              "hash": "d885e5230aba78ed95e452998bf717759eb18591",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 4465,
+                  "id": "Q4465"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$FB66102A-B632-4F97-B092-C1EE4EEE4972",
+            "rank": "normal"
+          }
+        ],
+        "P144": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P144",
+              "hash": "43bebfd20b41e6485d8840156c00a982a44d580a",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 332388,
+                  "id": "Q332388"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$42169CB4-15FC-4394-85B8-24C3906EA0AC",
+            "rank": "normal"
+          }
+        ],
+        "P345": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P345",
+              "hash": "9cb65b9b6ddb0b438c9c12957294ad47ede1b693",
+              "datavalue": {
+                "value": "tt0167261",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "q164963$949DDE37-5673-447F-A8C0-217DD47F86CD",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "732ec1c90a6f0694c7db9a71bf09fe7f2b674172",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "9123b0de1cc9c3954366ba797d598e4e1ea4146f",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 10000,
+                          "id": "Q10000"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              },
+              {
+                "hash": "c456dc5cd2117249948c288206ff3f8b1bf574f0",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "e17507043402fe54ae6c4d65cc51f46cec987de9",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 8449,
+                          "id": "Q8449"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              },
+              {
+                "hash": "4804b7cf3428672fea335b0e3a4833a599783d7b",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "01c5ccdb20291acf36831371f5891341513dc666",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 20828898,
+                          "id": "Q20828898"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "3df78ed2af3410ec1694bde37de4a3770372374a",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2024-10-21T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248",
+                  "P813"
+                ]
+              }
+            ]
+          }
+        ],
+        "P373": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P373",
+              "hash": "d5757ed804ce5669a9d5455b30eddac9935f55c9",
+              "datavalue": {
+                "value": "The Lord of the Rings film trilogy",
+                "type": "string"
+              },
+              "datatype": "string"
+            },
+            "type": "statement",
+            "id": "q164963$953EC408-00E3-41A0-A61D-B231B0298EF7",
+            "rank": "normal"
+          }
+        ],
+        "P480": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P480",
+              "hash": "1bbc158a174cb1bc9f2ed91f56de2d0bdb78b906",
+              "datavalue": {
+                "value": "944222",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "q164963$0F57D731-A9E5-449A-BFEF-AE76A633F938",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "c456dc5cd2117249948c288206ff3f8b1bf574f0",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "e17507043402fe54ae6c4d65cc51f46cec987de9",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 8449,
+                          "id": "Q8449"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              }
+            ]
+          }
+        ],
+        "P272": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P272",
+              "hash": "1fe474aa13727ce3437fb860e04a28df30272c91",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 79202,
+                  "id": "Q79202"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$0893FE2F-AA90-4209-9889-5E086E87CBC9",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "fa278ebfc458360e5aed63d5058cca83c46134f1",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "e4f6d9441d0600513c4533c672b5ab472dc73694",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 328,
+                          "id": "Q328"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              }
+            ]
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P272",
+              "hash": "1af700afad8fd496654a3d12c0814d22aa164f24",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 3569323,
+                  "id": "Q3569323"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$A4A52A00-A891-44EB-A2D8-BB231D549767",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "fa278ebfc458360e5aed63d5058cca83c46134f1",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "e4f6d9441d0600513c4533c672b5ab472dc73694",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 328,
+                          "id": "Q328"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              }
+            ]
+          }
+        ],
+        "P344": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P344",
+              "hash": "6294973d4ae904f9e380d9db6cc0c488c033ac05",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 505940,
+                  "id": "Q505940"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "q164963$67A101CA-55FF-4B58-919C-5EEB54775770",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "d5847b9b6032aa8b13dae3c2dfd9ed5d114d21b3",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "5a343e7e758a4282a01316d3e959b6e653b767fc",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 11920,
+                          "id": "Q11920"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              }
+            ]
+          }
+        ],
+        "P136": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P136",
+              "hash": "579d356828e28fe706a372f8f175ebc73e5cefc0",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 157394,
+                  "id": "Q157394"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q164963$3A13BCFB-495F-4E2B-BB88-2C0007C320A3",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "fa278ebfc458360e5aed63d5058cca83c46134f1",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "e4f6d9441d0600513c4533c672b5ab472dc73694",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 328,
+                          "id": "Q328"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              },
+              {
+                "hash": "53d6ba881c84e09c8281f524982907a3b755a480",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "621d07e5d391584d8771828ac4d48a3373898911",
+                      "datavalue": {
+                        "value": "http://www.ofdb.de/film/28980,Der-Herr-der-Ringe-Die-Zwei-T%C3%BCrme",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "6439b5c38de866fa43ea9ecbda163e374a4dca7c",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "bab6b9272b3d3ad0b2609b478acc3926ca149f76",
+                      "datavalue": {
+                        "value": "http://www.metacritic.com/movie/the-lord-of-the-rings-the-return-of-the-king",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "f449863f5c3016ee7535129f6ef8ac2630e4b496",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "39fa39e6e6c79e1adde27314ea4fd60a8185afae",
+                      "datavalue": {
+                        "value": "https://www.filmaffinity.com/en/film944222.html",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              },
+              {
+                "hash": "30de8e087d915bb5d0ed4c2ba31ab1452c6b1748",
+                "snaks": {
+                  "P854": [
+                    {
+                      "snaktype": "value",
+                      "property": "P854",
+                      "hash": "bdb761ddad436194292c1e8f09de0696a76a59aa",
+                      "datavalue": {
+                        "value": "http://stopklatka.pl/film/wladca-pierscieni-dwie-wieze",
+                        "type": "string"
+                      },
+                      "datatype": "url"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "c7d371060fbf2803c20accea91248d93a7d44c71",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2016-07-06T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P854",
+                  "P813"
+                ]
+              }
+            ]
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P136",
+              "hash": "6adcb3fff5113bb4c645092211e7ef912b968a00",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 319221,
+                  "id": "Q319221"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q164963$37CF35FE-BEBA-4C20-8AB4-5EEC97DB60DF",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P136",
+              "hash": "b0b4a438154b83ff55e81ee734f1f70aa6e9c767",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 188473,
+                  "id": "Q188473"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q164963$79449157-4be6-1303-c050-2794fccae446",
+            "rank": "normal"
+          }
+        ],
+        "P1417": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P1417",
+              "hash": "f9df3a78087cecf4402186a06b96b425b132e7cb",
+              "datavalue": {
+                "value": "topic/The-Lord-of-the-Rings-The-Two-Towers",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P1810": [
+                {
+                  "snaktype": "value",
+                  "property": "P1810",
+                  "hash": "45597e3fddf4a7157881a9cd2364af7d3fe5e6cd",
+                  "datavalue": {
+                    "value": "The Lord of the Rings: The Two Towers",
+                    "type": "string"
+                  },
+                  "datatype": "string"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P1810"
+            ],
+            "id": "Q164963$1124BB5B-23E9-4198-83FA-2E4867B4B510",
+            "rank": "normal"
+          }
+        ],
+        "P4632": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P4632",
+              "hash": "e91a8966f78299de6d602caa0b365372f27a37b5",
+              "datavalue": {
+                "value": "247",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q164963$99498E58-74BB-411D-A8D5-80DC895413F2",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "6b8962db6296f93b685a22e00f6e65be3f846747",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "7bdea87d2db0a1f4c1299224fcb58b93c085ac3e",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 45150204,
+                          "id": "Q45150204"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ],
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "3aa918399adf8006c6875f62935ef5fa5742c015",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2017-12-10T00:00:00Z",
+                          "timezone": 0,
+                          "before": 1,
+                          "after": 1,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ],
+                  "P345": [
+                    {
+                      "snaktype": "value",
+                      "property": "P345",
+                      "hash": "9cb65b9b6ddb0b438c9c12957294ad47ede1b693",
+                      "datavalue": {
+                        "value": "tt0167261",
+                        "type": "string"
+                      },
+                      "datatype": "external-id"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248",
+                  "P813",
+                  "P345"
+                ]
+              }
+            ]
+          }
+        ],
+        "P3077": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P3077",
+              "hash": "f028cad2db58408c317b948f5f98a379bf4e837f",
+              "datavalue": {
+                "value": "87821",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q164963$bd280fa8-4174-9b60-4bed-f20d5e0489a8",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "65b3dd3cf5f4970a4bd5090a710c260ad729e777",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "215f3551aa31cae4e58ac56d8f5143932221d706",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 1092476,
+                          "id": "Q1092476"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ]
+          }
+        ],
+        "P154": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P154",
+              "hash": "f6b4498361e9aab6c36609d98b8ced549da67af9",
+              "datavalue": {
+                "value": "Tloftr-ttt2-logo.svg",
+                "type": "string"
+              },
+              "datatype": "commonsMedia"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P407": [
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "daf1c4fcb58181b02dff9cc89deb084004ddae4b",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 1860,
+                      "id": "Q1860"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P407"
+            ],
+            "id": "Q164963$2BB1AD2D-6C28-4486-87A2-3469749C944A",
+            "rank": "preferred",
+            "references": [
+              {
+                "hash": "9a24f7c0208b05d6be97077d855671d1dfdbc0dd",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "d38375ffe6fe142663ff55cd783aa4df4301d83d",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 48183,
+                          "id": "Q48183"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              }
+            ]
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P154",
+              "hash": "3ca388b85aa464676c08e3abf2b131eb80e8d7c4",
+              "datavalue": {
+                "value": "Le Seigneur des anneaux les Deux Tours.svg",
+                "type": "string"
+              },
+              "datatype": "commonsMedia"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P407": [
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "d197d0a5efa4b4c23a302a829dd3ef43684fe002",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 150,
+                      "id": "Q150"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P407"
+            ],
+            "id": "Q164963$6695c774-48a8-31ce-1183-be38a5df0ef2",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P154",
+              "hash": "b6224868f72e06af4e34d4e85dc663e781f4d111",
+              "datavalue": {
+                "value": "Il Signore degli Anelli - Le due torri.png",
+                "type": "string"
+              },
+              "datatype": "commonsMedia"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P407": [
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "2ab2e485ce235a18142330fa1873a5bba7115d23",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 652,
+                      "id": "Q652"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P407"
+            ],
+            "id": "Q164963$4924c274-4ee4-1783-74d6-34d4ec7c6e66",
+            "rank": "normal"
+          }
+        ],
+        "P2283": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P2283",
+              "hash": "d2d26f0b4b8ab0c0263a61fabd873c5d9f6f435c",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 568723,
+                  "id": "Q568723"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q164963$210b7f67-433b-c60f-5498-1ac7a2a1ec15",
+            "rank": "normal"
+          }
+        ],
+        "P13707": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P13707",
+              "hash": "d3928d83d011247b984740c250c197519b99657d",
+              "datavalue": {
+                "value": "3721",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P437": [
+                {
+                  "snaktype": "value",
+                  "property": "P437",
+                  "hash": "d954b8ca3aed514e9f4aac35d213e4298aba4a3b",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 5294,
+                      "id": "Q5294"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ],
+              "P1810": [
+                {
+                  "snaktype": "value",
+                  "property": "P1810",
+                  "hash": "96110d6065a62c57b5c99d82d89edc160f484bbc",
+                  "datavalue": {
+                    "value": "Lord of the Rings (The): The Two Towers",
+                    "type": "string"
+                  },
+                  "datatype": "string"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P437",
+              "P1810"
+            ],
+            "id": "Q164963$D15194FB-0FC9-4E54-A2E1-BD5DFEEF712E",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P13707",
+              "hash": "b4f3caa4cbb352c069d2379158aa73d61b99f9ff",
+              "datavalue": {
+                "value": "55881",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P437": [
+                {
+                  "snaktype": "value",
+                  "property": "P437",
+                  "hash": "5fdc3029aaea43308748b4cdb9cb00cc5704901d",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 19953724,
+                      "id": "Q19953724"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ],
+              "P1810": [
+                {
+                  "snaktype": "value",
+                  "property": "P1810",
+                  "hash": "96110d6065a62c57b5c99d82d89edc160f484bbc",
+                  "datavalue": {
+                    "value": "Lord of the Rings (The): The Two Towers",
+                    "type": "string"
+                  },
+                  "datatype": "string"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P437",
+              "P1810"
+            ],
+            "id": "Q164963$56DA646D-4375-4CA3-AFC0-AC777A6E2B41",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P13707",
+              "hash": "bc4a75a059b7cad2186233af5f89a7608622be2e",
+              "datavalue": {
+                "value": "15986",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P437": [
+                {
+                  "snaktype": "value",
+                  "property": "P437",
+                  "hash": "e921ce4487f318eea518d3a83d528f2026530732",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 47770,
+                      "id": "Q47770"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ],
+              "P1810": [
+                {
+                  "snaktype": "value",
+                  "property": "P1810",
+                  "hash": "96110d6065a62c57b5c99d82d89edc160f484bbc",
+                  "datavalue": {
+                    "value": "Lord of the Rings (The): The Two Towers",
+                    "type": "string"
+                  },
+                  "datatype": "string"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P437",
+              "P1810"
+            ],
+            "id": "Q164963$CD5A6813-7981-4848-A932-CB0AB068F298",
+            "rank": "normal"
+          }
+        ]
+      }
+    }
+  },
+  "success": 1
+}
