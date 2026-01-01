@@ -3,6 +3,7 @@ package io.miret.etienne.registre.back.wd.repositories
 import io.miret.etienne.registre.back.wd.model.Qualifier
 import io.miret.etienne.registre.back.wd.model.Reference
 import io.miret.etienne.registre.back.wd.model.Statement
+import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.bson.Document
 import org.junit.jupiter.api.AfterEach
@@ -60,8 +61,10 @@ class ReferenceRepositoryTest {
   fun `should store and retrieve references`(
     @Autowired repository: ReferenceRepository,
   ) {
-    repository.save(lotr).block()
-    val retrieved = repository.findById(lotr.id).block()
+    val retrieved = runBlocking {
+      repository.save(lotr)
+      repository.findById(lotr.id)
+    }
 
     assertThat(retrieved).isEqualTo(lotr)
   }
@@ -102,7 +105,9 @@ class ReferenceRepositoryTest {
       .flatMap { Mono.from(it) }
       .block()
 
-    val actual = repository.findById(lotr.id).block()
+    val actual = runBlocking {
+      repository.findById(lotr.id)
+    }
 
     assertThat(actual).isEqualTo(lotr)
   }

@@ -1,6 +1,6 @@
 package io.miret.etienne.registre.back.wd.repositories
 
 import io.miret.etienne.registre.back.wd.model.Reference
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface ReferenceRepository: ReactiveCrudRepository<Reference, String>
+interface ReferenceRepository: CoroutineCrudRepository<Reference, String>
