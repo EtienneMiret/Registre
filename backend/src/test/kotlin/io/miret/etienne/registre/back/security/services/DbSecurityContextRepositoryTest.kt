@@ -6,6 +6,7 @@ import io.miret.etienne.registre.back.security.repositories.SessionRepository
 import io.miret.etienne.registre.back.security.repositories.UserRepository
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -16,14 +17,18 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import org.springframework.http.HttpCookie
 import org.springframework.http.ResponseCookie
+import org.springframework.http.server.reactive.ServerHttpRequest
 import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.security.authentication.TestingAuthenticationToken
 import org.springframework.security.core.context.SecurityContext
+import org.springframework.util.MultiValueMapAdapter
 import org.springframework.web.server.ServerWebExchange
 import java.time.Clock
 import java.time.Duration
 import java.time.Instant
+import kotlin.jvm.optionals.getOrNull
 
 @ExtendWith(MockitoExtension::class)
 class DbSecurityContextRepositoryTest {
@@ -45,11 +50,11 @@ class DbSecurityContextRepositoryTest {
   @Mock
   private lateinit var exchange: ServerWebExchange
 
-  @Mock
-  private lateinit var context: SecurityContext
-
   @Nested
   inner class Save {
+
+    @Mock
+    private lateinit var context: SecurityContext
 
     @Mock
     private lateinit var response: ServerHttpResponse
@@ -114,6 +119,79 @@ class DbSecurityContextRepositoryTest {
       assertThat(session.expiresAt).isAfter(now.plus(minDuration))
       assertThat(cookie.maxAge).isGreaterThan(minDuration)
     }
+  }
+
+  @Nested
+  inner class Load {
+
+    @Mock
+    private lateinit var request: ServerHttpRequest
+
+    private val cookies = MultiValueMapAdapter(
+      mutableMapOf<String, List<HttpCookie>>()
+    )
+
+    @BeforeEach
+    fun init() {
+      whenever(exchange.request).thenReturn(request)
+      whenever(request.cookies).thenReturn(cookies)
+    }
+
+    @Test
+    fun `should not return context when no cookie`() {
+      val actual = repository.load(exchange).blockOptional()
+
+      assertThat(actual).isEmpty()
+    }
+
+    @Test
+    fun `should return context with user from session`() {
+      val user = User("123", "test", false)
+      val session = Session(userId = user.id, expiresAt = now.plusSeconds(120))
+      cookies["session"] = HttpCookie("session", session.id)
+      runBlocking {
+        whenever(sessionRepository.findById(session.id))
+          .thenReturn(session)
+        whenever(userRepository.findById(user.id))
+          .thenReturn(user)
+      }
+      whenever(clock.instant()).thenReturn(now)
+
+      val actual = repository.load(exchange).blockOptional()
+
+      assertThat(actual.getOrNull()?.authentication?.isAuthenticated).isTrue()
+      assertThat(actual.getOrNull()?.authentication?.principal).isEqualTo(user)
+    }
+
+    @Test
+    fun `should not return context when session is expired`() {
+      val session = Session(userId = "123", expiresAt = now)
+      cookies["session"] = HttpCookie("session", session.id)
+      runBlocking {
+        whenever(sessionRepository.findById(session.id))
+          .thenReturn(session)
+      }
+      whenever(clock.instant()).thenReturn(now)
+
+      val actual = repository.load(exchange).blockOptional()
+
+      assertThat(actual).isEmpty()
+    }
+
+    @Test
+    fun `should not return context when invalid session ID`() {
+      val randomId = "invalid"
+      cookies["session"] = HttpCookie("session", randomId)
+      runBlocking {
+        whenever(sessionRepository.findById(randomId))
+          .thenReturn(null)
+      }
+
+      val actual = repository.load(exchange).blockOptional()
+
+      assertThat(actual).isEmpty()
+    }
+
   }
 
 }
