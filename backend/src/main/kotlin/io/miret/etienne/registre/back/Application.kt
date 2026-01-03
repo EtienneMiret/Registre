@@ -11,6 +11,7 @@ import tools.jackson.dataformat.toml.TomlMapper
 import tools.jackson.module.kotlin.kotlinModule
 import java.net.URI
 import java.net.URL
+import java.time.Clock
 
 @SpringBootApplication(scanBasePackages = ["io.miret.etienne.registre.back"])
 class Application {
@@ -49,6 +50,9 @@ class Application {
       ?: "registre"
     return ReactiveMongoDatabaseFactory.create(mongoClient, database)
   }
+
+  @Bean
+  fun clock(): Clock = Clock.systemUTC()
 
 }
 

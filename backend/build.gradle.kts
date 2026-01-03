@@ -11,6 +11,7 @@ dependencies {
   implementation(platform("org.eclipse.jetty.ee10:jetty-ee10-bom:${Versions.jetty}"))
   implementation(platform("org.springframework.boot:spring-boot-dependencies:${Versions.springBoot}"))
   implementation(project(":common"))
+  implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
   implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
