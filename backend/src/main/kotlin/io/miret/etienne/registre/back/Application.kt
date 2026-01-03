@@ -2,9 +2,11 @@ package io.miret.etienne.registre.back
 
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
+import com.mongodb.reactivestreams.client.MongoClient
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory
 import tools.jackson.dataformat.toml.TomlMapper
 import tools.jackson.module.kotlin.kotlinModule
 import java.net.URI
@@ -37,6 +39,16 @@ class Application {
     MongoClientSettings.builder()
       .applyConnectionString(ConnectionString(config.mongoConnectionString))
       .build()
+
+  @Bean
+  fun mongoDbFactory(
+    config: RegistreConfig,
+    mongoClient: MongoClient,
+  ): ReactiveMongoDatabaseFactory {
+    val database = ConnectionString(config.mongoConnectionString).database
+      ?: "registre"
+    return ReactiveMongoDatabaseFactory.create(mongoClient, database)
+  }
 
 }
 
