@@ -24,6 +24,7 @@ dependencies {
   testImplementation("io.projectreactor:reactor-test")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
   testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+  testImplementation("org.mockito.kotlin:mockito-kotlin:${Versions.mockitoKotlin}")
   testImplementation("org.wiremock:wiremock-jetty12:${Versions.wiremock}")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

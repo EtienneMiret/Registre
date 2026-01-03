@@ -59,7 +59,7 @@ class DbSecurityContextRepository : ServerSecurityContextRepository {
         sessionRepository.save(session)
         return@run session.id
       }
-    }
+    } ?: return@mono null
 
     val cookie = ResponseCookie.from(cookieName, sessionId)
       .secure(true)
