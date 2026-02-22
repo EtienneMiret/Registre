@@ -39,6 +39,7 @@ class Application {
   fun mongoSettings(config: RegistreConfig): MongoClientSettings =
     MongoClientSettings.builder()
       .applyConnectionString(ConnectionString(config.mongoConnectionString))
+      .applicationName("Registre/${Version.full}")
       .build()
 
   @Bean

@@ -1,10 +1,14 @@
 package io.miret.etienne.registre.back.wd.services
 
+import io.miret.etienne.registre.back.Version
 import io.miret.etienne.registre.back.wd.model.Reference
 import io.miret.etienne.registre.back.wd.model.Statement
 import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Service
+import org.wikidata.wdtk.datamodel.helpers.Datamodel
 import org.wikidata.wdtk.datamodel.interfaces.*
+import org.wikidata.wdtk.wikibaseapi.ApiConnection
+import org.wikidata.wdtk.wikibaseapi.BasicApiConnection
 import org.wikidata.wdtk.wikibaseapi.WikibaseDataFetcher
 import org.wikidata.wdtk.datamodel.interfaces.Statement as WikidataStatement
 
@@ -28,7 +32,9 @@ class WikidataClient {
 
   @PostConstruct
   fun initialize() {
-    wbdf = WikibaseDataFetcher.getWikidataDataFetcher()
+    val connection = BasicApiConnection(ApiConnection.URL_WIKIDATA_API)
+    connection.customUserAgent = "Registre/${Version.full} (https://github.com/EtienneMiret/Registre) ${connection.customUserAgent}"
+    wbdf = WikibaseDataFetcher(connection, Datamodel.SITE_WIKIDATA)
     wbdf.filter.languageFilter = languages.toSet()
     wbdf.filter.siteLinkFilter = setOf()
   }
