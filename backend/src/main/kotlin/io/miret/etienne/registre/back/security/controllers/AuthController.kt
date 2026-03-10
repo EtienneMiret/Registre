@@ -9,7 +9,7 @@ import io.miret.etienne.registre.common.User as ApiUser
 
 @RestController
 @RequestMapping("/auth")
-class AuthService {
+class AuthController {
 
   @GetMapping("/whoami")
   fun whoami(
