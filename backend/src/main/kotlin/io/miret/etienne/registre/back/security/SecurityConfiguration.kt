@@ -19,9 +19,11 @@ class SecurityConfiguration {
   ): SecurityWebFilterChain =
     http {
       authorizeExchange {
+        authorize("/auth/login", permitAll)
         authorize(anyExchange, hasRole("USER"))
       }
       securityContextRepository = dbSecurityContextRepository
+      csrf { disable() }
     }
 
 }
