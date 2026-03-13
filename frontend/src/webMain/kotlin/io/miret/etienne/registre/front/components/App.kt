@@ -56,10 +56,8 @@ val App = FC<Props>("App") {
           name = data
         }
       },
-      error = { status ->
-        p {
-          +"Erreur $status lors de la connexion ☹️."
-        }
+      error = {
+        LoginForm {}
       },
     )
   }
