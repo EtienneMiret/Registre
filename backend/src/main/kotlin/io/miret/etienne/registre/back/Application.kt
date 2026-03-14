@@ -3,6 +3,7 @@ package io.miret.etienne.registre.back
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
 import com.mongodb.reactivestreams.client.MongoClient
+import io.miret.etienne.registre.back.config.RegistreConfig
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean

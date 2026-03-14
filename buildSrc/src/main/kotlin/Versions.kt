@@ -13,6 +13,7 @@ object Versions {
   const val springBoot = "4.0.3"
   const val jackson = "3.1.0"
   const val wikidataToolkit = "0.17.0"
+  const val webauthn4j = "0.31.1.RELEASE"
   const val mockitoKotlin = "6.2.3"
   const val wiremock = "3.13.2"
 }

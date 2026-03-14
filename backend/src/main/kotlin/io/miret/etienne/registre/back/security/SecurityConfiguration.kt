@@ -1,5 +1,7 @@
 package io.miret.etienne.registre.back.security
 
+import com.webauthn4j.async.WebAuthnAsyncManager
+import com.webauthn4j.converter.util.ObjectConverter
 import io.miret.etienne.registre.back.security.services.DbSecurityContextRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -20,10 +22,19 @@ class SecurityConfiguration {
     http {
       authorizeExchange {
         authorize("/auth/login", permitAll)
+        authorize("/auth/passkey/authentication/challenge", permitAll)
+        authorize("/auth/passkey/authentication", permitAll)
         authorize(anyExchange, hasRole("USER"))
       }
       securityContextRepository = dbSecurityContextRepository
       csrf { disable() }
     }
+
+  @Bean
+  fun objectConverter(): ObjectConverter = ObjectConverter()
+
+  @Bean
+  fun webAuthnAsyncManager(objectConverter: ObjectConverter): WebAuthnAsyncManager =
+    WebAuthnAsyncManager.createNonStrictWebAuthnAsyncManager(objectConverter)
 
 }
