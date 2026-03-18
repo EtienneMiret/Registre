@@ -150,7 +150,7 @@ class PasskeyService(
         attestedCredentialDataCbor = objectConverter.cborMapper
           .writeValueAsBytes(attestedCredentialData),
         signCount = authenticatorData.signCount,
-        backupEligible = authenticatorData.isFlagBE(),
+        backupEligible = authenticatorData.isFlagBE,
       )
     )
   }

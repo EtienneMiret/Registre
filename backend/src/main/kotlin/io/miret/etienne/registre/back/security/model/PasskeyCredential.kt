@@ -33,4 +33,30 @@ data class PasskeyCredential(
   val attestedCredentialDataCbor: ByteArray,
   val signCount: Long,
   val backupEligible: Boolean,
-)
+) {
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (javaClass != other?.javaClass) return false
+
+    other as PasskeyCredential
+
+    if (signCount != other.signCount) return false
+    if (backupEligible != other.backupEligible) return false
+    if (id != other.id) return false
+    if (userId != other.userId) return false
+    if (name != other.name) return false
+    if (!attestedCredentialDataCbor.contentEquals(other.attestedCredentialDataCbor)) return false
+
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = signCount.hashCode()
+    result = 31 * result + backupEligible.hashCode()
+    result = 31 * result + id.hashCode()
+    result = 31 * result + userId.hashCode()
+    result = 31 * result + name.hashCode()
+    result = 31 * result + attestedCredentialDataCbor.contentHashCode()
+    return result
+  }
+}
