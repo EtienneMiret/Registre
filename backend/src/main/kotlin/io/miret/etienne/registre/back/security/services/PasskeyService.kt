@@ -128,7 +128,7 @@ class PasskeyService(
     val registrationRequest = RegistrationRequest(
       Base64UrlUtil.decode(request.response.attestationObject),
       Base64UrlUtil.decode(request.response.clientDataJSON),
-      request.transports,
+      null as Set<String>?,
     )
     val registrationParameters = RegistrationParameters(
       serverProperty(storedChallenge.challengeBase64),
@@ -146,12 +146,11 @@ class PasskeyService(
       PasskeyCredential(
         id = Base64UrlUtil.encodeToString(attestedCredentialData.credentialId!!),
         userId = user.id,
+        name = request.name,
         attestedCredentialDataCbor = objectConverter.cborMapper
           .writeValueAsBytes(attestedCredentialData),
         signCount = authenticatorData.signCount,
-        transports = request.transports ?: emptySet(),
         backupEligible = authenticatorData.isFlagBE(),
-        backupState = authenticatorData.isFlagBS(),
       )
     )
   }
@@ -206,20 +205,17 @@ class PasskeyService(
     val attestedCredentialData = objectConverter.cborMapper
       .readValue(storedCredential.attestedCredentialDataCbor, AttestedCredentialData::class.java)!!
 
-    val transports = storedCredential.transports
-      .mapTo(HashSet()) { AuthenticatorTransport.create(it) }
-
     val credentialRecord = CredentialRecordImpl(
       null,
       null,
       storedCredential.backupEligible,
-      storedCredential.backupState,
+      null,
       storedCredential.signCount,
       attestedCredentialData,
       null,
       null,
       null,
-      transports,
+      null,
     )
 
     val userHandle = request.response.userHandle?.let { Base64UrlUtil.decode(it) }
@@ -242,10 +238,7 @@ class PasskeyService(
     val result = asyncManager.verify(authenticationRequest, authenticationParameters).await()
 
     credentialRepository.save(
-      storedCredential.copy(
-        signCount = result.authenticatorData!!.signCount,
-        backupState = result.authenticatorData!!.isFlagBS(),
-      )
+      storedCredential.copy(signCount = result.authenticatorData!!.signCount)
     )
 
     return userRepository.findById(storedCredential.userId)

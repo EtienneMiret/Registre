@@ -161,11 +161,11 @@ class PasskeyServiceTest {
 
     private fun request() = RegistrationDtoRequest(
       id = "cred-id",
+      name = "My passkey",
       response = RegistrationResponseData(
         clientDataJSON = clientDataJson(challengeBase64),
         attestationObject = Base64UrlUtil.encodeToString(byteArrayOf()),
       ),
-      transports = null,
     )
 
     @Test
@@ -241,11 +241,10 @@ class PasskeyServiceTest {
     private fun storedCredential() = PasskeyCredential(
       id = credentialId,
       userId = "user-1",
+      name = "My passkey",
       attestedCredentialDataCbor = byteArrayOf(),
       signCount = 0,
-      transports = emptySet(),
       backupEligible = false,
-      backupState = false,
     )
 
     @Test

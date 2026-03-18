@@ -10,14 +10,13 @@ import kotlinx.serialization.Serializable
  * `navigator.credentials.create()`.
  *
  * @property id Base64URL-encoded credential ID.
+ * @property name Human-readable label chosen by the user to identify this
+ *    credential (e.g. `"My iPhone"`, `"YubiKey"`).
  * @property response The authenticator's attestation response.
- * @property transports Hints about the transports supported by the
- *    authenticator (e.g. `"usb"`, `"nfc"`, `"ble"`, `"internal"`), or `null` if
- *    not reported.
  */
 @Serializable
 data class RegistrationDtoRequest(
   val id: String,
+  val name: String,
   val response: RegistrationResponseData,
-  val transports: Set<String>?,
 )
