@@ -24,6 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import tools.jackson.databind.json.JsonMapper
 import java.time.Clock
 import java.time.Instant
 
@@ -41,9 +42,8 @@ class PasskeyServiceTest {
     ),
   )
 
-  private val objectConverter = ObjectConverter()
-
   @Mock private lateinit var asyncManager: WebAuthnAsyncManager
+  @Mock private lateinit var objectConverter: ObjectConverter
   @Mock private lateinit var challengeRepository: PasskeyChallengeRepository
   @Mock private lateinit var credentialRepository: PasskeyCredentialRepository
   @Mock private lateinit var userRepository: UserRepository
@@ -168,6 +168,11 @@ class PasskeyServiceTest {
       ),
     )
 
+    @BeforeEach
+    fun setup() {
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+    }
+
     @Test
     fun `should throw when challenge is not found`() {
       runBlocking {
@@ -260,6 +265,7 @@ class PasskeyServiceTest {
 
     @Test
     fun `should throw when challenge is not found`() {
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
       runBlocking {
         whenever(credentialRepository.findById(credentialId))
           .thenReturn(storedCredential())
@@ -286,6 +292,7 @@ class PasskeyServiceTest {
           .thenReturn(expired)
       }
       whenever(clock.instant()).thenReturn(now)
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
 
       assertThatThrownBy {
         runBlocking { service.completeAuthentication(request()) }
