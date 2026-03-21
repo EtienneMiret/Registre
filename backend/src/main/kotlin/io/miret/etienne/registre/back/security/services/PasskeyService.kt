@@ -151,6 +151,8 @@ class PasskeyService(
           .writeValueAsBytes(attestedCredentialData),
         signCount = authenticatorData.signCount,
         backupEligible = authenticatorData.isFlagBE,
+        createdAt = Instant.now(clock),
+        lastUsedAt = null,
       )
     )
   }
@@ -238,7 +240,10 @@ class PasskeyService(
     val result = asyncManager.verify(authenticationRequest, authenticationParameters).await()
 
     credentialRepository.save(
-      storedCredential.copy(signCount = result.authenticatorData!!.signCount)
+      storedCredential.copy(
+        signCount = result.authenticatorData!!.signCount,
+        lastUsedAt = Instant.now(clock),
+      )
     )
 
     return userRepository.findById(storedCredential.userId)

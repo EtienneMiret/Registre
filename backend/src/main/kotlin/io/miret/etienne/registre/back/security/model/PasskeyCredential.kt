@@ -2,6 +2,7 @@ package io.miret.etienne.registre.back.security.model
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
+import java.time.Instant
 
 /**
  * A registered passkey credential stored in the `passkey_credentials`
@@ -24,6 +25,9 @@ import org.springframework.data.mongodb.core.mapping.Document
  * @property backupEligible Whether the credential is eligible for backup
  *   (WebAuthn flag BE). `true` means the private key may be synced across
  *   devices.
+ * @property createdAt When the credential was registered.
+ * @property lastUsedAt When the credential was last used to authenticate,
+ *   or `null` if it has never been used since registration.
  */
 @Document(collection = "passkey_credentials")
 data class PasskeyCredential(
@@ -33,6 +37,8 @@ data class PasskeyCredential(
   val attestedCredentialDataCbor: ByteArray,
   val signCount: Long,
   val backupEligible: Boolean,
+  val createdAt: Instant,
+  val lastUsedAt: Instant?,
 ) {
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
@@ -46,6 +52,8 @@ data class PasskeyCredential(
     if (userId != other.userId) return false
     if (name != other.name) return false
     if (!attestedCredentialDataCbor.contentEquals(other.attestedCredentialDataCbor)) return false
+    if (createdAt != other.createdAt) return false
+    if (lastUsedAt != other.lastUsedAt) return false
 
     return true
   }
@@ -57,6 +65,8 @@ data class PasskeyCredential(
     result = 31 * result + userId.hashCode()
     result = 31 * result + name.hashCode()
     result = 31 * result + attestedCredentialDataCbor.contentHashCode()
+    result = 31 * result + createdAt.hashCode()
+    result = 31 * result + (lastUsedAt?.hashCode() ?: 0)
     return result
   }
 }

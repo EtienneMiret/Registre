@@ -281,6 +281,8 @@ class PasskeyServiceTest {
       assertThat(saved.attestedCredentialDataCbor).isEqualTo(credentialDataCbor)
       assertThat(saved.signCount).isEqualTo(1L)
       assertThat(saved.backupEligible).isTrue()
+      assertThat(saved.createdAt).isEqualTo(now)
+      assertThat(saved.lastUsedAt).isNull()
     }
   }
 
@@ -311,6 +313,8 @@ class PasskeyServiceTest {
       attestedCredentialDataCbor = byteArrayOf(),
       signCount = 0,
       backupEligible = false,
+      createdAt = now.minusSeconds(78000),
+      lastUsedAt = null,
     )
 
     @Test
@@ -406,6 +410,7 @@ class PasskeyServiceTest {
         }.firstValue
       }
       assertThat(saved.signCount).isEqualTo(42L)
+      assertThat(saved.lastUsedAt).isEqualTo(now)
     }
   }
 }

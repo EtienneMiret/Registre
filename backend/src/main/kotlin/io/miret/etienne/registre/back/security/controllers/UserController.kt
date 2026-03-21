@@ -5,6 +5,7 @@ import io.miret.etienne.registre.back.security.repositories.PasskeyCredentialRep
 import io.miret.etienne.registre.common.passkey.Passkey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.datetime.toKotlinInstant
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -24,6 +25,8 @@ class UserController(
         id = it.id,
         user = ApiUser(user.id, user.name),
         name = it.name,
+        createdAt = it.createdAt.toKotlinInstant(),
+        lastUsedAt = it.lastUsedAt?.toKotlinInstant(),
       ) }
 
 }
