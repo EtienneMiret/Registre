@@ -2,6 +2,16 @@ package io.miret.etienne.registre.back.security.services
 
 import com.webauthn4j.async.WebAuthnAsyncManager
 import com.webauthn4j.converter.util.ObjectConverter
+import com.webauthn4j.data.RegistrationData
+import com.webauthn4j.data.RegistrationParameters
+import com.webauthn4j.data.RegistrationRequest
+import com.webauthn4j.data.attestation.AttestationObject
+import com.webauthn4j.data.attestation.authenticator.AAGUID
+import com.webauthn4j.data.attestation.authenticator.AttestedCredentialData
+import com.webauthn4j.data.attestation.authenticator.AuthenticatorData
+import com.webauthn4j.data.attestation.authenticator.RSACOSEKey
+import com.webauthn4j.data.attestation.statement.AttestationStatement
+import com.webauthn4j.data.extension.authenticator.RegistrationExtensionAuthenticatorOutput
 import com.webauthn4j.util.Base64UrlUtil
 import io.miret.etienne.registre.back.config.RegistreConfig
 import io.miret.etienne.registre.back.config.WebAuthnConfig
@@ -21,12 +31,12 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
-import org.mockito.kotlin.argumentCaptor
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import tools.jackson.databind.json.JsonMapper
+import tools.jackson.dataformat.cbor.CBORMapper
 import java.time.Clock
 import java.time.Instant
+import java.util.concurrent.CompletableFuture
 
 @ExtendWith(MockitoExtension::class)
 class PasskeyServiceTest {
@@ -155,6 +165,8 @@ class PasskeyServiceTest {
   @Nested
   inner class CompleteRegistration {
 
+    @Mock private lateinit var cborMapper: CBORMapper
+
     private val user = User("user-1", "Alice", admin = false)
     private val challengeBase64 =
       Base64UrlUtil.encodeToString(byteArrayOf(1, 2, 3))
@@ -222,6 +234,55 @@ class PasskeyServiceTest {
         runBlocking { service.completeRegistration(user, request()) }
       }.isInstanceOf(IllegalStateException::class.java)
         .hasMessage("Challenge user mismatch")
+    }
+
+    @Test
+    fun `should save credential on success`() {
+      val validChallenge = PasskeyChallenge(
+        challengeBase64 = challengeBase64,
+        userId = user.id,
+        expiresAt = now.plusSeconds(60),
+      )
+      val credentialIdBytes = byteArrayOf(10, 20, 30)
+      val credentialIdBase64 = Base64UrlUtil.encodeToString(credentialIdBytes)
+      val credentialDataCbor = byteArrayOf(1, 2, 3, 4)
+      val attestedCredentialData = AttestedCredentialData(
+        AAGUID.ZERO,
+        credentialIdBytes,
+        RSACOSEKey(null, null, null, null, null),
+      )
+      val authenticatorData = AuthenticatorData<RegistrationExtensionAuthenticatorOutput>(
+        ByteArray(32),
+        AuthenticatorData.BIT_BE,
+        1L,
+        attestedCredentialData,
+      )
+      val attestationObject = AttestationObject(authenticatorData, mock<AttestationStatement>())
+      val registrationData = RegistrationData(attestationObject, null, null, null, null, null)
+      whenever(objectConverter.cborMapper)
+        .thenReturn(cborMapper)
+      whenever(cborMapper.writeValueAsBytes(attestedCredentialData))
+        .thenReturn(credentialDataCbor)
+      runBlocking {
+        whenever(challengeRepository.findById(challengeBase64)).thenReturn(validChallenge)
+        whenever(asyncManager.verify(any<RegistrationRequest>(), any<RegistrationParameters>()))
+          .thenReturn(CompletableFuture.completedFuture(registrationData))
+      }
+      whenever(clock.instant()).thenReturn(now)
+
+      runBlocking { service.completeRegistration(user, request()) }
+
+      val saved = runBlocking {
+        argumentCaptor<PasskeyCredential> {
+          verify(credentialRepository).save(capture())
+        }.firstValue
+      }
+      assertThat(saved.id).isEqualTo(credentialIdBase64)
+      assertThat(saved.userId).isEqualTo(user.id)
+      assertThat(saved.name).isEqualTo("My passkey")
+      assertThat(saved.attestedCredentialDataCbor).isEqualTo(credentialDataCbor)
+      assertThat(saved.signCount).isEqualTo(1L)
+      assertThat(saved.backupEligible).isTrue()
     }
   }
 
