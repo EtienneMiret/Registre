@@ -2,9 +2,7 @@ package io.miret.etienne.registre.back.security.services
 
 import com.webauthn4j.async.WebAuthnAsyncManager
 import com.webauthn4j.converter.util.ObjectConverter
-import com.webauthn4j.data.RegistrationData
-import com.webauthn4j.data.RegistrationParameters
-import com.webauthn4j.data.RegistrationRequest
+import com.webauthn4j.data.*
 import com.webauthn4j.data.attestation.AttestationObject
 import com.webauthn4j.data.attestation.authenticator.AAGUID
 import com.webauthn4j.data.attestation.authenticator.AttestedCredentialData
@@ -289,6 +287,8 @@ class PasskeyServiceTest {
   @Nested
   inner class CompleteAuthentication {
 
+    @Mock private lateinit var cborMapper: CBORMapper
+
     private val credentialId =
       Base64UrlUtil.encodeToString(byteArrayOf(1, 2, 3))
     private val challengeBase64 =
@@ -359,6 +359,53 @@ class PasskeyServiceTest {
         runBlocking { service.completeAuthentication(request()) }
       }.isInstanceOf(IllegalStateException::class.java)
         .hasMessage("Challenge expired")
+    }
+
+    @Test
+    fun `should return authenticated user on success`() {
+      val validChallenge = PasskeyChallenge(
+        challengeBase64 = challengeBase64,
+        userId = null,
+        expiresAt = now.plusSeconds(60),
+      )
+      val attestedCredentialData = AttestedCredentialData(
+        AAGUID.ZERO,
+        Base64UrlUtil.decode(credentialId),
+        RSACOSEKey(null, null, null, null, null),
+      )
+      val authenticationData = AuthenticationData(
+        null,
+        null,
+        AuthenticatorData(ByteArray(32), 0, 42L),
+        null,
+        null,
+        null,
+        null,
+        null,
+      )
+      val user = User("user-1", "Alice", admin = false)
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+      whenever(objectConverter.cborMapper).thenReturn(cborMapper)
+      whenever(cborMapper.readValue(any<ByteArray>(), eq(AttestedCredentialData::class.java)))
+        .thenReturn(attestedCredentialData)
+      runBlocking {
+        whenever(credentialRepository.findById(credentialId)).thenReturn(storedCredential())
+        whenever(challengeRepository.findById(challengeBase64)).thenReturn(validChallenge)
+        whenever(asyncManager.verify(any<AuthenticationRequest>(), any<AuthenticationParameters>()))
+          .thenReturn(CompletableFuture.completedFuture(authenticationData))
+        whenever(userRepository.findById("user-1")).thenReturn(user)
+      }
+      whenever(clock.instant()).thenReturn(now)
+
+      val result = runBlocking { service.completeAuthentication(request()) }
+
+      assertThat(result).isEqualTo(user)
+      val saved = runBlocking {
+        argumentCaptor<PasskeyCredential> {
+          verify(credentialRepository).save(capture())
+        }.firstValue
+      }
+      assertThat(saved.signCount).isEqualTo(42L)
     }
   }
 }
