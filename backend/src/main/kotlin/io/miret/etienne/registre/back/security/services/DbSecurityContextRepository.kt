@@ -66,6 +66,7 @@ class DbSecurityContextRepository : ServerSecurityContextRepository {
       .httpOnly(true)
       .maxAge(sessionDuration)
       .sameSite("Strict")
+      .path("/api")
       .build()
     exchange.response.addCookie(cookie)
 

@@ -118,6 +118,7 @@ class DbSecurityContextRepositoryTest {
       val minDuration = Duration.ofDays(5)
       assertThat(session.expiresAt).isAfter(now.plus(minDuration))
       assertThat(cookie.maxAge).isGreaterThan(minDuration)
+      assertThat(cookie.path).isEqualTo("/api")
     }
   }
 
