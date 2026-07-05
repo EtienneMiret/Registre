@@ -3,8 +3,10 @@ package io.miret.etienne.registre.back.security
 import com.webauthn4j.async.WebAuthnAsyncManager
 import com.webauthn4j.converter.util.ObjectConverter
 import io.miret.etienne.registre.back.security.services.DbSecurityContextRepository
+import kotlinx.coroutines.reactor.mono
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.config.web.server.invoke
@@ -28,6 +30,12 @@ class SecurityConfiguration {
       }
       securityContextRepository = dbSecurityContextRepository
       csrf { disable() }
+      exceptionHandling {
+        authenticationEntryPoint = { exchange, _ ->
+          exchange.response.statusCode = HttpStatus.FORBIDDEN
+          mono { return@mono null }
+        }
+      }
     }
 
   @Bean
