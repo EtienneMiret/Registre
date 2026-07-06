@@ -11,11 +11,11 @@ import com.webauthn4j.data.client.challenge.DefaultChallenge
 import com.webauthn4j.server.ServerProperty
 import com.webauthn4j.util.Base64UrlUtil
 import io.miret.etienne.registre.back.config.RegistreConfig
+import io.miret.etienne.registre.back.security.model.Passkey
 import io.miret.etienne.registre.back.security.model.PasskeyChallenge
-import io.miret.etienne.registre.back.security.model.PasskeyCredential
 import io.miret.etienne.registre.back.security.model.User
 import io.miret.etienne.registre.back.security.repositories.PasskeyChallengeRepository
-import io.miret.etienne.registre.back.security.repositories.PasskeyCredentialRepository
+import io.miret.etienne.registre.back.security.repositories.PasskeyRepository
 import io.miret.etienne.registre.back.security.repositories.UserRepository
 import io.miret.etienne.registre.common.passkey.*
 import kotlinx.coroutines.future.await
@@ -40,7 +40,7 @@ class PasskeyService(
   private val asyncManager: WebAuthnAsyncManager,
   private val objectConverter: ObjectConverter,
   private val challengeRepository: PasskeyChallengeRepository,
-  private val credentialRepository: PasskeyCredentialRepository,
+  private val credentialRepository: PasskeyRepository,
   private val userRepository: UserRepository,
   private val clock: Clock,
   private val config: RegistreConfig,
@@ -143,7 +143,7 @@ class PasskeyService(
     val attestedCredentialData = authenticatorData.attestedCredentialData!!
 
     credentialRepository.save(
-      PasskeyCredential(
+      Passkey(
         id = Base64UrlUtil.encodeToString(attestedCredentialData.credentialId!!),
         userId = user.id,
         name = request.name,

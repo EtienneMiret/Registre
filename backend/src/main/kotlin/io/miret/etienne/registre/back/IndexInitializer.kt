@@ -1,7 +1,7 @@
 package io.miret.etienne.registre.back
 
+import io.miret.etienne.registre.back.security.model.Passkey
 import io.miret.etienne.registre.back.security.model.PasskeyChallenge
-import io.miret.etienne.registre.back.security.model.PasskeyCredential
 import io.miret.etienne.registre.back.security.model.Session
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.runBlocking
@@ -37,7 +37,7 @@ class IndexInitializer(
         )
         .awaitSingle()
     }
-    mongoTemplate.indexOps<PasskeyCredential>()
+    mongoTemplate.indexOps<Passkey>()
       .createIndex(
         Index()
           .on("userId", Sort.Direction.ASC)

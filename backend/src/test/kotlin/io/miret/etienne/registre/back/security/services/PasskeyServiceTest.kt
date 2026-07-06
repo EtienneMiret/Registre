@@ -13,11 +13,11 @@ import com.webauthn4j.data.extension.authenticator.RegistrationExtensionAuthenti
 import com.webauthn4j.util.Base64UrlUtil
 import io.miret.etienne.registre.back.config.RegistreConfig
 import io.miret.etienne.registre.back.config.WebAuthnConfig
+import io.miret.etienne.registre.back.security.model.Passkey
 import io.miret.etienne.registre.back.security.model.PasskeyChallenge
-import io.miret.etienne.registre.back.security.model.PasskeyCredential
 import io.miret.etienne.registre.back.security.model.User
 import io.miret.etienne.registre.back.security.repositories.PasskeyChallengeRepository
-import io.miret.etienne.registre.back.security.repositories.PasskeyCredentialRepository
+import io.miret.etienne.registre.back.security.repositories.PasskeyRepository
 import io.miret.etienne.registre.back.security.repositories.UserRepository
 import io.miret.etienne.registre.common.passkey.*
 import kotlinx.coroutines.runBlocking
@@ -53,7 +53,7 @@ class PasskeyServiceTest {
   @Mock private lateinit var asyncManager: WebAuthnAsyncManager
   @Mock private lateinit var objectConverter: ObjectConverter
   @Mock private lateinit var challengeRepository: PasskeyChallengeRepository
-  @Mock private lateinit var credentialRepository: PasskeyCredentialRepository
+  @Mock private lateinit var credentialRepository: PasskeyRepository
   @Mock private lateinit var userRepository: UserRepository
   @Mock private lateinit var clock: Clock
 
@@ -271,7 +271,7 @@ class PasskeyServiceTest {
       runBlocking { service.completeRegistration(user, request()) }
 
       val saved = runBlocking {
-        argumentCaptor<PasskeyCredential> {
+        argumentCaptor<Passkey> {
           verify(credentialRepository).save(capture())
         }.firstValue
       }
@@ -306,7 +306,7 @@ class PasskeyServiceTest {
       ),
     )
 
-    private fun storedCredential() = PasskeyCredential(
+    private fun storedCredential() = Passkey(
       id = credentialId,
       userId = "user-1",
       name = "My passkey",
@@ -405,7 +405,7 @@ class PasskeyServiceTest {
 
       assertThat(result).isEqualTo(user)
       val saved = runBlocking {
-        argumentCaptor<PasskeyCredential> {
+        argumentCaptor<Passkey> {
           verify(credentialRepository).save(capture())
         }.firstValue
       }

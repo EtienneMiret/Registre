@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 import java.time.Instant
 
 /**
- * A registered passkey credential stored in the `passkey_credentials`
+ * A registered passkey credential stored in the `passkeys`
  * MongoDB collection.
  *
  * One document is created per successful registration ceremony and looked up
@@ -29,8 +29,8 @@ import java.time.Instant
  * @property lastUsedAt When the credential was last used to authenticate,
  *   or `null` if it has never been used since registration.
  */
-@Document(collection = "passkey_credentials")
-data class PasskeyCredential(
+@Document(collection = "passkeys")
+data class Passkey(
   @Id val id: String,
   val userId: String,
   val name: String,
@@ -44,7 +44,7 @@ data class PasskeyCredential(
     if (this === other) return true
     if (javaClass != other?.javaClass) return false
 
-    other as PasskeyCredential
+    other as Passkey
 
     if (signCount != other.signCount) return false
     if (backupEligible != other.backupEligible) return false

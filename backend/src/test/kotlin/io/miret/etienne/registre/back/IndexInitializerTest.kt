@@ -1,6 +1,6 @@
 package io.miret.etienne.registre.back
 
-import io.miret.etienne.registre.back.security.model.PasskeyCredential
+import io.miret.etienne.registre.back.security.model.Passkey
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -44,7 +44,7 @@ class IndexInitializerTest {
   ) {
     initializer.run(DefaultApplicationArguments())
 
-    val indexes = db.indexOps<PasskeyCredential>()
+    val indexes = db.indexOps<Passkey>()
       .indexInfo
       .collectList()
       .block()
