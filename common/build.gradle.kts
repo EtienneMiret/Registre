@@ -14,4 +14,5 @@ kotlin {
 
 dependencies {
   commonMainApi("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}")
+  commonMainApi("org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDatetime}")
 }

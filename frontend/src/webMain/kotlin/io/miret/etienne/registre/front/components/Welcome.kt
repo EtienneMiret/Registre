@@ -9,4 +9,6 @@ external interface WelcomeProps : Props {
 
 val Welcome = FC<WelcomeProps>("Welcome") { props ->
   + "Hello ${props.name}!"
+
+  PassKeys {}
 }

@@ -1,1 +1,6 @@
 mongoConnectionString = "mongodb://localhost:27017/registre"
+
+[webauthn]
+rpId = "localhost"
+rpName = "Registre"
+origin = "http://localhost:3000"
