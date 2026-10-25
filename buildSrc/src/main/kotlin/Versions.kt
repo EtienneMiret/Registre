@@ -5,6 +5,7 @@ object Versions {
   const val kotlinxDatetime = "0.6.2"
 
   /* Frontend */
+  const val node = "26.12.1"
   const val reactRedux = "9.2.0"
   const val reduxToolkit = "2.11.2"
   const val kotlinWrappers = "2026.3.9"

@@ -11,7 +11,6 @@ fun encodeToBase64Url(buffer: ArrayBuffer): String = Uint8Array(buffer)
 fun decodeFromBase64Url(base64Url: String): ArrayBuffer {
   val s = base64Url.replace("-", "+")
     .replace("_", "/")
-  val pad = s.length % 4
-  return Uint8Array.fromBase64(s + "=".repeat(4 - pad))
+  return Uint8Array.fromBase64(s)
     .buffer
 }
