@@ -11,6 +11,7 @@ import com.webauthn4j.data.client.challenge.DefaultChallenge
 import com.webauthn4j.server.ServerProperty
 import com.webauthn4j.util.Base64UrlUtil
 import io.miret.etienne.registre.back.config.RegistreConfig
+import io.miret.etienne.registre.back.security.exceptions.InvalidChallengeException
 import io.miret.etienne.registre.back.security.model.Passkey
 import io.miret.etienne.registre.back.security.model.PasskeyChallenge
 import io.miret.etienne.registre.back.security.model.User
@@ -116,7 +117,7 @@ class PasskeyService(
    *
    * Retrieves and deletes the stored challenge for [user], then delegates
    * cryptographic verification to [WebAuthnAsyncManager].
-   * Throws [IllegalStateException] if the challenge is missing, expired, or
+   * Throws [InvalidChallengeException] if the challenge is missing, expired, or
    * belongs to a different user.
    *
    * @param user The authenticated user completing the registration.
@@ -259,7 +260,7 @@ class PasskeyService(
    * @param expectedUserId When non-null, the challenge's
    *   [PasskeyChallenge.userId] must match this value.
    * @return The consumed [PasskeyChallenge].
-   * @throws IllegalStateException if the challenge is not found,
+   * @throws InvalidChallengeException if the challenge is not found,
    *   expired, or owned by a different user.
    */
   private suspend fun consumeChallenge(
@@ -274,12 +275,12 @@ class PasskeyService(
     val challengeBase64 = clientData["challenge"] as String
 
     val challenge = challengeRepository.deleteChallengeById(challengeBase64)
-      ?: throw IllegalStateException("Challenge not found")
+      ?: throw InvalidChallengeException("Challenge not found")
     if (challenge.expiresAt < Instant.now(clock)) {
-      throw IllegalStateException("Challenge expired")
+      throw InvalidChallengeException("Challenge expired")
     }
     if (expectedUserId != null && challenge.userId != expectedUserId) {
-      throw IllegalStateException("Challenge user mismatch")
+      throw InvalidChallengeException("Challenge user mismatch")
     }
     return challenge
   }

@@ -1,6 +1,7 @@
 package io.miret.etienne.registre.back.security.controllers
 
 import io.miret.etienne.registre.back.security.SessionAuthentication
+import io.miret.etienne.registre.back.security.exceptions.InvalidPasskeyException
 import io.miret.etienne.registre.back.security.model.User
 import io.miret.etienne.registre.back.security.services.DbSecurityContextRepository
 import io.miret.etienne.registre.back.security.services.PasskeyService
@@ -9,6 +10,7 @@ import io.miret.etienne.registre.common.passkey.AuthenticationOptions
 import io.miret.etienne.registre.common.passkey.RegistrationDtoRequest
 import io.miret.etienne.registre.common.passkey.RegistrationOptions
 import kotlinx.coroutines.reactor.awaitSingleOrNull
+import org.springframework.dao.DuplicateKeyException
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.context.SecurityContextImpl
@@ -35,7 +37,11 @@ class PasskeyController(
     @AuthenticationPrincipal user: User,
     @RequestBody request: RegistrationDtoRequest,
   ) {
-    passkeyService.completeRegistration(user, request)
+    try {
+      passkeyService.completeRegistration(user, request)
+    } catch (e: DuplicateKeyException) {
+      throw InvalidPasskeyException("Passkey already exists", e)
+    }
   }
 
   @GetMapping("/authentication/challenge")
