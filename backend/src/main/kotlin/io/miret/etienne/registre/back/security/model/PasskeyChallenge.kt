@@ -11,7 +11,7 @@ import java.time.Instant
  * One document is created when the server issues registration or authentication
  * options, and deleted (or expired) once the ceremony completes or times out.
  *
- * @property challengeBase64 Base64URL-encoded random challenge that was
+ * @property id Base64URL-encoded random challenge that was
  *   sent to the browser. Serves as the document `_id`. Verified against
  *   the value in `clientDataJSON` when the browser submits its response.
  * @property userId MongoDB `_id` of the user this challenge belongs to,
@@ -22,7 +22,7 @@ import java.time.Instant
  */
 @Document(collection = "passkey_challenges")
 data class PasskeyChallenge(
-  @Id val challengeBase64: String,
+  @Id val id: String,
   val userId: String?,
   val expiresAt: Instant,
 )

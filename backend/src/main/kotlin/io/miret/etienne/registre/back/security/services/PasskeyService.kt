@@ -84,7 +84,7 @@ class PasskeyService(
     val challengeBase64 = Base64UrlUtil.encodeToString(challenge.value)
     challengeRepository.save(
       PasskeyChallenge(
-        challengeBase64 = challengeBase64,
+        id = challengeBase64,
         userId = user.id,
         expiresAt = Instant.now(clock).plus(challengeExpiry),
       )
@@ -131,7 +131,7 @@ class PasskeyService(
       null as Set<String>?,
     )
     val registrationParameters = RegistrationParameters(
-      serverProperty(storedChallenge.challengeBase64),
+      serverProperty(storedChallenge.id),
       pubKeyCredParams,
       true,
       true,
@@ -171,7 +171,7 @@ class PasskeyService(
     val challengeBase64 = Base64UrlUtil.encodeToString(challenge.value)
     challengeRepository.save(
       PasskeyChallenge(
-        challengeBase64 = challengeBase64,
+        id = challengeBase64,
         userId = null,
         expiresAt = Instant.now(clock).plus(challengeExpiry),
       )
@@ -230,7 +230,7 @@ class PasskeyService(
       Base64UrlUtil.decode(request.response.signature),
     )
     val authenticationParameters = AuthenticationParameters(
-      serverProperty(storedChallenge.challengeBase64),
+      serverProperty(storedChallenge.id),
       credentialRecord,
       null,
       true,
@@ -273,16 +273,14 @@ class PasskeyService(
       .readValue(clientDataJson, Map::class.java) as Map<String, Any?>
     val challengeBase64 = clientData["challenge"] as String
 
-    val challenge = challengeRepository.findById(challengeBase64)
+    val challenge = challengeRepository.deleteChallengeById(challengeBase64)
       ?: throw IllegalStateException("Challenge not found")
     if (challenge.expiresAt < Instant.now(clock)) {
-      challengeRepository.delete(challenge)
       throw IllegalStateException("Challenge expired")
     }
     if (expectedUserId != null && challenge.userId != expectedUserId) {
       throw IllegalStateException("Challenge user mismatch")
     }
-    challengeRepository.delete(challenge)
     return challenge
   }
 

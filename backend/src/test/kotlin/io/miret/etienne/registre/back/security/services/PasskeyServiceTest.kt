@@ -114,7 +114,7 @@ class PasskeyServiceTest {
           verify(challengeRepository).save(capture())
         }.firstValue
       }
-      assertThat(options.challenge).isEqualTo(challenge.challengeBase64)
+      assertThat(options.challenge).isEqualTo(challenge.id)
       assertThat(options.rp).isEqualTo(RpInfo("example.com", "Example"))
       assertThat(options.attestation).isEqualTo("none")
       assertThat(options.authenticatorSelection.userVerification)
@@ -153,7 +153,7 @@ class PasskeyServiceTest {
           verify(challengeRepository).save(capture())
         }.firstValue
       }
-      assertThat(options.challenge).isEqualTo(challenge.challengeBase64)
+      assertThat(options.challenge).isEqualTo(challenge.id)
       assertThat(options.rpId).isEqualTo("example.com")
       assertThat(options.allowCredentials).isEmpty()
       assertThat(options.userVerification).isEqualTo(UserVerification.REQUIRED)
@@ -166,14 +166,14 @@ class PasskeyServiceTest {
     @Mock private lateinit var cborMapper: CBORMapper
 
     private val user = User("user-1", "Alice", admin = false)
-    private val challengeBase64 =
+    private val challengeId =
       Base64UrlUtil.encodeToString(byteArrayOf(1, 2, 3))
 
     private fun request() = RegistrationDtoRequest(
       id = "cred-id",
       name = "My passkey",
       response = RegistrationResponseData(
-        clientDataJSON = clientDataJson(challengeBase64),
+        clientDataJSON = clientDataJson(challengeId),
         attestationObject = Base64UrlUtil.encodeToString(byteArrayOf()),
       ),
     )
@@ -186,7 +186,7 @@ class PasskeyServiceTest {
     @Test
     fun `should throw when challenge is not found`() {
       runBlocking {
-        whenever(challengeRepository.findById(challengeBase64))
+        whenever(challengeRepository.deleteChallengeById(challengeId))
           .thenReturn(null)
       }
 
@@ -199,12 +199,12 @@ class PasskeyServiceTest {
     @Test
     fun `should throw when challenge is expired`() {
       val expired = PasskeyChallenge(
-        challengeBase64 = challengeBase64,
+        id = challengeId,
         userId = user.id,
         expiresAt = now.minusSeconds(1),
       )
       runBlocking {
-        whenever(challengeRepository.findById(challengeBase64))
+        whenever(challengeRepository.deleteChallengeById(challengeId))
           .thenReturn(expired)
       }
       whenever(clock.instant()).thenReturn(now)
@@ -218,12 +218,12 @@ class PasskeyServiceTest {
     @Test
     fun `should throw when challenge belongs to a different user`() {
       val mismatch = PasskeyChallenge(
-        challengeBase64 = challengeBase64,
+        id = challengeId,
         userId = "other-user",
         expiresAt = now.plusSeconds(60),
       )
       runBlocking {
-        whenever(challengeRepository.findById(challengeBase64))
+        whenever(challengeRepository.deleteChallengeById(challengeId))
           .thenReturn(mismatch)
       }
       whenever(clock.instant()).thenReturn(now)
@@ -237,7 +237,7 @@ class PasskeyServiceTest {
     @Test
     fun `should save credential on success`() {
       val validChallenge = PasskeyChallenge(
-        challengeBase64 = challengeBase64,
+        id = challengeId,
         userId = user.id,
         expiresAt = now.plusSeconds(60),
       )
@@ -262,7 +262,8 @@ class PasskeyServiceTest {
       whenever(cborMapper.writeValueAsBytes(attestedCredentialData))
         .thenReturn(credentialDataCbor)
       runBlocking {
-        whenever(challengeRepository.findById(challengeBase64)).thenReturn(validChallenge)
+        whenever(challengeRepository.deleteChallengeById(challengeId))
+          .thenReturn(validChallenge)
         whenever(asyncManager.verify(any<RegistrationRequest>(), any<RegistrationParameters>()))
           .thenReturn(CompletableFuture.completedFuture(registrationData))
       }
@@ -293,13 +294,13 @@ class PasskeyServiceTest {
 
     private val credentialId =
       Base64UrlUtil.encodeToString(byteArrayOf(1, 2, 3))
-    private val challengeBase64 =
+    private val challengeId =
       Base64UrlUtil.encodeToString(byteArrayOf(4, 5, 6))
 
     private fun request() = AuthenticationDtoRequest(
       id = credentialId,
       response = AuthenticationResponseData(
-        clientDataJSON = clientDataJson(challengeBase64),
+        clientDataJSON = clientDataJson(challengeId),
         authenticatorData = Base64UrlUtil.encodeToString(byteArrayOf()),
         signature = Base64UrlUtil.encodeToString(byteArrayOf()),
         userHandle = null,
@@ -334,7 +335,8 @@ class PasskeyServiceTest {
       runBlocking {
         whenever(passkeyRepository.findById(credentialId))
           .thenReturn(storedCredential())
-        whenever(challengeRepository.findById(challengeBase64)).thenReturn(null)
+        whenever(challengeRepository.deleteChallengeById(challengeId))
+          .thenReturn(null)
       }
 
       assertThatThrownBy {
@@ -346,14 +348,14 @@ class PasskeyServiceTest {
     @Test
     fun `should throw when challenge is expired`() {
       val expired = PasskeyChallenge(
-        challengeBase64 = challengeBase64,
+        id = challengeId,
         userId = null,
         expiresAt = now.minusSeconds(1),
       )
       runBlocking {
         whenever(passkeyRepository.findById(credentialId))
           .thenReturn(storedCredential())
-        whenever(challengeRepository.findById(challengeBase64))
+        whenever(challengeRepository.deleteChallengeById(challengeId))
           .thenReturn(expired)
       }
       whenever(clock.instant()).thenReturn(now)
@@ -368,7 +370,7 @@ class PasskeyServiceTest {
     @Test
     fun `should return authenticated user on success`() {
       val validChallenge = PasskeyChallenge(
-        challengeBase64 = challengeBase64,
+        id = challengeId,
         userId = null,
         expiresAt = now.plusSeconds(60),
       )
@@ -393,8 +395,10 @@ class PasskeyServiceTest {
       whenever(cborMapper.readValue(any<ByteArray>(), eq(AttestedCredentialData::class.java)))
         .thenReturn(attestedCredentialData)
       runBlocking {
-        whenever(passkeyRepository.findById(credentialId)).thenReturn(storedCredential())
-        whenever(challengeRepository.findById(challengeBase64)).thenReturn(validChallenge)
+        whenever(passkeyRepository.findById(credentialId))
+          .thenReturn(storedCredential())
+        whenever(challengeRepository.deleteChallengeById(challengeId))
+          .thenReturn(validChallenge)
         whenever(asyncManager.verify(any<AuthenticationRequest>(), any<AuthenticationParameters>()))
           .thenReturn(CompletableFuture.completedFuture(authenticationData))
         whenever(userRepository.findById("user-1")).thenReturn(user)
