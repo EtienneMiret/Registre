@@ -53,7 +53,7 @@ class PasskeyServiceTest {
   @Mock private lateinit var asyncManager: WebAuthnAsyncManager
   @Mock private lateinit var objectConverter: ObjectConverter
   @Mock private lateinit var challengeRepository: PasskeyChallengeRepository
-  @Mock private lateinit var credentialRepository: PasskeyRepository
+  @Mock private lateinit var passkeyRepository: PasskeyRepository
   @Mock private lateinit var userRepository: UserRepository
   @Mock private lateinit var clock: Clock
 
@@ -65,7 +65,7 @@ class PasskeyServiceTest {
       asyncManager,
       objectConverter,
       challengeRepository,
-      credentialRepository,
+      passkeyRepository,
       userRepository,
       clock,
       config,
@@ -272,7 +272,7 @@ class PasskeyServiceTest {
 
       val saved = runBlocking {
         argumentCaptor<Passkey> {
-          verify(credentialRepository).save(capture())
+          verify(passkeyRepository).insert(capture())
         }.firstValue
       }
       assertThat(saved.id).isEqualTo(credentialIdBase64)
@@ -320,7 +320,7 @@ class PasskeyServiceTest {
     @Test
     fun `should return null when credential is not found`() {
       runBlocking {
-        whenever(credentialRepository.findById(credentialId)).thenReturn(null)
+        whenever(passkeyRepository.findById(credentialId)).thenReturn(null)
       }
 
       val result = runBlocking { service.completeAuthentication(request()) }
@@ -332,7 +332,7 @@ class PasskeyServiceTest {
     fun `should throw when challenge is not found`() {
       whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
       runBlocking {
-        whenever(credentialRepository.findById(credentialId))
+        whenever(passkeyRepository.findById(credentialId))
           .thenReturn(storedCredential())
         whenever(challengeRepository.findById(challengeBase64)).thenReturn(null)
       }
@@ -351,7 +351,7 @@ class PasskeyServiceTest {
         expiresAt = now.minusSeconds(1),
       )
       runBlocking {
-        whenever(credentialRepository.findById(credentialId))
+        whenever(passkeyRepository.findById(credentialId))
           .thenReturn(storedCredential())
         whenever(challengeRepository.findById(challengeBase64))
           .thenReturn(expired)
@@ -393,7 +393,7 @@ class PasskeyServiceTest {
       whenever(cborMapper.readValue(any<ByteArray>(), eq(AttestedCredentialData::class.java)))
         .thenReturn(attestedCredentialData)
       runBlocking {
-        whenever(credentialRepository.findById(credentialId)).thenReturn(storedCredential())
+        whenever(passkeyRepository.findById(credentialId)).thenReturn(storedCredential())
         whenever(challengeRepository.findById(challengeBase64)).thenReturn(validChallenge)
         whenever(asyncManager.verify(any<AuthenticationRequest>(), any<AuthenticationParameters>()))
           .thenReturn(CompletableFuture.completedFuture(authenticationData))
@@ -406,7 +406,7 @@ class PasskeyServiceTest {
       assertThat(result).isEqualTo(user)
       val saved = runBlocking {
         argumentCaptor<Passkey> {
-          verify(credentialRepository).save(capture())
+          verify(passkeyRepository).save(capture())
         }.firstValue
       }
       assertThat(saved.signCount).isEqualTo(42L)

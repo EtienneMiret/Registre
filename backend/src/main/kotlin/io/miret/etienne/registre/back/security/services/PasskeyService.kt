@@ -40,7 +40,7 @@ class PasskeyService(
   private val asyncManager: WebAuthnAsyncManager,
   private val objectConverter: ObjectConverter,
   private val challengeRepository: PasskeyChallengeRepository,
-  private val credentialRepository: PasskeyRepository,
+  private val passkeyRepository: PasskeyRepository,
   private val userRepository: UserRepository,
   private val clock: Clock,
   private val config: RegistreConfig,
@@ -142,7 +142,7 @@ class PasskeyService(
     val authenticatorData = result.attestationObject!!.authenticatorData
     val attestedCredentialData = authenticatorData.attestedCredentialData!!
 
-    credentialRepository.save(
+    passkeyRepository.insert(
       Passkey(
         id = Base64UrlUtil.encodeToString(attestedCredentialData.credentialId!!),
         userId = user.id,
@@ -199,7 +199,7 @@ class PasskeyService(
    *   is not found.
    */
   suspend fun completeAuthentication(request: AuthenticationDtoRequest): User? {
-    val storedCredential = credentialRepository.findById(request.id)
+    val storedCredential = passkeyRepository.findById(request.id)
       ?: return null
 
     val storedChallenge = consumeChallenge(request.response.clientDataJSON, null)
@@ -239,7 +239,7 @@ class PasskeyService(
 
     val result = asyncManager.verify(authenticationRequest, authenticationParameters).await()
 
-    credentialRepository.save(
+    passkeyRepository.save(
       storedCredential.copy(
         signCount = result.authenticatorData!!.signCount,
         lastUsedAt = Instant.now(clock),
