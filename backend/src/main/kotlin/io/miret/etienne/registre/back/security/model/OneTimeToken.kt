@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document(collection = "tokens")
 data class OneTimeToken(
     @Id val id: String,
-    var userId: String,
+    val userId: String,
 )

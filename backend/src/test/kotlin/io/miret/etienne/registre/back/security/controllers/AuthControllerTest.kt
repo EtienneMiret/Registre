@@ -14,15 +14,11 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
-import org.mockito.kotlin.any
-import org.mockito.kotlin.anyOrNull
-import org.mockito.kotlin.eq
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.server.ServerWebExchange
-import reactor.core.publisher.Mono
 import io.miret.etienne.registre.common.User as ApiUser
 
 @ExtendWith(MockitoExtension::class)
@@ -78,12 +74,15 @@ class AuthControllerTest {
         whenever(ottRepository.consume(token.id)).thenReturn(token)
         whenever(userRepository.findById(user.id)).thenReturn(user)
       }
-      whenever(securityContextRepository.save(eq(exchange), anyOrNull())).thenReturn(Mono.empty())
 
       val actual = runBlocking { controller.login(token.id, exchange) }
 
       assertThat(actual).isEqualTo(ApiUser(user.id, user.name))
-      verify(securityContextRepository).save(eq(exchange), any())
+      runBlocking {
+        verify(securityContextRepository).login(exchange, user)
+      }
     }
+
   }
+
 }

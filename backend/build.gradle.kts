@@ -20,6 +20,7 @@ dependencies {
   implementation("tools.jackson.dataformat:jackson-dataformat-toml:${Versions.jackson}")
   implementation("tools.jackson.module:jackson-module-kotlin:${Versions.jackson}")
   implementation("org.wikidata.wdtk:wdtk-wikibaseapi:${Versions.wikidataToolkit}")
+  implementation("com.webauthn4j:webauthn4j-core-async:${Versions.webauthn4j}")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("io.projectreactor:reactor-test")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

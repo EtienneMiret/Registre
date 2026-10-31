@@ -4,6 +4,7 @@ object Versions {
   const val kotlinxSerialization = "1.10.0"
 
   /* Frontend */
+  const val node = "26.12.1"
   const val reactRedux = "9.2.0"
   const val reduxToolkit = "2.11.2"
   const val kotlinWrappers = "2026.3.9"
@@ -13,6 +14,7 @@ object Versions {
   const val springBoot = "4.0.3"
   const val jackson = "3.1.0"
   const val wikidataToolkit = "0.17.0"
+  const val webauthn4j = "0.31.1.RELEASE"
   const val mockitoKotlin = "6.2.3"
   const val wiremock = "3.13.2"
 }

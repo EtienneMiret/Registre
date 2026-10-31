@@ -11,7 +11,11 @@ kotlin {
       commonWebpackConfig {
         outputFileName = "main.js"
       }
+      testTask {
+        enabled = false
+      }
     }
+    nodejs()
     binaries.executable()
   }
 }
@@ -19,4 +23,6 @@ kotlin {
 dependencies {
   commonMainImplementation(project(":common"))
   commonMainImplementation(project(":react-redux"))
+
+  commonTestImplementation(kotlin("test"))
 }

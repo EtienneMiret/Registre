@@ -1,14 +1,11 @@
 package io.miret.etienne.registre.back.security.controllers
 
-import io.miret.etienne.registre.back.security.SessionAuthentication
 import io.miret.etienne.registre.back.security.model.User
 import io.miret.etienne.registre.back.security.repositories.OttRepository
 import io.miret.etienne.registre.back.security.repositories.UserRepository
 import io.miret.etienne.registre.back.security.services.DbSecurityContextRepository
-import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.security.core.context.SecurityContextImpl
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.server.ServerWebExchange
@@ -36,8 +33,7 @@ class AuthController(
       ?: throw ResponseStatusException(HttpStatus.FORBIDDEN)
     val user = userRepository.findById(ott.userId)
       ?: throw ResponseStatusException(HttpStatus.FORBIDDEN)
-    val context = SecurityContextImpl(SessionAuthentication(user))
-    securityContextRepository.save(exchange, context).awaitSingleOrNull()
+    securityContextRepository.login(exchange, user)
     return ApiUser(user.id, user.name)
   }
 

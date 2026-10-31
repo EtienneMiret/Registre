@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
+
 plugins {
   `registre-conventions`
 
@@ -7,4 +10,10 @@ plugins {
   kotlin("plugin.js-plain-objects") version kotlinVersion apply false
   kotlin("plugin.serialization") version kotlinVersion apply false
   kotlin("multiplatform") version kotlinVersion apply false
+}
+
+allprojects {
+  plugins.withType<NodeJsPlugin> {
+    the<NodeJsEnvSpec>().version = Versions.node
+  }
 }
