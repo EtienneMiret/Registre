@@ -8,6 +8,7 @@ import io.miret.etienne.registre.front.lib.decodeFromBase64Url
 import io.miret.etienne.registre.front.lib.encodeToBase64Url
 import io.miret.etienne.registre.front.lib.toRequirement
 import js.reflect.unsafeCast
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -77,7 +78,12 @@ val PassKeys = FC<Props>("PassKeys") {
       onSubmit = { event ->
         event.preventDefault()
         registrationError = null
-        MainScope().launch {
+        // Shows any error not handled inside the coroutine (network failure, unexpected response…).
+        val errorHandler = CoroutineExceptionHandler { _, e ->
+          console.error(e)
+          registrationError = "Erreur lors de l’enregistrement ☹️ : ${e.message}"
+        }
+        MainScope().launch(errorHandler) {
           // 1. Fetch registration challenge
           val challengeResponse = fetch(
             "/api/auth/passkey/registration/challenge",

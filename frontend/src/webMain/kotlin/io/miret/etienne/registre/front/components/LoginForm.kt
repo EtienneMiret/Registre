@@ -8,6 +8,7 @@ import io.miret.etienne.registre.front.lib.decodeFromBase64Url
 import io.miret.etienne.registre.front.lib.encodeToBase64Url
 import io.miret.etienne.registre.front.lib.toRequirement
 import io.miret.etienne.registre.front.store.actions.usernameLoaded
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -36,11 +37,17 @@ val LoginForm = FC<Props>("LoginForm") {
   var token by useState("")
   var error by useState<String?>(null)
 
+  // Shows any error not handled inside the coroutine (network failure, unexpected response…).
+  val errorHandler = CoroutineExceptionHandler { _, e ->
+    console.error(e)
+    error = "Erreur lors de la connexion ☹️ : ${e.message}"
+  }
+
   form {
     onSubmit = { event ->
       event.preventDefault()
       error = null
-      MainScope().launch {
+      MainScope().launch(errorHandler) {
         val response = fetch(
           "/api/auth/login",
           RequestInit(method = RequestMethod.POST, body = BodyInit(token)),
@@ -69,7 +76,7 @@ val LoginForm = FC<Props>("LoginForm") {
     type = ButtonType.button
     onClick = { _ ->
       error = null
-      MainScope().launch {
+      MainScope().launch(errorHandler) {
         // 1. Fetch authentication challenge from the server
         val challengeResponse = fetch("/api/auth/passkey/authentication/challenge")
         if (!challengeResponse.ok) {
