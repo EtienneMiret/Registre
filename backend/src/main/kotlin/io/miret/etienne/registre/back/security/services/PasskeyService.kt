@@ -289,8 +289,9 @@ class PasskeyService(
    *
    * @param clientDataJson Decoded `clientDataJSON` from the browser
    *   response.
-   * @param expectedUserId When non-null, the challenge's
-   *   [PasskeyChallenge.userId] must match this value.
+   * @param expectedUserId The challenge's [PasskeyChallenge.userId] must
+   *   equal this value: the user's ID for registration, `null` for
+   *   authentication.
    * @return The consumed [PasskeyChallenge].
    * @throws InvalidClientDataException if [clientDataJson] is not a JSON
    *   object with a string `challenge` field.
@@ -315,7 +316,7 @@ class PasskeyService(
     if (challenge.expiresAt < Instant.now(clock)) {
       throw InvalidChallengeException("Challenge expired")
     }
-    if (expectedUserId != null && challenge.userId != expectedUserId) {
+    if (challenge.userId != expectedUserId) {
       throw InvalidChallengeException("Challenge user mismatch")
     }
     return challenge

@@ -478,6 +478,28 @@ class PasskeyServiceTest {
     }
 
     @Test
+    fun `should throw when challenge was issued for registration`() {
+      val registrationChallenge = PasskeyChallenge(
+        id = challengeId,
+        userId = "some-user",
+        expiresAt = now.plusSeconds(60),
+      )
+      runBlocking {
+        whenever(passkeyRepository.findById(credentialId))
+          .thenReturn(storedCredential())
+        whenever(challengeRepository.deleteChallengeById(challengeId))
+          .thenReturn(registrationChallenge)
+      }
+      whenever(clock.instant()).thenReturn(now)
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request()) }
+      }.isInstanceOf(IllegalStateException::class.java)
+        .hasMessage("Challenge user mismatch")
+    }
+
+    @Test
     fun `should return authenticated user on success`() {
       val validChallenge = PasskeyChallenge(
         id = challengeId,
