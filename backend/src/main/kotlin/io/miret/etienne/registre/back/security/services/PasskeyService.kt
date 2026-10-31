@@ -14,15 +14,16 @@ import io.miret.etienne.registre.back.config.RegistreConfig
 import io.miret.etienne.registre.back.security.exceptions.InvalidChallengeException
 import io.miret.etienne.registre.back.security.exceptions.InvalidClientDataException
 import io.miret.etienne.registre.back.security.model.Passkey
-import io.miret.etienne.registre.back.security.model.PasskeyChallenge
+import io.miret.etienne.registre.back.security.model.UsedPasskeyChallenge
 import io.miret.etienne.registre.back.security.model.User
-import io.miret.etienne.registre.back.security.repositories.PasskeyChallengeRepository
 import io.miret.etienne.registre.back.security.repositories.PasskeyRepository
+import io.miret.etienne.registre.back.security.repositories.UsedPasskeyChallengeRepository
 import io.miret.etienne.registre.back.security.repositories.UserRepository
 import io.miret.etienne.registre.common.passkey.*
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.future.await
+import org.springframework.dao.DuplicateKeyException
 import org.springframework.stereotype.Service
 import tools.jackson.core.JacksonException
 import java.time.Clock
@@ -34,17 +35,23 @@ import io.miret.etienne.registre.common.User as ApiUser
  * Handles the WebAuthn passkey registration and authentication ceremonies.
  *
  * Each ceremony is a two-step process:
- * 1. **Options** — the server generates a random challenge, persists it,
- *    and returns options for the browser to pass to the WebAuthn API.
+ * 1. **Options** — the server generates a challenge and returns options for
+ *    the browser to pass to the WebAuthn API.
  * 2. **Completion** — the browser submits a signed response; the server
- *    retrieves and validates the stored challenge, then verifies the
- *    cryptographic response via [WebAuthnAsyncManager].
+ *    validates the challenge, then verifies the cryptographic response via
+ *    [WebAuthnAsyncManager].
+ *
+ * Challenges are signed by [ChallengeSigner] rather than stored, so that
+ * requesting one (anonymously, for authentication) does not write to the
+ * database. A challenge is only recorded once the ceremony succeeds, so that
+ * it cannot be reused.
  */
 @Service
 class PasskeyService(
   private val asyncManager: WebAuthnAsyncManager,
   private val objectConverter: ObjectConverter,
-  private val challengeRepository: PasskeyChallengeRepository,
+  private val usedChallengeRepository: UsedPasskeyChallengeRepository,
+  private val challengeSigner: ChallengeSigner,
   private val passkeyRepository: PasskeyRepository,
   private val userRepository: UserRepository,
   private val clock: Clock,
@@ -53,6 +60,9 @@ class PasskeyService(
 
   /** How long a challenge remains valid after it is issued. */
   private val challengeExpiry = Duration.ofMinutes(5)
+
+  /** How long a used challenge is kept after it expires. */
+  private val usedChallengeRetention = Duration.ofMinutes(5)
 
   /**
    * Supported public key algorithms in preference order, used when verifying
@@ -79,7 +89,8 @@ class PasskeyService(
       .build()
 
   /**
-   * Generates a registration challenge for [user] and persists it.
+   * Generates a signed registration challenge for [user], without writing to
+   * the database.
    *
    * The options exclude the user's existing passkeys, so that the browser
    * refuses to register a second passkey on the same authenticator (which
@@ -89,17 +100,8 @@ class PasskeyService(
    *   the argument to `navigator.credentials.create()`.
    */
   suspend fun generateRegistrationChallenge(user: User): RegistrationOptions {
-    val challenge = DefaultChallenge()
-    val challengeBase64 = Base64UrlUtil.encodeToString(challenge.value)
-    challengeRepository.save(
-      PasskeyChallenge(
-        id = challengeBase64,
-        userId = user.id,
-        expiresAt = Instant.now(clock).plus(challengeExpiry),
-      )
-    )
     return RegistrationOptions(
-      challenge = challengeBase64,
+      challenge = issueChallenge(registrationPurpose(user)),
       rp = RpInfo(config.webauthn.rpId, config.webauthn.rpName),
       user = ApiUser(
         id = Base64UrlUtil.encodeToString(user.id.toByteArray()),
@@ -126,10 +128,12 @@ class PasskeyService(
    * Verifies the browser's registration response and persists the new passkey
    * credential.
    *
-   * Retrieves and deletes the stored challenge for [user], then delegates
-   * cryptographic verification to [WebAuthnAsyncManager].
-   * Throws [InvalidChallengeException] if the challenge is missing, expired, or
-   * belongs to a different user.
+   * Checks the challenge's signature and expiry, then delegates cryptographic
+   * verification to [WebAuthnAsyncManager]. On success, records the challenge
+   * as used.
+   * Throws [InvalidChallengeException] if the challenge is invalid (including
+   * when it was issued to another user or for authentication), expired, or
+   * already used.
    *
    * @param user The authenticated user completing the registration.
    * @param request The credential submitted by the browser.
@@ -138,7 +142,8 @@ class PasskeyService(
     val clientDataJson = decode("clientDataJSON", request.response.clientDataJSON)
     val attestationObject = decode("attestationObject", request.response.attestationObject)
 
-    val storedChallenge = consumeChallenge(clientDataJson, user.id)
+    val challengeBase64 = extractChallenge(clientDataJson)
+    val expiresAt = checkChallenge(challengeBase64, registrationPurpose(user))
 
     val registrationRequest = RegistrationRequest(
       attestationObject,
@@ -146,13 +151,15 @@ class PasskeyService(
       null as Set<String>?,
     )
     val registrationParameters = RegistrationParameters(
-      serverProperty(storedChallenge.id),
+      serverProperty(challengeBase64),
       pubKeyCredParams,
       true,
       true,
     )
     val result = asyncManager.verify(registrationRequest, registrationParameters)
       .await()
+
+    recordChallenge(challengeBase64, expiresAt)
 
     val authenticatorData = result.attestationObject!!.authenticatorData
     val attestedCredentialData = authenticatorData.attestedCredentialData!!
@@ -173,7 +180,8 @@ class PasskeyService(
   }
 
   /**
-   * Generates an authentication challenge and persists it.
+   * Generates a signed authentication challenge, without writing to the
+   * database.
    *
    * The challenge is not bound to a specific user because the user
    * identity is not known until the browser submits its response.
@@ -182,17 +190,8 @@ class PasskeyService(
    *   the argument to `navigator.credentials.get()`.
    */
   suspend fun generateAuthenticationChallenge(): AuthenticationOptions {
-    val challenge = DefaultChallenge()
-    val challengeBase64 = Base64UrlUtil.encodeToString(challenge.value)
-    challengeRepository.save(
-      PasskeyChallenge(
-        id = challengeBase64,
-        userId = null,
-        expiresAt = Instant.now(clock).plus(challengeExpiry),
-      )
-    )
     return AuthenticationOptions(
-      challenge = challengeBase64,
+      challenge = issueChallenge(AUTHENTICATION_PURPOSE),
       rpId = config.webauthn.rpId,
       allowCredentials = emptyList(),
       userVerification = UserVerification.REQUIRED,
@@ -204,10 +203,10 @@ class PasskeyService(
    * Verifies the browser's authentication response and returns the
    * authenticated user.
    *
-   * Looks up the stored credential by ID, retrieves and deletes the
-   * stored challenge, then delegates cryptographic verification to
-   * [WebAuthnAsyncManager]. Updates the stored sign count and backup
-   * state on success.
+   * Looks up the stored credential by ID, checks the challenge's signature
+   * and expiry, then delegates cryptographic verification to
+   * [WebAuthnAsyncManager]. On success, records the challenge as used and
+   * updates the stored sign count.
    *
    * @param request The credential assertion submitted by the browser.
    * @return The authenticated [User], or `null` if the credential ID
@@ -217,15 +216,16 @@ class PasskeyService(
     val storedCredential = passkeyRepository.findById(request.id)
       ?: return null
 
-    // Decode everything before consuming the challenge, so that a malformed
-    // request is rejected without using it up.
+    // Decode everything before checking the challenge, so that a malformed
+    // request is rejected early.
     val credentialId = decode("id", request.id)
     val clientDataJson = decode("clientDataJSON", request.response.clientDataJSON)
     val authenticatorData = decode("authenticatorData", request.response.authenticatorData)
     val signature = decode("signature", request.response.signature)
     val userHandle = request.response.userHandle?.let { decode("userHandle", it) }
 
-    val storedChallenge = consumeChallenge(clientDataJson, null)
+    val challengeBase64 = extractChallenge(clientDataJson)
+    val expiresAt = checkChallenge(challengeBase64, AUTHENTICATION_PURPOSE)
 
     val attestedCredentialData = objectConverter.cborMapper
       .readValue(storedCredential.attestedCredentialDataCbor, AttestedCredentialData::class.java)!!
@@ -251,7 +251,7 @@ class PasskeyService(
       signature,
     )
     val authenticationParameters = AuthenticationParameters(
-      serverProperty(storedChallenge.id),
+      serverProperty(challengeBase64),
       credentialRecord,
       null,
       true,
@@ -259,6 +259,8 @@ class PasskeyService(
     )
 
     val result = asyncManager.verify(authenticationRequest, authenticationParameters).await()
+
+    recordChallenge(challengeBase64, expiresAt)
 
     passkeyRepository.save(
       storedCredential.copy(
@@ -283,43 +285,78 @@ class PasskeyService(
     }
 
   /**
-   * Extracts the challenge from [clientDataJson], looks it up in
-   * the repository, validates it, and deletes it so it cannot be
-   * reused.
+   * Extracts the base64url-encoded challenge from [clientDataJson].
    *
-   * @param clientDataJson Decoded `clientDataJSON` from the browser
-   *   response.
-   * @param expectedUserId The challenge's [PasskeyChallenge.userId] must
-   *   equal this value: the user's ID for registration, `null` for
-   *   authentication.
-   * @return The consumed [PasskeyChallenge].
    * @throws InvalidClientDataException if [clientDataJson] is not a JSON
    *   object with a string `challenge` field.
-   * @throws InvalidChallengeException if the challenge is not found,
-   *   expired, or owned by a different user.
    */
-  private suspend fun consumeChallenge(
-    clientDataJson: ByteArray,
-    expectedUserId: String?,
-  ): PasskeyChallenge {
+  private fun extractChallenge(clientDataJson: ByteArray): String {
     val clientData = try {
       val jsonString = String(clientDataJson, Charsets.UTF_8)
       objectConverter.jsonMapper.readValue(jsonString, Map::class.java)
     } catch (e: JacksonException) {
       throw InvalidClientDataException("Invalid JSON in clientDataJSON", e)
     }
-    val challengeBase64 = clientData?.get("challenge") as? String
+    return clientData?.get("challenge") as? String
       ?: throw InvalidClientDataException("Missing challenge in clientDataJSON")
+  }
 
-    val challenge = challengeRepository.deleteChallengeById(challengeBase64)
-      ?: throw InvalidChallengeException("Challenge not found")
-    if (challenge.expiresAt < Instant.now(clock)) {
+  /**
+   * Returns a new base64url-encoded challenge for [purpose].
+   */
+  private suspend fun issueChallenge(purpose: String): String =
+    Base64UrlUtil.encodeToString(
+      challengeSigner.sign(purpose, Instant.now(clock).plus(challengeExpiry))
+    )
+
+  /**
+   * Checks that [challengeBase64] was issued for [purpose] and is not expired.
+   *
+   * @return The expiry date of the challenge.
+   * @throws InvalidClientDataException if [challengeBase64] is not valid
+   *   base64url.
+   * @throws InvalidChallengeException if the challenge was not issued for
+   *   [purpose], or is expired.
+   */
+  private suspend fun checkChallenge(challengeBase64: String, purpose: String): Instant {
+    val expiresAt = challengeSigner.verify(purpose, decode("challenge", challengeBase64))
+      ?: throw InvalidChallengeException("Invalid challenge")
+    if (expiresAt < Instant.now(clock)) {
       throw InvalidChallengeException("Challenge expired")
     }
-    if (challenge.userId != expectedUserId) {
-      throw InvalidChallengeException("Challenge user mismatch")
+    return expiresAt
+  }
+
+  /**
+   * Records [challengeBase64] as used, until a while after it expires.
+   *
+   * Must only be called once the browser's response is verified, so that
+   * anonymous requests cannot fill the database. Inserting fails if the
+   * challenge was already used, even by a concurrent request.
+   *
+   * @throws InvalidChallengeException if the challenge was already used, or
+   *   expired before it was recorded.
+   */
+  private suspend fun recordChallenge(challengeBase64: String, expiresAt: Instant) {
+    try {
+      usedChallengeRepository.insert(
+        UsedPasskeyChallenge(challengeBase64, expiresAt.plus(usedChallengeRetention))
+      )
+    } catch (e: DuplicateKeyException) {
+      throw InvalidChallengeException("Challenge already used", e)
     }
-    return challenge
+    // The record of a previous use may have been deleted after the challenge
+    // expired. So the insert above only proves that the challenge was not
+    // used if it happened before the expiry.
+    if (expiresAt <= Instant.now(clock)) {
+      throw InvalidChallengeException("Challenge expired")
+    }
+  }
+
+  private fun registrationPurpose(user: User) = "registration:${user.id}"
+
+  companion object {
+    private const val AUTHENTICATION_PURPOSE = "authentication"
   }
 
 }

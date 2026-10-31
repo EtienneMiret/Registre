@@ -1,6 +1,6 @@
 package io.miret.etienne.registre.back.security.repositories
 
-import io.miret.etienne.registre.back.security.model.PasskeyChallenge
+import io.miret.etienne.registre.back.security.model.UsedPasskeyChallenge
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.reactor.awaitSingle
@@ -11,12 +11,13 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.dao.DuplicateKeyException
 import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory
 import reactor.core.publisher.Mono
 import java.time.Instant
 
 @SpringBootTest
-class PasskeyChallengeRepositoryTest {
+class UsedPasskeyChallengeRepositoryTest {
 
   @AfterEach
   fun clearDatabase(
@@ -29,23 +30,23 @@ class PasskeyChallengeRepositoryTest {
   }
 
   @Test
-  fun `deleteChallengeById should delete atomically`(
-    @Autowired repository: PasskeyChallengeRepository,
+  fun `insert should succeed only once per challenge`(
+    @Autowired repository: UsedPasskeyChallengeRepository,
   ) {
-    val challenge = PasskeyChallenge(
+    val challenge = UsedPasskeyChallenge(
       id = "123-456-789",
-      userId = null,
-      expiresAt = Instant.parse("2895-10-25T19:54:39Z"),
+      deleteAt = Instant.parse("2895-10-25T19:54:39Z"),
     )
-    runBlocking { repository.save(challenge) }
 
-    val result = runBlocking {
+    val results = runBlocking {
       (1..100).map {
-        async { repository.deleteChallengeById(challenge.id) }
+        async { runCatching { repository.insert(challenge) } }
       }.awaitAll()
     }
 
-    assertThat(result.filterNotNull()).hasSize(1)
+    assertThat(results.filter { it.isSuccess }).hasSize(1)
+    assertThat(results.mapNotNull { it.exceptionOrNull() })
+      .allMatch { it is DuplicateKeyException }
   }
 
 }

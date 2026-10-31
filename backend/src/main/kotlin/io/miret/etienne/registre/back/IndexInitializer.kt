@@ -1,8 +1,8 @@
 package io.miret.etienne.registre.back
 
 import io.miret.etienne.registre.back.security.model.Passkey
-import io.miret.etienne.registre.back.security.model.PasskeyChallenge
 import io.miret.etienne.registre.back.security.model.Session
+import io.miret.etienne.registre.back.security.model.UsedPasskeyChallenge
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.runBlocking
 import org.springframework.boot.ApplicationArguments
@@ -28,11 +28,14 @@ class IndexInitializer(
 ) : ApplicationRunner {
 
   override fun run(args: ApplicationArguments): Unit = runBlocking {
-    listOf(Session::class.java, PasskeyChallenge::class.java).forEach { type ->
+    listOf(
+      Session::class.java to "expiresAt",
+      UsedPasskeyChallenge::class.java to "deleteAt",
+    ).forEach { (type, field) ->
       mongoTemplate.indexOps(type)
         .createIndex(
           Index()
-            .on("expiresAt", Sort.Direction.ASC)
+            .on(field, Sort.Direction.ASC)
             .expire(Duration.ZERO),
         )
         .awaitSingle()

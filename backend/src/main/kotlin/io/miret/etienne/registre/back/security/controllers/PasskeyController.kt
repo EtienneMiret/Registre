@@ -26,7 +26,7 @@ class PasskeyController(
   private val securityContextRepository: DbSecurityContextRepository,
 ) {
 
-  @PostMapping("/registration/challenge")
+  @GetMapping("/registration/challenge")
   suspend fun registrationChallenge(
     @AuthenticationPrincipal user: User,
   ): RegistrationOptions = passkeyService.generateRegistrationChallenge(user)

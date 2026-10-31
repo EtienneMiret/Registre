@@ -85,10 +85,7 @@ val PassKeys = FC<Props>("PassKeys") {
         }
         MainScope().launch(errorHandler) {
           // 1. Fetch registration challenge
-          val challengeResponse = fetch(
-            "/api/auth/passkey/registration/challenge",
-            RequestInit(method = RequestMethod.POST),
-          )
+          val challengeResponse = fetch("/api/auth/passkey/registration/challenge")
           if (!challengeResponse.ok) {
             registrationError = "Erreur ${challengeResponse.status} lors de l’enregistrement ☹️."
             return@launch

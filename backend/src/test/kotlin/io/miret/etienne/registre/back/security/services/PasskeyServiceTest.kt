@@ -13,12 +13,14 @@ import com.webauthn4j.data.extension.authenticator.RegistrationExtensionAuthenti
 import com.webauthn4j.util.Base64UrlUtil
 import io.miret.etienne.registre.back.config.RegistreConfig
 import io.miret.etienne.registre.back.config.WebAuthnConfig
+import io.miret.etienne.registre.back.parameters.model.Parameter
+import io.miret.etienne.registre.back.parameters.repositories.ParameterRepository
 import io.miret.etienne.registre.back.security.exceptions.InvalidClientDataException
 import io.miret.etienne.registre.back.security.model.Passkey
-import io.miret.etienne.registre.back.security.model.PasskeyChallenge
+import io.miret.etienne.registre.back.security.model.UsedPasskeyChallenge
 import io.miret.etienne.registre.back.security.model.User
-import io.miret.etienne.registre.back.security.repositories.PasskeyChallengeRepository
 import io.miret.etienne.registre.back.security.repositories.PasskeyRepository
+import io.miret.etienne.registre.back.security.repositories.UsedPasskeyChallengeRepository
 import io.miret.etienne.registre.back.security.repositories.UserRepository
 import io.miret.etienne.registre.common.passkey.*
 import kotlinx.coroutines.flow.flowOf
@@ -33,10 +35,12 @@ import org.mockito.Mock
 import org.mockito.Mockito.lenient
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.*
+import org.springframework.dao.DuplicateKeyException
 import tools.jackson.databind.json.JsonMapper
 import tools.jackson.dataformat.cbor.CBORMapper
 import java.time.Clock
 import java.time.Instant
+import java.util.Base64
 import java.util.concurrent.CompletableFuture
 
 @ExtendWith(MockitoExtension::class)
@@ -55,25 +59,45 @@ class PasskeyServiceTest {
 
   @Mock private lateinit var asyncManager: WebAuthnAsyncManager
   @Mock private lateinit var objectConverter: ObjectConverter
-  @Mock private lateinit var challengeRepository: PasskeyChallengeRepository
+  @Mock private lateinit var usedChallengeRepository: UsedPasskeyChallengeRepository
+  @Mock private lateinit var parameterRepository: ParameterRepository
   @Mock private lateinit var passkeyRepository: PasskeyRepository
   @Mock private lateinit var userRepository: UserRepository
   @Mock private lateinit var clock: Clock
 
+  private lateinit var challengeSigner: ChallengeSigner
   private lateinit var service: PasskeyService
 
   @BeforeEach
   fun setUp() {
+    runBlocking {
+      lenient().`when`(parameterRepository.findById(ChallengeSigner.KEY_PARAMETER))
+        .thenReturn(
+          Parameter(
+            ChallengeSigner.KEY_PARAMETER,
+            Base64.getEncoder().encodeToString(ByteArray(32) { it.toByte() }),
+          )
+        )
+    }
+    challengeSigner = ChallengeSigner(parameterRepository)
     service = PasskeyService(
       asyncManager,
       objectConverter,
-      challengeRepository,
+      usedChallengeRepository,
+      challengeSigner,
       passkeyRepository,
       userRepository,
       clock,
       config,
     )
   }
+
+  /**
+   * Returns a base64url-encoded challenge, signed for [purpose]: either
+   * `authentication`, or `registration:` followed by the user's ID.
+   */
+  private fun signedChallenge(purpose: String, expiresAt: Instant): String =
+    Base64UrlUtil.encodeToString(runBlocking { challengeSigner.sign(purpose, expiresAt) })
 
   /**
    * Builds a base64url-encoded clientDataJSON whose `challenge` field
@@ -96,34 +120,30 @@ class PasskeyServiceTest {
     }
 
     @Test
-    fun `should save challenge bound to user`() {
+    fun `should not write to the database`() {
       whenever(clock.instant()).thenReturn(now)
 
       runBlocking { service.generateRegistrationChallenge(user) }
 
-      val challenge = runBlocking {
-        argumentCaptor<PasskeyChallenge> {
-          verify(challengeRepository).save(capture())
-        }.firstValue
-      }
-      assertThat(challenge.userId).isEqualTo("user-1")
-      assertThat(challenge.expiresAt).isAfter(now)
+      verifyNoInteractions(usedChallengeRepository)
+      runBlocking { verify(parameterRepository, never()).insert(any()) }
     }
 
     @Test
-    fun `should return options matching saved challenge`() {
+    fun `should return options with a challenge signed for the user`() {
       whenever(clock.instant()).thenReturn(now)
 
       val options = runBlocking {
         service.generateRegistrationChallenge(user)
       }
 
-      val challenge = runBlocking {
-        argumentCaptor<PasskeyChallenge> {
-          verify(challengeRepository).save(capture())
-        }.firstValue
+      val challenge = Base64UrlUtil.decode(options.challenge)
+      runBlocking {
+        assertThat(challengeSigner.verify("registration:user-1", challenge))
+          .isEqualTo(now.plusSeconds(300))
+        assertThat(challengeSigner.verify("registration:user-2", challenge)).isNull()
+        assertThat(challengeSigner.verify("authentication", challenge)).isNull()
       }
-      assertThat(options.challenge).isEqualTo(challenge.id)
       assertThat(options.rp).isEqualTo(RpInfo("example.com", "Example"))
       assertThat(options.attestation).isEqualTo("none")
       assertThat(options.authenticatorSelection.userVerification)
@@ -161,37 +181,43 @@ class PasskeyServiceTest {
   inner class GenerateAuthenticationChallenge {
 
     @Test
-    fun `should save challenge with no user`() {
+    fun `should not write to the database`() {
       whenever(clock.instant()).thenReturn(now)
 
       runBlocking { service.generateAuthenticationChallenge() }
 
-      val challenge = runBlocking {
-        argumentCaptor<PasskeyChallenge> {
-          verify(challengeRepository).save(capture())
-        }.firstValue
-      }
-      assertThat(challenge.userId).isNull()
-      assertThat(challenge.expiresAt).isAfter(now)
+      verifyNoInteractions(usedChallengeRepository)
+      runBlocking { verify(parameterRepository, never()).insert(any()) }
     }
 
     @Test
-    fun `should return options matching saved challenge`() {
+    fun `should return options with a signed challenge`() {
       whenever(clock.instant()).thenReturn(now)
 
       val options = runBlocking {
         service.generateAuthenticationChallenge()
       }
 
-      val challenge = runBlocking {
-        argumentCaptor<PasskeyChallenge> {
-          verify(challengeRepository).save(capture())
-        }.firstValue
+      val challenge = Base64UrlUtil.decode(options.challenge)
+      runBlocking {
+        assertThat(challengeSigner.verify("authentication", challenge))
+          .isEqualTo(now.plusSeconds(300))
+        assertThat(challengeSigner.verify("registration:user-1", challenge)).isNull()
       }
-      assertThat(options.challenge).isEqualTo(challenge.id)
       assertThat(options.rpId).isEqualTo("example.com")
       assertThat(options.allowCredentials).isEmpty()
       assertThat(options.userVerification).isEqualTo(UserVerification.REQUIRED)
+    }
+
+    @Test
+    fun `should return a different challenge each time`() {
+      whenever(clock.instant()).thenReturn(now)
+
+      val challenges = runBlocking {
+        (1..2).map { service.generateAuthenticationChallenge().challenge }
+      }
+
+      assertThat(challenges[0]).isNotEqualTo(challenges[1])
     }
   }
 
@@ -201,16 +227,18 @@ class PasskeyServiceTest {
     @Mock private lateinit var cborMapper: CBORMapper
 
     private val user = User("user-1", "Alice", admin = false)
-    private val challengeId =
-      Base64UrlUtil.encodeToString(byteArrayOf(1, 2, 3))
+    private val expiresAt = now.plusSeconds(60)
+    // Lazy, because the signer is only created by the outer setUp().
+    private val challengeId by lazy { signedChallenge("registration:user-1", expiresAt) }
 
     private fun request(
+      challenge: String = challengeId,
       attestationObject: String = Base64UrlUtil.encodeToString(byteArrayOf()),
     ) = RegistrationDtoRequest(
       id = "cred-id",
       name = "My passkey",
       response = RegistrationResponseData(
-        clientDataJSON = clientDataJson(challengeId),
+        clientDataJSON = clientDataJson(challenge),
         attestationObject = attestationObject,
       ),
     )
@@ -221,79 +249,126 @@ class PasskeyServiceTest {
     }
 
     @Test
-    fun `should throw without consuming challenge when attestationObject is not valid base64`() {
+    fun `should throw without checking challenge when attestationObject is not valid base64`() {
       assertThatThrownBy {
         runBlocking { service.completeRegistration(user, request(attestationObject = "!!!")) }
       }.isInstanceOf(InvalidClientDataException::class.java)
         .hasMessage("Invalid base64 in attestationObject")
 
-      verifyNoInteractions(challengeRepository)
+      verifyNoInteractions(usedChallengeRepository, asyncManager)
     }
 
     @Test
-    fun `should throw when challenge is not found`() {
+    fun `should throw when challenge is not signed`() {
+      assertInvalidChallenge(
+        request(Base64UrlUtil.encodeToString(ByteArray(56))),
+        "Invalid challenge",
+      )
+    }
+
+    @Test
+    fun `should throw when challenge belongs to a different user`() {
+      assertInvalidChallenge(
+        request(signedChallenge("registration:other-user", expiresAt)),
+        "Invalid challenge",
+      )
+    }
+
+    @Test
+    fun `should throw when challenge was issued for authentication`() {
+      assertInvalidChallenge(
+        request(signedChallenge("authentication", expiresAt)),
+        "Invalid challenge",
+      )
+    }
+
+    @Test
+    fun `should throw when challenge is expired`() {
+      whenever(clock.instant()).thenReturn(now)
+
+      assertInvalidChallenge(
+        request(signedChallenge("registration:user-1", now.minusSeconds(1))),
+        "Challenge expired",
+      )
+    }
+
+    @Test
+    fun `should throw when challenge was already used`() {
+      stubVerification()
       runBlocking {
-        whenever(challengeRepository.deleteChallengeById(challengeId))
-          .thenReturn(null)
+        whenever(usedChallengeRepository.insert(any()))
+          .thenThrow(DuplicateKeyException("duplicate"))
       }
 
       assertThatThrownBy {
         runBlocking { service.completeRegistration(user, request()) }
       }.isInstanceOf(IllegalStateException::class.java)
-        .hasMessage("Challenge not found")
+        .hasMessage("Challenge already used")
+
+      runBlocking { verify(passkeyRepository, never()).insert(any()) }
     }
 
     @Test
-    fun `should throw when challenge is expired`() {
-      val expired = PasskeyChallenge(
-        id = challengeId,
-        userId = user.id,
-        expiresAt = now.minusSeconds(1),
-      )
-      runBlocking {
-        whenever(challengeRepository.deleteChallengeById(challengeId))
-          .thenReturn(expired)
-      }
+    fun `should not record challenge when response is invalid`() {
       whenever(clock.instant()).thenReturn(now)
+      whenever(asyncManager.verify(any<RegistrationRequest>(), any<RegistrationParameters>()))
+        .thenReturn(CompletableFuture.failedFuture(IllegalArgumentException("bad attestation")))
+
+      assertThatThrownBy {
+        runBlocking { service.completeRegistration(user, request()) }
+      }.hasMessageContaining("bad attestation")
+
+      verifyNoInteractions(usedChallengeRepository)
+    }
+
+    @Test
+    fun `should throw when challenge expires before being recorded`() {
+      stubVerification()
+      whenever(clock.instant()).thenReturn(now, expiresAt)
 
       assertThatThrownBy {
         runBlocking { service.completeRegistration(user, request()) }
       }.isInstanceOf(IllegalStateException::class.java)
         .hasMessage("Challenge expired")
-    }
 
-    @Test
-    fun `should throw when challenge belongs to a different user`() {
-      val mismatch = PasskeyChallenge(
-        id = challengeId,
-        userId = "other-user",
-        expiresAt = now.plusSeconds(60),
-      )
-      runBlocking {
-        whenever(challengeRepository.deleteChallengeById(challengeId))
-          .thenReturn(mismatch)
-      }
-      whenever(clock.instant()).thenReturn(now)
-
-      assertThatThrownBy {
-        runBlocking { service.completeRegistration(user, request()) }
-      }.isInstanceOf(IllegalStateException::class.java)
-        .hasMessage("Challenge user mismatch")
+      runBlocking { verify(passkeyRepository, never()).insert(any()) }
     }
 
     @Test
     fun `should save credential on success`() {
-      val validChallenge = PasskeyChallenge(
-        id = challengeId,
-        userId = user.id,
-        expiresAt = now.plusSeconds(60),
-      )
-      val credentialIdBytes = byteArrayOf(10, 20, 30)
-      val credentialIdBase64 = Base64UrlUtil.encodeToString(credentialIdBytes)
-      val credentialDataCbor = byteArrayOf(1, 2, 3, 4)
+      val credentialIdBase64 = Base64UrlUtil.encodeToString(byteArrayOf(10, 20, 30))
+      stubVerification()
+
+      runBlocking { service.completeRegistration(user, request()) }
+
+      runBlocking {
+        verify(usedChallengeRepository).insert(
+          UsedPasskeyChallenge(challengeId, expiresAt.plusSeconds(300))
+        )
+      }
+      val saved = runBlocking {
+        argumentCaptor<Passkey> {
+          verify(passkeyRepository).insert(capture())
+        }.firstValue
+      }
+      assertThat(saved.id).isEqualTo(credentialIdBase64)
+      assertThat(saved.userId).isEqualTo(user.id)
+      assertThat(saved.name).isEqualTo("My passkey")
+      assertThat(saved.attestedCredentialDataCbor).isEqualTo(byteArrayOf(1, 2, 3, 4))
+      assertThat(saved.signCount).isEqualTo(1L)
+      assertThat(saved.backupEligible).isTrue()
+      assertThat(saved.createdAt).isEqualTo(now)
+      assertThat(saved.lastUsedAt).isNull()
+    }
+
+    /**
+     * Stubs the mocks for a response whose challenge is valid, and whose
+     * verification by the [WebAuthnAsyncManager] succeeds.
+     */
+    private fun stubVerification() {
       val attestedCredentialData = AttestedCredentialData(
         AAGUID.ZERO,
-        credentialIdBytes,
+        byteArrayOf(10, 20, 30),
         RSACOSEKey(null, null, null, null, null),
       )
       val authenticatorData = AuthenticatorData<RegistrationExtensionAuthenticatorOutput>(
@@ -304,33 +379,22 @@ class PasskeyServiceTest {
       )
       val attestationObject = AttestationObject(authenticatorData, mock<AttestationStatement>())
       val registrationData = RegistrationData(attestationObject, null, null, null, null, null)
-      whenever(objectConverter.cborMapper)
-        .thenReturn(cborMapper)
-      whenever(cborMapper.writeValueAsBytes(attestedCredentialData))
-        .thenReturn(credentialDataCbor)
-      runBlocking {
-        whenever(challengeRepository.deleteChallengeById(challengeId))
-          .thenReturn(validChallenge)
-        whenever(asyncManager.verify(any<RegistrationRequest>(), any<RegistrationParameters>()))
-          .thenReturn(CompletableFuture.completedFuture(registrationData))
-      }
+      lenient().`when`(objectConverter.cborMapper).thenReturn(cborMapper)
+      lenient().`when`(cborMapper.writeValueAsBytes(attestedCredentialData))
+        .thenReturn(byteArrayOf(1, 2, 3, 4))
+      whenever(asyncManager.verify(any<RegistrationRequest>(), any<RegistrationParameters>()))
+        .thenReturn(CompletableFuture.completedFuture(registrationData))
       whenever(clock.instant()).thenReturn(now)
+    }
 
-      runBlocking { service.completeRegistration(user, request()) }
+    private fun assertInvalidChallenge(request: RegistrationDtoRequest, message: String) {
+      assertThatThrownBy {
+        runBlocking { service.completeRegistration(user, request) }
+      }.isInstanceOf(IllegalStateException::class.java)
+        .hasMessage(message)
 
-      val saved = runBlocking {
-        argumentCaptor<Passkey> {
-          verify(passkeyRepository).insert(capture())
-        }.firstValue
-      }
-      assertThat(saved.id).isEqualTo(credentialIdBase64)
-      assertThat(saved.userId).isEqualTo(user.id)
-      assertThat(saved.name).isEqualTo("My passkey")
-      assertThat(saved.attestedCredentialDataCbor).isEqualTo(credentialDataCbor)
-      assertThat(saved.signCount).isEqualTo(1L)
-      assertThat(saved.backupEligible).isTrue()
-      assertThat(saved.createdAt).isEqualTo(now)
-      assertThat(saved.lastUsedAt).isNull()
+      verifyNoInteractions(usedChallengeRepository, asyncManager)
+      runBlocking { verify(passkeyRepository, never()).insert(any()) }
     }
   }
 
@@ -341,8 +405,9 @@ class PasskeyServiceTest {
 
     private val credentialId =
       Base64UrlUtil.encodeToString(byteArrayOf(1, 2, 3))
-    private val challengeId =
-      Base64UrlUtil.encodeToString(byteArrayOf(4, 5, 6))
+    private val expiresAt = now.plusSeconds(60)
+    // Lazy, because the signer is only created by the outer setUp().
+    private val challengeId by lazy { signedChallenge("authentication", expiresAt) }
 
     private fun request(
       clientDataJSON: String = clientDataJson(challengeId),
@@ -440,88 +505,104 @@ class PasskeyServiceTest {
     }
 
     @Test
-    fun `should throw when challenge is not found`() {
-      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
-      runBlocking {
-        whenever(passkeyRepository.findById(credentialId))
-          .thenReturn(storedCredential())
-        whenever(challengeRepository.deleteChallengeById(challengeId))
-          .thenReturn(null)
-      }
+    fun `should throw when challenge is not signed`() {
+      val unsigned = Base64UrlUtil.encodeToString(ByteArray(56))
 
-      assertThatThrownBy {
-        runBlocking { service.completeAuthentication(request()) }
-      }.isInstanceOf(IllegalStateException::class.java)
-        .hasMessage("Challenge not found")
+      assertInvalidChallenge(request(clientDataJson(unsigned)), "Invalid challenge")
     }
 
     @Test
-    fun `should throw when challenge is expired`() {
-      val expired = PasskeyChallenge(
-        id = challengeId,
-        userId = null,
-        expiresAt = now.minusSeconds(1),
-      )
-      runBlocking {
-        whenever(passkeyRepository.findById(credentialId))
-          .thenReturn(storedCredential())
-        whenever(challengeRepository.deleteChallengeById(challengeId))
-          .thenReturn(expired)
-      }
-      whenever(clock.instant()).thenReturn(now)
-      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+    fun `should throw when challenge was tampered with`() {
+      val bytes = Base64UrlUtil.decode(challengeId)
+      bytes[20] = (bytes[20] + 1).toByte()
+      val tampered = Base64UrlUtil.encodeToString(bytes)
 
-      assertThatThrownBy {
-        runBlocking { service.completeAuthentication(request()) }
-      }.isInstanceOf(IllegalStateException::class.java)
-        .hasMessage("Challenge expired")
+      assertInvalidChallenge(request(clientDataJson(tampered)), "Invalid challenge")
     }
 
     @Test
     fun `should throw when challenge was issued for registration`() {
-      val registrationChallenge = PasskeyChallenge(
-        id = challengeId,
-        userId = "some-user",
-        expiresAt = now.plusSeconds(60),
+      val registrationChallenge = signedChallenge("registration:user-1", expiresAt)
+
+      assertInvalidChallenge(
+        request(clientDataJson(registrationChallenge)),
+        "Invalid challenge",
       )
+    }
+
+    @Test
+    fun `should throw when challenge is expired`() {
+      val expired = signedChallenge("authentication", now.minusSeconds(1))
+      whenever(clock.instant()).thenReturn(now)
+
+      assertInvalidChallenge(request(clientDataJson(expired)), "Challenge expired")
+    }
+
+    @Test
+    fun `should throw when challenge is not valid base64`() {
       runBlocking {
         whenever(passkeyRepository.findById(credentialId))
           .thenReturn(storedCredential())
-        whenever(challengeRepository.deleteChallengeById(challengeId))
-          .thenReturn(registrationChallenge)
       }
-      whenever(clock.instant()).thenReturn(now)
       whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request(clientDataJson("!!!"))) }
+      }.isInstanceOf(InvalidClientDataException::class.java)
+        .hasMessage("Invalid base64 in challenge")
+    }
+
+    @Test
+    fun `should throw when challenge was already used`() {
+      stubVerification()
+      runBlocking {
+        whenever(usedChallengeRepository.insert(any()))
+          .thenThrow(DuplicateKeyException("duplicate"))
+      }
 
       assertThatThrownBy {
         runBlocking { service.completeAuthentication(request()) }
       }.isInstanceOf(IllegalStateException::class.java)
-        .hasMessage("Challenge user mismatch")
+        .hasMessage("Challenge already used")
+
+      runBlocking { verify(passkeyRepository, never()).save(any()) }
     }
 
     @Test
-    fun `should return authenticated user on success`() {
-      val validChallenge = PasskeyChallenge(
-        id = challengeId,
-        userId = null,
-        expiresAt = now.plusSeconds(60),
-      )
+    fun `should not record challenge when response is invalid`() {
+      stubVerification(CompletableFuture.failedFuture(IllegalArgumentException("bad signature")))
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request()) }
+      }.hasMessageContaining("bad signature")
+
+      verifyNoInteractions(usedChallengeRepository)
+    }
+
+    /**
+     * Stubs the mocks for a response whose challenge is valid, and whose
+     * verification by the [WebAuthnAsyncManager] gives [result] (by default,
+     * a successful one).
+     */
+    private fun stubVerification(
+      result: CompletableFuture<AuthenticationData> = CompletableFuture.completedFuture(
+        AuthenticationData(
+          null,
+          null,
+          AuthenticatorData(ByteArray(32), 0, 42L),
+          null,
+          null,
+          null,
+          null,
+          null,
+        )
+      ),
+    ) {
       val attestedCredentialData = AttestedCredentialData(
         AAGUID.ZERO,
         Base64UrlUtil.decode(credentialId),
         RSACOSEKey(null, null, null, null, null),
       )
-      val authenticationData = AuthenticationData(
-        null,
-        null,
-        AuthenticatorData(ByteArray(32), 0, 42L),
-        null,
-        null,
-        null,
-        null,
-        null,
-      )
-      val user = User("user-1", "Alice", admin = false)
       whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
       whenever(objectConverter.cborMapper).thenReturn(cborMapper)
       whenever(cborMapper.readValue(any<ByteArray>(), eq(AttestedCredentialData::class.java)))
@@ -529,17 +610,41 @@ class PasskeyServiceTest {
       runBlocking {
         whenever(passkeyRepository.findById(credentialId))
           .thenReturn(storedCredential())
-        whenever(challengeRepository.deleteChallengeById(challengeId))
-          .thenReturn(validChallenge)
         whenever(asyncManager.verify(any<AuthenticationRequest>(), any<AuthenticationParameters>()))
-          .thenReturn(CompletableFuture.completedFuture(authenticationData))
-        whenever(userRepository.findById("user-1")).thenReturn(user)
+          .thenReturn(result)
       }
       whenever(clock.instant()).thenReturn(now)
+    }
+
+    @Test
+    fun `should throw when challenge expires before being recorded`() {
+      stubVerification()
+      whenever(clock.instant()).thenReturn(now, expiresAt)
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request()) }
+      }.isInstanceOf(IllegalStateException::class.java)
+        .hasMessage("Challenge expired")
+
+      runBlocking { verify(passkeyRepository, never()).save(any()) }
+    }
+
+    @Test
+    fun `should return authenticated user on success`() {
+      val user = User("user-1", "Alice", admin = false)
+      stubVerification()
+      runBlocking {
+        whenever(userRepository.findById("user-1")).thenReturn(user)
+      }
 
       val result = runBlocking { service.completeAuthentication(request()) }
 
       assertThat(result).isEqualTo(user)
+      runBlocking {
+        verify(usedChallengeRepository).insert(
+          UsedPasskeyChallenge(challengeId, expiresAt.plusSeconds(300))
+        )
+      }
       val saved = runBlocking {
         argumentCaptor<Passkey> {
           verify(passkeyRepository).save(capture())
@@ -575,7 +680,22 @@ class PasskeyServiceTest {
       }.isInstanceOf(InvalidClientDataException::class.java)
         .hasMessage("Invalid base64 in $field")
 
-      verifyNoInteractions(challengeRepository)
+      verifyNoInteractions(usedChallengeRepository)
+    }
+
+    private fun assertInvalidChallenge(request: AuthenticationDtoRequest, message: String) {
+      runBlocking {
+        whenever(passkeyRepository.findById(credentialId))
+          .thenReturn(storedCredential())
+      }
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request) }
+      }.isInstanceOf(IllegalStateException::class.java)
+        .hasMessage(message)
+
+      verifyNoInteractions(usedChallengeRepository, asyncManager)
     }
 
   }

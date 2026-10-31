@@ -4,7 +4,7 @@ import io.miret.etienne.registre.back.security.model.Passkey
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.ValueSource
+import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.DefaultApplicationArguments
 import org.springframework.boot.test.context.SpringBootTest
@@ -17,9 +17,10 @@ import java.time.Duration
 class IndexInitializerTest {
 
   @ParameterizedTest
-  @ValueSource(strings = ["sessions", "passkey_challenges"])
-  fun `should create a TTL index on expiresAt`(
+  @CsvSource("sessions, expiresAt", "used_passkey_challenges, deleteAt")
+  fun `should create a TTL index`(
     collection: String,
+    field: String,
     @Autowired initializer: IndexInitializer,
     @Autowired db: ReactiveMongoTemplate,
   ) {
@@ -32,7 +33,7 @@ class IndexInitializerTest {
 
     assertThat(indexes).anySatisfy {
       assertThat(it.indexFields.map(IndexField::getKey))
-        .containsExactly("expiresAt")
+        .containsExactly(field)
       assertThat(it.expireAfter).hasValue(Duration.ZERO)
     }
   }
