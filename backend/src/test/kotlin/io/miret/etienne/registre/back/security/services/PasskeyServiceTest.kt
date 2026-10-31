@@ -13,6 +13,7 @@ import com.webauthn4j.data.extension.authenticator.RegistrationExtensionAuthenti
 import com.webauthn4j.util.Base64UrlUtil
 import io.miret.etienne.registre.back.config.RegistreConfig
 import io.miret.etienne.registre.back.config.WebAuthnConfig
+import io.miret.etienne.registre.back.security.exceptions.InvalidClientDataException
 import io.miret.etienne.registre.back.security.model.Passkey
 import io.miret.etienne.registre.back.security.model.PasskeyChallenge
 import io.miret.etienne.registre.back.security.model.User
@@ -297,10 +298,12 @@ class PasskeyServiceTest {
     private val challengeId =
       Base64UrlUtil.encodeToString(byteArrayOf(4, 5, 6))
 
-    private fun request() = AuthenticationDtoRequest(
+    private fun request(
+      clientDataJSON: String = clientDataJson(challengeId),
+    ) = AuthenticationDtoRequest(
       id = credentialId,
       response = AuthenticationResponseData(
-        clientDataJSON = clientDataJson(challengeId),
+        clientDataJSON = clientDataJSON,
         authenticatorData = Base64UrlUtil.encodeToString(byteArrayOf()),
         signature = Base64UrlUtil.encodeToString(byteArrayOf()),
         userHandle = null,
@@ -327,6 +330,64 @@ class PasskeyServiceTest {
       val result = runBlocking { service.completeAuthentication(request()) }
 
       assertThat(result).isNull()
+    }
+
+    private fun encode(json: String) =
+      Base64UrlUtil.encodeToString(json.toByteArray(Charsets.UTF_8))
+
+    private fun assertInvalidClientData(clientDataJSON: String, message: String) {
+      runBlocking {
+        whenever(passkeyRepository.findById(credentialId))
+          .thenReturn(storedCredential())
+      }
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request(clientDataJSON)) }
+      }.isInstanceOf(InvalidClientDataException::class.java)
+        .hasMessage(message)
+    }
+
+    @Test
+    fun `should throw when clientDataJSON is not valid base64`() {
+      assertInvalidClientData("not base64!", "Invalid base64 in clientDataJSON")
+    }
+
+    @Test
+    fun `should throw when clientDataJSON is not valid JSON`() {
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+
+      assertInvalidClientData(encode("{not json"), "Invalid JSON in clientDataJSON")
+    }
+
+    @Test
+    fun `should throw when clientDataJSON is not a JSON object`() {
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+
+      assertInvalidClientData(encode("[1, 2]"), "Invalid JSON in clientDataJSON")
+    }
+
+    @Test
+    fun `should throw when clientDataJSON is null`() {
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+
+      assertInvalidClientData(encode("null"), "Missing challenge in clientDataJSON")
+    }
+
+    @Test
+    fun `should throw when challenge is missing`() {
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+
+      assertInvalidClientData(encode("{}"), "Missing challenge in clientDataJSON")
+    }
+
+    @Test
+    fun `should throw when challenge is not a string`() {
+      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+
+      assertInvalidClientData(
+        encode("""{"challenge":42}"""),
+        "Missing challenge in clientDataJSON",
+      )
     }
 
     @Test

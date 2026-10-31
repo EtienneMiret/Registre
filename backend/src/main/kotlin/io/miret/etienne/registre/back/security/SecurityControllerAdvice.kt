@@ -2,6 +2,7 @@ package io.miret.etienne.registre.back.security
 
 import com.webauthn4j.util.exception.WebAuthnException
 import io.miret.etienne.registre.back.security.exceptions.InvalidChallengeException
+import io.miret.etienne.registre.back.security.exceptions.InvalidClientDataException
 import io.miret.etienne.registre.back.security.exceptions.InvalidPasskeyException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -26,6 +27,13 @@ class SecurityControllerAdvice {
   @ResponseStatus(HttpStatus.FORBIDDEN)
   fun handleInvalidPasskey(e: InvalidPasskeyException): String {
     logger.info("Invalid passkey.", e)
+    return e.message!!
+  }
+
+  @ExceptionHandler(InvalidClientDataException::class, produces = [MediaType.TEXT_PLAIN_VALUE])
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  fun handleInvalidClientData(e: InvalidClientDataException): String {
+    logger.info("Invalid client data.", e)
     return e.message!!
   }
 

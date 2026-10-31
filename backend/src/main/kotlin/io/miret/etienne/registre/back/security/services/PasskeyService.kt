@@ -12,6 +12,7 @@ import com.webauthn4j.server.ServerProperty
 import com.webauthn4j.util.Base64UrlUtil
 import io.miret.etienne.registre.back.config.RegistreConfig
 import io.miret.etienne.registre.back.security.exceptions.InvalidChallengeException
+import io.miret.etienne.registre.back.security.exceptions.InvalidClientDataException
 import io.miret.etienne.registre.back.security.model.Passkey
 import io.miret.etienne.registre.back.security.model.PasskeyChallenge
 import io.miret.etienne.registre.back.security.model.User
@@ -21,6 +22,7 @@ import io.miret.etienne.registre.back.security.repositories.UserRepository
 import io.miret.etienne.registre.common.passkey.*
 import kotlinx.coroutines.future.await
 import org.springframework.stereotype.Service
+import tools.jackson.core.JacksonException
 import java.time.Clock
 import java.time.Duration
 import java.time.Instant
@@ -260,6 +262,8 @@ class PasskeyService(
    * @param expectedUserId When non-null, the challenge's
    *   [PasskeyChallenge.userId] must match this value.
    * @return The consumed [PasskeyChallenge].
+   * @throws InvalidClientDataException if [clientDataJSONBase64] is not
+   *   valid base64url-encoded JSON with a string `challenge` field.
    * @throws InvalidChallengeException if the challenge is not found,
    *   expired, or owned by a different user.
    */
@@ -267,12 +271,17 @@ class PasskeyService(
     clientDataJSONBase64: String,
     expectedUserId: String?,
   ): PasskeyChallenge {
-    val clientDataBytes = Base64UrlUtil.decode(clientDataJSONBase64)
-    val clientDataJson = String(clientDataBytes, Charsets.UTF_8)
-    @Suppress("UNCHECKED_CAST")
-    val clientData = objectConverter.jsonMapper
-      .readValue(clientDataJson, Map::class.java) as Map<String, Any?>
-    val challengeBase64 = clientData["challenge"] as String
+    val clientData = try {
+      val clientDataBytes = Base64UrlUtil.decode(clientDataJSONBase64)
+      val clientDataJson = String(clientDataBytes, Charsets.UTF_8)
+      objectConverter.jsonMapper.readValue(clientDataJson, Map::class.java)
+    } catch (e: IllegalArgumentException) {
+      throw InvalidClientDataException("Invalid base64 in clientDataJSON", e)
+    } catch (e: JacksonException) {
+      throw InvalidClientDataException("Invalid JSON in clientDataJSON", e)
+    }
+    val challengeBase64 = clientData?.get("challenge") as? String
+      ?: throw InvalidClientDataException("Missing challenge in clientDataJSON")
 
     val challenge = challengeRepository.deleteChallengeById(challengeBase64)
       ?: throw InvalidChallengeException("Challenge not found")
