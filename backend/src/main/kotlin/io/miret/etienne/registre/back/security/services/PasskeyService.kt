@@ -135,11 +135,14 @@ class PasskeyService(
    * @param request The credential submitted by the browser.
    */
   suspend fun completeRegistration(user: User, request: RegistrationDtoRequest) {
-    val storedChallenge = consumeChallenge(request.response.clientDataJSON, user.id)
+    val clientDataJson = decode("clientDataJSON", request.response.clientDataJSON)
+    val attestationObject = decode("attestationObject", request.response.attestationObject)
+
+    val storedChallenge = consumeChallenge(clientDataJson, user.id)
 
     val registrationRequest = RegistrationRequest(
-      Base64UrlUtil.decode(request.response.attestationObject),
-      Base64UrlUtil.decode(request.response.clientDataJSON),
+      attestationObject,
+      clientDataJson,
       null as Set<String>?,
     )
     val registrationParameters = RegistrationParameters(
@@ -214,7 +217,15 @@ class PasskeyService(
     val storedCredential = passkeyRepository.findById(request.id)
       ?: return null
 
-    val storedChallenge = consumeChallenge(request.response.clientDataJSON, null)
+    // Decode everything before consuming the challenge, so that a malformed
+    // request is rejected without using it up.
+    val credentialId = decode("id", request.id)
+    val clientDataJson = decode("clientDataJSON", request.response.clientDataJSON)
+    val authenticatorData = decode("authenticatorData", request.response.authenticatorData)
+    val signature = decode("signature", request.response.signature)
+    val userHandle = request.response.userHandle?.let { decode("userHandle", it) }
+
+    val storedChallenge = consumeChallenge(clientDataJson, null)
 
     val attestedCredentialData = objectConverter.cborMapper
       .readValue(storedCredential.attestedCredentialDataCbor, AttestedCredentialData::class.java)!!
@@ -232,14 +243,12 @@ class PasskeyService(
       null,
     )
 
-    val userHandle = request.response.userHandle?.let { Base64UrlUtil.decode(it) }
-
     val authenticationRequest = AuthenticationRequest(
-      Base64UrlUtil.decode(request.id),
+      credentialId,
       userHandle,
-      Base64UrlUtil.decode(request.response.authenticatorData),
-      Base64UrlUtil.decode(request.response.clientDataJSON),
-      Base64UrlUtil.decode(request.response.signature),
+      authenticatorData,
+      clientDataJson,
+      signature,
     )
     val authenticationParameters = AuthenticationParameters(
       serverProperty(storedChallenge.id),
@@ -262,30 +271,39 @@ class PasskeyService(
   }
 
   /**
-   * Extracts the challenge from [clientDataJSONBase64], looks it up in
+   * Decodes the base64url [value] of the request field named [field].
+   *
+   * @throws InvalidClientDataException if [value] is not valid base64url.
+   */
+  private fun decode(field: String, value: String): ByteArray =
+    try {
+      Base64UrlUtil.decode(value)
+    } catch (e: IllegalArgumentException) {
+      throw InvalidClientDataException("Invalid base64 in $field", e)
+    }
+
+  /**
+   * Extracts the challenge from [clientDataJson], looks it up in
    * the repository, validates it, and deletes it so it cannot be
    * reused.
    *
-   * @param clientDataJSONBase64 Base64URL-encoded `clientDataJSON` from
-   *   the browser response.
+   * @param clientDataJson Decoded `clientDataJSON` from the browser
+   *   response.
    * @param expectedUserId When non-null, the challenge's
    *   [PasskeyChallenge.userId] must match this value.
    * @return The consumed [PasskeyChallenge].
-   * @throws InvalidClientDataException if [clientDataJSONBase64] is not
-   *   valid base64url-encoded JSON with a string `challenge` field.
+   * @throws InvalidClientDataException if [clientDataJson] is not a JSON
+   *   object with a string `challenge` field.
    * @throws InvalidChallengeException if the challenge is not found,
    *   expired, or owned by a different user.
    */
   private suspend fun consumeChallenge(
-    clientDataJSONBase64: String,
+    clientDataJson: ByteArray,
     expectedUserId: String?,
   ): PasskeyChallenge {
     val clientData = try {
-      val clientDataBytes = Base64UrlUtil.decode(clientDataJSONBase64)
-      val clientDataJson = String(clientDataBytes, Charsets.UTF_8)
-      objectConverter.jsonMapper.readValue(clientDataJson, Map::class.java)
-    } catch (e: IllegalArgumentException) {
-      throw InvalidClientDataException("Invalid base64 in clientDataJSON", e)
+      val jsonString = String(clientDataJson, Charsets.UTF_8)
+      objectConverter.jsonMapper.readValue(jsonString, Map::class.java)
     } catch (e: JacksonException) {
       throw InvalidClientDataException("Invalid JSON in clientDataJSON", e)
     }

@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
+import org.mockito.Mockito.lenient
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.*
 import tools.jackson.databind.json.JsonMapper
@@ -202,18 +203,30 @@ class PasskeyServiceTest {
     private val challengeId =
       Base64UrlUtil.encodeToString(byteArrayOf(1, 2, 3))
 
-    private fun request() = RegistrationDtoRequest(
+    private fun request(
+      attestationObject: String = Base64UrlUtil.encodeToString(byteArrayOf()),
+    ) = RegistrationDtoRequest(
       id = "cred-id",
       name = "My passkey",
       response = RegistrationResponseData(
         clientDataJSON = clientDataJson(challengeId),
-        attestationObject = Base64UrlUtil.encodeToString(byteArrayOf()),
+        attestationObject = attestationObject,
       ),
     )
 
     @BeforeEach
     fun setup() {
-      whenever(objectConverter.jsonMapper).thenReturn(JsonMapper())
+      lenient().`when`(objectConverter.jsonMapper).thenReturn(JsonMapper())
+    }
+
+    @Test
+    fun `should throw without consuming challenge when attestationObject is not valid base64`() {
+      assertThatThrownBy {
+        runBlocking { service.completeRegistration(user, request(attestationObject = "!!!")) }
+      }.isInstanceOf(InvalidClientDataException::class.java)
+        .hasMessage("Invalid base64 in attestationObject")
+
+      verifyNoInteractions(challengeRepository)
     }
 
     @Test
@@ -332,13 +345,16 @@ class PasskeyServiceTest {
 
     private fun request(
       clientDataJSON: String = clientDataJson(challengeId),
+      authenticatorData: String = Base64UrlUtil.encodeToString(byteArrayOf()),
+      signature: String = Base64UrlUtil.encodeToString(byteArrayOf()),
+      userHandle: String? = null,
     ) = AuthenticationDtoRequest(
       id = credentialId,
       response = AuthenticationResponseData(
         clientDataJSON = clientDataJSON,
-        authenticatorData = Base64UrlUtil.encodeToString(byteArrayOf()),
-        signature = Base64UrlUtil.encodeToString(byteArrayOf()),
-        userHandle = null,
+        authenticatorData = authenticatorData,
+        signature = signature,
+        userHandle = userHandle,
       ),
     )
 
@@ -382,6 +398,35 @@ class PasskeyServiceTest {
     @Test
     fun `should throw when clientDataJSON is not valid base64`() {
       assertInvalidClientData("not base64!", "Invalid base64 in clientDataJSON")
+    }
+
+    private fun assertInvalidBase64(request: AuthenticationDtoRequest, field: String) {
+      runBlocking {
+        whenever(passkeyRepository.findById(credentialId))
+          .thenReturn(storedCredential())
+      }
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request) }
+      }.isInstanceOf(InvalidClientDataException::class.java)
+        .hasMessage("Invalid base64 in $field")
+
+      verifyNoInteractions(challengeRepository)
+    }
+
+    @Test
+    fun `should throw without consuming challenge when authenticatorData is not valid base64`() {
+      assertInvalidBase64(request(authenticatorData = "!!!"), "authenticatorData")
+    }
+
+    @Test
+    fun `should throw without consuming challenge when signature is not valid base64`() {
+      assertInvalidBase64(request(signature = "!!!"), "signature")
+    }
+
+    @Test
+    fun `should throw without consuming challenge when userHandle is not valid base64`() {
+      assertInvalidBase64(request(userHandle = "!!!"), "userHandle")
     }
 
     @Test
