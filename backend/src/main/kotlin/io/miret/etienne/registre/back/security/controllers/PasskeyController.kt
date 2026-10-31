@@ -1,6 +1,5 @@
 package io.miret.etienne.registre.back.security.controllers
 
-import io.miret.etienne.registre.back.security.SessionAuthentication
 import io.miret.etienne.registre.back.security.exceptions.InvalidPasskeyException
 import io.miret.etienne.registre.back.security.model.User
 import io.miret.etienne.registre.back.security.services.DbSecurityContextRepository
@@ -9,11 +8,9 @@ import io.miret.etienne.registre.common.passkey.AuthenticationDtoRequest
 import io.miret.etienne.registre.common.passkey.AuthenticationOptions
 import io.miret.etienne.registre.common.passkey.RegistrationDtoRequest
 import io.miret.etienne.registre.common.passkey.RegistrationOptions
-import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.dao.DuplicateKeyException
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.security.core.context.SecurityContextImpl
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.server.ServerWebExchange
@@ -55,8 +52,7 @@ class PasskeyController(
   ): ApiUser {
     val user = passkeyService.completeAuthentication(request)
       ?: throw ResponseStatusException(HttpStatus.FORBIDDEN)
-    val securityContext = SecurityContextImpl(SessionAuthentication(user))
-    securityContextRepository.save(exchange, securityContext).awaitSingleOrNull()
+    securityContextRepository.login(exchange, user)
     return ApiUser(user.id, user.name)
   }
 

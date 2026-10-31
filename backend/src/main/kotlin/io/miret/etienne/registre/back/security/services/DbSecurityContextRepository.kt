@@ -5,6 +5,7 @@ import io.miret.etienne.registre.back.security.model.Session
 import io.miret.etienne.registre.back.security.model.User
 import io.miret.etienne.registre.back.security.repositories.SessionRepository
 import io.miret.etienne.registre.back.security.repositories.UserRepository
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import kotlinx.coroutines.reactor.mono
 import org.springframework.http.ResponseCookie
 import org.springframework.security.core.context.SecurityContext
@@ -38,6 +39,14 @@ class DbSecurityContextRepository : ServerSecurityContextRepository {
     this.sessionRepository = sessionRepository
     this.userRepository = userRepository
     this.clock = clock
+  }
+
+  suspend fun login(
+    exchange: ServerWebExchange,
+    user: User,
+  ) {
+    val context = SecurityContextImpl(SessionAuthentication(user))
+    save(exchange, context).awaitSingleOrNull()
   }
 
   override fun save(
