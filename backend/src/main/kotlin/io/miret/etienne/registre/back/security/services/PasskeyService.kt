@@ -20,6 +20,8 @@ import io.miret.etienne.registre.back.security.repositories.PasskeyChallengeRepo
 import io.miret.etienne.registre.back.security.repositories.PasskeyRepository
 import io.miret.etienne.registre.back.security.repositories.UserRepository
 import io.miret.etienne.registre.common.passkey.*
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.future.await
 import org.springframework.stereotype.Service
 import tools.jackson.core.JacksonException
@@ -79,6 +81,10 @@ class PasskeyService(
   /**
    * Generates a registration challenge for [user] and persists it.
    *
+   * The options exclude the user's existing passkeys, so that the browser
+   * refuses to register a second passkey on the same authenticator (which
+   * would otherwise replace the first one).
+   *
    * @return [RegistrationOptions] to be forwarded to the browser as
    *   the argument to `navigator.credentials.create()`.
    */
@@ -110,6 +116,9 @@ class PasskeyService(
         requireResidentKey = true,
         userVerification = UserVerification.REQUIRED,
       ),
+      excludeCredentials = passkeyRepository.findAllByUserId(user.id)
+        .map { CredentialDescriptor("public-key", it.id, emptySet()) }
+        .toList(),
     )
   }
 

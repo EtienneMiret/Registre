@@ -20,6 +20,9 @@ import kotlinx.serialization.Serializable
  *    `"indirect"`, or `"direct"`.
  * @property authenticatorSelection Criteria used to select a suitable
  *    authenticator.
+ * @property excludeCredentials Credentials the user already registered. The
+ *    browser refuses to create a new credential on an authenticator that
+ *    holds one of them, instead of silently replacing it.
  */
 @Serializable
 data class RegistrationOptions(
@@ -30,4 +33,5 @@ data class RegistrationOptions(
   val timeout: Long,
   val attestation: String,
   val authenticatorSelection: AuthenticatorSelection,
+  val excludeCredentials: List<CredentialDescriptor>,
 )

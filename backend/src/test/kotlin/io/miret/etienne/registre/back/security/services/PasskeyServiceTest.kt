@@ -21,6 +21,7 @@ import io.miret.etienne.registre.back.security.repositories.PasskeyChallengeRepo
 import io.miret.etienne.registre.back.security.repositories.PasskeyRepository
 import io.miret.etienne.registre.back.security.repositories.UserRepository
 import io.miret.etienne.registre.common.passkey.*
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -87,6 +88,23 @@ class PasskeyServiceTest {
 
     private val user = User("user-1", "Alice", admin = false)
 
+    private fun passkey(id: String) = Passkey(
+      id = id,
+      userId = "user-1",
+      name = "Passkey $id",
+      attestedCredentialDataCbor = byteArrayOf(),
+      signCount = 0,
+      backupEligible = false,
+      createdAt = now.minusSeconds(78000),
+      lastUsedAt = null,
+    )
+
+    @BeforeEach
+    fun stubPasskeys() {
+      whenever(passkeyRepository.findAllByUserId("user-1"))
+        .thenReturn(flowOf(passkey("cred-1"), passkey("cred-2")))
+    }
+
     @Test
     fun `should save challenge bound to user`() {
       whenever(clock.instant()).thenReturn(now)
@@ -120,6 +138,20 @@ class PasskeyServiceTest {
       assertThat(options.attestation).isEqualTo("none")
       assertThat(options.authenticatorSelection.userVerification)
         .isEqualTo(UserVerification.REQUIRED)
+    }
+
+    @Test
+    fun `should exclude existing passkeys of the user`() {
+      whenever(clock.instant()).thenReturn(now)
+
+      val options = runBlocking {
+        service.generateRegistrationChallenge(user)
+      }
+
+      assertThat(options.excludeCredentials).containsExactly(
+        CredentialDescriptor("public-key", "cred-1", emptySet()),
+        CredentialDescriptor("public-key", "cred-2", emptySet()),
+      )
     }
   }
 

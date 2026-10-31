@@ -124,6 +124,14 @@ val PassKeys = FC<Props>("PassKeys") {
                     requireResidentKey = options.authenticatorSelection.requireResidentKey,
                     userVerification = options.authenticatorSelection.userVerification.toRequirement(),
                   ),
+                  excludeCredentials = unsafeCast(
+                    options.excludeCredentials.map { excluded ->
+                      PublicKeyCredentialDescriptor(
+                        id = decodeFromBase64Url(excluded.id),
+                        type = PublicKeyCredentialType.publicKey,
+                      )
+                    }.toTypedArray()
+                  ),
                 ),
               ),
             ) as? PublicKeyCredential
