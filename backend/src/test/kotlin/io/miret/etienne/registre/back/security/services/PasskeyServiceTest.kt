@@ -89,17 +89,6 @@ class PasskeyServiceTest {
 
     private val user = User("user-1", "Alice", admin = false)
 
-    private fun passkey(id: String) = Passkey(
-      id = id,
-      userId = "user-1",
-      name = "Passkey $id",
-      attestedCredentialDataCbor = byteArrayOf(),
-      signCount = 0,
-      backupEligible = false,
-      createdAt = now.minusSeconds(78000),
-      lastUsedAt = null,
-    )
-
     @BeforeEach
     fun stubPasskeys() {
       whenever(passkeyRepository.findAllByUserId("user-1"))
@@ -154,6 +143,18 @@ class PasskeyServiceTest {
         CredentialDescriptor("public-key", "cred-2", emptySet()),
       )
     }
+
+    private fun passkey(id: String) = Passkey(
+      id = id,
+      userId = "user-1",
+      name = "Passkey $id",
+      attestedCredentialDataCbor = byteArrayOf(),
+      signCount = 0,
+      backupEligible = false,
+      createdAt = now.minusSeconds(78000),
+      lastUsedAt = null,
+    )
+
   }
 
   @Nested
@@ -380,38 +381,9 @@ class PasskeyServiceTest {
       assertThat(result).isNull()
     }
 
-    private fun encode(json: String) =
-      Base64UrlUtil.encodeToString(json.toByteArray(Charsets.UTF_8))
-
-    private fun assertInvalidClientData(clientDataJSON: String, message: String) {
-      runBlocking {
-        whenever(passkeyRepository.findById(credentialId))
-          .thenReturn(storedCredential())
-      }
-
-      assertThatThrownBy {
-        runBlocking { service.completeAuthentication(request(clientDataJSON)) }
-      }.isInstanceOf(InvalidClientDataException::class.java)
-        .hasMessage(message)
-    }
-
     @Test
     fun `should throw when clientDataJSON is not valid base64`() {
       assertInvalidClientData("not base64!", "Invalid base64 in clientDataJSON")
-    }
-
-    private fun assertInvalidBase64(request: AuthenticationDtoRequest, field: String) {
-      runBlocking {
-        whenever(passkeyRepository.findById(credentialId))
-          .thenReturn(storedCredential())
-      }
-
-      assertThatThrownBy {
-        runBlocking { service.completeAuthentication(request) }
-      }.isInstanceOf(InvalidClientDataException::class.java)
-        .hasMessage("Invalid base64 in $field")
-
-      verifyNoInteractions(challengeRepository)
     }
 
     @Test
@@ -554,5 +526,36 @@ class PasskeyServiceTest {
       assertThat(saved.signCount).isEqualTo(42L)
       assertThat(saved.lastUsedAt).isEqualTo(now)
     }
+
+    private fun encode(json: String) =
+      Base64UrlUtil.encodeToString(json.toByteArray(Charsets.UTF_8))
+
+    private fun assertInvalidClientData(clientDataJson: String, message: String) {
+      runBlocking {
+        whenever(passkeyRepository.findById(credentialId))
+          .thenReturn(storedCredential())
+      }
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request(clientDataJson)) }
+      }.isInstanceOf(InvalidClientDataException::class.java)
+        .hasMessage(message)
+    }
+
+    private fun assertInvalidBase64(request: AuthenticationDtoRequest, field: String) {
+      runBlocking {
+        whenever(passkeyRepository.findById(credentialId))
+          .thenReturn(storedCredential())
+      }
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request) }
+      }.isInstanceOf(InvalidClientDataException::class.java)
+        .hasMessage("Invalid base64 in $field")
+
+      verifyNoInteractions(challengeRepository)
+    }
+
   }
+
 }
