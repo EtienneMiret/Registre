@@ -16,6 +16,7 @@ import io.miret.etienne.registre.back.config.WebAuthnConfig
 import io.miret.etienne.registre.back.parameters.model.Parameter
 import io.miret.etienne.registre.back.parameters.repositories.ParameterRepository
 import io.miret.etienne.registre.back.security.exceptions.InvalidClientDataException
+import io.miret.etienne.registre.back.security.exceptions.InvalidPasskeyException
 import io.miret.etienne.registre.back.security.model.Passkey
 import io.miret.etienne.registre.back.security.model.UsedPasskeyChallenge
 import io.miret.etienne.registre.back.security.model.User
@@ -627,6 +628,36 @@ class PasskeyServiceTest {
         .hasMessage("Challenge expired")
 
       runBlocking { verify(passkeyRepository, never()).save(any()) }
+    }
+
+    @Test
+    fun `should throw without consuming challenge when userHandle names another user`() {
+      runBlocking {
+        whenever(passkeyRepository.findById(credentialId))
+          .thenReturn(storedCredential())
+      }
+      val otherUser = Base64UrlUtil.encodeToString("user-2".toByteArray())
+
+      assertThatThrownBy {
+        runBlocking { service.completeAuthentication(request(userHandle = otherUser)) }
+      }.isInstanceOf(InvalidPasskeyException::class.java)
+        .hasMessage("User handle does not match passkey owner")
+
+      verifyNoInteractions(usedChallengeRepository, asyncManager)
+    }
+
+    @Test
+    fun `should accept userHandle naming the passkey owner`() {
+      val user = User("user-1", "Alice", admin = false)
+      stubVerification()
+      runBlocking {
+        whenever(userRepository.findById("user-1")).thenReturn(user)
+      }
+      val owner = Base64UrlUtil.encodeToString("user-1".toByteArray())
+
+      val result = runBlocking { service.completeAuthentication(request(userHandle = owner)) }
+
+      assertThat(result).isEqualTo(user)
     }
 
     @Test

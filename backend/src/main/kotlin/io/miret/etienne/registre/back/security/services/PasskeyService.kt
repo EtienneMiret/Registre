@@ -13,6 +13,7 @@ import com.webauthn4j.util.Base64UrlUtil
 import io.miret.etienne.registre.back.config.RegistreConfig
 import io.miret.etienne.registre.back.security.exceptions.InvalidChallengeException
 import io.miret.etienne.registre.back.security.exceptions.InvalidClientDataException
+import io.miret.etienne.registre.back.security.exceptions.InvalidPasskeyException
 import io.miret.etienne.registre.back.security.model.Passkey
 import io.miret.etienne.registre.back.security.model.UsedPasskeyChallenge
 import io.miret.etienne.registre.back.security.model.User
@@ -211,6 +212,8 @@ class PasskeyService(
    * @param request The credential assertion submitted by the browser.
    * @return The authenticated [User], or `null` if the credential ID
    *   is not found.
+   * @throws InvalidPasskeyException if the response's user handle does not
+   *   match the owner of the credential.
    */
   suspend fun completeAuthentication(request: AuthenticationDtoRequest): User? {
     val storedCredential = passkeyRepository.findById(request.id)
@@ -223,6 +226,12 @@ class PasskeyService(
     val authenticatorData = decode("authenticatorData", request.response.authenticatorData)
     val signature = decode("signature", request.response.signature)
     val userHandle = request.response.userHandle?.let { decode("userHandle", it) }
+
+    // WebAuthn §7.2: when present, the user handle must name the owner of the
+    // credential. Registration sets it to the bytes of the user ID.
+    if (userHandle != null && !userHandle.contentEquals(storedCredential.userId.toByteArray())) {
+      throw InvalidPasskeyException("User handle does not match passkey owner")
+    }
 
     val challengeBase64 = extractChallenge(clientDataJson)
     val expiresAt = checkChallenge(challengeBase64, AUTHENTICATION_PURPOSE)
