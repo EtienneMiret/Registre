@@ -1,7 +1,7 @@
 package io.miret.etienne.registre.common.passkey
 
 import io.miret.etienne.registre.common.User
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.Serializable
 
 @Serializable

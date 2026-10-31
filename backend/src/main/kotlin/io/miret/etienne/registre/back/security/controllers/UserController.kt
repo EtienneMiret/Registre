@@ -5,7 +5,7 @@ import io.miret.etienne.registre.back.security.repositories.PasskeyRepository
 import io.miret.etienne.registre.common.passkey.Passkey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.toKotlinInstant
+import kotlin.time.toKotlinInstant
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
