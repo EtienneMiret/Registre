@@ -22,6 +22,9 @@ import react.dom.html.ReactHTML.ul
 import web.authn.*
 import web.credentials.CredentialCreationOptions
 import web.credentials.create
+import web.errors.DOMException
+import web.errors.InvalidStateError
+import web.errors.NotAllowedError
 import web.html.*
 import web.http.*
 import web.navigator.navigator
@@ -31,7 +34,7 @@ val PassKeys = FC<Props>("PassKeys") {
   var loadError by useState<Short?>(null)
   var registering by useState(false)
   var newPasskeyName by useState("")
-  var registrationError by useState<Short?>(null)
+  var registrationError by useState<String?>(null)
 
   suspend fun loadPasskeys() {
     val response = fetch("/api/auth/users/@me/passkeys")
@@ -73,6 +76,7 @@ val PassKeys = FC<Props>("PassKeys") {
     form {
       onSubmit = { event ->
         event.preventDefault()
+        registrationError = null
         MainScope().launch {
           // 1. Fetch registration challenge
           val challengeResponse = fetch(
@@ -80,47 +84,57 @@ val PassKeys = FC<Props>("PassKeys") {
             RequestInit(method = RequestMethod.POST),
           )
           if (!challengeResponse.ok) {
-            registrationError = challengeResponse.status
+            registrationError = "Erreur ${challengeResponse.status} lors de l’enregistrement ☹️."
             return@launch
           }
           val options = Json.decodeFromString<RegistrationOptions>(challengeResponse.text())
 
           // 2. Invoke the browser WebAuthn API
-          val credential = navigator.credentials.create(
-            CredentialCreationOptions(
-              publicKey = PublicKeyCredentialCreationOptions(
-                challenge = decodeFromBase64Url(options.challenge),
-                rp = PublicKeyCredentialRpEntity(
-                  id = options.rp.id,
-                  name = options.rp.name,
-                ),
-                user = PublicKeyCredentialUserEntity(
-                  id = decodeFromBase64Url(options.user.id),
-                  name = options.user.name,
-                  displayName = options.user.name,
-                ),
-                pubKeyCredParams = unsafeCast(
-                  options.pubKeyCredParams.map { param ->
-                    PublicKeyCredentialParameters(
-                      type = PublicKeyCredentialType.publicKey,
-                      alg = unsafeCast(param.alg.toInt()),
-                    )
-                  }.toTypedArray()
-                ),
-                timeout = options.timeout.toInt(),
-                attestation = AttestationConveyancePreference.none,
-                authenticatorSelection = AuthenticatorSelectionCriteria(
-                  residentKey = when (options.authenticatorSelection.residentKey) {
-                    "required" -> ResidentKeyRequirement.required
-                    "preferred" -> ResidentKeyRequirement.preferred
-                    else -> ResidentKeyRequirement.discouraged
-                  },
-                  requireResidentKey = options.authenticatorSelection.requireResidentKey,
-                  userVerification = options.authenticatorSelection.userVerification.toRequirement(),
+          // It throws a DOMException when the user cancels, on timeout, or on refusal.
+          val credential = try {
+            navigator.credentials.create(
+              CredentialCreationOptions(
+                publicKey = PublicKeyCredentialCreationOptions(
+                  challenge = decodeFromBase64Url(options.challenge),
+                  rp = PublicKeyCredentialRpEntity(
+                    id = options.rp.id,
+                    name = options.rp.name,
+                  ),
+                  user = PublicKeyCredentialUserEntity(
+                    id = decodeFromBase64Url(options.user.id),
+                    name = options.user.name,
+                    displayName = options.user.name,
+                  ),
+                  pubKeyCredParams = unsafeCast(
+                    options.pubKeyCredParams.map { param ->
+                      PublicKeyCredentialParameters(
+                        type = PublicKeyCredentialType.publicKey,
+                        alg = unsafeCast(param.alg.toInt()),
+                      )
+                    }.toTypedArray()
+                  ),
+                  timeout = options.timeout.toInt(),
+                  attestation = AttestationConveyancePreference.none,
+                  authenticatorSelection = AuthenticatorSelectionCriteria(
+                    residentKey = when (options.authenticatorSelection.residentKey) {
+                      "required" -> ResidentKeyRequirement.required
+                      "preferred" -> ResidentKeyRequirement.preferred
+                      else -> ResidentKeyRequirement.discouraged
+                    },
+                    requireResidentKey = options.authenticatorSelection.requireResidentKey,
+                    userVerification = options.authenticatorSelection.userVerification.toRequirement(),
+                  ),
                 ),
               ),
-            ),
-          ) as? PublicKeyCredential
+            ) as? PublicKeyCredential
+          } catch (e: DOMException) {
+            registrationError = when (e.name) {
+              DOMException.NotAllowedError -> "Enregistrement annulé ou refusé."
+              DOMException.InvalidStateError -> "Cet appareil a déjà une clé d’accès pour ce compte."
+              else -> "Erreur lors de l’enregistrement ☹️ : ${e.message}"
+            }
+            return@launch
+          }
           if (credential == null) {
             registering = false
             return@launch
@@ -152,7 +166,7 @@ val PassKeys = FC<Props>("PassKeys") {
             registrationError = null
             loadPasskeys()
           } else {
-            registrationError = registrationResponse.status
+            registrationError = "Erreur ${registrationResponse.status} lors de l’enregistrement ☹️."
           }
         }
       }
@@ -179,8 +193,8 @@ val PassKeys = FC<Props>("PassKeys") {
       }
     }
 
-    registrationError?.let { status ->
-      p { +"Erreur $status lors de l’enregistrement ☹️." }
+    registrationError?.let { message ->
+      p { +message }
     }
   }
 }

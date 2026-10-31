@@ -25,6 +25,8 @@ import web.authn.PublicKeyCredential
 import web.authn.PublicKeyCredentialRequestOptions
 import web.credentials.CredentialRequestOptions
 import web.credentials.get
+import web.errors.DOMException
+import web.errors.NotAllowedError
 import web.html.*
 import web.http.*
 import web.navigator.navigator
@@ -32,11 +34,12 @@ import web.navigator.navigator
 val LoginForm = FC<Props>("LoginForm") {
   val dispatch = useDispatch<Action>()
   var token by useState("")
-  var error by useState<Short?>(null)
+  var error by useState<String?>(null)
 
   form {
     onSubmit = { event ->
       event.preventDefault()
+      error = null
       MainScope().launch {
         val response = fetch(
           "/api/auth/login",
@@ -46,7 +49,7 @@ val LoginForm = FC<Props>("LoginForm") {
           val user = Json.decodeFromString<User>(response.text())
           dispatch(usernameLoaded(user.name))
         } else {
-          error = response.status
+          error = "Erreur ${response.status} lors de la connexion ☹️."
         }
       }
     }
@@ -65,26 +68,36 @@ val LoginForm = FC<Props>("LoginForm") {
   button {
     type = ButtonType.button
     onClick = { _ ->
+      error = null
       MainScope().launch {
         // 1. Fetch authentication challenge from the server
         val challengeResponse = fetch("/api/auth/passkey/authentication/challenge")
         if (!challengeResponse.ok) {
-          error = challengeResponse.status
+          error = "Erreur ${challengeResponse.status} lors de la connexion ☹️."
           return@launch
         }
         val options = Json.decodeFromString<AuthenticationOptions>(challengeResponse.text())
 
         // 2. Invoke the browser WebAuthn API
-        val credential = navigator.credentials.get(
-          CredentialRequestOptions(
-            publicKey = PublicKeyCredentialRequestOptions(
-              challenge = decodeFromBase64Url(options.challenge),
-              rpId = options.rpId,
-              timeout = options.timeout,
-              userVerification = options.userVerification.toRequirement(),
+        // It throws a DOMException when the user cancels, on timeout, or when no passkey matches.
+        val credential = try {
+          navigator.credentials.get(
+            CredentialRequestOptions(
+              publicKey = PublicKeyCredentialRequestOptions(
+                challenge = decodeFromBase64Url(options.challenge),
+                rpId = options.rpId,
+                timeout = options.timeout,
+                userVerification = options.userVerification.toRequirement(),
+              )
             )
-          )
-        ) as PublicKeyCredential?
+          ) as PublicKeyCredential?
+        } catch (e: DOMException) {
+          error = when (e.name) {
+            DOMException.NotAllowedError -> "Connexion par clé d’accès annulée ou refusée."
+            else -> "Erreur lors de la connexion ☹️ : ${e.message}"
+          }
+          return@launch
+        }
         if (credential == null) {
           return@launch
         }
@@ -115,14 +128,14 @@ val LoginForm = FC<Props>("LoginForm") {
           val user = Json.decodeFromString<User>(authResponse.text())
           dispatch(usernameLoaded(user.name))
         } else {
-          error = authResponse.status
+          error = "Erreur ${authResponse.status} lors de la connexion ☹️."
         }
       }
     }
     +"Se connecter avec une clé d'accès"
   }
 
-  error?.let { status ->
-    p { +"Erreur $status lors de la connexion ☹️." }
+  error?.let { message ->
+    p { +message }
   }
 }
