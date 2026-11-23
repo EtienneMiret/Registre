@@ -10,23 +10,23 @@ description = 'Serveur Registre'
 archivesBaseName = 'Registre'
 
 dependencies {
-  compile project(':Model')
-  compile project(':Security')
-  compile group: 'org.springframework', name: 'spring-context'
-  compile group: 'org.springframework', name: 'spring-webmvc'
-  compile group: 'org.springframework', name: 'spring-context-support'
-  compile group: 'org.springframework', name: 'spring-orm'
-  compile group: 'org.springframework.security', name: 'spring-security-config'
-  compile group: 'org.springframework.security', name: 'spring-security-web'
-  compile group: 'org.hibernate.validator', name: 'hibernate-validator'
+  implementation project(':Model')
+  implementation project(':Security')
+  implementation group: 'org.springframework', name: 'spring-context'
+  implementation group: 'org.springframework', name: 'spring-webmvc'
+  implementation group: 'org.springframework', name: 'spring-context-support'
+  implementation group: 'org.springframework', name: 'spring-orm'
+  implementation group: 'org.springframework.security', name: 'spring-security-config'
+  implementation group: 'org.springframework.security', name: 'spring-security-web'
+  implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
   providedCompile group: 'org.slf4j', name: 'slf4j-api'
   providedCompile group: 'javax.servlet', name: 'javax.servlet-api'
-  runtime group: 'org.thymeleaf', name: 'thymeleaf-spring5'
-  runtime group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
-  testCompile group: 'junit', name: 'junit'
-  testCompile group: 'org.mockito', name: 'mockito-core'
-  testCompile group: 'org.assertj', name: 'assertj-core'
-  testRuntime group: 'org.slf4j', name: 'slf4j-log4j12'
+  runtimeOnly group: 'org.thymeleaf', name: 'thymeleaf-spring5'
+  runtimeOnly group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
+  testImplementation group: 'junit', name: 'junit'
+  testImplementation group: 'org.mockito', name: 'mockito-core'
+  testImplementation group: 'org.assertj', name: 'assertj-core'
+  testRuntimeOnly group: 'org.slf4j', name: 'slf4j-log4j12'
 }
 
 node {

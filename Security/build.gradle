@@ -1,15 +1,18 @@
+plugins {
+  id 'java-library'
+}
 
 description = 'Registre Sécurité'
 dependencies {
-  compile project(':Model')
-  compile group: 'org.slf4j', name: 'slf4j-api'
-  compile group: 'org.mitre', name: 'openid-connect-client'
-  testCompile group: 'junit', name: 'junit'
-  testCompile group: 'org.assertj', name: 'assertj-core'
-  testCompile group: 'org.mockito', name: 'mockito-core'
-  testCompile group: 'org.slf4j', name: 'slf4j-log4j12'
-  testRuntime group: 'org.springframework', name: 'spring-orm'
-  testRuntime group: 'org.hsqldb', name: 'hsqldb'
+  api project(':Model')
+  implementation group: 'org.slf4j', name: 'slf4j-api'
+  implementation group: 'org.mitre', name: 'openid-connect-client'
+  testImplementation group: 'junit', name: 'junit'
+  testImplementation group: 'org.assertj', name: 'assertj-core'
+  testImplementation group: 'org.mockito', name: 'mockito-core'
+  testImplementation group: 'org.slf4j', name: 'slf4j-log4j12'
+  testRuntimeOnly group: 'org.springframework', name: 'spring-orm'
+  testRuntimeOnly group: 'org.hsqldb', name: 'hsqldb'
 }
 
 processTestResources {

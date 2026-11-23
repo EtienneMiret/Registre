@@ -1,18 +1,21 @@
+plugins {
+  id 'java-library'
+}
 
 description = 'Modèle Registre'
 dependencies {
-    compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.jpa'
-    compile group: 'org.slf4j', name: 'slf4j-api'
-    testCompile group: 'junit', name: 'junit'
-    testCompile group: 'org.mockito', name: 'mockito-core'
-    testCompile group: 'org.assertj', name: 'assertj-core'
-    testCompile group: 'org.slf4j', name: 'slf4j-log4j12'
-    testCompile group: 'org.slf4j', name: 'jul-to-slf4j'
-    testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier'
-    testCompile group: 'org.springframework', name: 'spring-test'
-    testCompile group: 'org.springframework', name: 'spring-context'
-    testCompile group: 'org.springframework', name: 'spring-orm'
-    testCompile group: 'org.hsqldb', name: 'hsqldb'
+  api group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.jpa'
+  implementation group: 'org.slf4j', name: 'slf4j-api'
+  testImplementation group: 'junit', name: 'junit'
+  testImplementation group: 'org.mockito', name: 'mockito-core'
+  testImplementation group: 'org.assertj', name: 'assertj-core'
+  testImplementation group: 'org.slf4j', name: 'slf4j-log4j12'
+  testImplementation group: 'org.slf4j', name: 'jul-to-slf4j'
+  testImplementation group: 'nl.jqno.equalsverifier', name: 'equalsverifier'
+  testImplementation group: 'org.springframework', name: 'spring-test'
+  testImplementation group: 'org.springframework', name: 'spring-context'
+  testImplementation group: 'org.springframework', name: 'spring-orm'
+  testImplementation group: 'org.hsqldb', name: 'hsqldb'
 }
 processTestResources {
     expand(basedir: "$rootDir/Model")
