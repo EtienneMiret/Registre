@@ -1,12 +1,10 @@
-import io.freefair.gradle.plugins.jsass.SassCompile
-
 plugins {
-  id 'io.freefair.jsass-base' version '1.0.0'
+  id 'io.miret.etienne.sass' version '1.6.1'
   id 'com.moowork.node' version '1.3.1'
 }
 
 apply plugin: 'war'
-apply plugin: 'io.freefair.jsass-base'
+apply plugin: 'io.miret.etienne.sass'
 
 description = 'Serveur Registre'
 archivesBaseName = 'Registre'
@@ -38,11 +36,9 @@ node {
   distBaseUrl = 'https://direct.nodejs.org/dist/'
 }
 
-task sass(type: SassCompile) {
-  sourceDir file ('src/main/scss')
-  destinationDir file("$buildDir/css")
-  cssPath 'resources'
-  sourceMapEnabled false
+compileSass {
+  sourceDir = project.file ("${projectDir}/src/main/scss")
+  destPath = "resources"
 }
 
 task tsc (type: YarnTask) {
@@ -55,13 +51,11 @@ task tsc (type: YarnTask) {
 }
 
 war {
-  from file (sass.destinationDir)
   from file ("$buildDir/js")
   webInf {
     from 'src/main/xhtml'
     into 'thymeleaf'
   }
-  dependsOn sass
   dependsOn tsc
 }
 
