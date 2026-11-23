@@ -36,6 +36,10 @@ node {
   distBaseUrl = 'https://direct.nodejs.org/dist/'
 }
 
+sass {
+  version = '1.108.2'
+}
+
 compileSass {
   sourceDir = project.file ("${projectDir}/src/main/scss")
   destPath = "resources"

@@ -1,9 +1,9 @@
-@import "base";
+@use "base";
 
-@import "header";
-@import "nav";
+@use "header";
+@use "nav";
 
-@import "home";
-@import "search-results";
-@import "record";
-@import "editor";
+@use "home";
+@use "search-results";
+@use "record";
+@use "editor";
