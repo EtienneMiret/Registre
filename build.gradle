@@ -1,11 +1,6 @@
-plugins {
-  id 'nebula.dependency-recommender' version '11.0.0' apply false
-}
-
 allprojects  {
   group = 'fr.elimerl.Registre'
   version = '3.2.0-SNAPSHOT'
-  apply plugin: 'nebula.dependency-recommender'
 }
 
 subprojects {
@@ -16,12 +11,5 @@ subprojects {
 
   repositories {
     mavenCentral()
-  }
-
-  dependencyRecommendations {
-    strategy OverrideTransitives
-    propertiesFile file: rootProject.file ('dependencyVersions')
-    mavenBom module: [group: 'org.springframework', name: 'spring-framework-bom']
-    mavenBom module: [group: 'org.springframework.security', name: 'spring-security-bom']
   }
 }

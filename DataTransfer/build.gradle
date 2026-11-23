@@ -5,15 +5,14 @@ plugins {
 description = ''
 dependencies {
   implementation project(':Model')
-  implementation group: 'org.slf4j', name: 'slf4j-api'
-  implementation group: 'org.springframework', name: 'spring-context'
-  implementation group: 'javax.transaction', name: 'javax.transaction-api'
-  runtimeOnly group: 'org.springframework', name: 'spring-orm'
-  testImplementation group: 'junit', name: 'junit'
-  testImplementation group: 'org.springframework', name: 'spring-jdbc'
-  testImplementation group: 'org.assertj', name: 'assertj-core'
-  testRuntimeOnly group: 'org.hsqldb', name: 'hsqldb'
-  testRuntimeOnly group: 'org.slf4j', name: 'slf4j-log4j12'
+  implementation libs.slf4j.api
+  implementation "org.springframework:spring-context"
+  implementation libs.javax.transaction.api
+  runtimeOnly "org.springframework:spring-orm"
+  testImplementation libs.bundles.tests
+  testImplementation "org.springframework:spring-jdbc"
+  testRuntimeOnly libs.h2
+  testRuntimeOnly libs.slf4j.log4j12
   testRuntimeOnly files(project(':Model').file('src/main/sql'))
 }
 

@@ -3,20 +3,22 @@ plugins {
 }
 
 description = 'Modèle Registre'
+
 dependencies {
-  api group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.jpa'
-  implementation group: 'org.slf4j', name: 'slf4j-api'
-  testImplementation group: 'junit', name: 'junit'
-  testImplementation group: 'org.mockito', name: 'mockito-core'
-  testImplementation group: 'org.assertj', name: 'assertj-core'
-  testImplementation group: 'org.slf4j', name: 'slf4j-log4j12'
-  testImplementation group: 'org.slf4j', name: 'jul-to-slf4j'
-  testImplementation group: 'nl.jqno.equalsverifier', name: 'equalsverifier'
-  testImplementation group: 'org.springframework', name: 'spring-test'
-  testImplementation group: 'org.springframework', name: 'spring-context'
-  testImplementation group: 'org.springframework', name: 'spring-orm'
-  testImplementation group: 'org.hsqldb', name: 'hsqldb'
+  api(platform(libs.spring.framework))
+  api(platform(libs.spring.security))
+  api libs.eclipse.persistence
+  implementation libs.slf4j.api
+  testImplementation libs.bundles.tests
+  testImplementation libs.equalsverifier
+  testImplementation "org.springframework:spring-test"
+  testImplementation "org.springframework:spring-context"
+  testImplementation "org.springframework:spring-orm"
+  testRuntimeOnly libs.h2
+  testRuntimeOnly libs.slf4j.log4j12
+  testRuntimeOnly libs.slf4j.jul
 }
+
 processTestResources {
     expand(basedir: "$rootDir/Model")
 }

@@ -3,16 +3,15 @@ plugins {
 }
 
 description = 'Registre Sécurité'
+
 dependencies {
   api project(':Model')
-  implementation group: 'org.slf4j', name: 'slf4j-api'
-  implementation group: 'org.mitre', name: 'openid-connect-client'
-  testImplementation group: 'junit', name: 'junit'
-  testImplementation group: 'org.assertj', name: 'assertj-core'
-  testImplementation group: 'org.mockito', name: 'mockito-core'
-  testImplementation group: 'org.slf4j', name: 'slf4j-log4j12'
-  testRuntimeOnly group: 'org.springframework', name: 'spring-orm'
-  testRuntimeOnly group: 'org.hsqldb', name: 'hsqldb'
+  implementation libs.slf4j.api
+  implementation libs.mitre.openid.connect
+  testImplementation libs.bundles.tests
+  testRuntimeOnly libs.slf4j.log4j12
+  testRuntimeOnly "org.springframework:spring-orm"
+  testRuntimeOnly libs.h2
 }
 
 processTestResources {

@@ -12,21 +12,18 @@ archivesBaseName = 'Registre'
 dependencies {
   implementation project(':Model')
   implementation project(':Security')
-  implementation group: 'org.springframework', name: 'spring-context'
-  implementation group: 'org.springframework', name: 'spring-webmvc'
-  implementation group: 'org.springframework', name: 'spring-context-support'
-  implementation group: 'org.springframework', name: 'spring-orm'
-  implementation group: 'org.springframework.security', name: 'spring-security-config'
-  implementation group: 'org.springframework.security', name: 'spring-security-web'
-  implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
-  providedCompile group: 'org.slf4j', name: 'slf4j-api'
-  providedCompile group: 'javax.servlet', name: 'javax.servlet-api'
-  runtimeOnly group: 'org.thymeleaf', name: 'thymeleaf-spring5'
-  runtimeOnly group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
-  testImplementation group: 'junit', name: 'junit'
-  testImplementation group: 'org.mockito', name: 'mockito-core'
-  testImplementation group: 'org.assertj', name: 'assertj-core'
-  testRuntimeOnly group: 'org.slf4j', name: 'slf4j-log4j12'
+  implementation "org.springframework:spring-context"
+  implementation "org.springframework:spring-webmvc"
+  implementation "org.springframework:spring-context-support"
+  implementation "org.springframework:spring-orm"
+  implementation "org.springframework.security:spring-security-config"
+  implementation "org.springframework.security:spring-security-web"
+  implementation libs.hibernate.validator
+  providedCompile libs.slf4j.api
+  providedCompile libs.javax.servlet.api
+  runtimeOnly libs.bundles.thymeleaf
+  testImplementation libs.bundles.tests
+  testRuntimeOnly libs.slf4j.log4j12
 }
 
 node {
