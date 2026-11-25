@@ -7,7 +7,7 @@ dependencies {
   implementation project(':Model')
   implementation libs.slf4j.api
   implementation "org.springframework:spring-context"
-  implementation libs.javax.transaction.api
+  implementation libs.jakarta.transaction
   runtimeOnly "org.springframework:spring-orm"
   testImplementation libs.bundles.tests
   testImplementation "org.springframework:spring-jdbc"

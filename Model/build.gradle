@@ -8,6 +8,7 @@ dependencies {
   api(platform(libs.spring.framework))
   api(platform(libs.spring.security))
   api libs.eclipse.persistence
+  api libs.jakarta.annotation
   implementation libs.slf4j.api
   testImplementation libs.bundles.tests
   testImplementation libs.equalsverifier

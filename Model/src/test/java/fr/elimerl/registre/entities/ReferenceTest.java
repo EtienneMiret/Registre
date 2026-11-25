@@ -1,14 +1,12 @@
 package fr.elimerl.registre.entities;
 
-import static org.junit.Assert.assertEquals;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
-
-import org.junit.Test;
-
 import fr.elimerl.registre.entities.Movie.Support;
 import fr.elimerl.registre.entities.Reference.Field;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * JUnit test for the {@link Reference} class.
@@ -35,12 +33,11 @@ public class ReferenceTest {
      * {@link Reference#hashCode()} methods.
      */
     @Test
-    public void equalsEtHashCode() {
-	final EqualsVerifier<Reference> equalsVerifier =
-		EqualsVerifier.forClass(Reference.class);
-	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
-	equalsVerifier.withIgnoredFields ("id");
-	equalsVerifier.verify();
+    public void equalsAndHashCode() {
+        EqualsVerifier.forClass(Reference.class)
+            .suppress(Warning.STRICT_INHERITANCE)
+            .withIgnoredFields("id")
+            .verify();
     }
 
 }

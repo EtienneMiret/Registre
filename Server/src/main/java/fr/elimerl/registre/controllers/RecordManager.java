@@ -1,7 +1,20 @@
 package fr.elimerl.registre.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.http.HttpServletResponse;
+
+import javax.validation.Valid;
+
 import fr.elimerl.registre.commands.RecordCommand;
-import fr.elimerl.registre.entities.*;
+import fr.elimerl.registre.entities.Book;
+import fr.elimerl.registre.entities.Comic;
+import fr.elimerl.registre.entities.Movie;
+import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.User;
 import fr.elimerl.registre.security.RAuthenticationToken;
 import fr.elimerl.registre.services.AutoCompleter;
 import fr.elimerl.registre.services.Index;
@@ -19,17 +32,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-
+import static jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static jakarta.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;
 import static java.util.Collections.singletonMap;
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
@@ -219,7 +225,7 @@ public class RecordManager {
    * @param id
    *          id of the record to update.
    * @param command
-   *          specification of the update to make. Must be of the same type than
+   *          specification of the update to make. Must be of the same type as
    *          the specified record.
    * @param token
    *          authenticated principal creating this record.

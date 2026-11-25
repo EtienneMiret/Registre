@@ -20,7 +20,7 @@ dependencies {
   implementation "org.springframework.security:spring-security-web"
   implementation libs.hibernate.validator
   providedCompile libs.slf4j.api
-  providedCompile libs.javax.servlet.api
+  providedCompile libs.jakarta.servlet
   runtimeOnly libs.bundles.thymeleaf
   testImplementation libs.bundles.tests
   testRuntimeOnly libs.slf4j.log4j12

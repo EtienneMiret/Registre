@@ -1,13 +1,12 @@
 package fr.elimerl.registre.entities;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
-
-import org.junit.Test;
 
 /**
  * Test for the {@link Session} class.
@@ -75,12 +74,11 @@ public class SessionTest {
      * methods.
      */
     @Test
-    public void equalsEtHashCode() {
-	final EqualsVerifier<Session> equalsVerifier =
-		EqualsVerifier.forClass(Session.class);
-	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
-	equalsVerifier.withOnlyTheseFields ("key");
-	equalsVerifier.verify();
+    public void equalsAndHashCode() {
+      EqualsVerifier.forClass(Session.class)
+          .suppress(Warning.STRICT_INHERITANCE)
+          .suppress(Warning.SURROGATE_KEY)
+          .verify();
     }
 
 }

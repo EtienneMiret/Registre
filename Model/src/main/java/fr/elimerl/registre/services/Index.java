@@ -1,21 +1,20 @@
 package fr.elimerl.registre.services;
 
-import static fr.elimerl.registre.entities.Reference.Field.OTHER;
-import static fr.elimerl.registre.entities.Reference.Field.COMMENT;
-import static fr.elimerl.registre.entities.Reference.Field.TITLE;
+import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.Reference;
+import fr.elimerl.registre.search.tokens.Keyword;
+import jakarta.annotation.Resource;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
-import fr.elimerl.registre.entities.Record;
-import fr.elimerl.registre.entities.Reference;
-import fr.elimerl.registre.search.tokens.Keyword;
+import static fr.elimerl.registre.entities.Reference.Field.COMMENT;
+import static fr.elimerl.registre.entities.Reference.Field.OTHER;
+import static fr.elimerl.registre.entities.Reference.Field.TITLE;
 
 /**
  * Service responsible for indexing records.

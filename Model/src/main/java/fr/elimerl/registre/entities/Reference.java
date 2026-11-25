@@ -1,17 +1,17 @@
 package fr.elimerl.registre.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 /**
  * A {@code Reference} is an entry in the application index. It links a
@@ -147,9 +147,9 @@ public class Reference {
 	    result = true;
 	} else if (objet instanceof Reference) {
 	    final Reference otherRef = (Reference) objet;
-	    result = equalsOrNull(this.word, otherRef.word)
-		    && this.field == otherRef.field
-		    && equalsOrNull(this.record, otherRef.record);
+	    result = equalsOrNull(this.getWord(), otherRef.getWord())
+		    && this.getField() == otherRef.getField()
+		    && equalsOrNull(this.getRecord(), otherRef.getRecord());
 	} else {
 	    result = false;
 	}
@@ -159,9 +159,9 @@ public class Reference {
     @Override
     public int hashCode() {
 	int result;
-	result = (word == null ? 0 : word.hashCode());
-	result = result * PRIME + (field == null ? 0 : field.hashCode());
-	result = result * PRIME + (record == null ? 0 : record.hashCode());
+	result = (getWord() == null ? 0 : getWord().hashCode());
+	result = result * PRIME + (getField() == null ? 0 : getField().hashCode());
+	result = result * PRIME + (getRecord() == null ? 0 : getRecord().hashCode());
 	return result;
     }
 

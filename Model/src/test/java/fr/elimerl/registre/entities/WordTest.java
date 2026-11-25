@@ -1,12 +1,11 @@
 package fr.elimerl.registre.entities;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * JUnit test for the {@link Word} class.
@@ -30,12 +29,11 @@ public class WordTest {
      * Test the {@link Word#equals(Object)} and {@link Word#hashCode()} methods.
      */
     @Test
-    public void equalsAndHashcode() {
-	final EqualsVerifier<Word> equalsVerifier =
-		EqualsVerifier.forClass(Word.class);
-	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
-        equalsVerifier.withIgnoredFields ("id");
-	equalsVerifier.verify();
+    public void equalsAndHashCode() {
+      EqualsVerifier.forClass(Word.class)
+          .suppress(Warning.STRICT_INHERITANCE)
+          .withIgnoredFields("id")
+          .verify();
     }
 
 }
