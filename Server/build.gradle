@@ -7,7 +7,10 @@ apply plugin: 'war'
 apply plugin: 'io.miret.etienne.sass'
 
 description = 'Serveur Registre'
-archivesBaseName = 'Registre'
+
+base {
+  archivesName = 'Registre'
+}
 
 dependencies {
   implementation project(':Model')
@@ -37,16 +40,19 @@ sass {
 }
 
 compileSass {
-  sourceDir = project.file ("${projectDir}/src/main/scss")
+  sourceDir = project.layout.projectDirectory.dir("src/main/scss").asFile
   destPath = "resources"
 }
 
-task tsc (type: YarnTask) {
-  args = ['run', 'tsc', '--outdir', "$buildDir/js/resources"]
+tasks.register("tsc", YarnTask) {
+  def jsDirectory = project.layout.buildDirectory.dir("js")
+  args = jsDirectory.map {
+    ["run", "tsc", "--outdir", "$it/resources"]
+  }
 
   inputs.file file ('tsconfig.json')
   inputs.dir file ('src/main/ts')
-  outputs.dir file ("$buildDir/js")
+  outputs.dir project.layout.buildDirectory.dir("js")
   dependsOn yarn
 }
 
@@ -55,7 +61,7 @@ tasks.compileJava {
 }
 
 war {
-  from file ("$buildDir/js")
+  from project.layout.buildDirectory.dir("js")
   webInf {
     from 'src/main/xhtml'
     into 'thymeleaf'

@@ -13,7 +13,7 @@ dependencies {
   testImplementation "org.springframework:spring-jdbc"
   testRuntimeOnly libs.h2
   testRuntimeOnly libs.slf4j.log4j12
-  testRuntimeOnly files(project(':Model').file('src/main/sql'))
+  testRuntimeOnly files(isolated.rootProject.projectDirectory.dir('Model/src/main/sql'))
 }
 
 jar {
