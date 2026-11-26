@@ -1,11 +1,15 @@
 package fr.elimerl.registre.security;
 
+import java.time.Instant;
+import java.util.Map;
+
 import fr.elimerl.registre.entities.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mitre.openid.connect.model.DefaultUserInfo;
-import org.mitre.openid.connect.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -27,8 +31,10 @@ public class UserLoaderTest {
 
   @Test
   public void should_return_null_given_UserInfo_without_email () {
-    UserInfo userInfo = new DefaultUserInfo ();
-    userInfo.setEmail (null);
+    var idToken = new OidcIdToken("foo", Instant.EPOCH, Instant.MAX, Map.of(
+        StandardClaimNames.SUB, "foo"
+    ));
+    var userInfo = new DefaultOidcUser(null, idToken);
 
     User actual = userLoader.loadUser (userInfo);
 
@@ -36,10 +42,26 @@ public class UserLoaderTest {
   }
 
   @Test
+  public void should_return_null_given_OidcUSer_without_email_verified_claim() {
+    var idToken = new OidcIdToken("foo", Instant.EPOCH, Instant.MAX, Map.of(
+        StandardClaimNames.SUB, "foo",
+        StandardClaimNames.EMAIL, "etienne@example.com"
+    ));
+    var userInfo = new DefaultOidcUser(null, idToken);
+
+    User actual = userLoader.loadUser(userInfo);
+
+    assertThat(actual).isNull();
+  }
+
+  @Test
   public void should_return_null_given_UserInfo_with_unverified_email () {
-    UserInfo userInfo = new DefaultUserInfo ();
-    userInfo.setEmail ("etienne@example.com");
-    userInfo.setEmailVerified (false);
+    var idToken = new OidcIdToken("foo", Instant.EPOCH, Instant.MAX, Map.of(
+        StandardClaimNames.SUB, "foo",
+        StandardClaimNames.EMAIL, "etienne@example.com",
+        StandardClaimNames.EMAIL_VERIFIED, Boolean.FALSE
+    ));
+    var userInfo = new DefaultOidcUser(null, idToken);
 
     User actual = userLoader.loadUser (userInfo);
 
@@ -48,9 +70,12 @@ public class UserLoaderTest {
 
   @Test
   public void should_return_null_given_UserInfo_with_unknown_email () {
-    UserInfo userInfo = new DefaultUserInfo ();
-    userInfo.setEmail ("foo@example.com");
-    userInfo.setEmailVerified (true);
+    var idToken = new OidcIdToken("foo", Instant.EPOCH, Instant.MAX, Map.of(
+        StandardClaimNames.SUB, "foo",
+        StandardClaimNames.EMAIL, "foo@example.com",
+        StandardClaimNames.EMAIL_VERIFIED, Boolean.TRUE
+    ));
+    var userInfo = new DefaultOidcUser(null, idToken);
 
     User actual = userLoader.loadUser (userInfo);
 
@@ -59,9 +84,12 @@ public class UserLoaderTest {
 
   @Test
   public void should_return_User_given_UserInfo_with_verified_known_email () {
-    UserInfo userInfo = new DefaultUserInfo ();
-    userInfo.setEmail ("etienne@example.com");
-    userInfo.setEmailVerified (true);
+    var idToken = new OidcIdToken("foo", Instant.EPOCH, Instant.MAX, Map.of(
+        StandardClaimNames.SUB, "foo",
+        StandardClaimNames.EMAIL, "etienne@example.com",
+        StandardClaimNames.EMAIL_VERIFIED, Boolean.TRUE
+    ));
+    var userInfo = new DefaultOidcUser(null, idToken);
 
     User actual = userLoader.loadUser (userInfo);
 

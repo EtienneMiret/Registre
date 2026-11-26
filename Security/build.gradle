@@ -6,9 +6,15 @@ description = 'Registre Sécurité'
 
 dependencies {
   api project(':Model')
+  api "org.springframework.security:spring-security-web"
+  api "org.springframework.security:spring-security-config"
+  api "org.springframework.security:spring-security-oauth2-client"
+  api "org.springframework.security:spring-security-oauth2-jose"
   implementation libs.slf4j.api
-  implementation libs.mitre.openid.connect
+  runtimeOnly platform(libs.jackson)
+  runtimeOnly "com.fasterxml.jackson.core:jackson-databind"
   testImplementation libs.bundles.tests
+  testImplementation "org.springframework:spring-test"
   testRuntimeOnly libs.slf4j.log4j12
   testRuntimeOnly "org.springframework:spring-orm"
   testRuntimeOnly libs.h2

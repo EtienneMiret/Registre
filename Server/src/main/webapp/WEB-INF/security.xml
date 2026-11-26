@@ -13,48 +13,47 @@
   <http entry-point-ref="authenticationEntryPoint">
     <intercept-url pattern="/error/forbidden" access="isAuthenticated()"/>
     <intercept-url pattern="/**" access="hasRole('USER')"/>
-    <custom-filter before="PRE_AUTH_FILTER" ref="openidConnectAuthenticationFilter"/>
+    <oauth2-login
+        login-processing-url="/oauth2/callback/*"
+        client-registration-repository-ref="clientRegistrationRepository"
+        oidc-user-service-ref="oidcUserService"/>
     <headers/>
     <logout logout-url="/logout" invalidate-session="true" delete-cookies="JSESSIONID"/>
     <access-denied-handler error-page="/error/forbidden"/>
   </http>
 
-  <authentication-manager id="authenticationManager">
-    <authentication-provider ref="authenticationProvider"/>
-  </authentication-manager>
+  <!-- Authentication is handled by <oauth2-login>, whose OIDC user service
+       (RegistreOidcUserService) maps Google users to Registre users. -->
+  <authentication-manager id="authenticationManager"/>
 
   <context:component-scan base-package="fr.elimerl.registre.security"/>
 
+  <beans:bean
+      name="mvcHandlerMappingIntrospector"
+      class="org.springframework.web.servlet.handler.HandlerMappingIntrospector"/>
+
+  <beans:bean class="org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService"/>
+
   <beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-    <beans:constructor-arg name="loginFormUrl" value="/login"/>
+    <beans:constructor-arg name="loginFormUrl" value="/oauth2/authorization/google"/>
   </beans:bean>
 
-  <beans:bean id="openidConnectAuthenticationFilter" class="org.mitre.openid.connect.client.OIDCAuthenticationFilter">
-    <beans:property name="authenticationManager" ref="authenticationManager"/>
-    <beans:property name="issuerService" ref="issuerService"/>
-    <beans:property name="serverConfigurationService" ref="serverConfigurationService"/>
-    <beans:property name="clientConfigurationService" ref="clientConfigurationService"/>
-    <beans:property name="authRequestUrlBuilder" ref="authRequestUrlBuilder"/>
-    <beans:property name="filterProcessesUrl" value="/login"/>
+  <beans:bean
+      id="clientRegistrationRepository"
+      class="org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository">
+    <beans:constructor-arg ref="googleRegistration"/>
   </beans:bean>
 
-  <beans:bean id="issuerService" class="org.mitre.openid.connect.client.service.impl.StaticSingleIssuerService">
-    <beans:property name="issuer" value="https://accounts.google.com"/>
-  </beans:bean>
+  <beans:bean
+      id="googleRegistration"
+      factory-bean="googleConfiguration"
+      factory-method="buildClientRegistration"/>
 
-  <beans:bean id="serverConfigurationService" class="org.mitre.openid.connect.client.service.impl.DynamicServerConfigurationService"/>
-
-  <beans:bean id="clientConfigurationService" class="org.mitre.openid.connect.client.service.impl.StaticClientConfigurationService">
-    <beans:property name="clients">
-      <beans:map>
-        <beans:entry key="https://accounts.google.com" value-ref="googleConfiguration"/>
-      </beans:map>
-    </beans:property>
-  </beans:bean>
-
-  <beans:bean id="authRequestUrlBuilder" class="org.mitre.openid.connect.client.service.impl.PlainAuthRequestUrlBuilder"/>
-
-  <beans:bean id="googleConfiguration" class="org.mitre.oauth2.model.RegisteredClient">
+  <beans:bean
+      id="googleConfiguration"
+      class="fr.elimerl.registre.security.ClientConfiguration">
+    <beans:property name="id" value="google"/>
+    <beans:property name="issuerUri" value="https://accounts.google.com"/>
     <beans:property name="clientName" value="Registre"/>
     <beans:property name="clientId">
       <jee:jndi-lookup jndi-name="clientId"/>
@@ -68,13 +67,9 @@
         <beans:value>email</beans:value>
       </beans:set>
     </beans:property>
-    <beans:property name="redirectUris">
-      <beans:set>
-        <jee:jndi-lookup jndi-name="redirectUri"/>
-      </beans:set>
+    <beans:property name="redirectUri">
+      <jee:jndi-lookup jndi-name="redirectUri"/>
     </beans:property>
   </beans:bean>
-
-  <beans:bean class="org.mitre.openid.connect.client.UserInfoFetcher"/>
 
 </beans:beans>

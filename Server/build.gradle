@@ -50,6 +50,10 @@ task tsc (type: YarnTask) {
   dependsOn yarn
 }
 
+tasks.compileJava {
+  options.compilerArgs << "-parameters"
+}
+
 war {
   from file ("$buildDir/js")
   webInf {
