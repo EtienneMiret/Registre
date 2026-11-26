@@ -354,7 +354,7 @@ public class MigratorImpl implements Migrator {
 	if (lastModifier != null && !lastModifier.isEmpty()) {
 	    record.toucher(provideUser(lastModifier));
 	}
-	defineField(record, "id", new Long(id));
+	defineField(record, "id", (long) id);
 	defineField(record, "creation", creation);
 	if (lastModification == null) {
 	    defineField(record, "lastModification", creation);
