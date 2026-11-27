@@ -52,7 +52,7 @@ tasks.register("tsc", YarnTask) {
 
   inputs.file file ('tsconfig.json')
   inputs.dir file ('src/main/ts')
-  outputs.dir project.layout.buildDirectory.dir("js")
+  outputs.dir jsDirectory
   dependsOn yarn
 }
 

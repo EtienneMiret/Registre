@@ -30,7 +30,7 @@ public class UserLoaderTest {
   }
 
   @Test
-  public void should_return_null_given_UserInfo_without_email () {
+  public void should_return_null_given_OidcUser_without_email () {
     var idToken = new OidcIdToken("foo", Instant.EPOCH, Instant.MAX, Map.of(
         StandardClaimNames.SUB, "foo"
     ));
@@ -55,7 +55,7 @@ public class UserLoaderTest {
   }
 
   @Test
-  public void should_return_null_given_UserInfo_with_unverified_email () {
+  public void should_return_null_given_OidcUser_with_unverified_email () {
     var idToken = new OidcIdToken("foo", Instant.EPOCH, Instant.MAX, Map.of(
         StandardClaimNames.SUB, "foo",
         StandardClaimNames.EMAIL, "etienne@example.com",
@@ -69,7 +69,7 @@ public class UserLoaderTest {
   }
 
   @Test
-  public void should_return_null_given_UserInfo_with_unknown_email () {
+  public void should_return_null_given_OidcUser_with_unknown_email () {
     var idToken = new OidcIdToken("foo", Instant.EPOCH, Instant.MAX, Map.of(
         StandardClaimNames.SUB, "foo",
         StandardClaimNames.EMAIL, "foo@example.com",
@@ -83,7 +83,7 @@ public class UserLoaderTest {
   }
 
   @Test
-  public void should_return_User_given_UserInfo_with_verified_known_email () {
+  public void should_return_User_given_OidcUser_with_verified_known_email () {
     var idToken = new OidcIdToken("foo", Instant.EPOCH, Instant.MAX, Map.of(
         StandardClaimNames.SUB, "foo",
         StandardClaimNames.EMAIL, "etienne@example.com",

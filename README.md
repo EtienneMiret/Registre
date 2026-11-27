@@ -14,7 +14,7 @@ Registre uses [Gradle][1] as its build tool. A great thing about Gradle is that
 you don’t need to install it, you just need to run the “gradlew” wrapper
 provided with the sources.
 
-    $ export JAVA_HOME=/path/to/java/25   # Make sure you’re using java 25
+    $ export JAVA_HOME=/path/to/java/25  # Make sure you’re using java 25
     $ ./gradlew assemble                 # Build
     $ ./gradlew check                    # Run test suites
 

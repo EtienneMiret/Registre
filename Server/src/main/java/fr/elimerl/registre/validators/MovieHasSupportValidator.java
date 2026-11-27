@@ -10,9 +10,6 @@ public class MovieHasSupportValidator
     implements ConstraintValidator<MovieHasSupport, RecordCommand> {
 
   @Override
-  public void initialize (MovieHasSupport constraintAnnotation) {}
-
-  @Override
   public boolean isValid (RecordCommand value, ConstraintValidatorContext context) {
     if (value == null) {
       return true;
