@@ -4,8 +4,8 @@ slf4j = "2.0.20"
 [libraries]
 
 jackson = { module = "com.fasterxml.jackson:jackson-bom", version = "2.23.0" }
-spring-framework = { module = "org.springframework:spring-framework-bom", version = "6.2.19" }
-spring-security = { module = "org.springframework.security:spring-security-bom", version = "6.5.11" }
+spring-framework = { module = "org.springframework:spring-framework-bom", version = "7.1.0" }
+spring-security = { module = "org.springframework.security:spring-security-bom", version = "7.2.0" }
 
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 slf4j-log4j12 = { module = "org.slf4j:slf4j-log4j12", version.ref = "slf4j" }
