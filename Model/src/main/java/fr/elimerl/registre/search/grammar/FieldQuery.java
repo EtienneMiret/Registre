@@ -5,15 +5,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Path;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 
-import fr.elimerl.registre.entities.*;
 import fr.elimerl.registre.entities.Actor;
+import fr.elimerl.registre.entities.Movie;
+import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.Reference;
 import fr.elimerl.registre.search.tokens.Field;
 import fr.elimerl.registre.search.tokens.Keyword;
 
@@ -93,21 +95,8 @@ public final class FieldQuery extends Expression {
     }
 
     /**
-     * Crée un prédicat pour le champ « acteur ».
-     *
-     * @param builder
-     *            constructeur de requêtes.
-     * @param query
-     *            la requête principale dont on construit la clause where.
-     * @param root
-     *            la racine de la requête.
-     * @return un prédicat, lié à la requête passée en paramètre, qui teste si
-     *           une fiche de film contient les mot clés {@link #keywords} dans
-     *           un de ses acteurs.
-     */
-    /**
      * Create a predicate for the “actor” field. This field is special because
-     * it is multi-valued.
+     * it is multivalued.
      *
      * @param builder
      *          query builder.
@@ -137,20 +126,9 @@ public final class FieldQuery extends Expression {
     }
 
     /**
-     * Crée un prédicat pour un champ qui contient un {@link Named}.
+     * Create a predicate for a field containing a single
+     * {@link fr.elimerl.registre.entities.Named}.
      *
-     * @param constructeur
-     *            constructeur de requêtes.
-     * @param requête
-     *            la requête principale dont on construit la clause where.
-     * @param fiche
-     *            la racine de la requête.
-     * @return un prédicat, lié à la requête passée en paramètre, qui teste si
-     *         une fiche contient les mot clés {@link #keywords} dans son champ
-     *         {@link #field}.
-     */
-    /**
-     * Create a predicate for a field containing a single {@link Named}.
      * @param builder
      *          query builder.
      * @param query
@@ -171,7 +149,7 @@ public final class FieldQuery extends Expression {
 		    : builder.treat(root, field.getDeclaringClass());
 	    predicates[i] = builder.like(
 		    builder.lower(racine
-			    .get(field.getName()).<String>get("name")),
+			    .get(field.getName()).get("name")),
 			    "%" + mot + "%");
 	}
 	return builder.and(predicates);

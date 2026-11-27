@@ -1,10 +1,11 @@
 package fr.elimerl.registre.constraints;
 
-import fr.elimerl.registre.validators.MovieHasSupportValidator;
-
-import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.Retention;
+
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
+import fr.elimerl.registre.validators.MovieHasSupportValidator;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 

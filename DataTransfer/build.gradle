@@ -1,20 +1,19 @@
 plugins {
-  id 'com.github.johnrengelman.shadow' version '2.0.1'
+  id 'com.gradleup.shadow' version '8.3.11'
 }
 
 description = ''
 dependencies {
-  compile project(':Model')
-  compile group: 'org.slf4j', name: 'slf4j-api'
-  compile group: 'org.springframework', name: 'spring-context'
-  compile group: 'javax.transaction', name: 'javax.transaction-api'
-  runtime group: 'org.springframework', name: 'spring-orm'
-  testCompile group: 'junit', name: 'junit'
-  testCompile group: 'org.springframework', name: 'spring-jdbc'
-  testCompile group: 'org.assertj', name: 'assertj-core'
-  testRuntime group: 'org.hsqldb', name: 'hsqldb'
-  testRuntime group: 'org.slf4j', name: 'slf4j-log4j12'
-  testRuntime files(project(':Model').file('src/main/sql'))
+  implementation project(':Model')
+  implementation libs.slf4j.api
+  implementation "org.springframework:spring-context"
+  implementation libs.jakarta.transaction
+  runtimeOnly "org.springframework:spring-orm"
+  testImplementation libs.bundles.tests
+  testImplementation "org.springframework:spring-jdbc"
+  testRuntimeOnly libs.hsqldb
+  testRuntimeOnly libs.slf4j.log4j12
+  testRuntimeOnly files(isolated.rootProject.projectDirectory.dir('Model/src/main/sql'))
 }
 
 jar {

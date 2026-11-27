@@ -1,13 +1,12 @@
 package fr.elimerl.registre.entities;
 
-import static org.junit.Assert.assertEquals;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test for the {@link User} class.
@@ -42,12 +41,11 @@ public class UserTest {
      * Test the {@link User#equals(Object)} and {@link User#hashCode()} methods.
      */
     @Test
-    public void equalsEtHashCode() {
-	final EqualsVerifier<User> equalsVerifier =
-		EqualsVerifier.forClass(User.class);
-	equalsVerifier.suppress(Warning.STRICT_INHERITANCE);
-        equalsVerifier.withOnlyTheseFields ("name");
-	equalsVerifier.verify();
+    public void equalsAndHashCode() {
+      EqualsVerifier.forClass(User.class)
+          .suppress(Warning.STRICT_INHERITANCE)
+          .withOnlyTheseFields("name")
+          .verify();
     }
 
 }

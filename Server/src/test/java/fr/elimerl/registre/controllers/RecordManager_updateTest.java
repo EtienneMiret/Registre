@@ -1,5 +1,13 @@
 package fr.elimerl.registre.controllers;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.persistence.EntityManager;
+import jakarta.servlet.http.HttpServletResponse;
+
 import fr.elimerl.registre.commands.RecordCommand;
 import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.entities.Comic;
@@ -7,7 +15,7 @@ import fr.elimerl.registre.entities.Movie;
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.Series;
 import fr.elimerl.registre.entities.User;
-import fr.elimerl.registre.security.RAuthenticationToken;
+import fr.elimerl.registre.security.RegistreUser;
 import fr.elimerl.registre.services.Index;
 import fr.elimerl.registre.services.PictureRegistry;
 import fr.elimerl.registre.services.RegistreEntityManager;
@@ -18,12 +26,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,7 +36,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * Test case for the
- * {@link RecordManager#update(Long, RecordCommand, RAuthenticationToken, HttpServletResponse)}
+ * {@link RecordManager#update(Long, RecordCommand, RegistreUser, HttpServletResponse)}
  * method.
  */
 public class RecordManager_updateTest {
@@ -66,16 +71,19 @@ public class RecordManager_updateTest {
   @Mock
   private MultipartFile picture;
 
-  private RAuthenticationToken token;
+  private RegistreUser principal;
 
   private User user;
 
   private RecordCommand command;
 
   @Before
-  public void createToken () {
+  public void createPrincipal () {
     User user = new User ("me", "me@example.com");
-    token = new RAuthenticationToken (user, emptyList (), "");
+    OidcIdToken idToken = new OidcIdToken ("token", Instant.now (),
+        Instant.now ().plusSeconds (60), Map.of ("sub", "1234"));
+    principal = new RegistreUser (user, emptyList (),
+        new DefaultOidcUser (emptyList (), idToken));
   }
 
   @Before
@@ -97,7 +105,7 @@ public class RecordManager_updateTest {
     Movie record = new Movie ("A super cool movie", user, Movie.Support.BRD);
     when (em.find (Record.class, ID)).thenReturn (record);
 
-    recordManager.update (ID, command, token, servletResponse);
+    recordManager.update (ID, command, principal, servletResponse);
 
     assertThat (record.getSupport ()).isEqualTo (Movie.Support.DVD);
   }
@@ -119,7 +127,7 @@ public class RecordManager_updateTest {
     when (rem.supplyActor (ACTOR1))
         .thenReturn (new Actor (ACTOR1));
 
-    recordManager.update (ID, command, token, servletResponse);
+    recordManager.update (ID, command, principal, servletResponse);
 
     assertThat (record.getActors ())
         .extracting (Actor::getName)
@@ -134,7 +142,7 @@ public class RecordManager_updateTest {
     record.setSeries (new Series ("Batman"));
     when (em.find (Record.class, ID)).thenReturn (record);
 
-    recordManager.update (ID, command, token, servletResponse);
+    recordManager.update (ID, command, principal, servletResponse);
 
     assertThat (record.getSeries ()).isNull ();
   }

@@ -1,7 +1,7 @@
 package fr.elimerl.registre.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * A location where are kept some records. Eg “Etienne’s bedroom”.

@@ -1,4 +1,4 @@
 /**
- * Package for Registre’s {@link javax.validation.Constraint}s.
+ * Package for Registre’s {@link jakarta.validation.Constraint}s.
  */
 package fr.elimerl.registre.constraints;

@@ -1,15 +1,23 @@
+plugins {
+  id 'java-library'
+}
 
 description = 'Registre Sécurité'
+
 dependencies {
-  compile project(':Model')
-  compile group: 'org.slf4j', name: 'slf4j-api'
-  compile group: 'org.mitre', name: 'openid-connect-client'
-  testCompile group: 'junit', name: 'junit'
-  testCompile group: 'org.assertj', name: 'assertj-core'
-  testCompile group: 'org.mockito', name: 'mockito-core'
-  testCompile group: 'org.slf4j', name: 'slf4j-log4j12'
-  testRuntime group: 'org.springframework', name: 'spring-orm'
-  testRuntime group: 'org.hsqldb', name: 'hsqldb'
+  api project(':Model')
+  api "org.springframework.security:spring-security-web"
+  api "org.springframework.security:spring-security-config"
+  api "org.springframework.security:spring-security-oauth2-client"
+  api "org.springframework.security:spring-security-oauth2-jose"
+  implementation libs.slf4j.api
+  runtimeOnly platform(libs.jackson)
+  runtimeOnly "com.fasterxml.jackson.core:jackson-databind"
+  testImplementation libs.bundles.tests
+  testImplementation "org.springframework:spring-test"
+  testRuntimeOnly libs.slf4j.log4j12
+  testRuntimeOnly "org.springframework:spring-orm"
+  testRuntimeOnly libs.hsqldb
 }
 
 processTestResources {

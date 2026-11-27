@@ -1,13 +1,12 @@
 package fr.elimerl.registre.search.grammar;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.Test;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.mockito.Mockito.mock;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-
-import org.junit.Test;
 
 /**
  * JUnit test case for the {@link SearchQuery} class.
@@ -71,11 +70,10 @@ public class SearchQueryTest {
      * Test the equals() and hashCode() contract.
      */
     @Test
-    public void contratEqualsEtHashCode() {
-	final EqualsVerifier<SearchQuery> verifier =
-		EqualsVerifier.forClass(SearchQuery.class);
-	verifier.withIgnoredFields ("conjunction");
-	verifier.verify();
+    public void equalsAndHashCode() {
+        EqualsVerifier.forClass(SearchQuery.class)
+            .withIgnoredFields("conjunction")
+            .verify();
     }
 
 }

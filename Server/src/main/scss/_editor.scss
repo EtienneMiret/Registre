@@ -1,4 +1,4 @@
-@import "lib";
+@use "lib";
 
 main.editor {
 
@@ -39,7 +39,7 @@ main.editor {
   }
 
   #delete button {
-    @extend %button.danger;
+    @extend %button, .danger;
   }
 
 }

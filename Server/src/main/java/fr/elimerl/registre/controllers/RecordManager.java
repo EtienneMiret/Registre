@@ -1,8 +1,20 @@
 package fr.elimerl.registre.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
 import fr.elimerl.registre.commands.RecordCommand;
-import fr.elimerl.registre.entities.*;
-import fr.elimerl.registre.security.RAuthenticationToken;
+import fr.elimerl.registre.entities.Book;
+import fr.elimerl.registre.entities.Comic;
+import fr.elimerl.registre.entities.Movie;
+import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.User;
+import fr.elimerl.registre.security.RegistreUser;
 import fr.elimerl.registre.services.AutoCompleter;
 import fr.elimerl.registre.services.Index;
 import fr.elimerl.registre.services.PictureRegistry;
@@ -19,24 +31,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-
+import static jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static jakarta.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;
 import static java.util.Collections.singletonMap;
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_IMPLEMENTED;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
  * Controller responsible for record management: create, edit, display.
  */
 @Controller
-@RequestMapping("/Fiche")
+@RequestMapping("/Fiche/")
 public class RecordManager {
 
   private static final Logger logger =
@@ -100,7 +105,7 @@ public class RecordManager {
    *
    * @param id
    *     id of the record to delete.
-   * @param token
+   * @param principal
    *     authentication principal deleting this record.
    * @param response
    *     HTTP response to send to the UA.
@@ -109,14 +114,14 @@ public class RecordManager {
   @Transactional
   public ModelAndView delete(
       @PathVariable final Long id,
-      @AuthenticationPrincipal RAuthenticationToken token,
+      @AuthenticationPrincipal RegistreUser principal,
       final HttpServletResponse response
   ) {
     final Record record = em.find(Record.class, id);
     if (record == null) {
       return notFound(response);
     }
-    User user = token.getPrincipal();
+    User user = principal.getUser();
     record.toucher(user);
     record.delete();
     logger.info("{} deleted {}.", user, record);
@@ -129,7 +134,7 @@ public class RecordManager {
    *
    * @param id
    *     id of the record to revive.
-   * @param token
+   * @param principal
    *     authentication principal reviving this record.
    * @param response
    *     HTTP response to send to the UA.
@@ -138,14 +143,14 @@ public class RecordManager {
   @Transactional
   public ModelAndView revive(
       @PathVariable final Long id,
-      @AuthenticationPrincipal RAuthenticationToken token,
+      @AuthenticationPrincipal RegistreUser principal,
       final HttpServletResponse response
   ) {
     final Record record = em.find(Record.class, id);
     if (record == null) {
       return notFound(response);
     }
-    final User user = token.getPrincipal();
+    final User user = principal.getUser();
     record.toucher(user);
     record.revive();
     logger.info("{} revived {}.", user, record);
@@ -219,9 +224,9 @@ public class RecordManager {
    * @param id
    *          id of the record to update.
    * @param command
-   *          specification of the update to make. Must be of the same type than
+   *          specification of the update to make. Must be of the same type as
    *          the specified record.
-   * @param token
+   * @param principal
    *          authenticated principal creating this record.
    * @param response
    *          the HTTP response to send to the UA.
@@ -232,10 +237,10 @@ public class RecordManager {
   public ModelAndView update (
       @PathVariable Long id,
       @Valid RecordCommand command,
-      @AuthenticationPrincipal RAuthenticationToken token,
+      @AuthenticationPrincipal RegistreUser principal,
       HttpServletResponse response
   ) {
-    User user = token.getPrincipal ();
+    User user = principal.getUser ();
     String view;
     Record record = em.find (Record.class, id);
     if (record == null) {
@@ -278,7 +283,7 @@ public class RecordManager {
    *
    * @param command
    *          specification of the record to create.
-   * @param token
+   * @param principal
    *          authenticated principal creating this record.
    * @return the record editor, populated with the supplied {@code command} and
    *          the created {@link Record}.
@@ -287,9 +292,9 @@ public class RecordManager {
   @Transactional
   public ModelAndView create (
       @Valid RecordCommand command,
-      @AuthenticationPrincipal RAuthenticationToken token
+      @AuthenticationPrincipal RegistreUser principal
   ) {
-    User user = token.getPrincipal ();
+    User user = principal.getUser ();
     logger.info ("{} creates a new {}.", user, command.getType ());
     Record record;
     switch (command.getType ()) {

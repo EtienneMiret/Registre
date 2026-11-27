@@ -3,8 +3,19 @@ package fr.elimerl.registre.search.tokens;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.elimerl.registre.entities.*;
+import fr.elimerl.registre.entities.Actor;
+import fr.elimerl.registre.entities.Author;
+import fr.elimerl.registre.entities.Book;
+import fr.elimerl.registre.entities.Cartoonist;
 import fr.elimerl.registre.entities.Comic;
+import fr.elimerl.registre.entities.Composer;
+import fr.elimerl.registre.entities.Director;
+import fr.elimerl.registre.entities.Location;
+import fr.elimerl.registre.entities.Movie;
+import fr.elimerl.registre.entities.Owner;
+import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.ScriptWriter;
+import fr.elimerl.registre.entities.Series;
 
 /**
  * This token represents a field within which to search for a keyword. Eg the

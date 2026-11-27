@@ -1,7 +1,7 @@
 package fr.elimerl.registre.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * An owner of a registered item. Owners usually are users, but not necessarily.
@@ -17,13 +17,6 @@ public class Owner extends Named {
 	super();
     }
 
-    /**
-     * Construit un {@link Owner} à partir du nom donné. Aucun
-     * propriétaire avec ce nom ne doit exister dans la base de données.
-     *
-     * @param nom
-     *            nom de ce propriétaire.
-     */
     /**
      * Create an {@link Owner} from a given name. There must be no other owner
      * with this name in the database.

@@ -1,19 +1,25 @@
+plugins {
+  id 'java-library'
+}
 
 description = 'Modèle Registre'
+
 dependencies {
-    compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.jpa'
-    compile group: 'org.slf4j', name: 'slf4j-api'
-    testCompile group: 'junit', name: 'junit'
-    testCompile group: 'org.mockito', name: 'mockito-core'
-    testCompile group: 'org.assertj', name: 'assertj-core'
-    testCompile group: 'org.slf4j', name: 'slf4j-log4j12'
-    testCompile group: 'org.slf4j', name: 'jul-to-slf4j'
-    testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier'
-    testCompile group: 'org.springframework', name: 'spring-test'
-    testCompile group: 'org.springframework', name: 'spring-context'
-    testCompile group: 'org.springframework', name: 'spring-orm'
-    testCompile group: 'org.hsqldb', name: 'hsqldb'
+  api(platform(libs.spring.framework))
+  api(platform(libs.spring.security))
+  api libs.eclipse.persistence
+  api libs.jakarta.annotation
+  implementation libs.slf4j.api
+  testImplementation libs.bundles.tests
+  testImplementation libs.equalsverifier
+  testImplementation "org.springframework:spring-test"
+  testImplementation "org.springframework:spring-context"
+  testImplementation "org.springframework:spring-orm"
+  testRuntimeOnly libs.hsqldb
+  testRuntimeOnly libs.slf4j.log4j12
+  testRuntimeOnly libs.slf4j.jul
 }
+
 processTestResources {
     expand(basedir: "$rootDir/Model")
 }

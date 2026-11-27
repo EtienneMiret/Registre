@@ -1,17 +1,17 @@
 package fr.elimerl.registre.security;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+
 import fr.elimerl.registre.entities.User;
-import org.mitre.openid.connect.model.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  * Service responsible for loading Registre {@link User}s from the database.
@@ -33,18 +33,18 @@ public class UserLoader {
 
   /**
    * Loads from the database the Registre user associated with the given
-   * MITREid user info.
+   * OpenID Connect user.
    *
    * @param userInfo
-   *          information to identified a user, certified by an identity
+   *          information to identify a user, certified by an identity
    *          provider.
    * @return the Registre user associated with the given user info, or
    *          {@code null} if there is no such user in the database.
    */
-  public User loadUser (UserInfo userInfo) {
+  public User loadUser (OidcUser userInfo) {
     if (userInfo == null
-        || userInfo.getEmail () == null
-        || !userInfo.getEmailVerified ()) {
+        || userInfo.getEmail() == null
+        || !Boolean.TRUE.equals(userInfo.getEmailVerified())) {
       return null;
     }
 

@@ -1,16 +1,16 @@
 package fr.elimerl.registre.entities;
 
 import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.xml.bind.DatatypeConverter;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +71,7 @@ public class Session {
 	synchronized (random) {
 	    random.nextBytes(octets);
 	}
-	key = DatatypeConverter.printBase64Binary(octets);
+	key = Base64.getEncoder().encodeToString(octets);
 
 	/* User field. */
 	this.user = user;

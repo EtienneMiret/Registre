@@ -1,12 +1,30 @@
 package fr.elimerl.registre.services;
 
-import fr.elimerl.registre.entities.*;
-
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.*;
 import java.util.List;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+
+import fr.elimerl.registre.entities.Actor;
+import fr.elimerl.registre.entities.Author;
+import fr.elimerl.registre.entities.Book;
+import fr.elimerl.registre.entities.Cartoonist;
+import fr.elimerl.registre.entities.Comic;
+import fr.elimerl.registre.entities.Composer;
+import fr.elimerl.registre.entities.Director;
+import fr.elimerl.registre.entities.Location;
+import fr.elimerl.registre.entities.Movie;
+import fr.elimerl.registre.entities.Named;
+import fr.elimerl.registre.entities.Owner;
+import fr.elimerl.registre.entities.Record;
+import fr.elimerl.registre.entities.ScriptWriter;
+import fr.elimerl.registre.entities.Series;
 
 /**
  * Service that provides auto-completion results.

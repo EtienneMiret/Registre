@@ -95,19 +95,6 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
     }
 
     /**
-     * Return true if SQL logging should log visible bind parameters. If the
-     * shouldDisplayData is not set, return false.
-     */
-    @Override
-    public boolean shouldDisplayData() {
-	if (this.shouldDisplayData != null) {
-	    return shouldDisplayData.booleanValue();
-	} else {
-	    return false;
-	}
-    }
-
-    /**
      * Initialize loggers eagerly
      */
     private void createCategoryLoggers() {

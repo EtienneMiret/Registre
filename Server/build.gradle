@@ -1,67 +1,71 @@
-import io.freefair.gradle.plugins.jsass.SassCompile
-
 plugins {
-  id 'io.freefair.jsass-base' version '1.0.0'
-  id 'com.moowork.node' version '1.3.1'
+  id 'io.miret.etienne.sass' version '2.0.0'
+  id 'com.github.node-gradle.node' version '7.1.0'
 }
 
 apply plugin: 'war'
-apply plugin: 'io.freefair.jsass-base'
+apply plugin: 'io.miret.etienne.sass'
 
 description = 'Serveur Registre'
-archivesBaseName = 'Registre'
+
+base {
+  archivesName = 'Registre'
+}
 
 dependencies {
-  compile project(':Model')
-  compile project(':Security')
-  compile group: 'org.springframework', name: 'spring-context'
-  compile group: 'org.springframework', name: 'spring-webmvc'
-  compile group: 'org.springframework', name: 'spring-context-support'
-  compile group: 'org.springframework', name: 'spring-orm'
-  compile group: 'org.springframework.security', name: 'spring-security-config'
-  compile group: 'org.springframework.security', name: 'spring-security-web'
-  compile group: 'org.hibernate.validator', name: 'hibernate-validator'
-  providedCompile group: 'org.slf4j', name: 'slf4j-api'
-  providedCompile group: 'javax.servlet', name: 'javax.servlet-api'
-  runtime group: 'org.thymeleaf', name: 'thymeleaf-spring5'
-  runtime group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
-  testCompile group: 'junit', name: 'junit'
-  testCompile group: 'org.mockito', name: 'mockito-core'
-  testCompile group: 'org.assertj', name: 'assertj-core'
-  testRuntime group: 'org.slf4j', name: 'slf4j-log4j12'
+  implementation project(':Model')
+  implementation project(':Security')
+  implementation "org.springframework:spring-context"
+  implementation "org.springframework:spring-webmvc"
+  implementation "org.springframework:spring-context-support"
+  implementation "org.springframework:spring-orm"
+  implementation "org.springframework.security:spring-security-config"
+  implementation "org.springframework.security:spring-security-web"
+  implementation libs.hibernate.validator
+  providedCompile libs.slf4j.api
+  providedCompile libs.jakarta.servlet
+  runtimeOnly libs.bundles.thymeleaf
+  testImplementation libs.bundles.tests
+  testRuntimeOnly libs.slf4j.log4j12
 }
 
 node {
-  version = '11.13.0'
-  yarnVersion = '1.15.2'
+  version = '26.13.1'
+  yarnVersion = '1.22.22'
   download = true
-  distBaseUrl = 'https://direct.nodejs.org/dist/'
 }
 
-task sass(type: SassCompile) {
-  sourceDir file ('src/main/scss')
-  destinationDir file("$buildDir/css")
-  cssPath 'resources'
-  sourceMapEnabled false
+sass {
+  version = '1.108.2'
 }
 
-task tsc (type: YarnTask) {
-  args = ['run', 'tsc', '--outdir', "$buildDir/js/resources"]
+compileSass {
+  sourceDir = project.layout.projectDirectory.dir("src/main/scss").asFile
+  destPath = "resources"
+}
+
+tasks.register("tsc", YarnTask) {
+  def jsDirectory = project.layout.buildDirectory.dir("js")
+  args = jsDirectory.map {
+    ["run", "tsc", "--outdir", "$it/resources"]
+  }
 
   inputs.file file ('tsconfig.json')
   inputs.dir file ('src/main/ts')
-  outputs.dir file ("$buildDir/js")
+  outputs.dir jsDirectory
   dependsOn yarn
 }
 
+tasks.compileJava {
+  options.compilerArgs << "-parameters"
+}
+
 war {
-  from file (sass.destinationDir)
-  from file ("$buildDir/js")
+  from project.layout.buildDirectory.dir("js")
   webInf {
     from 'src/main/xhtml'
     into 'thymeleaf'
   }
-  dependsOn sass
   dependsOn tsc
 }
 

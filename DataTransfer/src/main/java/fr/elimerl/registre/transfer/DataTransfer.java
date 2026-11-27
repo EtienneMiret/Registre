@@ -1,14 +1,15 @@
 package fr.elimerl.registre.transfer;
 
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
+
+import jakarta.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 
 /**
  * Main class of the data transfer program.
@@ -60,7 +61,7 @@ public class DataTransfer {
       try {
         number = migrator.migrateRecords (i, batchSize);
         i += number;
-        logger.info ("{} records migrated.", new Integer (i));
+        logger.info ("{} records migrated.", i);
       } catch (final SQLException e) {
         number = 0;
         logger.error ("An SQL error prevents us from going on.", e);

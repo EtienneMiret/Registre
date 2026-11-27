@@ -14,7 +14,7 @@ Registre uses [Gradle][1] as its build tool. A great thing about Gradle is that
 you don’t need to install it, you just need to run the “gradlew” wrapper
 provided with the sources.
 
-    $ export JAVA_HOME=/path/to/java/8   # Make sure you’re using java 8
+    $ export JAVA_HOME=/path/to/java/25  # Make sure you’re using java 25
     $ ./gradlew assemble                 # Build
     $ ./gradlew check                    # Run test suites
 
@@ -33,7 +33,7 @@ You will also need the following JARs in the classpath
  * the SLF4J implementation of your choice (it may be several JARs)
  * the JDBC driver of your choice
 
-You need to setup an SQL database. Any [database supported by EclipseLink][4]
+You need to set up an SQL database. Any [database supported by EclipseLink][4]
 will do, but you may need to translate the schema. Available schemas are in the
 Model/src/main/sql directory. In any case, you need to run the schema yourself.
 
@@ -54,7 +54,8 @@ Finally, you need to configure the following JNDI resources (this is done in
  * `clientId` and `clientSecret`: ID and secret of your Registre installation
    created with the [Google Console][3] for SSO support
    (both of java.lang.String type).
- * `redirectUri`: the full URL to the /login page of your Registre installation
+ * `redirectUri`: the full URL to the `/oauth2/callback/google` page
+   of your Registre installation
    (of type java.lang.String).
  * `pictureDirectory`: the full path to the directory where to store pictures
    (of type java.lang.String). This directory needs to be writable by your
@@ -96,7 +97,7 @@ Also note that the target database needs to already have a schema.
 ## Configuring users
 
 Only users who have their email registered in the database can connect to
-Registre. Their is no way for them to register themselves. An administrator
+Registre. There is no way for them to register themselves. An administrator
 must add them with the following SQL query:
 
     INSERT INTO users (name, email) VALUES ('<name>', '<email>');

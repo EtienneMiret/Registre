@@ -1,14 +1,15 @@
 package fr.elimerl.registre.search.grammar;
 
+import java.util.Objects;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
+
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.search.tokens.Type;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
-import java.util.Objects;
 
 /**
  * Kind of {@link Expression} that models a query targeting a specific subtype
