@@ -15,7 +15,7 @@ dependencies {
   testImplementation "org.springframework:spring-test"
   testImplementation "org.springframework:spring-context"
   testImplementation "org.springframework:spring-orm"
-  testRuntimeOnly libs.h2
+  testRuntimeOnly libs.hsqldb
   testRuntimeOnly libs.slf4j.log4j12
   testRuntimeOnly libs.slf4j.jul
 }

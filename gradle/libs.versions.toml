@@ -21,7 +21,7 @@ hibernate-validator = { module = "org.hibernate.validator:hibernate-validator", 
 
 junit = { module = "junit:junit", version = "4.13.2" }
 mockito = { module = "org.mockito:mockito-core", version = "5.25.0" }
-h2 = { module = "org.hsqldb:hsqldb", version = "2.7.4" }
+hsqldb = { module = "org.hsqldb:hsqldb", version = "2.7.4" }
 assertj = { module = "org.assertj:assertj-core", version = "3.27.7" }
 equalsverifier = { module = "nl.jqno.equalsverifier:equalsverifier", version = "4.5.2" }
 

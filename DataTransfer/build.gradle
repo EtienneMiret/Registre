@@ -11,7 +11,7 @@ dependencies {
   runtimeOnly "org.springframework:spring-orm"
   testImplementation libs.bundles.tests
   testImplementation "org.springframework:spring-jdbc"
-  testRuntimeOnly libs.h2
+  testRuntimeOnly libs.hsqldb
   testRuntimeOnly libs.slf4j.log4j12
   testRuntimeOnly files(isolated.rootProject.projectDirectory.dir('Model/src/main/sql'))
 }
