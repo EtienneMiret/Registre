@@ -18,13 +18,6 @@ public class Owner extends Named {
     }
 
     /**
-     * Construit un {@link Owner} à partir du nom donné. Aucun
-     * propriétaire avec ce nom ne doit exister dans la base de données.
-     *
-     * @param nom
-     *            nom de ce propriétaire.
-     */
-    /**
      * Create an {@link Owner} from a given name. There must be no other owner
      * with this name in the database.
      *

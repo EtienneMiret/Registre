@@ -6,7 +6,6 @@ import java.util.Map;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpServletResponse;
-
 import jakarta.validation.Valid;
 
 import fr.elimerl.registre.commands.RecordCommand;

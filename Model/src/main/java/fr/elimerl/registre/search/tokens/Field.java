@@ -1,5 +1,8 @@
 package fr.elimerl.registre.search.tokens;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.entities.Author;
 import fr.elimerl.registre.entities.Book;
@@ -13,9 +16,6 @@ import fr.elimerl.registre.entities.Owner;
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.entities.ScriptWriter;
 import fr.elimerl.registre.entities.Series;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This token represents a field within which to search for a keyword. Eg the

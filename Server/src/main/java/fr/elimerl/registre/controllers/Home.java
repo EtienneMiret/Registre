@@ -1,10 +1,10 @@
 package fr.elimerl.registre.controllers;
 
-import fr.elimerl.registre.entities.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
@@ -14,11 +14,22 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+
+import fr.elimerl.registre.entities.Actor;
+import fr.elimerl.registre.entities.Author;
+import fr.elimerl.registre.entities.Cartoonist;
+import fr.elimerl.registre.entities.Composer;
+import fr.elimerl.registre.entities.Director;
+import fr.elimerl.registre.entities.Location;
+import fr.elimerl.registre.entities.Named;
+import fr.elimerl.registre.entities.Owner;
+import fr.elimerl.registre.entities.Reference;
+import fr.elimerl.registre.entities.ScriptWriter;
+import fr.elimerl.registre.entities.Series;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Controller for the home page.

@@ -1,5 +1,13 @@
 package fr.elimerl.registre.controllers;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.persistence.EntityManager;
+import jakarta.servlet.http.HttpServletResponse;
+
 import fr.elimerl.registre.commands.RecordCommand;
 import fr.elimerl.registre.entities.Actor;
 import fr.elimerl.registre.entities.Comic;
@@ -21,13 +29,6 @@ import org.mockito.junit.MockitoRule;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.web.multipart.MultipartFile;
-
-import jakarta.persistence.EntityManager;
-import jakarta.servlet.http.HttpServletResponse;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;

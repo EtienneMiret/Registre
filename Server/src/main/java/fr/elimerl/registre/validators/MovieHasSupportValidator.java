@@ -1,10 +1,10 @@
 package fr.elimerl.registre.validators;
 
-import fr.elimerl.registre.commands.RecordCommand;
-import fr.elimerl.registre.constraints.MovieHasSupport;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
+import fr.elimerl.registre.commands.RecordCommand;
+import fr.elimerl.registre.constraints.MovieHasSupport;
 
 public class MovieHasSupportValidator
     implements ConstraintValidator<MovieHasSupport, RecordCommand> {

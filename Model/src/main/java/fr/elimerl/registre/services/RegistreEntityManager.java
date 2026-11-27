@@ -8,8 +8,17 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
-import fr.elimerl.registre.entities.*;
 import fr.elimerl.registre.entities.Actor;
+import fr.elimerl.registre.entities.Author;
+import fr.elimerl.registre.entities.Cartoonist;
+import fr.elimerl.registre.entities.Composer;
+import fr.elimerl.registre.entities.Director;
+import fr.elimerl.registre.entities.Location;
+import fr.elimerl.registre.entities.Named;
+import fr.elimerl.registre.entities.Owner;
+import fr.elimerl.registre.entities.ScriptWriter;
+import fr.elimerl.registre.entities.Series;
+import fr.elimerl.registre.entities.Word;
 
 /**
  * This class wraps a JPA {@link EntityManager} in order to provide Registre

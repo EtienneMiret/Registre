@@ -1,7 +1,17 @@
 package fr.elimerl.registre.services;
 
-import fr.elimerl.registre.entities.*;
 import jakarta.annotation.Resource;
+
+import fr.elimerl.registre.entities.Actor;
+import fr.elimerl.registre.entities.Author;
+import fr.elimerl.registre.entities.Cartoonist;
+import fr.elimerl.registre.entities.Composer;
+import fr.elimerl.registre.entities.Director;
+import fr.elimerl.registre.entities.Location;
+import fr.elimerl.registre.entities.Owner;
+import fr.elimerl.registre.entities.ScriptWriter;
+import fr.elimerl.registre.entities.Series;
+import fr.elimerl.registre.entities.Word;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
