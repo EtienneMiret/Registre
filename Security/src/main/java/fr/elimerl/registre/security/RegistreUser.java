@@ -65,11 +65,8 @@ public class RegistreUser extends DefaultOidcUser {
           final EntityManagerFactory emf = ContextLoader
               .getCurrentWebApplicationContext()
               .getBean(EntityManagerFactory.class);
-          var em = emf.createEntityManager();
-          try {
+          try (var em = emf.createEntityManager()) {
             user = em.find(User.class, userId);
-          } finally {
-            em.close();
           }
           logger.debug("{} was loaded from the database.", user);
         }
