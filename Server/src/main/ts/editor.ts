@@ -1,7 +1,7 @@
-import { enableFieldsManagement } from './fields-management.js';
+import { enableEditorFieldsManagement } from './fields-management.js';
 
 function ready () {
-  enableFieldsManagement ();
+  enableEditorFieldsManagement ();
 }
 
 if (document.readyState === 'loading') {
