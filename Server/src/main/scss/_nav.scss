@@ -74,5 +74,10 @@ nav {
       border: 1px solid #c2cff1;
       border-radius: 4px;
     }
+
+    a[aria-current] img {
+      background: #c2cff1;
+      border-color: #4f8dc4;
+    }
   }
 }
