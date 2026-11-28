@@ -49,8 +49,16 @@ public class Search {
 
   @RequestMapping("/Rechercher")
   @Transactional(readOnly = true)
-  public ModelAndView search (@RequestParam final String q) {
-    final SearchQuery searchQuery = parser.parse (q);
+  public ModelAndView search(
+      @RequestParam(required = false) final String type,
+      @RequestParam final String q
+  ) {
+    final SearchQuery searchQuery;
+    if (type == null || type.isBlank()) {
+      searchQuery = parser.parse(q);
+    } else {
+      searchQuery = parser.parse("type:%s (%s)".formatted(type, q));
+    }
     final CriteriaQuery<Record> query =
         builder.createQuery (Record.class);
     final Root<Record> record = query.from (Record.class);
@@ -70,6 +78,8 @@ public class Search {
     final TypedQuery<Record> jpaQuery = em.createQuery (query);
     final Map<String, Object> model = new HashMap<> ();
     model.put ("records", jpaQuery.getResultList ());
+    model.put("query", q);
+    model.put("type", type);
     return new ModelAndView ("search", model);
   }
 
