@@ -20,7 +20,7 @@ function addActor (actorsList: HTMLOListElement|HTMLUListElement) {
   const input =
       <HTMLInputElement>document.createElementNS ('http://www.w3.org/1999/xhtml', 'input');
   input.name = `actors[${index}]`;
-  input.dataset['autoCompletePath'] = actorsList.dataset['autoCompletePath'];
+  input.setAttribute('list', 'actor-data');
   li.appendChild (input);
   actorsList.appendChild (li);
 }
