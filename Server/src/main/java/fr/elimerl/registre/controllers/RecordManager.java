@@ -206,15 +206,7 @@ public class RecordManager {
   public ModelAndView getEditor () {
     Map<String, Object> model = new HashMap<>();
     model.put("command", new RecordCommand());
-    model.put("actors", autoCompleter.listActors());
-    model.put("authors", autoCompleter.listAuthors());
-    model.put("cartoonists", autoCompleter.listCartoonists());
-    model.put("composers", autoCompleter.listComposers());
-    model.put("directors", autoCompleter.listDirectors());
-    model.put("locations", autoCompleter.listLocations());
-    model.put("owners", autoCompleter.listOwners());
-    model.put("scriptwriters", autoCompleter.listScriptWriters());
-    model.put("series", autoCompleter.listSeries());
+    model.putAll(autoCompleter.listAll());
     return new ModelAndView ("records/editor", model);
   }
 

@@ -1,0 +1,28 @@
+@use "lib";
+
+main.advanced-search {
+
+  form p {
+    background: #f0f3f8;
+    padding: 20px;
+  }
+
+  button {
+    @extend %button;
+    margin: 0 0 0 auto;
+  }
+
+  .ul {
+    display: block;
+
+    > .li {
+      display: list-item;
+      margin-left: 4em;
+    }
+  }
+
+  [hidden] {
+    display: none;
+  }
+
+}

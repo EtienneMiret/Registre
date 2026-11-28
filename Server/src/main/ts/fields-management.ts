@@ -25,7 +25,31 @@ function addActor (actorsList: HTMLOListElement|HTMLUListElement) {
   actorsList.appendChild (li);
 }
 
-export function enableFieldsManagement () {
+function addItem(list: HTMLElement) {
+  const li = list.children.item(list.children.length - 1);
+  if (!li) {
+    console.warn('Empty list!', list);
+    return;
+  }
+  const clone = li.cloneNode(true) as HTMLElement;
+  clone.querySelectorAll("input").forEach((input) => {
+    input.value = '';
+  });
+  list.appendChild(clone);
+}
+
+function enableAddingItems(id: string) {
+  const list = document.getElementById(id);
+  const button = <HTMLButtonElement | null>document.getElementById(`add-${id}`);
+  if (!list || !button) {
+    console.warn(`Missing elements for ${id}.`);
+    return;
+  }
+  button.addEventListener('click', () => addItem(list));
+  button.hidden = false;
+}
+
+export function enableEditorFieldsManagement() {
   const form = <HTMLFormElement>document.getElementById ('form');
   const typeSelector = <HTMLSelectElement>form.elements.namedItem ('type');
   const addActorButton = <HTMLButtonElement>document.getElementById ('add-actor');
@@ -40,4 +64,26 @@ export function enableFieldsManagement () {
     passive: true
   });
   addActorButton.hidden = false;
+}
+
+export function enableSearchFieldsManagement() {
+  const form = <HTMLFormElement>document.getElementById('form');
+  const typeSelector = <HTMLSelectElement>form.elements.namedItem('type');
+  typeSelector.addEventListener('change', () => hideUnusedFields(form, typeSelector.value), {
+    once: false,
+    passive: true
+  });
+  hideUnusedFields(form, typeSelector.value);
+  [
+    'title',
+    'owner',
+    'location',
+    'series',
+    'actor',
+    'director',
+    'composer',
+    'cartoonist',
+    'script-writer',
+    'author',
+  ].forEach((item) => enableAddingItems(item));
 }
