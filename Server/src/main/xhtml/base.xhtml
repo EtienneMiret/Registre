@@ -19,10 +19,13 @@
     ><li><a th:href="@{/Fiche/}" th:class="${currentPage} == newRecord ? self">Ajouter une référence</a></li
     ><li><a th:href="@{/Rechercher(q='')}">Toutes les références</a>
       <a th:href="@{/Rechercher(q=${q},type='movie')}"
+        th:aria-current="${type} == 'movie' ? 'page'"
         ><img th:src="@{/resources/images/movie.png}" alt="Films"/></a>
       <a th:href="@{/Rechercher(q=${q},type='comic')}"
+        th:aria-current="${type} == 'comic' ? 'page'"
         ><img th:src="@{/resources/images/comic.png}" alt="BD"/></a>
       <a th:href="@{/Rechercher(q=${q},type='book')}"
+        th:aria-current="${type} == 'book' ? 'page'"
         ><img th:src="@{/resources/images/book.png}" alt="Livres"/></a></li
     ><li><form th:action="@{/Rechercher}"><input type="hidden" name="type"
         th:value="${type}" th:if="${type}"/><label><input name="q"
