@@ -15,6 +15,7 @@ import jakarta.persistence.criteria.Root;
 
 import fr.elimerl.registre.entities.Record;
 import fr.elimerl.registre.search.grammar.SearchQuery;
+import fr.elimerl.registre.services.AutoCompleter;
 import fr.elimerl.registre.services.QueryParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,9 @@ public class Search {
    */
   @PersistenceContext(name = "Registre")
   private EntityManager em;
+
+  @Autowired
+  private AutoCompleter autoCompleter;
 
   /**
    * Query parser, provided by Spring.
@@ -86,6 +90,11 @@ public class Search {
     model.put("query", q);
     model.put("type", type);
     return new ModelAndView ("search", model);
+  }
+
+  @RequestMapping("/RechercheAvancée")
+  public ModelAndView displayAdvancedSearch() {
+    return new ModelAndView("advanced-search", autoCompleter.listAll());
   }
 
   @RequestMapping("/advanced-search")

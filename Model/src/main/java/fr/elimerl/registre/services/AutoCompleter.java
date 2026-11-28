@@ -1,6 +1,7 @@
 package fr.elimerl.registre.services;
 
 import java.util.List;
+import java.util.Map;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
@@ -41,6 +42,26 @@ public class AutoCompleter {
    * Criteria builder linked to {@link #em}.
    */
   private CriteriaBuilder builder;
+
+  /**
+   * List all {@link Named} referenced in the DB, indexed by their type.
+   *
+   * @return a map with 9 keys: actors, authors, cartoonists, directors,
+   *  locations, owners, scriptWriters and series.
+   */
+  public Map<String, List<? extends Named>> listAll() {
+    return Map.of(
+        "actors", listActors(),
+        "authors", listAuthors(),
+        "cartoonists", listCartoonists(),
+        "composers", listComposers(),
+        "directors", listDirectors(),
+        "locations", listLocations(),
+        "owners", listOwners(),
+        "scriptwriters", listScriptWriters(),
+        "series", listSeries()
+    );
+  }
 
   /**
    * List all referenced actors.

@@ -1,0 +1,127 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr-FR"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head ('Recherche')">
+  <title>Recherche Avancée - Registre</title>
+</head>
+<body>
+
+<h1 th:replace="base :: header">Recherche Avancée</h1>
+
+<div th:replace="base :: nav (advanced-search)"/>
+
+<main class="advanced-search">
+
+  <form id="form" th:action="@{/advanced-search}">
+    <p><label>Type&#x202F;:
+      <select name="type">
+        <option value="" selected="">Tous</option>
+        <option value="movie">Film</option>
+        <option value="comic">BD</option>
+        <option value="book">Livre</option>
+      </select>
+    </label></p>
+    <p><label>Titre&#x202F;:
+      <span class="ul" id="title">
+        <span class="li"><input name="title"/></span>
+        <span class="li">ou <input name="title"/></span>
+        <span class="li">ou <input name="title"/></span>
+      </span>
+    </label> <button id="add-title" type="button" hidden="">+</button></p>
+    <p><label>Propriétaire&#x202F;:
+      <span class="ul" id="owner">
+        <span class="li"><input name="owner" list="owner-data"/></span>
+        <span class="li">ou <input name="owner" list="owner-data"/></span>
+        <span class="li">ou <input name="owner" list="owner-data"/></span>
+      </span>
+    </label> <button id="add-owner" type="button" hidden="">+</button></p>
+    <p><label>Emplacement&#x202F;:
+      <span class="ul" id="location">
+        <span class="li"><input name="location" list="location-data"/></span>
+        <span class="li">ou <input name="location" list="location-data"/></span>
+        <span class="li">ou <input name="location" list="location-data"/></span>
+      </span>
+    </label> <button id="add-location" type="button" hidden="">+</button></p>
+    <p><label>Série&#x202F;:
+      <span class="ul" id="series">
+        <span class="li"><input name="series" list="series-data"/></span>
+        <span class="li">ou <input name="series" list="series-data"/></span>
+        <span class="li">ou <input name="series" list="series-data"/></span>
+      </span>
+    </label> <button id="add-series" type="button" hidden="">+</button></p>
+    <p class="movie"><label>Acteur&#x202F;:
+      <span class="ul" id="actor">
+        <span class="li"><input name="actor" list="actor-data"/></span>
+        <span class="li">ou <input name="actor" list="actor-data"/></span>
+        <span class="li">ou <input name="actor" list="actor-data"/></span>
+      </span>
+    </label> <button id="add-actor" type="button" hidden="">+</button></p>
+    <p class="movie"><label>Réalisateur&#x202F;:
+      <span class="ul" id="director">
+        <span class="li"><input name="director" list="director-data"/></span>
+        <span class="li">ou <input name="director" list="director-data"/></span>
+        <span class="li">ou <input name="director" list="director-data"/></span>
+      </span>
+    </label> <button id="add-director" type="button" hidden="">+</button></p>
+    <p class="movie"><label>Compositeur&#x202F;:
+      <span class="ul" id="composer">
+        <span class="li"><input name="composer" list="composer-data"/></span>
+        <span class="li">ou <input name="composer" list="composer-data"/></span>
+        <span class="li">ou <input name="composer" list="composer-data"/></span>
+      </span>
+    </label> <button id="add-composer" type="button" hidden="">+</button></p>
+    <p class="comic"><label>Dessinateur&#x202F;:
+      <span class="ul" id="cartoonist">
+        <span class="li"><input name="cartoonist" list="cartoonist-data"/></span>
+        <span class="li">ou <input name="cartoonist" list="cartoonist-data"/></span>
+        <span class="li">ou <input name="cartoonist" list="cartoonist-data"/></span>
+      </span>
+    </label> <button id="add-cartoonist" type="button" hidden="">+</button></p>
+    <p class="comic"><label>Scénariste&#x202F;:
+      <span class="ul" id="script-writer">
+        <span class="li"><input name="script-writer" list="script-writer-data"/></span>
+        <span class="li">ou <input name="script-writer" list="script-writer-data"/></span>
+        <span class="li">ou <input name="script-writer" list="script-writer-data"/></span>
+      </span>
+    </label> <button id="add-script-writer" type="button" hidden="">+</button></p>
+    <p class="book"><label>Auteur&#x202F;:
+      <span class="ul" id="author">
+        <span class="li"><input name="author" list="author-data"/></span>
+        <span class="li">ou <input name="author" list="author-data"/></span>
+        <span class="li">ou <input name="author" list="author-data"/></span>
+      </span>
+    </label> <button id="add-author" type="button" hidden="">+</button></p>
+    <p><button>Rechercher</button></p>
+
+    <datalist id="owner-data">
+      <option th:each="owner : ${owners}" th:value="${owner.name}"/>
+    </datalist>
+    <datalist id="location-data">
+      <option th:each="location : ${locations}" th:value="${location.name}"/>
+    </datalist>
+    <datalist id="series-data">
+      <option th:each="s : ${series}" th:value="${s.name}"/>
+    </datalist>
+    <datalist id="actor-data">
+      <option th:each="actor : ${actors}" th:value="${actor.name}"/>
+    </datalist>
+    <datalist id="director-data">
+      <option th:each="director : ${directors}" th:value="${director.name}"/>
+    </datalist>
+    <datalist id="composer-data">
+      <option th:each="composer : ${composers}" th:value="${composer.name}"/>
+    </datalist>
+    <datalist id="cartoonist-data">
+      <option th:each="cartoonist : ${cartoonists}" th:value="${cartoonist.name}"/>
+    </datalist>
+    <datalist id="script-writer-data">
+      <option th:each="sw : ${scriptwriters}" th:value="${sw.name}"/>
+    </datalist>
+    <datalist id="author-data">
+      <option th:each="author : ${authors}" th:value="${author.name}"/>
+    </datalist>
+  </form>
+
+</main>
+
+</body>
+</html>
