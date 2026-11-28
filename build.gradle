@@ -1,6 +1,6 @@
 allprojects  {
   group = 'fr.elimerl.Registre'
-  version = '3.2.0'
+  version = '3.2.1-SNAPSHOT'
 }
 
 subprojects {
